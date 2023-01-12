@@ -46,7 +46,6 @@ This document contains a high-level proposal for an open source example for buil
 ## Solution Overview
 
 ```mermaid
-
 flowchart LR
 
   User -- API request --> Saleor["Saleor Cloud"]
@@ -55,12 +54,6 @@ flowchart LR
   Project -- saleor cli --> Saleor
 
 ```
-
-
-- Build `saleor-simple-storefront` with fully working, Next 13 `app` dir + Saleor cloud example
-- Show off Saleor features and integrations through rich `examples` folder
-
-## `saleor-simple-storefront`
 
 ### Boilerplate
 
@@ -180,6 +173,12 @@ Time commitments to be figured out based on priority and availability by interes
   - Current / former nike.com and walmart.com engineers
   - Other Saleor partners* (we could use an intro!)
 
+## Timeline / Schedule
+
+TBD based on resourcing commitments.
+
+Tentatively we would like to launch this in Q1 / early Q2 2023, but have not done full estimations or resourcing plans towards a specific date.
+
 ## Future Ideas
 
 ### `yarn create` generator
@@ -193,3 +192,4 @@ Time commitments to be figured out based on priority and availability by interes
   - Search (Algolia, Elastic)
   - OAuth / OIDC Logins
   - Monorepo
+

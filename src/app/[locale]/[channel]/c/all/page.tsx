@@ -70,14 +70,14 @@ export default async function Home({
   return (
     <main className="container">
       <h1 className="m-4 text-xl text-secondary-content">
-        <span className="text-accent-focus">Shop &gt;</span> All Products
+        <span className="text-secondary">Shop &gt;</span> All Products
       </h1>
       <ul className="grid grid-cols-4 gap-2 p-2">
         {products.edges.map(({ node }) => {
           const [image] = node.media;
           return (
             <li className="carousel-item" key={node.slug}>
-              <div className="card w-96 bg-base-100 shadow-xl m-2">
+              <div className="card w-96 bg-blend-darken bg-primary-focus shadow-xl m-2 ">
                 <Link
                   href={`/${locale}/p/${node.slug}`}
                   className="link link-primary no-underline text-secondary hover:text-secondary"
@@ -91,12 +91,14 @@ export default async function Home({
                     />
                   </figure>
                   <div className="card-body">
-                    <h2 className="card-title">{node.name}</h2>
+                    <h2 className="card-title">
+                      <span className="truncate w-48">{node.name}</span>
+                    </h2>
                     <p className="text-accent">
                       ${node.pricing.priceRange.start.gross.amount.toFixed(2)}
                     </p>
-                    <div className="card-actions">
-                      <button className="btn btn-primary">Add to Cart</button>
+                    <div className="card-actions mt-2">
+                      <button className="btn btn-secondary">Add to Cart</button>
                     </div>
                   </div>
                 </Link>

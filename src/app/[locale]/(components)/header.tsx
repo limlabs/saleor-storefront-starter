@@ -31,7 +31,7 @@ export const RootLayoutHeader: FC = () => {
           </li>
         </ul>
       </nav>
-      <div className="w-1/5 grid grid-cols-3">
+      <div className="w-1/5 grid grid-cols-3 flex-row items-center">
         <MagnifyingGlassIcon className="w-6 h-6" />
         <Link href="/login">Log In</Link>
         <span className="ml-4">

@@ -8,6 +8,10 @@ const nextConfig = {
       {
         source: '/:locale',
         destination: '/:locale/default-channel'
+      },
+      {
+        source: '/:locale/c/:slug',
+        destination: '/:locale/default-channel/c/:slug'
       }
     ]
   },

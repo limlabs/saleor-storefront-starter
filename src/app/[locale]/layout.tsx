@@ -1,3 +1,4 @@
+import { AppRoot } from "./(components)/root";
 import "./globals.css";
 
 export const metadata = {
@@ -16,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.locale}>
-      <body>{children}</body>
+      <body>
+        <AppRoot>{children}</AppRoot>
+      </body>
     </html>
   );
 }

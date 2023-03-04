@@ -19,7 +19,17 @@ const nextConfig = {
         permanent: false
       }
     ]
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'liminal-labs.saleor.cloud',
+        port: '',
+        pathname: '/media/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

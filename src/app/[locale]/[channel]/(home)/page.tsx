@@ -1,9 +1,7 @@
-import { Inter } from "next/font/google";
+import Image from "next/image";
 import gql from "graphql-tag";
 import request from "graphql-request";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const homePageContentQuery = gql`
   {
@@ -13,6 +11,10 @@ const homePageContentQuery = gql`
         node {
           slug
           name
+          media {
+            url
+            alt
+          }
           pricing {
             priceRange {
               start {
@@ -36,6 +38,10 @@ interface HomePageProducts {
       node: {
         slug: string;
         name: string;
+        media: {
+          url: string;
+          alt: string;
+        }[];
         pricing: {
           priceRange: {
             start: {
@@ -62,19 +68,41 @@ export default async function Home({
   );
 
   return (
-    <div>
-      <ul className="carousel rounded-box">
-        {products.edges.map(({ node }) => (
-          <li className="carousel-item" key={node.slug}>
-            <Link
-              href={`/${locale}/p/${node.slug}`}
-              className="link link-primary"
-            >
-              {node.name}
-            </Link>
-          </li>
-        ))}
+    <main className="container mx-auto px-4">
+      <h1 className="m-4 text-5xl text-secondary-content">Featured Products</h1>
+      <ul className="carousel rounded-box grid grid-cols-4 gap-2 p-2">
+        {products.edges.map(({ node }) => {
+          const [image] = node.media;
+          return (
+            <li className="carousel-item" key={node.slug}>
+              <div className="card w-96 bg-base-100 shadow-xl m-2">
+                <Link
+                  href={`/${locale}/p/${node.slug}`}
+                  className="link link-primary no-underline text-secondary hover:text-secondary"
+                >
+                  <figure className="bg-accent-content rounded-tl-md rounded-tr-md">
+                    <Image
+                      src={image.url}
+                      alt={image.alt}
+                      width={300}
+                      height={300}
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">{node.name}</h2>
+                    <p className="text-accent">
+                      ${node.pricing.priceRange.start.gross.amount.toFixed(2)}
+                    </p>
+                    <div className="card-actions">
+                      <button className="btn btn-primary">Add to Cart</button>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </li>
+          );
+        })}
       </ul>
-    </div>
+    </main>
   );
 }

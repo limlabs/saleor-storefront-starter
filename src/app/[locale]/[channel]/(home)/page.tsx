@@ -70,7 +70,7 @@ export default async function Home({
   return (
     <main className="container mx-auto px-4">
       <h1 className="m-4 text-5xl text-secondary-content">Featured Products</h1>
-      <ul className="carousel rounded-box grid grid-cols-4 gap-2 p-2">
+      <ul className="grid grid-cols-4 gap-2 p-2">
         {products.edges.map(({ node }) => {
           const [image] = node.media;
           return (

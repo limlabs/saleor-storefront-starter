@@ -1,3 +1,6 @@
 {
-  "recommendations": ["bradlc.vscode-tailwindcss"]
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "kumar-harsh.graphql-for-vscode"
+  ]
 }

@@ -3,6 +3,14 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:locale',
+        destination: '/:locale/default-channel'
+      }
+    ]
+  },
   async redirects() { 
     return [
       {

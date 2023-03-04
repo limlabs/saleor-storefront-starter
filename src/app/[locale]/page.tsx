@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className="text-3xl font-bold underline">supppppppp</div>
+      <button className="btn btn-primary">Click Me</button>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;

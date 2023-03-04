@@ -6,6 +6,7 @@ import {
 import Link from "next/link";
 import { FC } from "react";
 import { LogoSVG } from "./logo";
+import { ThemePicker } from "./theme";
 
 // TODO:
 // - fetch locales for links
@@ -31,12 +32,11 @@ export const RootLayoutHeader: FC = () => {
           </li>
         </ul>
       </nav>
-      <div className="w-1/5 grid grid-cols-3 flex-row items-center">
+      <div className="w-1/5 grid grid-cols-4 flex-row items-center">
         <MagnifyingGlassIcon className="w-6 h-6" />
         <Link href="/login">Log In</Link>
-        <span className="ml-4">
-          <ShoppingCartIcon className="w-6 h-6" />
-        </span>
+        <ShoppingCartIcon className="ml-4 w-6 h-6" />
+        <ThemePicker />
       </div>
     </header>
   );

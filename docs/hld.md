@@ -75,3 +75,85 @@
 
 - Checkout - Use Saleor Checkout
   - Do we have to integrate into the monorepo to do this?
+
+## Solution Overview
+
+- Start with "slim storefront"
+- Show off features and integrations with rich examples set
+
+### Motivations
+
+- Faster to get something usable (and subsequent content / growth / co-marketing)
+- Minimize maintenance on core team
+- Easier to coordinate open source development through examples
+
+## Slim Storefront
+
+### Boilerplate
+
+- Single-package (not monorepo)
+- Generated from `yarn create`
+- Written in Typescript
+- NextJS `app` dir
+- Tailwind-based styling 
+
+### Route Structure
+
+- `app`
+  - `[locale]`
+    - `login`
+    - `[channel]`
+      - `(home)`
+      - `collections/[id]`
+      - `products/[id]`
+    - `cart`
+    - `checkout`
+    - `account`
+    - `orders`
+
+### Components
+
+- Uses React Server Components for everything possible
+- Avoid `"use client;"` except in places where needed (adding to cart, advance carousel, load analytics, etc.)
+
+### Authentication
+
+- Authenticates using Saleor's built in user database* (citation needed -- do they have this??)
+- Examples to provide details of logging in via different OAuth providers
+
+### Security
+
+### Observability
+
+- Works out of the box with Vercel Analytics
+
+### Deployments
+
+- CI/CD Workflow for pull requests NOT included (but used for validating repo housing the project)
+- Deployed to Vercel via their default NextJS integration
+
+## Rich Example Set
+
+- Focus on providing NextJS-like example experience
+- Utilize community support for building and maintaining
+- Ideas for examples:
+  - Advanced Saleor features (multi-currency, custom product attributes)
+  - Alternate UI Frameworks (Material UI, DaisyCSS)
+  - Checkout integrations
+  - Alternate analytics providers
+  - Search (Algolia, Elastic)
+  - OAuth / OIDC Logins
+  - Monorepo integration
+
+
+## Risks
+
+### Technical
+
+- Requires executing quickly to fully capitalize
+- Quality control
+
+### Business
+
+- Time investment
+- Reputation

@@ -32,6 +32,12 @@ const nextConfig = {
         port: '',
         pathname: '/media/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'liminal-labs.saleor.cloud',
+        port: '',
+        pathname: '/thumbnail/**',
+      },
     ],
   },
 }

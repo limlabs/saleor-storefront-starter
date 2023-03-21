@@ -1,27 +1,25 @@
 import clsx from 'clsx';
 import React, { FC, PropsWithChildren } from 'react';
+import { sizeOp, bgBlendMode } from '../util';
 
-type Sizes = 'sm' | 'md' | 'lg' | 'xl';
 interface CardProps {
-	size?: Sizes | 'full' | number;
-	shadow?: true | Sizes;
+	shadow?: Sizes;
+	rounded?: Sizes;
+	bgBlend?: BGBlendMode;
+	className?: string;
 }
 
-const Card = React.forwardRef(function Card({ children, size, shadow }) {
-	{
-		/* <div className="card w-96 bg-blend-darken bg-primary-focus shadow-xl m-2"> */
-	}
-	// <div className="card w-96 bg-primary text-primary-content">
+const Card = React.forwardRef(function Card({ children, shadow, rounded, bgBlend, className = '' }) {
+	/* <div className="card bg-primary-focus"> */
 	return (
 		<div
-			className={`card bg-primary text-primary-content ${clsx({
-				shadow: shadow === true,
-				'shadow-sm': shadow === 'sm',
-				'shadow-md': shadow === 'md',
-				'shadow-lg': shadow === 'lg',
-				'shadow-xl': shadow === 'xl'
-				// "bg-primary text-primary-content shadow-xl"
-			})}`}
+			className={
+				'card bg-primary-focus' +
+				(shadow ? ` ${sizeOp('shadow', shadow)}` : '') +
+				(rounded ? ` ${sizeOp('rounded', rounded)}` : '') +
+				(bgBlend ? ` ${bgBlendMode(bgBlend)}` : '') +
+				(className ? ` ${className}` : '')
+			}
 		>
 			{children}
 		</div>

@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import gql from 'graphql-tag';
 import request from 'graphql-request';
 import Link from 'next/link';
-import Card from '../../../../daisyui/card';
+import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
 
 const allProductsQuery = gql`
@@ -74,16 +73,12 @@ export default async function Home({ params: { locale } }: { params: { locale: s
 				{products.edges.map(({ node }) => {
 					const [ image ] = node.media;
 					return (
-						<li className="carousel-item" key={node.slug}>
-							<Link 
-                href={`/${locale}/p/${node.slug}`}
-                className="link link-primary no-underline text-secondary hover:text-secondary"
-                >
-								<Card shadow='xl'>
-									{/* <Link
-									href={`/${locale}/p/${node.slug}`}
-									className="link link-primary no-underline text-secondary hover:text-secondary"
-								> */}
+						<li className="carousel-item m-2" key={node.slug}>
+							<Link
+								href={`/${locale}/p/${node.slug}`}
+								className="link link-primary no-underline text-secondary hover:text-secondary"
+							>
+								<Card shadow="xl" rounded="md" bgBlend="darken">
 									<CardMedia accentBg src={image.url} alt={image.alt} width={300} height={300} />
 									<div className="card-body">
 										<h2 className="card-title">

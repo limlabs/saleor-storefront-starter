@@ -1,5 +1,4 @@
-import clsx from 'clsx';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { ForwardRefRenderFunction, PropsWithChildren } from 'react';
 import { sizeOp, bgBlendMode } from '../util';
 
 interface CardProps {
@@ -9,10 +8,14 @@ interface CardProps {
 	className?: string;
 }
 
-const Card = React.forwardRef(function Card({ children, shadow, rounded, bgBlend, className = '' }) {
+const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(function Card(
+	{ children, shadow, rounded, bgBlend, className = '' },
+	ref
+) {
 	/* <div className="card bg-primary-focus"> */
 	return (
 		<div
+			ref={ref}
 			className={
 				'card bg-primary-focus' +
 				(shadow ? ` ${sizeOp('shadow', shadow)}` : '') +
@@ -24,7 +27,7 @@ const Card = React.forwardRef(function Card({ children, shadow, rounded, bgBlend
 			{children}
 		</div>
 	);
-}) as FC<PropsWithChildren<CardProps>>;
+});
 
 export default Card;
 

@@ -3,6 +3,8 @@ import request from 'graphql-request';
 import Link from 'next/link';
 import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
+import CardBody from '@/app/daisyui/card-body';
+import CardTitle from '@/app/daisyui/card-title';
 
 const allProductsQuery = gql`
 	{
@@ -80,17 +82,18 @@ export default async function Home({ params: { locale } }: { params: { locale: s
 							>
 								<Card shadow="xl" rounded="md" bgBlend="darken">
 									<CardMedia accentBg src={image.url} alt={image.alt} width={300} height={300} />
-									<div className="card-body">
-										<h2 className="card-title">
+									<CardBody>
+										<CardTitle>
 											<span className="truncate w-48">{node.name}</span>
-										</h2>
+											{/* {node.name} */}
+										</CardTitle>
 										<p className="text-accent">
 											${node.pricing.priceRange.start.gross.amount.toFixed(2)}
 										</p>
 										<div className="card-actions mt-2">
 											<button className="btn btn-secondary">Add to Cart</button>
 										</div>
-									</div>
+									</CardBody>
 								</Card>
 							</Link>
 						</li>

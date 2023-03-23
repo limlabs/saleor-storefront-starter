@@ -1,5 +1,5 @@
+import React, { ForwardRefRenderFunction } from 'react';
 import Image from 'next/image';
-import React, { FC } from 'react';
 import clsx from 'clsx';
 
 interface CardMediaProps {
@@ -12,9 +12,13 @@ interface CardMediaProps {
 	fill?: boolean;
 }
 
-const CardMedia = React.forwardRef(function Card({ accentBg, src, loader, alt = '', ...imgArgs }) {    
+const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(function Card(
+	{ accentBg, src, loader, alt = '', ...imgArgs },
+	ref
+) {
 	return (
 		<figure
+			ref={ref}
 			className={clsx({
 				'bg-accent-content': accentBg
 			})}
@@ -22,6 +26,6 @@ const CardMedia = React.forwardRef(function Card({ accentBg, src, loader, alt = 
 			<Image src={src} loader={loader} alt={alt} {...imgArgs} />
 		</figure>
 	);
-}) as FC<CardMediaProps>;
+});
 
 export default CardMedia;

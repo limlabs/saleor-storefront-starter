@@ -1,7 +1,9 @@
 import React, { ForwardRefRenderFunction, PropsWithChildren } from 'react';
 import { sizeOp, bgBlendMode } from '../util';
+import clsx from 'clsx';
 
 interface CardProps {
+	glass?: boolean;
 	shadow?: Sizes;
 	rounded?: Sizes;
 	bgBlend?: BGBlendMode;
@@ -9,21 +11,23 @@ interface CardProps {
 }
 
 const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(function Card(
-	{ children, shadow, rounded, bgBlend, className = '' },
+	{ children, shadow, rounded, bgBlend, glass, className = '' },
 	ref
 ) {
 	/* <div className="card bg-primary-focus"> */
+	const classNames = clsx(
+		'card bg-primary-focus',
+		'card-borderd',
+		sizeOp('shadow', shadow),
+		sizeOp('rounded', rounded),
+		bgBlendMode(bgBlend),
+		{
+			glass: glass === true
+		},
+		className
+	);
 	return (
-		<div
-			ref={ref}
-			className={
-				'card bg-primary-focus' +
-				(shadow ? ` ${sizeOp('shadow', shadow)}` : '') +
-				(rounded ? ` ${sizeOp('rounded', rounded)}` : '') +
-				(bgBlend ? ` ${bgBlendMode(bgBlend)}` : '') +
-				(className ? ` ${className}` : '')
-			}
-		>
+		<div ref={ref} className={classNames}>
 			{children}
 		</div>
 	);

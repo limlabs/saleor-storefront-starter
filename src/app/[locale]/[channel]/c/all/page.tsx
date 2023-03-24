@@ -12,6 +12,9 @@ const allProductsQuery = gql`
 				node {
 					slug
 					name
+					variants {
+						id
+					}
 					media {
 						url
 						alt
@@ -39,6 +42,9 @@ interface HomePageProducts {
 			node: {
 				slug: string;
 				name: string;
+				variants: {
+					id: string;
+				}[];
 				media: {
 					url: string;
 					alt: string;
@@ -109,7 +115,10 @@ export default async function Home({
 											2
 										)}
 									</p>
-									<ProductCardButton text='Add to Cart' />
+									<ProductCardButton
+										text='Add to Cart'
+										variantID={node.variants[0].id}
+									/>
 								</div>
 								<div className='card-actions mt-2'></div>
 							</div>

@@ -16,13 +16,12 @@ const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(function Card(
 	{ accentBg, src, loader, alt = '', ...imgArgs },
 	ref
 ) {
+	const classNames = clsx({
+		'bg-accent-content': accentBg
+	});
+
 	return (
-		<figure
-			ref={ref}
-			className={clsx({
-				'bg-accent-content': accentBg
-			})}
-		>
+		<figure ref={ref} className={classNames}>
 			<Image src={src} loader={loader} alt={alt} {...imgArgs} />
 		</figure>
 	);

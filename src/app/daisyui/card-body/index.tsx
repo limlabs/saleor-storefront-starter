@@ -2,21 +2,19 @@ import React, { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
 interface CardBodyProps {
-	centerText?: boolean;
 	centerItems?: boolean;
 }
 
 const CardBody = React.forwardRef<HTMLDivElement, PropsWithChildren<CardBodyProps>>(function Card(
-	{ centerItems, centerText, children },
+	{ centerItems, children },
 	ref
 ) {
-	const modifiers = clsx({
-		'text-center': centerText,
+	const classNames = clsx('card-body', {
 		'items-center': centerItems
 	});
 
 	return (
-		<div className={`card-body ${modifiers}`} ref={ref}>
+		<div className={classNames} ref={ref}>
 			{children}
 		</div>
 	);

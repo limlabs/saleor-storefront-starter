@@ -2,18 +2,18 @@ import React, { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
 interface CardTitleProps {
-
+	className?: string;
 }
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, PropsWithChildren<CardTitleProps>>(function CardTitle(
-	{ children },
+	{ children, className },
 	ref
 ) {
+	const classNames = clsx('card-title', className);
+
 	return (
-		<h2 className='card-title truncate w-48'
-			ref={ref}
-		>
-            {children}
+		<h2 className={classNames} ref={ref}>
+			{children}
 		</h2>
 	);
 });

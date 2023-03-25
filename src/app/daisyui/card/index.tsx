@@ -8,13 +8,13 @@ interface CardProps {
 	rounded?: Sizes;
 	bgBlend?: BGBlendMode;
 	className?: string;
+	side?: boolean;
 }
 
 const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(function Card(
-	{ children, shadow, rounded, bgBlend, glass, className = '' },
+	{ children, side, shadow, rounded, bgBlend, glass, className = '' },
 	ref
 ) {
-	/* <div className="card bg-primary-focus"> */
 	const classNames = clsx(
 		'card bg-primary-focus',
 		'card-borderd',
@@ -22,7 +22,8 @@ const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(func
 		sizeOp('rounded', rounded),
 		bgBlendMode(bgBlend),
 		{
-			glass: glass === true
+			glass: glass === true,
+			'card-side': side === true
 		},
 		className
 	);
@@ -34,12 +35,3 @@ const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(func
 });
 
 export default Card;
-
-/*
-    <Card>
-        <CardHeader />
-        <CardMedia />
-        <CardContet />
-        <CardActions />
-    </Card>
-*/

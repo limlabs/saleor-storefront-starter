@@ -1,16 +1,11 @@
 import gql from 'graphql-tag';
 import request from 'graphql-request';
 import Link from 'next/link';
-import Card from '@/app/daisyui/card';
-import CardMedia from '@/app/daisyui/card-media';
-import CardBody from '@/app/daisyui/card-body';
-import CardTitle from '@/app/daisyui/card-title';
-import CardActions from '@/app/daisyui/card-actions';
-import Button from '@/app/daisyui/button';
+import { ProductCard } from '@/app/[locale]/(components)/productCard';
 
 const allProductsQuery = gql`
-	{
-		products(channel: "default-channel", first: 10) {
+	query getProductList($first: Int!) {
+		products(channel: "default-channel", first: $first) {
 			totalCount
 			edges {
 				node {
@@ -45,74 +40,41 @@ interface HomePageProducts {
 	products: {
 		totalCount: number;
 		edges: {
-			node: {
-				slug: string;
-				name: string;
-				media: {
-					url: string;
-					alt: string;
-				}[];
-				thumbnail: {
-					url: string;
-					alt: string;
-				};
-				pricing: {
-					priceRange: {
-						start: {
-							gross: {
-								amount: number;
-								currency: string;
-							};
-						};
-					};
-				};
-			};
+			node: Product;
 		}[];
 	};
 }
 
 export default async function Home({ params: { locale } }: { params: { locale: string; channel: string } }) {
-	const { products } = await request<HomePageProducts>(
-		'https://liminal-labs.saleor.cloud/graphql/',
-		allProductsQuery
-	);
+	const { products } = await request<
+		HomePageProducts
+	>('https://liminal-labs.saleor.cloud/graphql/', allProductsQuery, { first: 20 });
 
 	return (
 		<main className="container">
 			<h1 className="m-4 text-xl text-secondary-content">
 				<span className="text-secondary">Shop &gt;</span> All Products
 			</h1>
-			<ul className="grid grid-cols-4 gap-2 p-2">
+			<ul className="grid w-full md:grid-cols-2 lg:grid-cols-4 lg:gap-2 md:gap-2">
 				{products.edges.map(({ node }) => {
-					// const [ image ] = node.media;
-					const image = node.thumbnail;
 					return (
-						<li className="carousel-item m-2" key={node.slug}>
+						<li className="carousel-item md:justify-center m-2" key={node.slug}>
 							<Link
 								href={`/${locale}/p/${node.slug}`}
 								className="link link-primary no-underline text-secondary hover:text-secondary"
-							>							
-								<Card shadow="xl" rounded="md" bgBlend="darken" glass>
-									<CardMedia accentBg src={image.url} alt={image.alt} width={300} height={300} />
-									<CardBody>
-										<CardTitle>
-											<span className="truncate w-48" title={node.name}>
-												{node.name}
-											</span>
-										</CardTitle>
-										<p className="text-accent">
-											${node.pricing.priceRange.start.gross.amount.toFixed(2)}
-										</p>
-										<CardActions justify='end' className='mt-2'>
-											<Button variant='secondary'>Add to Cart</Button>
-										</CardActions>
-									</CardBody>
-								</Card>
+							>
+								<ProductCard product={node} />
 							</Link>
 						</li>
 					);
 				})}
 			</ul>
+			<div className="btn-group">
+				<input type="radio" name="page" data-title="1" className="btn" />
+				<input type="radio" name="page" data-title="2" className="btn" />
+				<input type="radio" name="page" data-title="3" className="btn" />
+				<input type="radio" name="page" data-title="4" className="btn" />
+			</div>
 		</main>
 	);
 }

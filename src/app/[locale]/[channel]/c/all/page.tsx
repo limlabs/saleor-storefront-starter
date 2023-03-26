@@ -43,12 +43,17 @@ interface HomePageProducts {
 export default async function Home({ params: { locale } }: { params: { locale: string; channel: string } }) {
 	const { products } = await request<
 		HomePageProducts
-	>('https://liminal-labs.saleor.cloud/graphql/', allProductsQuery, { first: 20 });
+	>('https://liminal-labs.saleor.cloud/graphql/', allProductsQuery, { first: 8 });
 
 	return (
 		<main>
-			<h1 className="m-4 text-xl text-secondary-content">
-				<span className="text-secondary">Shop &gt;</span> All Products
+			<h1 className="m-4 text-xl text-secondary-content">				
+				<div className="text-sm breadcrumbs">
+					<ul>
+						<li className='text-secondary'>Shop</li>
+						<li>All Products</li>
+					</ul>
+				</div>
 			</h1>
 			<section className="container mx-auto">
 				<ProductGallery products={products} locale={locale} />			

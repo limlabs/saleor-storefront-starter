@@ -24,6 +24,12 @@ interface Product {
 
 interface ProductsPage {
     totalCount: number;
+    pageInfo: {
+        endCursor: string;
+        startCursor: string;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+    };
     edges: {
         node: Product;
     }[];

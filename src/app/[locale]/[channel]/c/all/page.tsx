@@ -3,9 +3,15 @@ import request from 'graphql-request';
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
 
 const allProductsQuery = gql`
-	query getProductList($first: Int!) {
-		products(channel: "default-channel", first: $first) {
+	query getProductList($first: Int, $last: Int, $after: String, $before: String) {
+		products(channel: "default-channel", first: $first, last: $last, after: $after, before: $before) {
 			totalCount
+			pageInfo {
+				endCursor
+				startCursor
+				hasNextPage
+				hasPreviousPage
+			}
 			edges {
 				node {
 					id
@@ -40,24 +46,38 @@ interface HomePageProducts {
 	products: ProductsPage;
 }
 
-export default async function Home({ params: { locale } }: { params: { locale: string; channel: string } }) {
+interface PageProps {
+	params: {
+		locale: string;
+		channel: string;
+	};
+	searchParams?: {
+		after?: string;
+		before?: string;
+	};
+}
+
+export default async function Home({ params: { locale }, searchParams = {} }: PageProps) {
+	const { before, after } = searchParams;
 	const { products } = await request<
 		HomePageProducts
-	>('https://liminal-labs.saleor.cloud/graphql/', allProductsQuery, { first: 8 });
+	>('https://liminal-labs.saleor.cloud/graphql/', allProductsQuery, {
+		...before ? { before, last: 8 } : { after, first: 8 }
+	});
 
 	return (
 		<main>
-			<h1 className="m-4 text-xl text-secondary-content">				
+			<h1 className="m-4 text-xl text-secondary-content">
 				<div className="text-sm breadcrumbs">
 					<ul>
-						<li className='text-secondary'>Shop</li>
+						<li className="text-secondary">Shop</li>
 						<li>All Products</li>
 					</ul>
 				</div>
 			</h1>
 			<section className="container mx-auto">
-				<ProductGallery products={products} locale={locale} />			
-			</section>			
+				<ProductGallery products={products} locale={locale} />
+			</section>
 		</main>
 	);
 }

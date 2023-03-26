@@ -4,10 +4,11 @@ import clsx from 'clsx';
 interface ButtonProps {
 	variant?: 'primary' | 'secondary';
 	glass?: boolean;
+	disabled?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps>>(function CardActions(
-	{ children, variant, glass },
+	{ children, variant, glass, disabled },
 	ref
 ) {
 	const modifiers = clsx({
@@ -17,7 +18,7 @@ const Button = React.forwardRef<HTMLButtonElement, PropsWithChildren<ButtonProps
 	});
 
 	return (
-		<button className={`btn ${modifiers}`} ref={ref}>
+		<button  disabled={disabled} className={`btn ${modifiers}`} ref={ref}>
 			{children}
 		</button>
 	);

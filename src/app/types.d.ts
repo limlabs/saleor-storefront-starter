@@ -8,7 +8,9 @@ interface Product {
     name: string;
     media: ProductImage[];
     thumbnail: ProductImage;
+    isAvailable: boolean;
     pricing: {
+        onSale: boolean;
         priceRange: {
             start: {
                 gross: {
@@ -18,4 +20,11 @@ interface Product {
             };
         };
     };
+}
+
+interface ProductsPage {
+    totalCount: number;
+    edges: {
+        node: Product;
+    }[];
 }

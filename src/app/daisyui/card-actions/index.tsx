@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
 interface CardActionsProps {
-	justify?: 'end' | 'start';
+	justify?: 'end' | 'start' | 'center';
 	className?: string;
 }
 
@@ -14,6 +14,7 @@ const CardActions = React.forwardRef<HTMLDivElement, PropsWithChildren<CardActio
 		'card-actions',
 		{
 			'justify-end': justify === 'end',
+			'justify-center': justify === 'center',
 			'justify-start': justify === 'start'
 		},
 		className

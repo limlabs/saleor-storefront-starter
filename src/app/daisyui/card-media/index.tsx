@@ -10,15 +10,16 @@ interface CardMediaProps {
 	width?: number;
 	height?: number;
 	fill?: boolean;
+	className?: string;
 }
 
 const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(function Card(
-	{ accentBg, src, loader, alt = '', ...imgArgs },
+	{ accentBg, src, loader, alt = '', className, ...imgArgs },
 	ref
 ) {
 	const classNames = clsx({
 		'bg-accent-content': accentBg
-	});
+	}, className);
 
 	return (
 		<figure ref={ref} className={classNames}>

@@ -1,9 +1,6 @@
 import gql from 'graphql-tag';
 import request from 'graphql-request';
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
-import gql from 'graphql-tag';
-import request from 'graphql-request';
-import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
 
 const allProductsQuery = gql`
 	query getProductList($first: Int, $last: Int, $after: String, $before: String) {

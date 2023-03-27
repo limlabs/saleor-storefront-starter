@@ -11,7 +11,7 @@ export function sizeOp(prefix: string, size?: Sizes) {
     })
 }
 
-export function bgBlendMode(effect?: BGBlendEffect) {
+export function bgBlendMode(effect?: BGBlendMode) {
     return clsx({
         'bg-blend-normal': effect === 'normal',
         'bg-blend-multiply': effect === 'multiply',

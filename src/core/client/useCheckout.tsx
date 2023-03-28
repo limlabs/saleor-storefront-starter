@@ -14,9 +14,10 @@ const CheckoutIDContext = createContext<CheckoutIDContextData>({
 
 export const CheckoutIDProvider: FC<{
 	children: ReactNode;
-}> = ({ children }) => {
-	const [checkoutID, updateCheckoutID] = useState('');
-
+	initialCheckoutID: string;
+}> = ({ children, initialCheckoutID }) => {
+	const [checkoutID, updateCheckoutID] = useState(initialCheckoutID);
+	console.log('initialCheckoutID', initialCheckoutID);
 	return (
 		<CheckoutIDContext.Provider
 			value={{

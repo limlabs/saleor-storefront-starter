@@ -1,7 +1,7 @@
 'use client';
 
 import { checkoutStorageKey } from '@/core/constants';
-import { useCheckout } from '@/core/useCheckout';
+import { useCheckout } from '@/core/client/useCheckout';
 import request from 'graphql-request';
 import gql from 'graphql-tag';
 import { FC, useEffect } from 'react';
@@ -16,6 +16,26 @@ interface CheckoutCreateResponse {
 		errors: string[];
 		checkout: {
 			id: string;
+		};
+	};
+}
+
+interface CheckoutAddLineResponse {
+	checkoutLinesAdd: {
+		checkout: {
+			lines: {
+				id: string;
+				variant: {
+					name: string;
+				};
+				quantity: number;
+			}[];
+		};
+		totalPrice: {
+			gross: {
+				currency: string;
+				amount: number;
+			};
 		};
 	};
 }
@@ -38,17 +58,51 @@ mutation {
   }
 `;
 
+const checkoutAddLineQueryFn = (checkoutID: string, variantID: string) => `
+mutation {
+	checkoutLinesAdd(
+	id: "${checkoutID}"
+	lines: [{ variantId: "${variantID}", quantity: 1 }]
+  ) {
+	  checkout {
+		lines {
+		  id
+		  variant {
+			name
+		  }
+		  quantity
+		}
+		totalPrice {
+		  gross {
+			currency
+			amount
+		  }
+		}
+	  }
+	}
+  }`;
+
 export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	text,
 	variantID,
 }) => {
 	const { checkoutID, updateCheckoutID } = useCheckout();
 
+	const checkoutAddLineQuery = gql(
+		checkoutAddLineQueryFn(checkoutID, variantID)
+	);
 	const checkoutCreateQuery = gql(checkoutCreateQueryFn(variantID));
 
 	const onClickHandler = async () => {
-		if (checkoutID !== '') console.log('checkout already created');
-		else {
+		if (checkoutID !== '') {
+			const resp = await request<CheckoutAddLineResponse>(
+				'https://liminal-labs.saleor.cloud/graphql/',
+				checkoutAddLineQuery
+			);
+			console.log(
+				`New item added to checkout ${resp.checkoutLinesAdd.checkout.lines[0].id}.`
+			);
+		} else {
 			const resp = await request<CheckoutCreateResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutCreateQuery
@@ -59,6 +113,9 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				`expires=Fri, 31 Dec 9999 23:59:59 GMT`,
 			].join('; ');
 			updateCheckoutID(resp.checkoutCreate.checkout.id);
+			console.log(
+				`New checkout created with ID ${resp.checkoutCreate.checkout.id}`
+			);
 		}
 	};
 

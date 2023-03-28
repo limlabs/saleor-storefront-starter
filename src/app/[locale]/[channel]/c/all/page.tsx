@@ -2,10 +2,9 @@ import Image from 'next/image';
 import gql from 'graphql-tag';
 import request from 'graphql-request';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { ProductCardButton } from './AddToCartButton';
-import { checkoutStorageKey } from '@/core/constants';
-import { CheckoutIDProvider } from '@/core/useCheckout';
+import { CheckoutIDProvider } from '@/core/client/useCheckout';
+import { getCheckoutID } from '@/core/server/checkout';
 
 const allProductsQuery = gql`
 	{
@@ -72,8 +71,7 @@ export default async function Home({
 }: {
 	params: { locale: string; channel: string };
 }) {
-	const cookieStore = cookies();
-	const cookie = cookieStore.get(checkoutStorageKey);
+	const checkoutID = getCheckoutID();
 
 	const { products } = await request<HomePageProducts>(
 		'https://liminal-labs.saleor.cloud/graphql/',
@@ -81,7 +79,7 @@ export default async function Home({
 	);
 
 	return (
-		<CheckoutIDProvider>
+		<CheckoutIDProvider initialCheckoutID={checkoutID}>
 			<main className='container'>
 				<h1 className='m-4 text-xl text-secondary-content'>
 					<span className='text-secondary'>Shop &gt;</span> All

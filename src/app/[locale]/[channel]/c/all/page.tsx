@@ -3,8 +3,6 @@ import gql from 'graphql-tag';
 import request from 'graphql-request';
 import Link from 'next/link';
 import { ProductCardButton } from './AddToCartButton';
-import { CheckoutIDProvider } from '@/core/client/useCheckout';
-import { getCheckoutID } from '@/core/server/checkout';
 
 const allProductsQuery = gql`
 	{

@@ -28,6 +28,9 @@ const allProductsQuery = gql`
 					id
 					slug
 					name
+					defaultVariant {
+						id
+					}
 					media {
 						url
 						alt

@@ -84,10 +84,8 @@ mutation {
 
 const getCookie = (name: string) => {
 	const cookieInitial = name + '=';
-	const decodedCookie = decodeURIComponent(document.cookie);
-	const cookieSearch = decodedCookie
-		.split(';')
-		.map((cookie) => cookie.trimStart())
+	const cookieSearch = document.cookie
+		.split('; ')
 		.filter(
 			(cookie) =>
 				cookie.substring(0, cookieInitial.length) === cookieInitial
@@ -111,7 +109,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 
 		if (cookieCheckoutID !== checkoutID) updateCheckoutID(cookieCheckoutID);
 
-		if (cookieCheckoutID !== '') {
+		if (cookieCheckoutID) {
 			const checkoutAddLineQuery = gql(
 				checkoutAddLineQueryFn(cookieCheckoutID, variantID)
 			);

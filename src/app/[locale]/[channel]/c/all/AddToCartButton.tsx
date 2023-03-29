@@ -82,19 +82,39 @@ mutation {
 	}
   }`;
 
+const getCookie = (name: string) => {
+	const cookieInitial = name + '=';
+	const decodedCookie = decodeURIComponent(document.cookie);
+	const cookieSearch = decodedCookie
+		.split(';')
+		.map((cookie) => cookie.trimStart())
+		.filter(
+			(cookie) =>
+				cookie.substring(0, cookieInitial.length) === cookieInitial
+		);
+	if (cookieSearch.length === 0) return '';
+	else
+		return cookieSearch[0].substring(
+			cookieInitial.length,
+			cookieSearch[0].length
+		);
+};
+
 export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	text,
 	variantID,
 }) => {
 	const { checkoutID, updateCheckoutID } = useCheckout();
 
-	const checkoutAddLineQuery = gql(
-		checkoutAddLineQueryFn(checkoutID, variantID)
-	);
-	const checkoutCreateQuery = gql(checkoutCreateQueryFn(variantID));
-
 	const onClickHandler = async () => {
-		if (checkoutID !== '') {
+		const cookieCheckoutID = getCookie('CheckoutID');
+
+		if (cookieCheckoutID !== checkoutID) updateCheckoutID(cookieCheckoutID);
+
+		if (cookieCheckoutID !== '') {
+			const checkoutAddLineQuery = gql(
+				checkoutAddLineQueryFn(cookieCheckoutID, variantID)
+			);
 			const resp = await request<CheckoutAddLineResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutAddLineQuery
@@ -103,6 +123,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				`New item added to checkout ${resp.checkoutLinesAdd.checkout.lines[0].id}.`
 			);
 		} else {
+			const checkoutCreateQuery = gql(checkoutCreateQueryFn(variantID));
 			const resp = await request<CheckoutCreateResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutCreateQuery

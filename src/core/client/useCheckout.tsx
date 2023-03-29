@@ -17,7 +17,6 @@ export const CheckoutIDProvider: FC<{
 	initialCheckoutID: string;
 }> = ({ children, initialCheckoutID }) => {
 	const [checkoutID, updateCheckoutID] = useState(initialCheckoutID);
-	console.log('initialCheckoutID', initialCheckoutID);
 	return (
 		<CheckoutIDContext.Provider
 			value={{

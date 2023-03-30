@@ -1,10 +1,10 @@
 'use client';
 
 import { checkoutStorageKey } from '@/core/constants';
-import { useCheckout } from '@/core/client/useCheckout';
 import request from 'graphql-request';
 import gql from 'graphql-tag';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
+import { useCheckoutQuantity } from '@/core/client/useCheckoutQuantity';
 
 interface AddToCartButtonProps {
 	text: string;
@@ -31,6 +31,7 @@ interface CheckoutAddLineResponse {
 				};
 				quantity: number;
 			}[];
+			quantity: number;
 		};
 		totalPrice: {
 			gross: {
@@ -38,7 +39,6 @@ interface CheckoutAddLineResponse {
 				amount: number;
 			};
 		};
-		quantity: number;
 	};
 }
 
@@ -106,12 +106,10 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	text,
 	variantID,
 }) => {
-	const { checkoutID, updateCheckoutID } = useCheckout();
+	const { updateCheckoutQuantity } = useCheckoutQuantity();
 
 	const onClickHandler = async () => {
 		const cookieCheckoutID = getCookie('CheckoutID');
-
-		if (cookieCheckoutID !== checkoutID) updateCheckoutID(cookieCheckoutID);
 
 		if (cookieCheckoutID) {
 			const checkoutAddLineQuery = gql(
@@ -121,6 +119,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutAddLineQuery
 			);
+			updateCheckoutQuantity(resp.checkoutLinesAdd.checkout.quantity);
 			console.log(
 				`New item added to checkout ${resp.checkoutLinesAdd.checkout.lines[0].id}.`
 			);
@@ -135,7 +134,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				'path=/',
 				`expires=Fri, 31 Dec 9999 23:59:59 GMT`,
 			].join('; ');
-			updateCheckoutID(resp.checkoutCreate.checkout.id);
+			updateCheckoutQuantity(resp.checkoutCreate.checkout.quantity);
 			console.log(
 				`New checkout created with ID ${resp.checkoutCreate.checkout.id}`
 			);

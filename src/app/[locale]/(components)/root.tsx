@@ -1,4 +1,3 @@
-import { CheckoutIDProvider } from '@/core/client/useCheckout';
 import { CheckoutQuantityProvider } from '@/core/client/useCheckoutQuantity';
 import { getCheckoutID } from '@/core/server/checkout';
 import request from 'graphql-request';
@@ -22,15 +21,21 @@ export const AppRoot: FC<{ children: ReactNode }> = ({ children }) => {
   }
   `;
 
-	const resp = use(
-		request<checkoutQuantityResponse>(
-			'https://liminal-labs.saleor.cloud/graphql/',
-			checkoutQuantityQuery
-		)
-	);
+	const checkoutQuantityFn = (checkoutID: string): number => {
+		if (checkoutID !== '') {
+			const resp = use(
+				request<checkoutQuantityResponse>(
+					'https://liminal-labs.saleor.cloud/graphql/',
+					checkoutQuantityQuery
+				)
+			);
+			return resp.checkout?.quantity;
+		} else return 0;
+	};
+
 	return (
 		<CheckoutQuantityProvider
-			initialQuantity={resp.checkout?.quantity || 0}
+			initialQuantity={checkoutQuantityFn(checkoutID)}
 		>
 			<div className='mx-auto my-6 w-full max-w-6xl '>
 				<RootLayoutHeader />

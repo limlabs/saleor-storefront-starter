@@ -16,6 +16,7 @@ interface CheckoutCreateResponse {
 		errors: string[];
 		checkout: {
 			id: string;
+			quantity: number;
 		};
 	};
 }
@@ -37,6 +38,7 @@ interface CheckoutAddLineResponse {
 				amount: number;
 			};
 		};
+		quantity: number;
 	};
 }
 
@@ -53,6 +55,7 @@ mutation {
 	  }
 	  checkout {
 		id
+		quantity
 	  }
 	}
   }
@@ -78,6 +81,7 @@ mutation {
 			amount
 		  }
 		}
+		quantity
 	  }
 	}
   }`;

@@ -1,46 +1,45 @@
-import { CheckoutQuantityProvider } from '@/core/client/useCheckoutQuantity';
+import { CheckoutProvider } from '@/core/client/useCheckout';
 import { getCheckoutID } from '@/core/server/checkout';
 import request from 'graphql-request';
-import { FC, ReactNode, use } from 'react';
+import gql from 'graphql-tag';
+import { FC, ReactNode, Suspense, use } from 'react';
 import { RootLayoutHeader } from './header';
 
-export const AppRoot: FC<{ children: ReactNode }> = ({ children }) => {
+interface CheckoutQuantityResponse {
+	checkout: {
+		quantity: number;
+	};
+}
+
+/* @ts-expect-error Async Server Component */
+export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
 	const checkoutID = getCheckoutID();
 
-	interface checkoutQuantityResponse {
-		checkout: {
-			quantity: number;
-		};
+	const checkoutQuantityQuery = gql`
+		query getCheckoutQuantity($id: ID) {
+			checkout(id: $id) {
+				quantity
+			}
+		}
+	`;
+
+	let quantity = 0;
+
+	if (checkoutID !== '') {
+		const resp = await request<CheckoutQuantityResponse>(
+			'https://liminal-labs.saleor.cloud/graphql/',
+			checkoutQuantityQuery,
+			{ id: checkoutID }
+		);
+		quantity = resp.checkout?.quantity;
 	}
 
-	const checkoutQuantityQuery = `
-  query {
-  checkout(id: "${checkoutID}") {
-    quantity
-  }
-  }
-  `;
-
-	const checkoutQuantityFn = (checkoutID: string): number => {
-		if (checkoutID !== '') {
-			const resp = use(
-				request<checkoutQuantityResponse>(
-					'https://liminal-labs.saleor.cloud/graphql/',
-					checkoutQuantityQuery
-				)
-			);
-			return resp.checkout?.quantity;
-		} else return 0;
-	};
-
 	return (
-		<CheckoutQuantityProvider
-			initialQuantity={checkoutQuantityFn(checkoutID)}
-		>
+		<CheckoutProvider initialQuantity={quantity}>
 			<div className='mx-auto my-6 w-full max-w-6xl '>
 				<RootLayoutHeader />
 				{children}
 			</div>
-		</CheckoutQuantityProvider>
+		</CheckoutProvider>
 	);
 };

@@ -5,21 +5,28 @@ import CardBody from '@/app/daisyui/card-body';
 import CardTitle from '@/app/daisyui/card-title';
 import CardActions from '@/app/daisyui/card-actions';
 import { ProductCardButton } from './productCardButton';
+import Link from 'next/link';
 
 interface ProductCardProps {
 	product: Product;
+	locale: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 	const image = product.thumbnail;
 
 	const body = (
 		<CardBody>
-			<CardTitle>
-				<span className='truncate w-48' title={product.name}>
-					{product.name}
-				</span>
-			</CardTitle>
+			<Link
+				href={`/${locale}/p/${product.slug}`}
+				className='link link-primary no-underline text-secondary hover:text-secondary'
+			>
+				<CardTitle>
+					<span className='truncate w-48' title={product.name}>
+						{product.name}
+					</span>
+				</CardTitle>
+			</Link>
 			<p className='text-accent'>
 				${product.pricing.priceRange.start.gross.amount.toFixed(2)}
 			</p>
@@ -34,13 +41,18 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
 
 	return (
 		<Card shadow='xl' rounded='md' bgBlend='darken' glass>
-			<CardMedia
-				accentBg
-				src={image.url}
-				alt={image.alt}
-				width={300}
-				height={300}
-			/>
+			<Link
+				href={`/${locale}/p/${product.slug}`}
+				className='link link-primary no-underline text-secondary hover:text-secondary'
+			>
+				<CardMedia
+					accentBg
+					src={image.url}
+					alt={image.alt}
+					width={300}
+					height={300}
+				/>
+			</Link>
 			{product.pricing.onSale ? (
 				<div className='indicator'>
 					<span className='indicator-item indicator-center badge badge-primary'>

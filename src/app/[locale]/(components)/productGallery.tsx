@@ -15,6 +15,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 }) => {
 	const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
 		products.pageInfo;
+	console.log('products', products.edges[0].node.slug);
 
 	return (
 		<>
@@ -25,11 +26,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 							className='carousel-item justify-center m-2'
 							key={node.slug}
 						>
-							<Link
-								href={`/${locale}/p/${node.slug}`}
-								className='link link-primary no-underline text-secondary hover:text-secondary'
-							></Link>
-							<ProductCard product={node} />
+							<ProductCard product={node} locale={locale} />
 						</li>
 					);
 				})}

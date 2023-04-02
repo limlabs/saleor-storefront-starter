@@ -5,7 +5,7 @@ import ChevronRight from '@/app/icons/chevronRight';
 import ChevronLeft from '@/app/icons/chevronLeft';
 
 interface ProductGalleryProps {
-	products: ProductsPage;
+	products: ProductList;
 	locale: string;
 }
 

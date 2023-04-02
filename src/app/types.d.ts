@@ -48,8 +48,7 @@ interface Product {
 	};
 }
 
-interface ProductsPage {
-	totalCount: number;
+interface ProductList {
 	pageInfo: {
 		endCursor: string;
 		startCursor: string;

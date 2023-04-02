@@ -1,64 +1,5 @@
-import gql from 'graphql-tag';
-import request from 'graphql-request';
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
-
-const allProductsQuery = gql`
-	query getProductList(
-		$first: Int
-		$last: Int
-		$after: String
-		$before: String
-	) {
-		products(
-			channel: "default-channel"
-			first: $first
-			last: $last
-			after: $after
-			before: $before
-		) {
-			totalCount
-			pageInfo {
-				endCursor
-				startCursor
-				hasNextPage
-				hasPreviousPage
-			}
-			edges {
-				node {
-					id
-					slug
-					name
-					defaultVariant {
-						id
-					}
-					media {
-						url
-						alt
-					}
-					thumbnail(size: 300) {
-						url
-						alt
-					}
-					pricing {
-						onSale
-						priceRange {
-							start {
-								gross {
-									amount
-									currency
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-`;
-
-interface HomePageProducts {
-	products: ProductsPage;
-}
+import { gqlClient } from '@/gql';
 
 interface PageProps {
 	params: {
@@ -76,12 +17,8 @@ export default async function Home({
 	searchParams = {},
 }: PageProps) {
 	const { before, after } = searchParams;
-	const { products } = await request<HomePageProducts>(
-		'https://liminal-labs.saleor.cloud/graphql/',
-		allProductsQuery,
-		{
-			...(before ? { before, last: 8 } : { after, first: 8 }),
-		}
+	const { products } = await gqlClient.products(
+		{...(before ? { before, last: 8 } : { after, first: 8 })}
 	);
 
 	return (

@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export interface QueryProducts {
-    products: ProductsPage
+    products: ProductList
 };
 
 export const gqlProducts = gql`
@@ -35,6 +35,9 @@ export const gqlProducts = gql`
 						alt
 					}
                     rating
+					defaultVariant {
+						id
+					}
 					pricing {
 						onSale
 						priceRange {

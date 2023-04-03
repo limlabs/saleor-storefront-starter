@@ -35,6 +35,9 @@ interface Product {
 	media: ProductImage[];
 	thumbnail: ProductImage;
 	isAvailable: boolean;
+	defaultVariant: {
+		id: string;
+	}
 	pricing: {
 		onSale: boolean;
 		priceRange: {

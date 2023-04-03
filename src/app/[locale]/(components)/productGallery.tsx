@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ProductCard } from '@/app/[locale]/(components)/productCard';
 import ChevronRight from '@/app/icons/chevronRight';
 import ChevronLeft from '@/app/icons/chevronLeft';
+import { LinkButton } from './linkButton';
 
 interface ProductGalleryProps {
 	products: ProductList;
@@ -36,29 +37,12 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 			</ul>
 			<div className='divider' />
 			<div className='flex justify-between'>
-				{hasPreviousPage ? (
-					<Link href={`/${locale}/c/all?before=${startCursor}`}>
-						<span className='text-base-content/50 flex flex-row'>
-							<ChevronLeft /> Prev
-						</span>
-					</Link>
-				) : (
-					<span className='text-base-content/50 flex flex-row'>
-						<ChevronLeft /> Prev
-					</span>
-				)}
-
-				{hasNextPage ? (
-					<Link href={`/${locale}/c/all?after=${endCursor}`}>
-						<span className='text-base-content/50 flex flex-row'>
-							Next <ChevronRight />
-						</span>
-					</Link>
-				) : (
-					<span className='text-base-content/50 flex flex-row'>
-						Next <ChevronRight />
-					</span>
-				)}
+				<LinkButton href={`/${locale}/c/all?before=${startCursor}`} disabled={!hasPreviousPage}>
+					<ChevronLeft /> Prev
+				</LinkButton>
+				<LinkButton href={`/${locale}/c/all?after=${endCursor}`} disabled={!hasNextPage}>
+					Next <ChevronRight />
+				</LinkButton>
 			</div>
 		</>
 	);

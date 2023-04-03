@@ -4,7 +4,7 @@ import { checkoutStorageKey } from '@/core/constants';
 import { useCheckout } from '@/core/client/useCheckout';
 import request from 'graphql-request';
 import gql from 'graphql-tag';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 interface AddToCartButtonProps {
 	text: string;

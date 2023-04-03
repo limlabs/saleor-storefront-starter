@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { ProductCard } from '@/app/[locale]/(components)/productCard';
 import ChevronRight from '@/app/icons/chevronRight';
 import ChevronLeft from '@/app/icons/chevronLeft';
+import { ProductsPage } from '@/app/types';
+import { QuantitySelectorState } from './quantitySelectorState';
 
 interface ProductGalleryProps {
 	products: ProductsPage;
@@ -26,7 +28,10 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 							className='carousel-item justify-center m-2'
 							key={node.slug}
 						>
-							<ProductCard product={node} locale={locale} />
+							<QuantitySelectorState
+								product={node}
+								locale={locale}
+							/>
 						</li>
 					);
 				})}

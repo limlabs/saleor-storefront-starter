@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
 import CardBody from '@/app/daisyui/card-body';
@@ -6,13 +6,22 @@ import CardTitle from '@/app/daisyui/card-title';
 import CardActions from '@/app/daisyui/card-actions';
 import { ProductCardButton } from './productCardButton';
 import Link from 'next/link';
+import { Product } from '@/app/types';
+import { QuantitySelector } from './quantitySelector';
 
 interface ProductCardProps {
 	product: Product;
 	locale: string;
+	quantity: number;
+	updateQuantity: Dispatch<SetStateAction<number>>;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+	product,
+	locale,
+	quantity,
+	updateQuantity,
+}) => {
 	const image = product.thumbnail;
 
 	const body = (
@@ -27,9 +36,15 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 					</span>
 				</CardTitle>
 			</Link>
-			<p className='text-accent'>
-				${product.pricing.priceRange.start.gross.amount.toFixed(2)}
-			</p>
+			<div className='flex flex-row place-content-between'>
+				<span className='text-accent'>
+					${product.pricing.priceRange.start.gross.amount.toFixed(2)}
+				</span>
+				<QuantitySelector
+					quantity={quantity}
+					updateQuantity={updateQuantity}
+				/>
+			</div>
 			<CardActions justify='center' className='mt-2'>
 				<ProductCardButton
 					text='Add to Cart'

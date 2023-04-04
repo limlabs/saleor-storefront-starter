@@ -49,6 +49,8 @@ export const ProductCard: FC<ProductCardProps> = ({
 				<ProductCardButton
 					text='Add to Cart'
 					variantID={product.defaultVariant.id}
+					quantity={quantity}
+					updateQuantity={updateQuantity}
 				/>
 			</CardActions>
 		</CardBody>

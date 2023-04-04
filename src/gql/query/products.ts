@@ -1,16 +1,19 @@
 import gql from "graphql-tag";
+import { pageInfoProps } from "./pageFragment";
 
 export interface QueryProducts {
-    products: ProductList
+    products: Page<Product>;
 };
 
 export const gqlProducts = gql`
+
 	query Products(
         $channel: String = "default-channel"
 		$first: Int
 		$last: Int
 		$after: String
 		$before: String
+		$filter: ProductFilterInput
 	) {
 		products(
 			channel: $channel
@@ -18,13 +21,9 @@ export const gqlProducts = gql`
 			last: $last
 			after: $after
 			before: $before
+			filter: $filter
 		) {
-			pageInfo {
-				endCursor
-				startCursor
-				hasNextPage
-				hasPreviousPage
-			}
+			${pageInfoProps}
 			edges {
 				node {
 					id

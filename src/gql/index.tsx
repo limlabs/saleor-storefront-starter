@@ -4,12 +4,16 @@ import type { Variables } from "graphql-request";
 import type { QueryProducts } from "./query/products";
 
 class StoreGqlClient{
-    client = new GraphQLClient("https://liminal-labs.saleor.cloud/graphql/");
+    
+    readonly client;
+
+    constructor(url : string){
+        this.client= new GraphQLClient(url);
+    } 
 
     products(variables?: Variables){
-        return this.client.request<QueryProducts>(gqlProducts, variables)
+        return this.client.request<QueryProducts>(gqlProducts, variables);
     }
 }
 
-
-export const gqlClient = new StoreGqlClient();
+export const gqlClient = new StoreGqlClient("https://liminal-labs.saleor.cloud/graphql/");

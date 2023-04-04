@@ -5,21 +5,29 @@ import CardBody from '@/app/daisyui/card-body';
 import CardTitle from '@/app/daisyui/card-title';
 import CardActions from '@/app/daisyui/card-actions';
 import { ProductCardButton } from './productCardButton';
+import { ProductRating } from './productRating';
+import Link from 'next/link';
 
 interface ProductCardProps {
 	product: Product;
+	locale: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 	const image = product.thumbnail;
 
 	const body = (
 		<CardBody>
-			<CardTitle>
-				<span className='truncate w-48' title={product.name}>
-					{product.name}
-				</span>
-			</CardTitle>
+			<Link
+				href={`/${locale}/p/${product.slug}`}
+				className='link link-primary no-underline text-secondary hover:text-secondary'
+			>
+				<CardTitle>
+					<span className='truncate w-48' title={product.name}>
+						{product.name}
+					</span>
+				</CardTitle>
+			</Link>
 			<p className='text-accent'>
 				${product.pricing.priceRange.start.gross.amount.toFixed(2)}
 			</p>
@@ -33,7 +41,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
 	);
 
 	return (
-		<Card shadow='xl' rounded='md' bgBlend='darken' glass>
+		<Card shadow='xl' rounded='md' bgBlend='darken' glass className='relative transition ease-in-out hover:-translate-y-1'>
 			<CardMedia
 				accentBg
 				src={image.url}
@@ -41,6 +49,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
 				width={300}
 				height={300}
 			/>
+			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute'/>
 			{product.pricing.onSale ? (
 				<div className='indicator'>
 					<span className='indicator-item indicator-center badge badge-primary'>

@@ -1,10 +1,10 @@
 'use client';
 
 import { checkoutStorageKey } from '@/core/constants';
-import { useCheckout } from '@/core/client/useCheckout';
 import request from 'graphql-request';
 import gql from 'graphql-tag';
 import { FC } from 'react';
+import { useCheckout } from '@/core/client/useCheckout';
 
 interface AddToCartButtonProps {
 	text: string;
@@ -16,6 +16,7 @@ interface CheckoutCreateResponse {
 		errors: string[];
 		checkout: {
 			id: string;
+			quantity: number;
 		};
 	};
 }
@@ -30,6 +31,7 @@ interface CheckoutAddLineResponse {
 				};
 				quantity: number;
 			}[];
+			quantity: number;
 		};
 		totalPrice: {
 			gross: {
@@ -40,47 +42,50 @@ interface CheckoutAddLineResponse {
 	};
 }
 
-const checkoutCreateQueryFn = (variantID: string) => `
-mutation {
-	checkoutCreate(input: {
-	  channel: "default-channel"
-	  lines:[
-		{ variantId: "${variantID}", quantity: 1 }
-	  ]
-	}) {
-	  errors {
-		message
-	  }
-	  checkout {
-		id
-	  }
+const checkoutCreateQuery = gql`
+	mutation checkoutCreate($variantID: ID!) {
+		checkoutCreate(
+			input: {
+				channel: "default-channel"
+				lines: [{ variantId: $variantID, quantity: 1 }]
+			}
+		) {
+			errors {
+				message
+			}
+			checkout {
+				id
+				quantity
+			}
+		}
 	}
-  }
 `;
 
-const checkoutAddLineQueryFn = (checkoutID: string, variantID: string) => `
-mutation {
-	checkoutLinesAdd(
-	id: "${checkoutID}"
-	lines: [{ variantId: "${variantID}", quantity: 1 }]
-  ) {
-	  checkout {
-		lines {
-		  id
-		  variant {
-			name
-		  }
-		  quantity
+const checkoutAddLineQuery = gql`
+	mutation checkoutAddLine($variantID: ID!, $checkoutID: ID!) {
+		checkoutLinesAdd(
+			id: $checkoutID
+			lines: [{ variantId: $variantID, quantity: 1 }]
+		) {
+			checkout {
+				lines {
+					id
+					variant {
+						name
+					}
+					quantity
+				}
+				totalPrice {
+					gross {
+						currency
+						amount
+					}
+				}
+				quantity
+			}
 		}
-		totalPrice {
-		  gross {
-			currency
-			amount
-		  }
-		}
-	  }
 	}
-  }`;
+`;
 
 const getCookie = (name: string) => {
 	const cookieInitial = name + '=';
@@ -102,36 +107,33 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	text,
 	variantID,
 }) => {
-	const { checkoutID, updateCheckoutID } = useCheckout();
+	const { updateCheckoutQuantity } = useCheckout();
 
 	const onClickHandler = async () => {
 		const cookieCheckoutID = getCookie('CheckoutID');
 
-		if (cookieCheckoutID !== checkoutID) updateCheckoutID(cookieCheckoutID);
-
 		if (cookieCheckoutID) {
-			const checkoutAddLineQuery = gql(
-				checkoutAddLineQueryFn(cookieCheckoutID, variantID)
-			);
 			const resp = await request<CheckoutAddLineResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
-				checkoutAddLineQuery
+				checkoutAddLineQuery,
+				{ variantID, checkoutID: cookieCheckoutID }
 			);
+			updateCheckoutQuantity(resp.checkoutLinesAdd.checkout.quantity);
 			console.log(
 				`New item added to checkout ${resp.checkoutLinesAdd.checkout.lines[0].id}.`
 			);
 		} else {
-			const checkoutCreateQuery = gql(checkoutCreateQueryFn(variantID));
 			const resp = await request<CheckoutCreateResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
-				checkoutCreateQuery
+				checkoutCreateQuery,
+				{ variantID }
 			);
 			document.cookie = [
 				`${checkoutStorageKey}=${resp.checkoutCreate.checkout.id}`,
 				'path=/',
 				`expires=Fri, 31 Dec 9999 23:59:59 GMT`,
 			].join('; ');
-			updateCheckoutID(resp.checkoutCreate.checkout.id);
+			updateCheckoutQuantity(resp.checkoutCreate.checkout.quantity);
 			console.log(
 				`New checkout created with ID ${resp.checkoutCreate.checkout.id}`
 			);

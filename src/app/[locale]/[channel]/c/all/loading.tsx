@@ -8,7 +8,7 @@ export default function Loading() {
 	);
 
 	return (
-		<main className="container blur-sm">
+		<main className="container blur-sm animate-pulse">
 			<h1 className="m-4 text-xl text-secondary-content">
 				<div className="text-sm breadcrumbs">
 					<ul>

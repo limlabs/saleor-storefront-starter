@@ -1,11 +1,11 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren, forwardRef } from 'react';
 import clsx from 'clsx';
 
 interface CardTitleProps {
 	className?: string;
 }
 
-const CardTitle = React.forwardRef<HTMLHeadingElement, PropsWithChildren<CardTitleProps>>(function CardTitle(
+const CardTitle = forwardRef<HTMLHeadingElement, PropsWithChildren<CardTitleProps>>(function CardTitle(
 	{ children, className },
 	ref
 ) {

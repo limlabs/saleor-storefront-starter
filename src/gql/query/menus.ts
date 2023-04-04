@@ -1,19 +1,17 @@
 import gql from "graphql-tag";
 
 const fragMenuItemProps = gql`
-    fragment MenuItem_props on MenuItem {
-        level
-        category {
-            id
-            name
-        }
+fragment MenuItem_props on MenuItem {
+    level
+    category {
+        id
+        name
     }
-`;
+}`;
 
 export const gqlMenus = gql`
 query Menu($channel: String = "default-channel") {
 menus (channel: $channel, first: 10){
-    totalCount
     edges {
         node {
             id
@@ -32,5 +30,4 @@ menus (channel: $channel, first: 10){
     }
 }
 }
-${fragMenuItemProps}
-`
+${fragMenuItemProps}`;

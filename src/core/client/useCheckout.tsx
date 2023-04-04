@@ -2,33 +2,34 @@
 
 import { createContext, FC, ReactNode, useContext, useState } from 'react';
 
-export interface CheckoutIDContextData {
-	checkoutID: string;
-	updateCheckoutID(value: string): void;
+export interface CheckoutContextData {
+	checkoutQuantity: number;
+	updateCheckoutQuantity(value: number): void;
 }
 
-const CheckoutIDContext = createContext<CheckoutIDContextData>({
-	checkoutID: '',
-	updateCheckoutID() {},
+const CheckoutContext = createContext<CheckoutContextData>({
+	checkoutQuantity: 0,
+	updateCheckoutQuantity() {},
 });
 
-export const CheckoutIDProvider: FC<{
+export const CheckoutProvider: FC<{
 	children: ReactNode;
-	initialCheckoutID: string;
-}> = ({ children, initialCheckoutID }) => {
-	const [checkoutID, updateCheckoutID] = useState(initialCheckoutID);
+	initialQuantity: number;
+}> = ({ children, initialQuantity }) => {
+	const [checkoutQuantity, updateCheckoutQuantity] =
+		useState(initialQuantity);
 	return (
-		<CheckoutIDContext.Provider
+		<CheckoutContext.Provider
 			value={{
-				checkoutID,
-				updateCheckoutID,
+				checkoutQuantity,
+				updateCheckoutQuantity,
 			}}
 		>
 			{children}
-		</CheckoutIDContext.Provider>
+		</CheckoutContext.Provider>
 	);
 };
 
 export const useCheckout = () => {
-	return useContext(CheckoutIDContext);
+	return useContext(CheckoutContext);
 };

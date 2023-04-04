@@ -21,11 +21,17 @@ export const QuantitySelector: FC<QuantitySelectorProps> = ({
 
 	return (
 		<div className='flex flex-row'>
-			<button className='btn btn-xs btn-secondary' onClick={minusHandler}>
+			<button
+				className='btn btn-xs btn-outline btn-secondary'
+				onClick={minusHandler}
+			>
 				-
 			</button>
 			<span className='px-2'>{quantity}</span>
-			<button className='btn btn-xs btn-secondary' onClick={plusHandler}>
+			<button
+				className='btn btn-xs btn-outline btn-secondary'
+				onClick={plusHandler}
+			>
 				+
 			</button>
 		</div>

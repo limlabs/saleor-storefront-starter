@@ -15,7 +15,6 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 }) => {
 	const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
 		products.pageInfo;
-	console.log('products', products.edges[0].node.slug);
 
 	return (
 		<>

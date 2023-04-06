@@ -1,22 +1,16 @@
 'use client';
 
-import { Dispatch, FC, SetStateAction } from 'react';
+import { useProductCard } from '@/core/client/useProductCard';
+import { FC } from 'react';
 
-interface QuantitySelectorProps {
-	quantity: number;
-	updateQuantity: Dispatch<SetStateAction<number>>;
-}
-
-export const QuantitySelector: FC<QuantitySelectorProps> = ({
-	quantity,
-	updateQuantity,
-}) => {
+export const QuantitySelector: FC = () => {
+	const { productQuantity, updateProductQuantity } = useProductCard();
 	const plusHandler = () => {
-		updateQuantity(quantity + 1);
+		updateProductQuantity(productQuantity + 1);
 	};
 
 	const minusHandler = () => {
-		if (quantity > 1) updateQuantity(quantity - 1);
+		if (productQuantity > 1) updateProductQuantity(productQuantity - 1);
 	};
 
 	return (
@@ -27,7 +21,7 @@ export const QuantitySelector: FC<QuantitySelectorProps> = ({
 			>
 				-
 			</button>
-			<span className='px-2'>{quantity}</span>
+			<span className='px-2'>{productQuantity}</span>
 			<button
 				className='btn btn-xs btn-outline btn-secondary'
 				onClick={plusHandler}

@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
 import CardBody from '@/app/daisyui/card-body';
@@ -12,16 +12,9 @@ import { QuantitySelector } from './quantitySelector';
 interface ProductCardProps {
 	product: Product;
 	locale: string;
-	quantity: number;
-	updateQuantity: Dispatch<SetStateAction<number>>;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({
-	product,
-	locale,
-	quantity,
-	updateQuantity,
-}) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 	const image = product.thumbnail;
 
 	const body = (
@@ -40,17 +33,12 @@ export const ProductCard: FC<ProductCardProps> = ({
 				<span className='text-accent'>
 					${product.pricing.priceRange.start.gross.amount.toFixed(2)}
 				</span>
-				<QuantitySelector
-					quantity={quantity}
-					updateQuantity={updateQuantity}
-				/>
+				<QuantitySelector />
 			</div>
 			<CardActions justify='center' className='mt-2'>
 				<ProductCardButton
 					text='Add to Cart'
 					variantID={product.defaultVariant.id}
-					quantity={quantity}
-					updateQuantity={updateQuantity}
 				/>
 			</CardActions>
 		</CardBody>

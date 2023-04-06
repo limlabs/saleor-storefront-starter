@@ -3,14 +3,13 @@
 import { checkoutStorageKey } from '@/core/constants';
 import request from 'graphql-request';
 import gql from 'graphql-tag';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import { useCheckout } from '@/core/client/useCheckout';
+import { useProductCard } from '@/core/client/useProductCard';
 
 interface AddToCartButtonProps {
 	text: string;
 	variantID: string;
-	quantity: number;
-	updateQuantity: Dispatch<SetStateAction<number>>;
 }
 
 interface CheckoutCreateResponse {
@@ -112,10 +111,9 @@ const getCookie = (name: string) => {
 export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	text,
 	variantID,
-	quantity,
-	updateQuantity,
 }) => {
 	const { updateCheckoutQuantity } = useCheckout();
+	const { productQuantity, updateProductQuantity } = useProductCard();
 
 	const onClickHandler = async () => {
 		const cookieCheckoutID = getCookie('CheckoutID');
@@ -124,7 +122,11 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 			const resp = await request<CheckoutAddLineResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutAddLineQuery,
-				{ variantID, checkoutID: cookieCheckoutID, quantity }
+				{
+					variantID,
+					checkoutID: cookieCheckoutID,
+					quantity: productQuantity,
+				}
 			);
 			updateCheckoutQuantity(resp.checkoutLinesAdd.checkout.quantity);
 			console.log(
@@ -134,7 +136,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 			const resp = await request<CheckoutCreateResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutCreateQuery,
-				{ variantID, quantity }
+				{ variantID, quantity: productQuantity }
 			);
 			document.cookie = [
 				`${checkoutStorageKey}=${resp.checkoutCreate.checkout.id}`,
@@ -146,7 +148,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				`New checkout created with ID ${resp.checkoutCreate.checkout.id}`
 			);
 		}
-		updateQuantity(1);
+		updateProductQuantity(1);
 	};
 
 	return (

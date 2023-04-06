@@ -28,7 +28,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 							className='carousel-item justify-center m-2'
 							key={node.slug}
 						>
-							<ProductCardProvider product={node} locale={locale}>
+							<ProductCardProvider>
 								<ProductCard product={node} locale={locale} />
 							</ProductCardProvider>
 						</li>

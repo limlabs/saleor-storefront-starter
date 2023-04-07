@@ -9,9 +9,10 @@ const allProductsQuery = gql`
 		$last: Int
 		$after: String
 		$before: String
+		$channel: String
 	) {
 		products(
-			channel: "default-channel"
+			channel: $channel
 			first: $first
 			last: $last
 			after: $after
@@ -73,17 +74,29 @@ interface PageProps {
 }
 
 export default async function Home({
-	params: { locale },
+	params: { locale, channel },
 	searchParams = {},
 }: PageProps) {
 	const { before, after } = searchParams;
-	const { products } = await request<HomePageProducts>(
+	let { products } = await request<HomePageProducts>(
 		'https://liminal-labs.saleor.cloud/graphql/',
 		allProductsQuery,
 		{
+			channel,
 			...(before ? { before, last: 8 } : { after, first: 8 }),
 		}
 	);
+
+	if (products.totalCount === 0) {
+		({ products } = await request<HomePageProducts>(
+			'https://liminal-labs.saleor.cloud/graphql/',
+			allProductsQuery,
+			{
+				channel: 'default-channel',
+				...(before ? { before, last: 8 } : { after, first: 8 }),
+			}
+		));
+	}
 
 	return (
 		<main>

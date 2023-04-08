@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-export function sizeOp(prefix: string, size?: Sizes) {
+export function boolOrSize(prefix: string, size?: BoolOrSize) {
     return clsx({
         [prefix + '-none']: size === false,
         [prefix]: size === true,
@@ -10,6 +10,15 @@ export function sizeOp(prefix: string, size?: Sizes) {
         [prefix + '-xl']: size === 'xl',
     })
 }
+
+export function sizeClass(prefix: string, size?: Size){
+    return clsx({
+        [prefix + '-xs']: size === 'xs',
+        [prefix + '-sm']: size === 'sm',
+        [prefix + '-md']: size === 'md',
+        [prefix + '-lg']: size === 'lg',
+    });
+};
 
 export function bgBlendMode(effect?: BGBlendMode) {
     return clsx({

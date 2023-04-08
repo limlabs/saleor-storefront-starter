@@ -42,14 +42,19 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 
 	return (
 		<Card shadow='xl' rounded='md' bgBlend='darken' glass className='relative transition ease-in-out hover:-translate-y-1'>
-			<CardMedia
-				accentBg
-				src={image.url}
-				alt={image.alt}
-				width={300}
-				height={300}
-			/>
 			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute'/>
+			<Link
+				href={`/${locale}/p/${product.slug}`}
+				className='link link-primary no-underline text-secondary hover:text-secondary'
+			>
+				<CardMedia
+					accentBg
+					src={image.url}
+					alt={image.alt}
+					width={300}
+					height={300}
+				/>
+			</Link>
 			{product.pricing.onSale ? (
 				<div className='indicator'>
 					<span className='indicator-item indicator-center badge badge-primary'>

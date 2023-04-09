@@ -1,7 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-action.json": "file:///Users/austin/code/liminal/saleor-storefront-starter/.github/workflows/deploy.yml"
-  }
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

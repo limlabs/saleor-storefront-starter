@@ -13,5 +13,6 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
+          vercel-options: ${{ vars.GITHUB_REF_NAME == 'main' && '--prod' || ''}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
           vercel-project-name: saleor-storefront-starter

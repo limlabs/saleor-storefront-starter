@@ -8,7 +8,7 @@ export default function HomePage() {
           <ArrowPathIcon className="w-6 h-6 mr-2" />
         </span>
         <span className="text-3xl text-secondary">
-          Home Page Under Construction 2
+          Home Page Under Construction
         </span>
       </h1>
     </main>

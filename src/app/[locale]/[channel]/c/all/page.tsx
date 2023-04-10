@@ -1,5 +1,4 @@
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
-import { ProductsPage } from '@/app/types';
 import { FilterOp } from '@/app/[locale]/(components)/searchFilter';
 import { gqlClient } from '@/gql';
 
@@ -26,13 +25,13 @@ export default async function Home({
 		search: query.search,
 		price: {
 			gte: query.gte,
-			lte: query.lte
-		}
+			lte: query.lte,
+		},
 	};
-	
-	const { products } = await gqlClient.products(
-		{...(before ? { before, last: 8, filter } : { after, first: 8, filter })}
-	);
+
+	const { products } = await gqlClient.products({
+		...(before ? { before, last: 8, filter } : { after, first: 8, filter }),
+	});
 
 	return (
 		<main>
@@ -45,7 +44,14 @@ export default async function Home({
 				</div>
 			</h1>
 			<section className='container mx-auto'>
-				<ProductGallery products={products} locale={locale} filter={{...query, isAvailable: Boolean(query.isAvailable)}} />
+				<ProductGallery
+					products={products}
+					locale={locale}
+					filter={{
+						...query,
+						isAvailable: Boolean(query.isAvailable),
+					}}
+				/>
 			</section>
 		</main>
 	);

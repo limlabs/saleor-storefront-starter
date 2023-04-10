@@ -5,6 +5,7 @@ import CardBody from '@/app/daisyui/card-body';
 import CardTitle from '@/app/daisyui/card-title';
 import CardActions from '@/app/daisyui/card-actions';
 import { ProductCardButton } from './productCardButton';
+import { ProductRating } from './productRating';
 import Link from 'next/link';
 import { Product } from '@/app/types';
 import { QuantitySelector } from './quantitySelector';
@@ -45,7 +46,8 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 	);
 
 	return (
-		<Card shadow='xl' rounded='md' bgBlend='darken' glass>
+		<Card shadow='xl' rounded='md' bgBlend='darken' glass className='relative transition ease-in-out hover:-translate-y-1'>
+			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute'/>
 			<Link
 				href={`/${locale}/p/${product.slug}`}
 				className='link link-primary no-underline text-secondary hover:text-secondary'

@@ -1,88 +1,37 @@
-import gql from 'graphql-tag';
-import request from 'graphql-request';
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
 import { ProductsPage } from '@/app/types';
+import { FilterOp } from '@/app/[locale]/(components)/searchFilter';
+import { gqlClient } from '@/gql';
 
-const allProductsQuery = gql`
-	query getProductList(
-		$first: Int
-		$last: Int
-		$after: String
-		$before: String
-	) {
-		products(
-			channel: "default-channel"
-			first: $first
-			last: $last
-			after: $after
-			before: $before
-		) {
-			totalCount
-			pageInfo {
-				endCursor
-				startCursor
-				hasNextPage
-				hasPreviousPage
-			}
-			edges {
-				node {
-					id
-					slug
-					name
-					defaultVariant {
-						id
-					}
-					media {
-						url
-						alt
-					}
-					thumbnail(size: 300) {
-						url
-						alt
-					}
-					pricing {
-						onSale
-						priceRange {
-							start {
-								gross {
-									amount
-									currency
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-`;
-
-interface HomePageProducts {
-	products: ProductsPage;
+interface SearchParams extends FilterOp {
+	after?: string;
+	before?: string;
 }
-
 interface PageProps {
 	params: {
 		locale: string;
 		channel: string;
 	};
-	searchParams?: {
-		after?: string;
-		before?: string;
-	};
+	searchParams?: SearchParams;
 }
 
 export default async function Home({
 	params: { locale },
-	searchParams = {},
+	searchParams = {} as SearchParams,
 }: PageProps) {
-	const { before, after } = searchParams;
-	const { products } = await request<HomePageProducts>(
-		'https://liminal-labs.saleor.cloud/graphql/',
-		allProductsQuery,
-		{
-			...(before ? { before, last: 8 } : { after, first: 8 }),
+	const { before, after, ...query } = searchParams;
+
+	const filter = {
+		isAvailable: query.isAvailable,
+		search: query.search,
+		price: {
+			gte: query.gte,
+			lte: query.lte
 		}
+	};
+	
+	const { products } = await gqlClient.products(
+		{...(before ? { before, last: 8, filter } : { after, first: 8, filter })}
 	);
 
 	return (
@@ -96,7 +45,7 @@ export default async function Home({
 				</div>
 			</h1>
 			<section className='container mx-auto'>
-				<ProductGallery products={products} locale={locale} />
+				<ProductGallery products={products} locale={locale} filter={{...query, isAvailable: Boolean(query.isAvailable)}} />
 			</section>
 		</main>
 	);

@@ -36,7 +36,7 @@ export default async function Home({
 
 	console.log('products', products);
 
-	if (products.totalCount === 0) {
+	if (products.edges.length === 0) {
 		({ products } = await gqlClient.products({
 			channel: 'default-channel',
 			...(before

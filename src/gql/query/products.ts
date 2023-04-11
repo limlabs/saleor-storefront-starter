@@ -24,7 +24,6 @@ export const gqlProducts = gql`
 			before: $before
 			filter: $filter
 		) {
-			totalCount
 			${pageInfoProps}
 			edges {
 				node {

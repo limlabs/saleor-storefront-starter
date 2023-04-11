@@ -1,11 +1,6 @@
 import { ProductGallery } from '@/app/[locale]/(components)/productGallery';
 import { FilterOp } from '@/app/[locale]/(components)/searchFilter';
-import { Page, Product } from '@/app/types';
 import { gqlClient } from '@/gql';
-
-interface HomePageProducts {
-	products: Page<Product>;
-}
 
 interface SearchParams extends FilterOp {
 	after?: string;

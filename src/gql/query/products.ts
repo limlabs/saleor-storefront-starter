@@ -1,9 +1,10 @@
-import gql from "graphql-tag";
-import { pageInfoProps } from "./pageFragment";
+import gql from 'graphql-tag';
+import { pageInfoProps } from './pageFragment';
+import { Page, Product } from '@/app/types';
 
 export interface QueryProducts {
-    products: Page<Product>;
-};
+	products: Page<Product>;
+}
 
 export const gqlProducts = gql`
 

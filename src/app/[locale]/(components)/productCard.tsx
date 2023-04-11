@@ -7,6 +7,8 @@ import CardActions from '@/app/daisyui/card-actions';
 import { ProductCardButton } from './productCardButton';
 import { ProductRating } from './productRating';
 import Link from 'next/link';
+import { Product } from '@/app/types';
+import { QuantitySelector } from './quantitySelector';
 
 interface ProductCardProps {
 	product: Product;
@@ -28,9 +30,12 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 					</span>
 				</CardTitle>
 			</Link>
-			<p className='text-accent'>
-				${product.pricing.priceRange.start.gross.amount.toFixed(2)}
-			</p>
+			<div className='flex flex-row place-content-between'>
+				<span className='text-accent'>
+					${product.pricing.priceRange.start.gross.amount.toFixed(2)}
+				</span>
+				<QuantitySelector />
+			</div>
 			<CardActions justify='center' className='mt-2'>
 				<ProductCardButton
 					text='Add to Cart'

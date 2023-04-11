@@ -15,7 +15,7 @@ interface PageProps {
 }
 
 export default async function Home({
-	params: { locale },
+	params: { locale, channel },
 	searchParams = {} as SearchParams,
 }: PageProps) {
 	const { before, after, ...query } = searchParams;
@@ -25,13 +25,25 @@ export default async function Home({
 		search: query.search,
 		price: {
 			gte: query.gte,
-			lte: query.lte
-		}
+			lte: query.lte,
+		},
 	};
-	
-	const { products } = await gqlClient.products(
-		{...(before ? { before, last: 8, filter } : { after, first: 8, filter })}
-	);
+
+	let { products } = await gqlClient.products({
+		channel,
+		...(before ? { before, last: 8, filter } : { after, first: 8, filter }),
+	});
+
+	console.log('products', products);
+
+	if (products.edges.length === 0) {
+		({ products } = await gqlClient.products({
+			channel: 'default-channel',
+			...(before
+				? { before, last: 8, filter }
+				: { after, first: 8, filter }),
+		}));
+	}
 
 	return (
 		<main>
@@ -44,7 +56,14 @@ export default async function Home({
 				</div>
 			</h1>
 			<section className='container mx-auto'>
-				<ProductGallery products={products} locale={locale} filter={{...query, isAvailable: Boolean(query.isAvailable)}} />
+				<ProductGallery
+					products={products}
+					locale={locale}
+					filter={{
+						...query,
+						isAvailable: Boolean(query.isAvailable),
+					}}
+				/>
 			</section>
 		</main>
 	);

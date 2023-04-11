@@ -1,7 +1,4 @@
-interface ProductImage {
-	url: string;
-	alt: string;
-}
+import { Dispatch, SetStateAction } from 'react';
 
 interface Product {
 	slug: string;
@@ -11,7 +8,7 @@ interface Product {
 	isAvailable: boolean;
 	defaultVariant: {
 		id: string;
-	}
+	};
 	rating: number;
 	pricing: {
 		onSale: boolean;

@@ -5,6 +5,7 @@ import request from 'graphql-request';
 import gql from 'graphql-tag';
 import { FC } from 'react';
 import { useCheckout } from '@/core/client/useCheckout';
+import { useProductCard } from '@/core/client/useProductCard';
 
 interface AddToCartButtonProps {
 	text: string;
@@ -43,11 +44,11 @@ interface CheckoutAddLineResponse {
 }
 
 const checkoutCreateQuery = gql`
-	mutation checkoutCreate($variantID: ID!) {
+	mutation checkoutCreate($variantID: ID!, $quantity: Int!) {
 		checkoutCreate(
 			input: {
 				channel: "default-channel"
-				lines: [{ variantId: $variantID, quantity: 1 }]
+				lines: [{ variantId: $variantID, quantity: $quantity }]
 			}
 		) {
 			errors {
@@ -62,10 +63,14 @@ const checkoutCreateQuery = gql`
 `;
 
 const checkoutAddLineQuery = gql`
-	mutation checkoutAddLine($variantID: ID!, $checkoutID: ID!) {
+	mutation checkoutAddLine(
+		$variantID: ID!
+		$checkoutID: ID!
+		$quantity: Int!
+	) {
 		checkoutLinesAdd(
 			id: $checkoutID
-			lines: [{ variantId: $variantID, quantity: 1 }]
+			lines: [{ variantId: $variantID, quantity: $quantity }]
 		) {
 			checkout {
 				lines {
@@ -108,6 +113,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 	variantID,
 }) => {
 	const { updateCheckoutQuantity } = useCheckout();
+	const { productQuantity, updateProductQuantity } = useProductCard();
 
 	const onClickHandler = async () => {
 		const cookieCheckoutID = getCookie('CheckoutID');
@@ -116,7 +122,11 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 			const resp = await request<CheckoutAddLineResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutAddLineQuery,
-				{ variantID, checkoutID: cookieCheckoutID }
+				{
+					variantID,
+					checkoutID: cookieCheckoutID,
+					quantity: productQuantity,
+				}
 			);
 			updateCheckoutQuantity(resp.checkoutLinesAdd.checkout.quantity);
 			console.log(
@@ -126,7 +136,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 			const resp = await request<CheckoutCreateResponse>(
 				'https://liminal-labs.saleor.cloud/graphql/',
 				checkoutCreateQuery,
-				{ variantID }
+				{ variantID, quantity: productQuantity }
 			);
 			document.cookie = [
 				`${checkoutStorageKey}=${resp.checkoutCreate.checkout.id}`,
@@ -138,6 +148,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
 				`New checkout created with ID ${resp.checkoutCreate.checkout.id}`
 			);
 		}
+		updateProductQuantity(1);
 	};
 
 	return (

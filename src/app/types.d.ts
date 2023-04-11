@@ -1,19 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 
-interface ProductImage {
-	url: string;
-	alt: string;
-}
-
 interface Product {
 	slug: string;
 	name: string;
-	defaultVariant: {
-		id: string;
-	};
 	media: ProductImage[];
 	thumbnail: ProductImage;
 	isAvailable: boolean;
+	defaultVariant: {
+		id: string;
+	};
+	rating: number;
 	pricing: {
 		onSale: boolean;
 		priceRange: {
@@ -27,8 +23,7 @@ interface Product {
 	};
 }
 
-interface ProductsPage {
-	totalCount: number;
+interface Page<T> {
 	pageInfo: {
 		endCursor: string;
 		startCursor: string;
@@ -36,6 +31,6 @@ interface ProductsPage {
 		hasPreviousPage: boolean;
 	};
 	edges: {
-		node: Product;
+		node: T;
 	}[];
 }

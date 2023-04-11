@@ -1,26 +1,29 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import Link from 'next/link';
+import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { ProductCard } from '@/app/[locale]/(components)/productCard';
-import ChevronRight from '@/app/icons/chevronRight';
-import ChevronLeft from '@/app/icons/chevronLeft';
-import { ProductsPage } from '@/app/types';
+import { LinkButton } from './linkButton';
+import { FilterOp, SearchFilter } from './searchFilter';
 import { ProductCardProvider } from '@/core/client/useProductCard';
+import { Page, Product } from '@/app/types';
 
 interface ProductGalleryProps {
-	products: ProductsPage;
+	products: Page<Product>;
 	locale: string;
+	filter: FilterOp;
 }
 
 export const ProductGallery: FC<ProductGalleryProps> = ({
 	products,
 	locale,
+	filter,
 }) => {
 	const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
 		products.pageInfo;
-	console.log('products', products.edges[0].node.slug);
 
 	return (
-		<>
+		<Fragment>
+			<SearchFilter filter={filter} />
 			<ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2'>
 				{products.edges.map(({ node }) => {
 					return (
@@ -37,30 +40,31 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 			</ul>
 			<div className='divider' />
 			<div className='flex justify-between'>
-				{hasPreviousPage ? (
-					<Link href={`/${locale}/c/all?before=${startCursor}`}>
-						<span className='text-base-content/50 flex flex-row'>
-							<ChevronLeft /> Prev
-						</span>
-					</Link>
-				) : (
-					<span className='text-base-content/50 flex flex-row'>
-						<ChevronLeft /> Prev
-					</span>
-				)}
-
-				{hasNextPage ? (
-					<Link href={`/${locale}/c/all?after=${endCursor}`}>
-						<span className='text-base-content/50 flex flex-row'>
-							Next <ChevronRight />
-						</span>
-					</Link>
-				) : (
-					<span className='text-base-content/50 flex flex-row'>
-						Next <ChevronRight />
-					</span>
-				)}
+				<LinkButton
+					href={{
+						pathname: `/${locale}/c/all`,
+						query: {
+							before: startCursor,
+							...filter,
+						},
+					}}
+					disabled={!hasPreviousPage}
+				>
+					<ChevronLeftIcon className='w-6 h-6' /> Prev
+				</LinkButton>
+				<LinkButton
+					href={{
+						pathname: `/${locale}/c/all`,
+						query: {
+							after: endCursor,
+							...filter,
+						},
+					}}
+					disabled={!hasNextPage}
+				>
+					Next <ChevronRightIcon className='w-6 h-6' />
+				</LinkButton>
 			</div>
-		</>
+		</Fragment>
 	);
 };

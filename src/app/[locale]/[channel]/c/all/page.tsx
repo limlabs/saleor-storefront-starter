@@ -34,8 +34,6 @@ export default async function Home({
 		...(before ? { before, last: 8, filter } : { after, first: 8, filter }),
 	});
 
-	console.log('products', products);
-
 	if (products.edges.length === 0) {
 		({ products } = await gqlClient.products({
 			channel: 'default-channel',

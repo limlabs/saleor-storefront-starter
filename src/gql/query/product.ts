@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const gqlProduct = gql`
-query Product($channel: String = "default-channel", $id: !String){
-product(channel: $channel, id: $id ){
+query Product($channel: String = "default-channel", $slug: String!){
+product(channel: $channel, slug: $slug ){
     id
     seoTitle
     name

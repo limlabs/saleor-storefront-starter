@@ -6,8 +6,44 @@ export interface QueryProducts {
 	products: Page<Product>;
 }
 
-export const gqlProducts = gql`
+const fragMoney = gql`
+fragment Money_props on Money {
+	currency
+	amount
+}`;
 
+const fragTaxedMoney = gql`
+fragment TaxedMoney_props on TaxedMoney {
+	currency
+	gross{
+		...Money_props
+	}
+	net{
+		...Money_props
+	}
+	tax{
+		...Money_props
+	}
+}`;
+
+const fragVariantPricingInfo = gql`
+fragment VariantPricingInfo_props on VariantPricingInfo {
+	onSale
+	discount {
+		...TaxedMoney_props
+	}
+	price {
+		...TaxedMoney_props
+	}
+	priceUndiscounted {
+		...TaxedMoney_props
+	}
+}`;
+
+export const gqlProducts = gql`
+	${fragMoney}
+	${fragTaxedMoney}
+	${fragVariantPricingInfo}
 	query Products(
         $channel: String = "default-channel"
 		$first: Int
@@ -35,16 +71,26 @@ export const gqlProducts = gql`
 						alt
 					}
                     rating
+					category {
+						id
+						name
+					}
 					defaultVariant {
 						id
+					}
+					variants {
+						id
+						name
+						pricing {
+							...VariantPricingInfo_props
+						}
 					}
 					pricing {
 						onSale
 						priceRange {
 							start {
 								gross {
-									amount
-									currency
+									...Money_props
 								}
 							}
 						}

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import clsx from 'clsx';
 import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
@@ -10,6 +10,7 @@ import { ProductRating } from './productRating';
 import Link from 'next/link';
 import { Product } from '@/app/types';
 import { QuantitySelector } from './quantitySelector';
+import Badge from '@/app/daisyui/badge';
 
 interface ProductCardProps {
 	product: Product;
@@ -19,12 +20,22 @@ interface ProductCardProps {
 
 export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }) => {
 	const image = product.thumbnail;
-
+	const defID = product.defaultVariant.id;
+	const variants = useMemo(()=>{
+		const list = product.variants.length > 2 ? 
+				product.variants.slice(0,2).concat([{id:'rest', name:`+${product.variants.length-2}`}]) :
+				product.variants;
+		return list.flatMap(item=>item.name !== item.id ? <Badge key={item.id} outline={defID!==item.id} className="badge-accent ml-2">{item.name}</Badge>: undefined);
+	},[product.variants]);
+	
 	const body = (
-		<CardBody>
+		<CardBody className="relative">
+			<div className="absolute top-4 left-0 right-0 flex justify-center">
+			{variants}
+			</div>
 			<Link
 				href={`/${locale}/p/${product.slug}`}
-				className='link link-primary no-underline text-secondary hover:text-secondary'
+				className='link link-primary no-underline text-secondary hover:text-secondary mt-2'
 			>
 				<CardTitle>
 					<span className='truncate w-48' title={product.name}>
@@ -53,6 +64,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 	return (
 		<Card shadow='xl' rounded='md' bgBlend='darken' glass className={cardClasses}>
 			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute z-10'/>
+			<Badge className='absolute top-1 right-1 z-10 badge-secondary'>{product.category.name}</Badge>
 			<Link
 				href={`/${locale}/p/${product.slug}`}
 				className='link link-primary no-underline text-secondary hover:text-secondary overflow-clip'

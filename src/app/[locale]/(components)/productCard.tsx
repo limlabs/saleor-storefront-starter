@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import clsx from 'clsx';
 import Card from '@/app/daisyui/card';
 import CardMedia from '@/app/daisyui/card-media';
 import CardBody from '@/app/daisyui/card-body';
@@ -13,9 +14,10 @@ import { QuantitySelector } from './quantitySelector';
 interface ProductCardProps {
 	product: Product;
 	locale: string;
+	animation?: 'zoom' | 'bounce';
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }) => {
 	const image = product.thumbnail;
 
 	const body = (
@@ -45,12 +47,15 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 		</CardBody>
 	);
 
+	const cardClasses = clsx('relative transition ease-in-out', {'hover:-translate-y-1': animation === 'bounce'});
+	const cardMediaClasses = clsx('transition ease-in-out', {'hover:scale-105': animation === 'zoom'});
+
 	return (
-		<Card shadow='xl' rounded='md' bgBlend='darken' glass className='relative transition ease-in-out hover:-translate-y-1'>
-			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute'/>
+		<Card shadow='xl' rounded='md' bgBlend='darken' glass className={cardClasses}>
+			<ProductRating name={product.slug} size="sm" rating={product.rating} className='absolute z-10'/>
 			<Link
 				href={`/${locale}/p/${product.slug}`}
-				className='link link-primary no-underline text-secondary hover:text-secondary'
+				className='link link-primary no-underline text-secondary hover:text-secondary overflow-clip'
 			>
 				<CardMedia
 					accentBg
@@ -58,6 +63,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale }) => {
 					alt={image.alt}
 					width={300}
 					height={300}
+					className={cardMediaClasses}
 				/>
 			</Link>
 			{product.pricing.onSale ? (

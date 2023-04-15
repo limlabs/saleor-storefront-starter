@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from 'react';
 import Link from 'next/link';
-import clsx from "clsx";
-import { Url } from "next/dist/shared/lib/router/router";
+import clsx from 'clsx';
+import { Url } from 'next/dist/shared/lib/router/router';
 
 interface LinkButtonProps {
     href: Url;

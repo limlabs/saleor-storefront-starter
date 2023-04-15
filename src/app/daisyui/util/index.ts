@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 export function boolOrSize(prefix: string, size?: BoolOrSize) {
     return clsx({

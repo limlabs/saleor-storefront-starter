@@ -1,7 +1,7 @@
-import { GraphQLClient } from "graphql-request";
-import { gqlProducts } from "./query/products";
-import type { Variables } from "graphql-request";
-import type { QueryProducts } from "./query/products";
+import { GraphQLClient } from 'graphql-request';
+import { gqlProducts } from './query/products';
+import type { Variables } from 'graphql-request';
+import type { QueryProducts } from './query/products';
 
 class StoreGqlClient{
     

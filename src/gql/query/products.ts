@@ -8,7 +8,6 @@ export interface QueryProducts {
 
 const fragMoney = gql`
 fragment Money_props on Money {
-	currency
 	amount
 }`;
 
@@ -26,26 +25,13 @@ fragment TaxedMoney_props on TaxedMoney {
 	}
 }`;
 
-const fragVariantPricingInfo = gql`
-fragment VariantPricingInfo_props on VariantPricingInfo {
-	onSale
-	discount {
-		...TaxedMoney_props
-	}
-	price {
-		...TaxedMoney_props
-	}
-	priceUndiscounted {
-		...TaxedMoney_props
-	}
-}`;
-
 export const gqlProducts = gql`
 	${fragMoney}
 	${fragTaxedMoney}
-	${fragVariantPricingInfo}
+	
 	query Products(
         $channel: String = "default-channel"
+		$thumbnailSize: Int = 300
 		$first: Int
 		$last: Int
 		$after: String
@@ -66,7 +52,7 @@ export const gqlProducts = gql`
 					id
 					slug
 					name
-					thumbnail(size: 300) {
+					thumbnail(size: $thumbnailSize) {
 						url
 						alt
 					}
@@ -80,18 +66,17 @@ export const gqlProducts = gql`
 					}
 					variants {
 						id
-						name
-						pricing {
-							...VariantPricingInfo_props
-						}
+						name						
 					}
 					pricing {
 						onSale
+						discount {
+							...TaxedMoney_props
+						}
+						displayGrossPrices
 						priceRange {
 							start {
-								gross {
-									...Money_props
-								}
+								...TaxedMoney_props
 							}
 						}
 					}

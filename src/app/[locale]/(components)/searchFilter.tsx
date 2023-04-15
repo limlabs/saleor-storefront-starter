@@ -177,7 +177,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
             }}
             className="btn btn-primary"
           >
-            Filter
+            Apply
           </Link>
         </div>
       </div>

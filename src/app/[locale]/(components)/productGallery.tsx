@@ -20,7 +20,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 }) => {
 	const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
 		products.pageInfo;
-
+		
 	return (
 		<Fragment>
 			<SearchFilter filter={filter} />

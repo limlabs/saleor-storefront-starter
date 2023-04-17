@@ -1,7 +1,10 @@
-import { GraphQLClient } from 'graphql-request';
-import { gqlProducts } from './query/products';
-import type { Variables } from 'graphql-request';
-import type { QueryProducts } from './query/products';
+
+import { GraphQLClient } from "graphql-request";
+import { gqlProducts } from "./query/products";
+import { gqlProduct } from "./query/product";
+import type { Variables } from "graphql-request";
+import type { QueryProducts } from "./query/products";
+import type { QueryProduct } from "./query/product";
 
 class StoreGqlClient{
     
@@ -13,6 +16,10 @@ class StoreGqlClient{
 
     products(variables?: Variables){
         return this.client.request<QueryProducts>(gqlProducts, variables);
+    }
+
+    product(variables?: Variables){
+        return this.client.request<QueryProduct>(gqlProduct, variables);
     }
 }
 

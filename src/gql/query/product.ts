@@ -1,4 +1,9 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
+import { Page, ProductDetails } from '@/app/types';
+
+export interface QueryProduct {
+	product: ProductDetails;
+}
 
 export const gqlProduct = gql`
 query Product($channel: String = "default-channel", $slug: String!){

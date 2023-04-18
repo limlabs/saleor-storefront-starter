@@ -1,20 +1,22 @@
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import background from "./assets/textures/centered-logo.jpg";
 import Logo from "./assets/logos/logo-white.png";
 import Image from "next/image";
+import Button from "@/app/daisyui/button";
 
 export default function HomePage() {
   return (
-    <main className="container mx-auto my-auto w-full max-w-7xl h-full max-h-screen">
-      <div className="flex flex-row">
-        <h1>
-          Software that blurs the line between what&apos;s possible and
-          what&apos;s not:
+    <main className="flex justify-center mx-auto  w-full max-w-7xl h-full min-h-screen bg-forest-green">
+      <div className="flex  flex-col justify-center items-center h-full min-h-screen w-10/12 bg-almost-black">
+        <h1 className="text-xl mb-6">
+          Blurring the line between what&apos;s possible and what&apos;s not:
         </h1>
+
         <div className="flex flex-row justify-center items-center">
-          <Image src={Logo} alt="Logo" height={125} />
+          <Image src={Logo} alt="Logo" height={110} />
         </div>
-        <h1>at the forefront of innovation</h1>
+        <h1 className="text-xl mt-6">at the forefront of innovation</h1>
+        <div className="mt-8">
+          <Button variant="secondary">Explore the Liminal Frontier</Button>
+        </div>
       </div>
     </main>
   );

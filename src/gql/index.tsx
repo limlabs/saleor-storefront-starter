@@ -1,9 +1,11 @@
+
 import { GraphQLClient } from "graphql-request";
 import { gqlProducts } from "./query/products";
 import { gqlProduct } from "./query/product";
 import type { Variables } from "graphql-request";
 import type { QueryProducts } from "./query/products";
 import type { QueryProduct } from "./query/product";
+
 
 class StoreGqlClient{
     

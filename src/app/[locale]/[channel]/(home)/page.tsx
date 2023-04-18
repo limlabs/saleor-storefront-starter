@@ -1,6 +1,8 @@
+
 import Logo from "./assets/logos/logo-white.png";
 import Image from "next/image";
 import Button from "@/app/daisyui/button";
+
 
 export default function HomePage() {
   return (

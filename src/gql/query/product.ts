@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { Page, ProductDetails } from '@/app/types';
+import { ProductDetails } from '@/app/types';
 
 export interface QueryProduct {
 	product: ProductDetails;

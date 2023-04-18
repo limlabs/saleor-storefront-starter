@@ -4,8 +4,8 @@ import Button from "@/app/daisyui/button";
 
 export default function HomePage() {
   return (
-    <main className="flex justify-center mx-auto  w-full max-w-7xl h-full min-h-screen bg-forest-green">
-      <div className="flex  flex-col justify-center items-center h-full min-h-screen w-10/12 bg-almost-black">
+    <main className="flex justify-center mx-auto  w-full max-w-7xl h-main-height  bg-forest-green">
+      <div className="flex  flex-col justify-center items-center h-full  w-10/12 bg-almost-black">
         <h1 className="text-xl mb-6">
           Blurring the line between what&apos;s possible and what&apos;s not:
         </h1>

@@ -15,7 +15,7 @@ import { ThemePicker } from "./theme";
 
 export const RootLayoutHeader: FC = () => {
   return (
-    <header className="grid grid-cols-header-grid  text-lg bg-light-gray text-black justify-items- center items-center h-14 shadow-vertical-sm w-full">
+    <header className="grid grid-cols-header-grid  text-lg bg-light-gray text-black justify-items- center items-center h-header-height shadow-vertical-sm w-full">
       <div className="flex flex-row ml-2 items-center w-full h-full min-w-max">
         <LogoSVG />
         <h1 className="ml-2 text-2xl ">Liminal Labs</h1>

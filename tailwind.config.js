@@ -18,6 +18,10 @@ module.exports = {
         "header-grid": "1fr 5fr 1fr",
         "landing-grid": "2fr 1fr ",
       },
+      height: {
+        "header-height": "10vh",
+        "main-height": "90vh",
+      },
     },
   },
   plugins: [require("daisyui")],

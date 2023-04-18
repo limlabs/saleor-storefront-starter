@@ -5,8 +5,8 @@ export const LogoSVG = () => {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6 text-gray-500"
+      stroke="rgb(255, 21, 236)"
+      className="w-7 h-7 text-gray-500 ml-2"
     >
       <title>Liminal Labs Logo</title>
       <path

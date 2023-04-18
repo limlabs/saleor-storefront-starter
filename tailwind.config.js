@@ -2,7 +2,27 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "light-green": "rgb(157, 255, 212)",
+        "hot-pink": "rgb(255, 21, 236)",
+        "light-blue-main": "rgb(5, 249, 249)",
+        "light-gray": "rgb(216, 218, 245)",
+        "forest-green": "rgb(0, 75, 80)",
+        "almost-black": "rgb(0, 0, 19)",
+      },
+      boxShadow: {
+        "vertical-sm": " 0px 3px 11px 0px rgba(255,191,244,0.4)",
+      },
+      gridTemplateColumns: {
+        "header-grid": "1fr 5fr 1fr",
+        "landing-grid": "2fr 1fr ",
+      },
+      height: {
+        "header-height": "10vh",
+        "main-height": "90vh",
+      },
+    },
   },
   plugins: [require("daisyui")],
-}
+};

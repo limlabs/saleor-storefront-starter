@@ -8,7 +8,7 @@ export const CartIcon: FC = () => {
   const { checkoutQuantity } = useCheckout();
   return (
     <div className="flex flex-row justify-center items-center">
-      <ShoppingCartIcon className=" w-6 h-6" />
+      <ShoppingCartIcon className=" w-6 h-6 hover:text-secondary cursor-pointer" />
       <div>{checkoutQuantity}</div>
     </div>
   );

@@ -12,6 +12,7 @@ import { Product } from '@/app/types';
 import { QuantitySelector } from './quantitySelector';
 import Badge from '@/app/daisyui/badge';
 import { ProductPrice } from './productPrice';
+import Indicator from '@/app/daisyui/indicator';
 
 interface ProductCardProps {
 	product: Product;
@@ -48,29 +49,6 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 	const discountPrice = discount ? (displayGrossPrices ? discount.gross : discount.net) : null;
 	const currency = priceRange.start.currency;
 
-	const body = (
-		<CardBody className="relative">
-			<div className="absolute top-4 left-0 right-0 flex justify-center">{variants}</div>
-			<Link
-				href={`/${locale}/p/${product.slug}`}
-				className="link link-primary no-underline text-secondary hover:text-secondary mt-2"
-			>
-				<CardTitle>
-					<span className="truncate w-48" title={product.name}>
-						{product.name}
-					</span>
-				</CardTitle>
-			</Link>
-			<div className="flex flex-row place-content-between">
-				<ProductPrice price={price} discountPrice={discountPrice} currency={currency} />
-				<QuantitySelector />
-			</div>
-			<CardActions justify="center" className="mt-2">
-				<ProductCardButton text="Add to Cart" variantID={product.defaultVariant.id} />
-			</CardActions>
-		</CardBody>
-	);
-
 	const cardClasses = clsx('relative transition ease-in-out', { 'hover:-translate-y-1': animation === 'bounce' });
 	const cardMediaClasses = clsx('transition ease-in-out', { 'hover:scale-105': animation === 'zoom' });
 
@@ -91,14 +69,28 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 					className={cardMediaClasses}
 				/>
 			</Link>
-			{onSale ? (
-				<div className="indicator">
-					<span className="indicator-item indicator-center badge badge-primary">Sale</span>
-					{body}
-				</div>
-			) : (
-				body
-			)}
+			<Indicator show={onSale} center top content="Sale" className="badge-primary">
+				<CardBody className="relative">
+					<div className="absolute top-4 left-0 right-0 flex justify-center">{variants}</div>
+					<Link
+						href={`/${locale}/p/${product.slug}`}
+						className="link link-primary no-underline text-secondary hover:text-secondary mt-2"
+					>
+						<CardTitle>
+							<span className="truncate w-48" title={product.name}>
+								{product.name}
+							</span>
+						</CardTitle>
+					</Link>
+					<div className="flex flex-row place-content-between">
+						<ProductPrice price={price} discountPrice={discountPrice} currency={currency} />
+						<QuantitySelector />
+					</div>
+					<CardActions justify="center" className="mt-2">
+						<ProductCardButton text="Add to Cart" variantID={product.defaultVariant.id} />
+					</CardActions>
+				</CardBody>
+			</Indicator>
 		</Card>
 	);
 };

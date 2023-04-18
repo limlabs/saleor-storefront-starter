@@ -15,12 +15,12 @@ import { ThemePicker } from "./theme";
 
 export const RootLayoutHeader: FC = () => {
   return (
-    <header className="flex flex-row text-lg bg-light-green text-black justify-center items-center h-14">
-      <div className="flex flex-row mr-8 justify-center items-center">
+    <header className="grid grid-cols-header-grid  text-lg bg-light-blue-main text-black justify-items- center items-center h-14 shadow-vertical-sm w-full">
+      <div className="flex flex-row ml-2 items-center w-full h-full">
         <LogoSVG />
-        <h1 className="ml-2 text-2xl">Liminal Labs </h1>
+        <h1 className="ml-2 text-2xl ">Liminal Labs</h1>
       </div>
-      <nav className="ml-2 w-3/5">
+      <nav className="ml-2 w-3/5 mt-0.5">
         <ul className="flex flex-row h-full">
           {/* <li className="font-extralight tracking-widest ml-2">STORE</li> */}
           <li className="font-extralight tracking-widest hover:text-secondary">
@@ -34,10 +34,12 @@ export const RootLayoutHeader: FC = () => {
           </li> */}
         </ul>
       </nav>
-      <div className="w-1/5 grid grid-cols-3 flex-row items-center justify-items-center text-sm h-full">
-        <MagnifyingGlassIcon className="w-6 h-6" />
+      <div className=" grid grid-cols-3 items-center justify-items-center text-l h-full mr-2 font-extralight tracking-widest  ">
+        <MagnifyingGlassIcon className="w-6 h-6 hover:text-secondary cursor-pointer" />
         <CartIcon />
-        <Link href="/login">Log In</Link>
+        <Link href="/login" className="hover:text-secondary">
+          Log In
+        </Link>
       </div>
     </header>
   );

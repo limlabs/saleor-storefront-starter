@@ -19,8 +19,12 @@ module.exports = {
         "landing-grid": "2fr 1fr ",
       },
       height: {
-        "header-height": "10vh",
-        "main-height": "90vh",
+        "header-height": "7vh",
+        "main-height": "93vh",
+      },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+        "8bit": ['"Press Start 2P"', "cursive"],
       },
     },
   },

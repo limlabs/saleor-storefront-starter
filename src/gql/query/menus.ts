@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const fragMenuItemProps = gql`
 fragment MenuItem_props on MenuItem {

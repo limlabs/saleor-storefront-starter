@@ -20,7 +20,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 }) => {
 	const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
 		products.pageInfo;
-
+		
 	return (
 		<Fragment>
 			<SearchFilter filter={filter} />
@@ -32,7 +32,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
 							key={node.slug}
 						>
 							<ProductCardProvider>
-								<ProductCard product={node} locale={locale} />
+								<ProductCard product={node} locale={locale} animation='bounce' />
 							</ProductCardProvider>
 						</li>
 					);

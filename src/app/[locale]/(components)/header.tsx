@@ -18,9 +18,9 @@ export const RootLayoutHeader: FC = () => {
     <header className="grid grid-cols-header-grid  text-lg bg-light-gray text-black justify-items- center items-center h-header-height shadow-vertical-sm w-full">
       <div className="flex flex-row ml-2 items-center w-full h-full min-w-max">
         <LogoSVG />
-        <h1 className="ml-2 text-2xl ">Liminal Labs</h1>
+        <h1 className="ml-2 text-2xl font-roboto">Liminal Labs</h1>
       </div>
-      <nav className="ml-2 w-3/5 mt-0.5">
+      <nav className=" w-3/5 ">
         <ul className="flex flex-row h-full">
           {/* <li className="font-extralight tracking-widest ml-2">STORE</li> */}
           <li className="font-extralight tracking-widest hover:text-secondary">

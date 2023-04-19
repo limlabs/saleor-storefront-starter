@@ -31,15 +31,17 @@ export default async function Home({
 
 	let { products } = await gqlClient.products({
 		channel,
-		...(before ? { before, last: 8, filter } : { after, first: 8, filter }),
+		filter,
+		...(before ? { before, last: 8 } : { after, first: 8 }),
 	});
 
 	if (products.edges.length === 0) {
 		({ products } = await gqlClient.products({
 			channel: 'default-channel',
+			filter,
 			...(before
-				? { before, last: 8, filter }
-				: { after, first: 8, filter }),
+				? { before, last: 8 }
+				: { after, first: 8 }),
 		}));
 	}
 

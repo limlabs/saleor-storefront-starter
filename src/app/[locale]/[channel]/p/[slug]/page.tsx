@@ -16,6 +16,6 @@ export default async function Pdp({params: { locale, channel, slug }}: PageProps
 
     return(
     <>
-        <Hero locale={locale} channel={channel} info={description.blocks[0].data.text} product={product}/>
+        <Hero locale={locale} channel={channel} info={description.blocks[0]?.data.text} product={product}/>
     </>    )
  }

@@ -6,7 +6,6 @@ import type { Variables } from "graphql-request";
 import type { QueryProducts } from "./query/products";
 import type { QueryProduct } from "./query/product";
 
-
 class StoreGqlClient{
     
     readonly client;

@@ -67,6 +67,30 @@ interface ProductDetails {
 	};
 }
 
+interface ProductDetails {
+	slug: string;
+	name: string;
+	media: ProductImage[];
+	description: string;
+	thumbnail: ProductImage;
+	isAvailable: boolean;
+	defaultVariant: {
+		id: string;
+	};
+	rating: number;
+	pricing: {
+		onSale: boolean;
+		priceRange: {
+			start: {
+				gross: {
+					amount: number;
+					currency: string;
+				};
+			};
+		};
+	};
+}
+
 interface Page<T> {
 	pageInfo: {
 		endCursor: string;

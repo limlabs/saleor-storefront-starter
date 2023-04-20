@@ -1,7 +1,7 @@
-import { forwardRef, PropsWithChildren } from "react";
-import clsx from "clsx";
+import { forwardRef, PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
-interface BadgeProps {
+export interface BadgeProps {
   ghost?: boolean;
   outline?: boolean;
   className?: string;

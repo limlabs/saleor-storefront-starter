@@ -6,10 +6,32 @@ export interface QueryProducts {
 	products: Page<Product>;
 }
 
-export const gqlProducts = gql`
+const fragMoney = gql`
+fragment Money_props on Money {
+	amount
+}`;
 
+const fragTaxedMoney = gql`
+fragment TaxedMoney_props on TaxedMoney {
+	currency
+	gross{
+		...Money_props
+	}
+	net{
+		...Money_props
+	}
+	tax{
+		...Money_props
+	}
+}`;
+
+export const gqlProducts = gql`
+	${fragMoney}
+	${fragTaxedMoney}
+	
 	query Products(
         $channel: String = "default-channel"
+		$thumbnailSize: Int = 300
 		$first: Int
 		$last: Int
 		$after: String
@@ -30,22 +52,31 @@ export const gqlProducts = gql`
 					id
 					slug
 					name
-					thumbnail(size: 300) {
+					thumbnail(size: $thumbnailSize) {
 						url
 						alt
 					}
                     rating
+					category {
+						id
+						name
+					}
 					defaultVariant {
 						id
 					}
+					variants {
+						id
+						name						
+					}
 					pricing {
 						onSale
+						discount {
+							...TaxedMoney_props
+						}
+						displayGrossPrices
 						priceRange {
 							start {
-								gross {
-									amount
-									currency
-								}
+								...TaxedMoney_props
 							}
 						}
 					}

@@ -6,7 +6,7 @@ export default function HomePage() {
   return (
     <main className="flex justify-center mx-auto  w-full max-w-7xl h-main-height  bg-forest-green">
       <div className="flex  flex-col justify-center items-center h-full  w-10/12 bg-almost-black">
-        <h1 className="text-xl mb-6">
+        <h1 className="text-xl mb-6 font-roboto">
           Blurring the line between what&apos;s possible and what&apos;s not:
         </h1>
 

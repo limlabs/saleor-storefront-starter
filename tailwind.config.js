@@ -1,3 +1,4 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -23,8 +24,9 @@ module.exports = {
         "main-height": "93vh",
       },
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"],
-        "8bit": ['"Press Start 2P"', "cursive"],
+        roboto: ["var(--font-roboto)"],
+        nunito: ["var(--font-nunito)"],
+        press_start_2p: ["var(--font-press_start_2p)"],
       },
     },
   },

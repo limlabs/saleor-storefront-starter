@@ -1,5 +1,5 @@
 import { gqlClient } from '@/gql';
-import { Hero } from '@/app/[locale]/(components)/hero';
+import { ProductHero } from '@/app/[locale]/(components)/productHero';
 
 
 interface PageProps {
@@ -16,6 +16,6 @@ export default async function Pdp({params: { locale, channel, slug }}: PageProps
 
     return(
     <>
-        <Hero locale={locale} channel={channel} info={description.blocks[0]?.data.text} product={product}/>
+        <ProductHero locale={locale} channel={channel} info={description?.blocks[0]?.data.text} product={product}/>
     </>    )
  }

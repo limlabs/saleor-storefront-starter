@@ -14,7 +14,8 @@ product(channel: $channel, slug: $slug ){
     name
     description
     slug
-    thumbnail {
+    
+    thumbnail(size: 1200) {
         alt
         url
     }

@@ -7,7 +7,7 @@ interface PageProps {
 		product: ProductDetails;
 }
 
-export function Hero({ locale, channel, info, product }: PageProps){
+export function ProductHero({ locale, channel, info = "", product }: PageProps){
 	const {name, thumbnail} = product;
     return (
 		<div className="hero min-h-screen bg-base-200">

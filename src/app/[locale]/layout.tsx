@@ -1,5 +1,5 @@
-import { AppRoot } from './(components)/root';
-import './globals.css';
+import { AppRoot } from "./(components)/root";
+import "./globals.css";
 
 export const metadata = {
   title: "Headless Store",

@@ -1,1 +1,1 @@
-export const checkoutStorageKey = 'CheckoutID';
+export const checkoutStorageKey = "CheckoutID";

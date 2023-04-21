@@ -1,24 +1,28 @@
-import React, { PropsWithChildren } from 'react';
-import clsx from 'clsx';
+import React, { PropsWithChildren } from "react";
+import clsx from "clsx";
 
 interface CardBodyProps {
-	centerItems?: boolean;
-	className?: string;
+  centerItems?: boolean;
+  className?: string;
 }
 
-const CardBody = React.forwardRef<HTMLDivElement, PropsWithChildren<CardBodyProps>>(function Card(
-	{ centerItems, children, className },
-	ref
-) {
-	const classNames = clsx('card-body', {
-		'items-center': centerItems
-	}, className);
+const CardBody = React.forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<CardBodyProps>
+>(function Card({ centerItems, children, className }, ref) {
+  const classNames = clsx(
+    "card-body",
+    {
+      "items-center": centerItems,
+    },
+    className
+  );
 
-	return (
-		<div className={classNames} ref={ref}>
-			{children}
-		</div>
-	);
+  return (
+    <div className={classNames} ref={ref}>
+      {children}
+    </div>
+  );
 });
 
 export default CardBody;

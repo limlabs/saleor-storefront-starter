@@ -1,29 +1,31 @@
-import gql from 'graphql-tag';
-import { pageInfoProps } from './pageFragment';
-import { Page, Product } from '@/app/types';
+import gql from "graphql-tag";
+import { pageInfoProps } from "./pageFragment";
+import { Page, Product } from "@/app/types";
 
 export interface QueryProducts {
-	products: Page<Product>;
+  products: Page<Product>;
 }
 
 const fragMoney = gql`
-fragment Money_props on Money {
-	amount
-}`;
+  fragment Money_props on Money {
+    amount
+  }
+`;
 
 const fragTaxedMoney = gql`
-fragment TaxedMoney_props on TaxedMoney {
-	currency
-	gross{
-		...Money_props
-	}
-	net{
-		...Money_props
-	}
-	tax{
-		...Money_props
-	}
-}`;
+  fragment TaxedMoney_props on TaxedMoney {
+    currency
+    gross {
+      ...Money_props
+    }
+    net {
+      ...Money_props
+    }
+    tax {
+      ...Money_props
+    }
+  }
+`;
 
 export const gqlProducts = gql`
 	${fragMoney}

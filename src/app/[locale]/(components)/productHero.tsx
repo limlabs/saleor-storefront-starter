@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ProductDetails } from "@/app/types";
 
 interface PageProps {
@@ -17,7 +18,13 @@ export function ProductHero({
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content lg:flex-row-reverse">
-        <img src={thumbnail.url} className="max-w-sm rounded-lg shadow-2xl" />
+        <Image
+          src={thumbnail.url}
+          width={300}
+          height={300}
+          className="max-w-sm rounded-lg shadow-2xl"
+          alt="product photo"
+        />
         <div>
           <h1 className="text-5xl font-bold">{name}</h1>
           <p dangerouslySetInnerHTML={{ __html: info }}></p>

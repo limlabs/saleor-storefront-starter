@@ -74,7 +74,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
     });
 
     return (
-      <div className="flex">
+      <div className="flex text-neutral">
         <span>Filter</span>
         <span className="flex flex-1 items-center">{badges}</span>
       </div>
@@ -116,7 +116,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
           </label>
           <TextInput
             bordered
-            className="input-sm input-primary"
+            className="input-sm input-neutral"
             onChange={handleSearch}
             value={state.search}
           />
@@ -142,26 +142,26 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
           </label>
           <div className="flex justify-around align-middle">
             <div className="relative ">
-              <span className="btn btn-sm btn-primary absolute top-0 left-0 rounded-r-none">
+              <span className="btn btn-sm btn-neutral btn-outline absolute top-0 left-0 rounded-r-none">
                 $
               </span>
               <TextInput
                 placeholder="gte"
                 bordered
-                className="input-sm pl-10 input-primary"
+                className="input-sm pl-10"
                 onChange={handleGte}
                 onBlur={handleBlurGte}
                 value={state.gte}
               />
             </div>
             <div className="relative">
-              <span className="btn btn-sm btn-primary absolute top-0 left-0 rounded-r-none">
+              <span className="btn btn-sm btn-neutral btn-outline absolute top-0 left-0 rounded-r-none">
                 $
               </span>
               <TextInput
                 placeholder="lte"
                 bordered
-                className="input-sm pl-10 input-primary"
+                className="input-sm pl-10"
                 onChange={handleLte}
                 onBlur={handleBlurLte}
                 value={state.lte}
@@ -175,7 +175,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
               pathname: "/en-us/c/all",
               query: { ...query },
             }}
-            className="btn btn-primary"
+            className="btn btn-outline btn-primary"
           >
             Apply
           </Link>

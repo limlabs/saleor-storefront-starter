@@ -17,7 +17,6 @@ const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(
     ref
   ) {
     const classNames = clsx(
-      "card bg-primary-focus",
       "card-borderd",
       boolOrSize("shadow", shadow),
       boolOrSize("rounded", rounded),

@@ -21,7 +21,7 @@ export const ProductPrice: FC<ProductPriceProps> = ({
 
   return (
     <span className="inline-flex">
-      <span className="text-accent font-bold">
+      <span className="text-neutral font-bold">
         {cSymbol}
         {dispayPrice}
       </span>

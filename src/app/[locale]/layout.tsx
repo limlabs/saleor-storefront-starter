@@ -16,7 +16,7 @@ export default function RootLayout({
   };
 }) {
   return (
-    <html lang={params.locale}>
+    <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
         <AppRoot>{children}</AppRoot>
       </body>

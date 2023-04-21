@@ -47,7 +47,7 @@ export const ProductCard: FC<ProductCardProps> = ({
         </Badge>
       ) : undefined
     );
-  }, [product.variants]);
+  }, [defID, product.variants]);
 
   const price = displayGrossPrices
     ? priceRange.start.gross
@@ -78,9 +78,9 @@ export const ProductCard: FC<ProductCardProps> = ({
         name={product.slug}
         size="sm"
         rating={product.rating}
-        className="absolute z-10"
+        className="absolute z-10 top-1 left-2"
       />
-      <Badge className="absolute top-1 right-1 z-10 badge-secondary">
+      <Badge className="absolute top-2 right-2 z-10 badge-accent">
         {product.category.name}
       </Badge>
       <Link
@@ -109,7 +109,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           </div>
           <Link
             href={`/${locale}/p/${product.slug}`}
-            className="link link-primary no-underline text-secondary hover:text-secondary mt-2"
+            className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
           >
             <CardTitle>
               <span className="truncate w-48" title={product.name}>
@@ -125,7 +125,7 @@ export const ProductCard: FC<ProductCardProps> = ({
             />
             <QuantitySelector />
           </div>
-          <CardActions justify="center" className="mt-2">
+          <CardActions justify="center" className="mt-4">
             <ProductCardButton
               text="Add to Cart"
               variantID={product.defaultVariant.id}

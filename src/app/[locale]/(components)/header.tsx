@@ -3,6 +3,7 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/solid";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { CartIcon } from "./cartIcon";
@@ -15,15 +16,11 @@ import { ThemePicker } from "./theme";
 
 export const RootLayoutHeader: FC = () => {
   return (
-    <header className="flex flex-row text-lg">
-      <div className="flex flex-row w-1/5">
-        <LogoSVG />
-        <h1 className="ml-2">
-          Liminal Labs{" "}
-          <span className="font-extralight tracking-widest ml-1">STORE</span>
-        </h1>
+    <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">
+      <div className="flex flex-row px-2">
+        <Image src="/logo.svg" width={190} height={60} alt="LIMINAL logo" />
       </div>
-      <nav className="ml-2 w-3/5">
+      <nav className="w-3/5">
         <ul className="flex flex-row">
           <li>
             <Link href="/home">Home</Link>
@@ -33,12 +30,8 @@ export const RootLayoutHeader: FC = () => {
           </li>
         </ul>
       </nav>
-      <div className="w-1/5 grid grid-cols-5 flex-row items-center">
-        <MagnifyingGlassIcon className="w-6 h-6" />
-        <Link href="/login">Log In</Link>
-        <CartIcon />
-        <ThemePicker />
-      </div>
+
+      <CartIcon />
     </header>
   );
 };

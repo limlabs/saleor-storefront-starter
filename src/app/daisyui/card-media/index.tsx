@@ -18,8 +18,9 @@ const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(function Card(
   ref
 ) {
   const classNames = clsx(
+    "rounded-t-md",
     {
-      "bg-accent-content": accentBg,
+      "bg-neutral": accentBg,
     },
     className
   );

@@ -50,6 +50,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
             },
           }}
           disabled={!hasPreviousPage}
+          className="btn btn-neutral"
         >
           <ChevronLeftIcon className="w-6 h-6" /> Prev
         </LinkButton>
@@ -62,6 +63,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
             },
           }}
           disabled={!hasNextPage}
+          className="btn btn-primary"
         >
           Next <ChevronRightIcon className="w-6 h-6" />
         </LinkButton>

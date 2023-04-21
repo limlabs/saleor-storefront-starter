@@ -8,7 +8,7 @@ import Button from "@/app/daisyui/button";
 
 export const ProductCardSkeleton: FC = () => {
   return (
-    <Card shadow="xl" rounded="md" className="mix-blend-overlay bg-slate-800">
+    <Card shadow="xl" rounded="lg" className="mix-blend-overlay bg-slate-800">
       <CardMedia
         accentBg
         src="/placeholder.svg"

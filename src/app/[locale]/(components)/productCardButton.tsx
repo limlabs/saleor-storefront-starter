@@ -147,7 +147,7 @@ export const ProductCardButton: FC<AddToCartButtonProps> = ({
   };
 
   return (
-    <button className="btn btn-secondary" onClick={onClickHandler}>
+    <button className="btn btn-primary" onClick={onClickHandler}>
       {text}
     </button>
   );

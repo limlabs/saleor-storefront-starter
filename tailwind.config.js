@@ -19,10 +19,12 @@ module.exports = {
       },
       boxShadow: {
         "vertical-sm": " 0px 3px 11px 0px rgba(255,191,244,0.4)",
+        "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.5)",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 5fr 1fr",
         "landing-grid": "2fr 1fr ",
+        "about-grid-mobile": "2fr 3fr",
       },
       height: {
         "header-height": "7vh",

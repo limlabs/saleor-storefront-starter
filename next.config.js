@@ -6,44 +6,49 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/:locale',
-        destination: '/:locale/default-channel'
+        source: "/about",
+
+        destination: "/en-us/about",
       },
       {
-        source: '/:locale/c/:slug',
-        destination: '/:locale/default-channel/c/:slug'
+        source: "/:locale",
+        destination: "/:locale/default-channel",
       },
       {
-        source: '/:locale/p/:slug',
-        destination: '/:locale/default-channel/p/:slug'
-      }
-    ]
+        source: "/:locale/c/:slug",
+        destination: "/:locale/default-channel/c/:slug",
+      },
+      {
+        source: "/:locale/p/:slug",
+        destination: "/:locale/default-channel/p/:slug",
+      },
+    ];
   },
-  async redirects() { 
+  async redirects() {
     return [
       {
-        source: '/',
-        destination: '/en-us',
-        permanent: false
-      }
-    ]
+        source: "/",
+        destination: "/en-us",
+        permanent: false,
+      },
+    ];
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'liminal-labs.saleor.cloud',
-        port: '',
-        pathname: '/media/**',
+        protocol: "https",
+        hostname: "liminal-labs.saleor.cloud",
+        port: "",
+        pathname: "/media/**",
       },
       {
-        protocol: 'https',
-        hostname: 'liminal-labs.saleor.cloud',
-        port: '',
-        pathname: '/thumbnail/**',
+        protocol: "https",
+        hostname: "liminal-labs.saleor.cloud",
+        port: "",
+        pathname: "/thumbnail/**",
       },
     ],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

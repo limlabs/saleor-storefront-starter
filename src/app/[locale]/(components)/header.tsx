@@ -1,14 +1,7 @@
-import {
-  MagnifyingGlassIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/24/solid";
-
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { CartIcon } from "./cartIcon";
-import { LogoSVG } from "./logo";
-import { ThemePicker } from "./theme";
 
 // TODO:
 // - fetch locales for links

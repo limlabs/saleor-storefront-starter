@@ -24,7 +24,6 @@ export default async function Pdp({
       <ProductHero
         locale={locale}
         channel={channel}
-        info={description?.blocks[0]?.data.text}
         product={product}
       />
     </>

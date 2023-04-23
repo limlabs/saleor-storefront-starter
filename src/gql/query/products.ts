@@ -32,7 +32,8 @@ export const gqlProducts = gql`
 	${fragTaxedMoney}
 	
 	query Products(
-        $channel: String = "default-channel"
+    $channel: String = "default-channel"
+		$languageCode: LanguageCodeEnum = EN_US
 		$thumbnailSize: Int = 300
 		$first: Int
 		$last: Int
@@ -54,6 +55,11 @@ export const gqlProducts = gql`
 					id
 					slug
 					name
+					translation(languageCode: $languageCode) {
+						name
+						description
+					}
+
 					thumbnail(size: $thumbnailSize) {
 						url
 						alt

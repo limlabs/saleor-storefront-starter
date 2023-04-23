@@ -14,7 +14,7 @@ interface PageProps {
   searchParams?: SearchParams;
 }
 
-export default async function Home({
+export default async function AllProductsPage({
   params: { locale, channel },
   searchParams = {} as SearchParams,
 }: PageProps) {
@@ -29,8 +29,11 @@ export default async function Home({
     },
   };
 
+  const languageCode = locale.toUpperCase().replace("-", "_");
+
   let { products } = await gqlClient.products({
     channel,
+    languageCode,
     filter,
     ...(before ? { before, last: 8 } : { after, first: 8 }),
   });

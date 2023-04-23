@@ -1,11 +1,9 @@
 import { FC, Fragment } from "react";
-import Link from "next/link";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ProductCard } from "@/app/[locale]/(components)/productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
 import { ProductCardProvider } from "@/core/client/useProductCard";
-import { Page, Product } from "@/app/types";
 
 interface ProductGalleryProps {
   products: Page<Product>;

@@ -30,6 +30,9 @@ module.exports = {
         "header-height": "7vh",
         "main-height": "93vh",
       },
+      spacing: {
+        "header-margin": "7vh",
+      },
       fontFamily: {
         roboto: ["var(--font-roboto)"],
         nunito: ["var(--font-nunito)"],

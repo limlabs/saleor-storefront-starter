@@ -13,6 +13,7 @@ module.exports = {
         "light-green": "rgb(157, 255, 212)",
         "hot-pink": "rgb(255, 21, 236)",
         "light-blue-main": "rgb(5, 249, 249)",
+        "light-pink": "rgb(255, 191, 244)",
         "light-gray": "rgb(216, 218, 245)",
         "forest-green": "rgb(0, 75, 80)",
         "almost-black": "rgb(0, 0, 19)",

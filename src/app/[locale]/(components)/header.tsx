@@ -8,7 +8,8 @@ import { FC } from "react";
 import { CartIcon } from "./cartIcon";
 import hamburger from "../../../../public/hamburger.png";
 import { LogoSVG } from "./logo";
-import Logo from "../../../../public/slide-logo.png";
+import LogoMark from "../../../../public/slide-logo.png";
+import Logo from "../../../../public/logo-white-small.png";
 import { ThemePicker } from "./theme";
 import Image from "next/image";
 
@@ -20,8 +21,8 @@ export const RootLayoutHeader: FC = () => {
   return (
     <header className="fixed top-0 z-10 grid grid-cols-header-grid  text-lg bg-almost-black text-white justify-items- center items-center h-header-height shadow-vertical-sm w-full ">
       <div className="flex flex-row ml-2 items-center w-full h-full min-w-max">
-        <LogoSVG />
-        <h1 className="ml-2 text-2xl font-roboto">Liminal Labs</h1>
+        {/* <h1 className="ml-2 text-2xl font-roboto">LIMINAL</h1> */}
+        <Image src={Logo} height={20} alt="logo"></Image>
       </div>
       <nav className=" w-3/5 text-white ml-4">
         <ul className="flex flex-row h-full -sm:hidden -md:flex -lg:flex">

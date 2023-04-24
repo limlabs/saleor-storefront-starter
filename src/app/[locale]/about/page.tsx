@@ -6,12 +6,22 @@ import Slide from "./assets/slide-logo.png";
 import Background from "./assets/window.jpg";
 import AboutMain from "../(components)/aboutMain";
 import AboutHero from "../(components)/aboutHero";
+import AboutTeam from "../(components)/aboutTeam";
 
 export default function AboutPage() {
   return (
-    <main className="h-main-height mt-header-margin w-full">
-      <AboutHero />
-      <AboutMain />
+    <main className="h-auto mt-header-margin w-full ">
+      <div className="h-main-height">
+        <AboutHero />
+      </div>
+      <div className="bg-gradient-to-b from-hot-pink from-5%  via-light-pink to-light-blue-main ">
+        <div className="h-main-height">
+          <AboutMain />
+        </div>
+        <div className="h-main-height">
+          <AboutTeam />
+        </div>
+      </div>
     </main>
   );
 }

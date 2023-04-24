@@ -1,6 +1,5 @@
 "use client";
 
-import { Product } from "@/app/types";
 import {
   createContext,
   FC,

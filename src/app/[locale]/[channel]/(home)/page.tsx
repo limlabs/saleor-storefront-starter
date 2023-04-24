@@ -4,7 +4,7 @@ import Button from "@/app/daisyui/button";
 
 export default function HomePage() {
   return (
-    <div className="flex  flex-col justify-center items-center h-full  w-10/12 bg-almost-black">
+    <div className="flex  flex-col justify-center items-center h-main-height mt-header-margin w-full  bg-almost-black">
       <h1 className="text-xl mb-6 font-roboto">
         Blurring the line between what&apos;s possible and what&apos;s not:
       </h1>

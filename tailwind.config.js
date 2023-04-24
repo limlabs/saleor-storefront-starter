@@ -3,7 +3,43 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    screens: {
+      "-sm": "375px",
+      "-md": "768px",
+      "-lg": "1024px",
+    },
+    extend: {
+      colors: {
+        "light-green": "rgb(157, 255, 212)",
+        "hot-pink": "rgb(255, 21, 236)",
+        "light-blue-main": "rgb(5, 249, 249)",
+        "light-pink": "rgb(255, 191, 244)",
+        "light-gray": "rgb(216, 218, 245)",
+        "forest-green": "rgb(0, 75, 80)",
+        "almost-black": "rgb(0, 0, 19)",
+      },
+      boxShadow: {
+        "vertical-sm": " 0px 3px 11px 0px rgba(255,191,244,0.4)",
+        "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.5)",
+      },
+      gridTemplateColumns: {
+        "header-grid": "1fr 5fr 1fr",
+        "landing-grid": "2fr 1fr ",
+        "about-grid-mobile": "2fr 3fr",
+      },
+      height: {
+        "header-height": "7vh",
+        "main-height": "93vh",
+      },
+      spacing: {
+        "header-margin": "7vh",
+      },
+      fontFamily: {
+        roboto: ["var(--font-roboto)"],
+        nunito: ["var(--font-nunito)"],
+        press_start_2p: ["var(--font-press_start_2p)"],
+      },
+    },
   },
   plugins: [require("daisyui")],
 

@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { useCheckout } from "@/core/client/useCheckout";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";

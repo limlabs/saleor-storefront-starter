@@ -7,22 +7,21 @@ import CardMedia from '@/app/daisyui/card-media';
 import CardBody from '@/app/daisyui/card-body';
 import CardTitle from '@/app/daisyui/card-title';
 import CardActions from '@/app/daisyui/card-actions';
+import Badge from '@/app/daisyui/badge';
 import { ProductCardButton } from './productCardButton';
 import { ProductRating } from './productRating';
-import Link from 'next/link';
+import { PageLink } from './pageLink';
 import { QuantitySelector } from './quantitySelector';
-import Badge from '@/app/daisyui/badge';
 import { ProductPrice } from './productPrice';
 import Indicator from '@/app/daisyui/indicator';
 import { ProductCardVariantList } from './productCardVariantList';
 
 interface ProductCardProps {
 	product: Product;
-	locale: string;
 	animation?: 'zoom' | 'bounce';
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
 	const { defaultVariant, thumbnail, pricing, slug, category, variants, rating } = product;
 	const { onSale } = pricing;
 	const [ variantID, setVarientID ] = useState(defaultVariant.id);
@@ -38,8 +37,8 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 		<Card shadow="xl" rounded="md" bgBlend="darken" glass className={cardClasses}>
 			<ProductRating name={slug} size="sm" rating={rating} className="absolute z-10 top-1 left-2" />
 			<Badge className="absolute top-2 right-2 z-10 badge-accent">{category.name}</Badge>
-			<Link
-				href={`/${locale}/p/${slug}`}
+			<PageLink
+				href={`/p/${slug}`}
 				className="link link-primary no-underline text-secondary hover:text-secondary overflow-clip"
 			>
 				<CardMedia
@@ -50,7 +49,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 					height={300}
 					className={cardMediaClasses}
 				/>
-			</Link>
+			</PageLink>
 			<Indicator show={onSale} center top content="Sale" className="badge-primary">
 				<CardBody className="relative">
 					<ProductCardVariantList 
@@ -59,8 +58,8 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 						variants={variants} 
 						selected={variantID} 
 						onClick={setVarientID} />
-					<Link
-						href={`/${locale}/p/${product.slug}`}
+					<PageLink
+						href={`/p/${product.slug}`}
 						className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
 					>
 						<CardTitle>
@@ -68,7 +67,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, locale, animation }
 								{product.name}
 							</span>
 						</CardTitle>
-					</Link>
+					</PageLink>
 					<div className="flex flex-row place-content-between">
 						<ProductPrice pricing={pricing} />
 						<QuantitySelector />

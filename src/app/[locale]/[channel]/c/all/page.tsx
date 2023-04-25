@@ -15,7 +15,7 @@ interface PageProps {
 }
 
 export default async function Home({
-  params: { locale, channel },
+  params: { channel },
   searchParams = {} as SearchParams,
 }: PageProps) {
   const { before, after, ...query } = searchParams;
@@ -56,7 +56,6 @@ export default async function Home({
       <section className="container mx-auto">
         <ProductGallery
           products={products}
-          locale={locale}
           filter={{
             ...query,
             isAvailable: Boolean(query.isAvailable),

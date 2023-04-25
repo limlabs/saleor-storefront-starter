@@ -23,6 +23,12 @@ const press_start_2p = Press_Start_2P({
   variable: "--font-press_start_2p",
 });
 
+const mono = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--mono",
+});
+
 export default function RootLayout({
   children,
   params,

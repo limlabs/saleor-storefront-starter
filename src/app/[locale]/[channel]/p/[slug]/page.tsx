@@ -1,5 +1,6 @@
 import { gqlClient } from "@/gql";
 import { ProductHero } from "@/app/[locale]/(components)/productHero";
+import { useMemo } from "react";
 
 interface PageProps {
   params: {
@@ -12,8 +13,11 @@ interface PageProps {
 export default async function Pdp({
   params: { locale, channel, slug },
 }: PageProps) {
-  let { product } = await gqlClient.product({ slug });
-  let description = JSON.parse(product.description);
+  const languageCode = locale.toUpperCase().replace("-", "_");
+  const { product } = await gqlClient.product({ slug, languageCode });
+
+  const raw = product.translation?.description ?? product.description;
+  const description = JSON.parse(raw);
 
   return (
     <>

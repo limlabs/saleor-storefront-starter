@@ -43,11 +43,15 @@ interface Product {
   };
 }
 
-interface ProductDetails {
-  slug: string;
+interface TranslatableDetails {
   name: string;
-  media: ProductImage[];
   description: string;
+}
+
+type ProductDetails = TranslatableDetails & {
+  slug: string;
+  media: ProductImage[];
+  translation?: TranslatableDetails;
   thumbnail: ProductImage;
   isAvailable: boolean;
   defaultVariant: {
@@ -65,7 +69,7 @@ interface ProductDetails {
       };
     };
   };
-}
+};
 
 interface ProductDetails {
   slug: string;

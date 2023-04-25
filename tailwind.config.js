@@ -19,8 +19,10 @@ module.exports = {
         "almost-black": "rgb(0, 0, 19)",
       },
       boxShadow: {
+        "header-shadow": "0px 3px 11px 1px rgba(0,0,0,0.89)",
+        "inset-shadow": " inset 2px 2px 17px 0px rgba(0,0,0,0.5)",
         "vertical-sm": " 0px 2px 9px 0px rgba(255,191,244,0.3)",
-        "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.5)",
+        "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.3)",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",
@@ -38,6 +40,10 @@ module.exports = {
         roboto: ["var(--font-roboto)"],
         nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
+        mono: ["var(--font-mono)"],
+      },
+      blur: {
+        xsmall: "2px",
       },
     },
   },

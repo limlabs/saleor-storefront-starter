@@ -3,8 +3,7 @@
 import { FC,  useMemo } from 'react';
 import Badge from '@/app/daisyui/badge';
 import clsx from 'clsx';
-import Link from 'next/link';
-
+import { PageLink } from './pageLink';
 
 type VariantSelectHandler = (id: string)=>void;
 
@@ -20,13 +19,13 @@ function renderVariantItem(slug: string, selected?: string, onClick?: VariantSel
 	return (item: Variant) => {
         if( item.id === 'rest') {
             return (
-               <Link href={`/us-en/p/${slug}`} className="inline-flex" key={item.id}>
+               <PageLink href={`/p/${slug}`} className="inline-flex" key={item.id}>
                     <Badge                         
                         className="badge-accent ml-2 cursor-pointer" 
                         outline>
                             {item.name}
                     </Badge>
-               </Link>);
+               </PageLink>);
         }
 		if (item.id !== item.name) {
             return (<Badge 

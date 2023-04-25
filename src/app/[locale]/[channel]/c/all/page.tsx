@@ -59,7 +59,6 @@ export default async function AllProductsPage({
       <section className="container mx-auto">
         <ProductGallery
           products={products}
-          locale={locale}
           filter={{
             ...query,
             isAvailable: Boolean(query.isAvailable),

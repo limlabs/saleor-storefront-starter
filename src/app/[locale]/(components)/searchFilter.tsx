@@ -1,10 +1,10 @@
 "use client";
 
 import { FC, useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
-import Link from "next/link";
 import Collapse from "@/app/daisyui/collapse";
 import TextInput from "@/app/daisyui/text-input";
 import Badge from "@/app/daisyui/badge";
+import { PageLink } from "./pageLink";
 
 export interface FilterOp {
   isAvailable: boolean;
@@ -170,15 +170,15 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
           </div>
         </div>
         <div className="form-control flex-none">
-          <Link
+          <PageLink
             href={{
-              pathname: "/en-us/c/all",
+              pathname: "/c/all",
               query: { ...query },
             }}
             className="btn btn-outline btn-primary"
           >
             Apply
-          </Link>
+          </PageLink>
         </div>
       </div>
     </Collapse>

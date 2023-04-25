@@ -14,11 +14,11 @@ export default function AboutPage() {
       <div className="h-main-height">
         <AboutHero />
       </div>
-      <div className="bg-gradient-to-b from-hot-pink from-5%  via-light-pink to-light-blue-main ">
-        <div className="h-main-height">
+      <div>
+        <div className="h-main-height bg-gradient-to-b  from-light-pink to-light-blue-main ">
           <AboutMain />
         </div>
-        <div className="h-main-height">
+        <div className="h-main-height bg-gradient-to-b  from-light-blue-main to-light-pink ">
           <AboutTeam />
         </div>
       </div>

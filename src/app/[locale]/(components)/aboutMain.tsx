@@ -7,16 +7,16 @@ import Background from "../../../../public/window.jpg";
 
 export default function AboutMain() {
   return (
-    <div className="z-10 grid grid-rows-about-grid-mobile justify-center items-center h-main-height">
-      <div className="flex w-full h-full justify-center items-center">
+    <div className="z-10 -sm:grid -sm:grid-rows-about-grid-mobile -lg:flex -md:flex justify-center items-center h-main-height">
+      <div className="flex w-full h-full justify-center items-center mt-2">
         <Image
           src={Texture}
           height={275}
           alt="texture"
-          className="rounded-lg shadow-shadow-sm"
+          className="rounded-lg shadow-shadow-sm -lg:h-96"
         />
       </div>
-      <div className="mx-6 flex flex-col h-70 justify-center items-center bg-light-blue-main text-almost-black rounded-lg shadow-shadow-sm p-2 text-center">
+      <div className=" flex flex-col -sm:h-full -lg:h-96 w-full justify-center items-center bg-transparent text-almost-black  rounded-md shadow-shadow-sm border-b border-light-pink p-4 text-center">
         <h3 className="font-press_start_2p">Our Mission</h3>
         <p className="p-2 text-sm">
           Empowering your business with innovative technology, driven by the

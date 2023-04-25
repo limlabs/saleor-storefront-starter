@@ -11,12 +11,13 @@ export default function AboutTeam() {
       <div className="flex w-full h-full justify-center items-center">
         <Image
           src={Team}
-          height={260}
+          height={275}
+          width={275}
           alt="texture"
           className="rounded-lg shadow-shadow-sm"
         />
       </div>
-      <div className="mx-6 mb-6 flex flex-col h-70 justify-center items-center bg-light-blue-main text-almost-black rounded-lg shadow-shadow-sm p-2 text-center">
+      <div className="mx-6 mb-6 flex flex-col h-75 justify-center items-center bg-tansparent text-almost-black rounded-lg shadow-shadow-sm p-2 text-center">
         <h3 className="font-press_start_2p">Our Team</h3>
         <Image src={Slide} height={30} alt="slide" />
         <p className="p-2 text-sm">

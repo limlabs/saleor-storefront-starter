@@ -19,7 +19,7 @@ module.exports = {
         "almost-black": "rgb(0, 0, 19)",
       },
       boxShadow: {
-        "vertical-sm": " 0px 3px 11px 0px rgba(255,191,244,0.4)",
+        "vertical-sm": " 0px 2px 9px 0px rgba(255,191,244,0.3)",
         "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.5)",
       },
       gridTemplateColumns: {

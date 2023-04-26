@@ -1,7 +1,7 @@
 function renderEditorJSBlock(block: EditorJSBlock){
     switch(block.type){
         case "paragraph": 
-            return <p dangerouslySetInnerHTML={{__html: block.data.text}} />
+            return <p key={block.id} dangerouslySetInnerHTML={{__html: block.data.text}} />
         default: 
             return null;
     }

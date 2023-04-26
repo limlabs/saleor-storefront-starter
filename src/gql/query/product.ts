@@ -17,6 +17,7 @@ export const gqlProduct = gql`
       name
       description
       slug
+      rating
 
       translation(languageCode: $languageCode) {
         name
@@ -55,6 +56,8 @@ export const gqlProduct = gql`
         }
         media {
           url
+          alt
+          type
         }
       }
     }

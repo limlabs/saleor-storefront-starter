@@ -41,6 +41,7 @@ export default async function AllProductsPage({
   if (products.edges.length === 0) {
     ({ products } = await gqlClient.products({
       channel: "default-channel",
+      languageCode,
       filter,
       ...(before ? { before, last: 8 } : { after, first: 8 }),
     }));

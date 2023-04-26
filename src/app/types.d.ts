@@ -1,4 +1,5 @@
 type JSONString = string;
+type ProductMediaType = "IMAGE" | "VIDEO";
 
 interface EditorJSBlock {
   id: string;
@@ -42,19 +43,35 @@ interface Pricing {
   };
 }
 
+interface Image {
+  url: string;
+  alt: string;
+}
+
+interface ProductMedia {
+  url: string;
+  alt: string;
+  type: ProductMediaType
+}
+
+interface ProductVariant {
+  name: string;
+  weight: Weight;
+  media: ProductMedia[];
+}
+
 interface Product {
   id: string;
   slug: string;
   name: string;
-  media: ProductImage[];
-  thumbnail: ProductImage;
+  translation: ProductTranslation | null;
+  thumbnail: Image;
   rating: number;
-  isAvailable: boolean;
   category: Category;
   defaultVariant: {
     id: string;
   };
-  variants: Variant[];
+  variants: ProductVariant[];
   pricing: Pricing;
 }
 
@@ -72,18 +89,6 @@ interface Weight {
   unit: string;
   value: number;
 }
-// type ProductDetails = TranslatableDetails & {
-//   slug: string;
-//   media: ProductImage[];
-//   translation?: TranslatableDetails;
-//   thumbnail: ProductImage;
-//   isAvailable: boolean;
-//   defaultVariant: {
-//     id: string;
-//   };
-//   rating: number;
-//   pricing: Pricing;
-// }
 
 interface ProductDetails {
   id: string;
@@ -91,23 +96,25 @@ interface ProductDetails {
   name: string;
   description: string;
   slug: string;
+  rating: number;
 
   translation: ProductTranslation | null;
   
-  thumbnail: ProductImage;
+  thumbnail: Image;
   
   productType: ProductType;
 
   weight: Weight;
 
-  media: ProductImage[];
+  media: ProductMedia[];
   
   isAvailable: boolean;
   defaultVariant: {
     id: string;
   };
-  rating: number;
+
   pricing: Pricing;
+  variants: ProductVariant[];
 }
 
 interface Page<T> {

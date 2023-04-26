@@ -16,7 +16,7 @@ export default function AboutMain() {
           className="rounded-lg shadow-shadow-sm -lg:h-96 -lg:w-96"
         />
       </div>
-      <div className=" flex flex-col -sm:h-6/7 -lg:h-96 w-11/12 -lg:12/13 -lg:mr-6 justify-center items-center bg-transparent shadow-shadow-sm rounded-lg text-almost-black p-2 text-center -sm:mt-8">
+      <div className=" flex flex-col -sm:h-6/7 -lg:h-96 w-11/12 -lg:12/13 -lg:mr-16 justify-center items-center bg-transparent shadow-shadow-sm rounded-lg text-almost-black p-2 text-center -sm:mt-8 border border-x-almost-black border-y-hot-pink">
         <h3 className="font-press_start_2p -lg:text-xl -sm:mb-2 -lg:mb-6 ">
           Our Mission
         </h3>

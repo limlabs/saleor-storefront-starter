@@ -18,12 +18,12 @@ export default function AboutTeam() {
             height={270}
             width={270}
             alt="texture"
-            className="rounded-lg shadow-shadow-sm -lg:h-96 -lg:w-96"
+            className="rounded-lg shadow-shadow-sm -lg:h-95 -lg:w-95"
           />
         </div>
       </div>
 
-      <section className="flex flex-col -sm:h-7/8  -lg:h-92 w-11/12 -lg:12/13 -lg:mr-6 justify-center items-center  shadow-shadow-sm rounded-lg text-almost-black p-4 text-center bg-gradient-to-b  from-light-pink to-light-blue-main ">
+      <section className="flex flex-col -sm:h-7/8  -lg:h-92 w-10/12 -lg:12/13 -lg:mr-6 justify-center items-center  shadow-shadow-sm rounded-lg text-almost-black p-4 text-center bg-gradient-to-b  from-light-pink to-light-blue-main ">
         <h3 className="font-press_start_2p -sm:mb-2 -lg:mb-4 -lg:text-xl">
           Our Team
         </h3>

@@ -37,10 +37,10 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer ">
+    <div className="drawer w-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col ">
-        <div className="w-full navbar bg-almost-black">
+      <div className="drawer-content flex flex-col w-screen">
+        <div className=" navbar bg-almost-black w-screen">
           <div className="flex-none lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
@@ -78,12 +78,12 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
             </ul>
           </div>
         </div>
-        <main>
-          <section className="h-main-height">
+        <main className=" w-screen">
+          <section className="h-main-height w-screen">
             <AboutHero />
           </section>
-          <section className="bg-gradient-to-b grid grid-rows-2 justify-items-center from-light-pink via-light-blue-main to-light-green shadow-inset-shadow ">
-            <div className="h-screen">
+          <section className="bg-gradient-to-b grid grid-rows-2 justify-items-center from-light-pink via-light-blue-main to-light-green shadow-inset-shadow w-screen">
+            <div className="h-screen w-screen">
               <AboutMain />
             </div>
             <div className="h-screen">

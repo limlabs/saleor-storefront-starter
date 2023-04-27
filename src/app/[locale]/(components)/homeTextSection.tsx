@@ -5,7 +5,7 @@ import Logo from "../../../../public/logo-black.png";
 export default function HomeText() {
   return (
     <div className="flex justify-center flex-col items-center w-full relative mt-12">
-      <Image src={Logo} alt="logo" height={50} />
+      <Image src={Logo} alt="logo" height={55} />
       <p className="text-almost-black font-roboto text-lg mt-8">
         Blurring the line between what is known...
       </p>

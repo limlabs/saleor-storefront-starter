@@ -28,11 +28,10 @@ export default function ThreeScene() {
         camera={{ position: [4, 7, 0] }}
       >
         <OrbitControls enableZoom={false} />
-        {/* <ambientLight intensity={0.5} /> */}
-        <spotLight position={[0, 5, 0]} />
-        {/* <directionalLight position={[-2, 5, 2]} intensity={1} /> */}
-        <pointLight position={[5, 5, 5]} intensity={1} />
-        <pointLight position={[-3, -3, 2]} />
+        <ambientLight intensity={0.3} />
+        <directionalLight position={[2, 5, 2]} intensity={0.2} />
+        {/* <pointLight position={[5, 5, 5]} intensity={1} />
+        <pointLight position={[-3, -3, 2]} /> */}
         <Suspense fallback={null}>
           <ThreeModel />
         </Suspense>

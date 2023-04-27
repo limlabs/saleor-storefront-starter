@@ -4,7 +4,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { CartIcon } from "./cartIcon";
 import hamburger from "../../../../public/hamburger.png";
 import { LogoSVG } from "./logo";
@@ -12,6 +12,7 @@ import LogoMark from "../../../../public/slide-logo.png";
 import Logo from "../../../../public/logo-white-small.png";
 import { ThemePicker } from "./theme";
 import Image from "next/image";
+import Drawer from "@/app/daisyui/drawer";
 
 // TODO:
 // - fetch locales for links
@@ -44,6 +45,7 @@ export const RootLayoutHeader: FC = () => {
       </div>
       <div className="hidden -sm:flex -md:hidden -lg:hidden mr-2">
         <Image src={hamburger} height={50} alt="hamburger-icon" />
+        {/* <Drawer></Drawer> */}
       </div>
     </header>
   );

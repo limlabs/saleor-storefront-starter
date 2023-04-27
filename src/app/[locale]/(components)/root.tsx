@@ -1,3 +1,4 @@
+import Drawer from "@/app/daisyui/drawer";
 import { CheckoutProvider } from "@/core/client/useCheckout";
 import { getCheckoutID } from "@/core/server/checkout";
 import request from "graphql-request";
@@ -44,9 +45,10 @@ export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
 
   return (
     <CheckoutProvider initialQuantity={quantity}>
-      <div className=" w-full h-full ">
-        <RootLayoutHeader />
-        {children}
+      <div className=" w-screen h-full overflow-x-clip">
+        {/* <RootLayoutHeader />
+        {children} */}
+        <Drawer />
       </div>
     </CheckoutProvider>
   );

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import clsx from "clsx";
-import {LocaleLink} from "./localeLink";
+import { LocaleLink } from "./localeLink";
 import type { LocaleLinkProps } from "./localeLink";
 
 interface LinkButtonProps extends LocaleLinkProps  {

@@ -1,6 +1,5 @@
 import { gqlClient } from "@/gql";
 import { ProductHero } from "@/app/[locale]/(components)/productHero";
-import { useMemo } from "react";
 
 interface PageProps {
   params: {

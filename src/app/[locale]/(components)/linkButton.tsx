@@ -1,9 +1,9 @@
 import { FC, PropsWithChildren } from "react";
 import clsx from "clsx";
-import {PageLink} from "./pageLink";
-import type { PageLinkProps } from "./pageLink";
+import {LocaleLink} from "./localeLink";
+import type { LocaleLinkProps } from "./localeLink";
 
-interface LinkButtonProps extends PageLinkProps  {
+interface LinkButtonProps extends LocaleLinkProps  {
   disabled?: boolean; 
 }
 
@@ -21,7 +21,7 @@ export const LinkButton: FC<PropsWithChildren<LinkButtonProps>> = ({
   const btn = <span className={classNames}>{children}</span>;
 
   if (!disabled) {
-    return <PageLink {...props}>{btn}</PageLink>;
+    return <LocaleLink {...props}>{btn}</LocaleLink>;
   }
 
   return <>{btn}</>;

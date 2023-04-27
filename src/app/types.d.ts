@@ -55,30 +55,17 @@ interface ProductMedia {
 }
 
 interface ProductVariant {
+  id
   name: string;
   weight: Weight;
   media: ProductMedia[];
-}
-
-interface Product {
-  id: string;
-  slug: string;
-  name: string;
-  translation: ProductTranslation | null;
-  thumbnail: Image;
-  rating: number;
-  category: Category;
-  defaultVariant: {
-    id: string;
-  };
-  variants: ProductVariant[];
-  pricing: Pricing;
 }
 
 interface ProductTranslation {
   name: string;
   description: string;
 }
+
 
 interface ProductType {
   name: string;
@@ -90,6 +77,28 @@ interface Weight {
   value: number;
 }
 
+/*
+  query products.product (productGallery)
+*/
+interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  translation: ProductTranslation | null;
+  thumbnail: Image;
+  rating: number;
+  category: Category;
+  defaultVariant: {
+    id: string;
+  };
+  variants: Pick<ProductVariant, "id" | "name">[];
+  pricing: Pricing;
+}
+
+
+/*
+  query product (productHero)
+*/
 interface ProductDetails {
   id: string;
   seoTitle: string;
@@ -97,6 +106,7 @@ interface ProductDetails {
   description: string;
   slug: string;
   rating: number;
+  isAvailable: boolean;
 
   translation: ProductTranslation | null;
   
@@ -105,13 +115,6 @@ interface ProductDetails {
   productType: ProductType;
 
   weight: Weight;
-
-  media: ProductMedia[];
-  
-  isAvailable: boolean;
-  defaultVariant: {
-    id: string;
-  };
 
   pricing: Pricing;
   variants: ProductVariant[];

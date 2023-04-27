@@ -10,11 +10,12 @@ import CardActions from '@/app/daisyui/card-actions';
 import Badge from '@/app/daisyui/badge';
 import { ProductCardButton } from './productCardButton';
 import { ProductRating } from './productRating';
-import { PageLink } from './pageLink';
+import { LocaleLink } from './localeLink';
 import { QuantitySelector } from './quantitySelector';
 import { ProductPrice } from './productPrice';
 import Indicator from '@/app/daisyui/indicator';
 import { ProductCardVariantList } from './productCardVariantList';
+import { useProductTranslation } from '@/core/client/useProductTranslation';
 
 interface ProductCardProps {
 	product: Product;
@@ -33,11 +34,13 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
 		'hover:scale-105': animation === 'zoom'
 	});
 
+	const info = useProductTranslation(product);
+	
 	return (
 		<Card shadow="xl" rounded="md" bgBlend="darken" glass className={cardClasses}>
 			<ProductRating name={slug} size="sm" rating={rating} className="absolute z-10 top-1 left-2" />
 			<Badge className="absolute top-2 right-2 z-10 badge-accent">{category.name}</Badge>
-			<PageLink
+			<LocaleLink
 				href={`/p/${slug}`}
 				className="link link-primary no-underline text-secondary hover:text-secondary overflow-clip"
 			>
@@ -49,7 +52,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
 					height={300}
 					className={cardMediaClasses}
 				/>
-			</PageLink>
+			</LocaleLink>
 			<Indicator show={onSale} center top content="Sale" className="badge-primary">
 				<CardBody className="relative">
 					<ProductCardVariantList 
@@ -58,16 +61,16 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
 						variants={variants} 
 						selected={variantID} 
 						onClick={setVarientID} />
-					<PageLink
-						href={`/p/${product.slug}`}
+					<LocaleLink
+						href={`/p/${slug}`}
 						className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
 					>
 						<CardTitle>
-							<span className="truncate w-48" title={product.name}>
-								{product.name}
+							<span className="truncate w-48" title={info.name}>
+								{info.name}
 							</span>
 						</CardTitle>
-					</PageLink>
+					</LocaleLink>
 					<div className="flex flex-row place-content-between">
 						<ProductPrice pricing={pricing} />
 						<QuantitySelector />

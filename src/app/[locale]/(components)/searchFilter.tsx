@@ -4,7 +4,7 @@ import { FC, useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
 import Collapse from "@/app/daisyui/collapse";
 import TextInput from "@/app/daisyui/text-input";
 import Badge from "@/app/daisyui/badge";
-import { PageLink } from "./pageLink";
+import { LocaleLink } from "./localeLink";
 
 export interface FilterOp {
   isAvailable: boolean;
@@ -170,7 +170,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
           </div>
         </div>
         <div className="form-control flex-none">
-          <PageLink
+          <LocaleLink
             href={{
               pathname: "/c/all",
               query: { ...query },
@@ -178,7 +178,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
             className="btn btn-outline btn-primary"
           >
             Apply
-          </PageLink>
+          </LocaleLink>
         </div>
       </div>
     </Collapse>

@@ -18,6 +18,7 @@ export default function RootLayout({
   children,
   params,
 }: PropsWithChildren<RootLayoutProps>) {
+
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>

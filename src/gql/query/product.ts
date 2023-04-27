@@ -18,6 +18,7 @@ export const gqlProduct = gql`
       description
       slug
       rating
+      isAvailable
 
       translation(languageCode: $languageCode) {
         name
@@ -49,6 +50,7 @@ export const gqlProduct = gql`
         }
       }
       variants {
+        id
         name
         weight {
           unit

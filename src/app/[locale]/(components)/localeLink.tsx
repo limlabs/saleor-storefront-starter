@@ -5,9 +5,9 @@ import { useMemo } from "react";
 import { useApp } from "@/core/client/useApp";
 import type { FC, ComponentProps } from "react";
 
-export type PageLinkProps = ComponentProps<typeof Link>;
+export type LocaleLinkProps = ComponentProps<typeof Link>;
 
-export const PageLink: FC<PageLinkProps> = ({
+export const LocaleLink: FC<LocaleLinkProps> = ({
     children,
     href,
     ...props

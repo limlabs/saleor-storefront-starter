@@ -12,6 +12,6 @@ export function useProductTranslation({ translation, name, description }: Transl
 			}
 			return { name, description };
 		},
-		[ translation ]
+		[ translation, name, description ]
 	);
 }

@@ -1,8 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "prettier.typescriptEnable": [
-    "typescriptreact",
-    "typescript"
-  ]
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

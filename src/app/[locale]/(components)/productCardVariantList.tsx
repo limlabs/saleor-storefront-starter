@@ -15,8 +15,8 @@ interface ProductCardVariantListProps {
     onClick?: VariantSelectHandler;
 }
 
-function renderVariantItem(slug: string, selected?: string, onClick?: VariantSelectHandler) {
-	return (item: Variant) => {
+const renderVariantItem = (slug: string, selected?: string, onClick?: VariantSelectHandler) => {
+	return function mapper(item: Variant) {
         if( item.id === 'rest') {
             return (
                <LocaleLink href={`/p/${slug}`} className="inline-flex" key={item.id}>
@@ -54,10 +54,12 @@ export const ProductCardVariantList: FC<ProductCardVariantListProps> = ({
 					: variants;
 			return list.flatMap(renderVariantItem(slug, selected, onClick));
 		},
-		[ selected, variants ]
+		[ selected, variants, slug, onClick ]
 	);
 
     const classNames=clsx('flex', 'justify-center', className);
 
 	return <div className={classNames}>{variantList}</div>;
 };
+
+ProductCardVariantList.displayName = "ProductCardVariantList";

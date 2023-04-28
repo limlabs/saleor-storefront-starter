@@ -1,33 +1,28 @@
 "use client";
 import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Mesh } from "three";
 import ThreeModel from "./threeModel";
-import { OrbitControls, Plane } from "@react-three/drei";
+import {
+  OrbitControls,
+  Plane,
+  Stars,
+  Text3D,
+  Text,
+  Environment,
+} from "@react-three/drei";
 import HomeText from "./homeTextSection";
-
-function Model() {
-  const modelRef = useRef<Mesh>(null);
-}
-
-function LightScene() {
-  return (
-    <>
-      <Plane scale={10} rotation-x={-Math.PI / 2} position-y={-2} />
-    </>
-  );
-}
 
 export default function ThreeScene() {
   return (
-    <>
-      <HomeText />
-      <Canvas
-        className="w-screen h-2/4 bg-transparent"
-        camera={{ position: [4, 7, 0] }}
-      >
+    <section className="z-10 w-4/5 h-4/5 shadow-shadow-hero">
+      <Canvas className="w-4/5 h-1/2 bg-black" camera={{ position: [4, 7, 0] }}>
+        <Environment preset="studio" background />
         <OrbitControls enableZoom={false} />
+        {/* <Text scale={[3, 3, 3]} color="black" anchorX="center" anchorY="middle">
+          Liminal
+        </Text> */}
         <ambientLight intensity={0.3} />
         <directionalLight position={[2, 5, 2]} intensity={0.2} />
         {/* <pointLight position={[5, 5, 5]} intensity={1} />
@@ -36,6 +31,6 @@ export default function ThreeScene() {
           <ThreeModel />
         </Suspense>
       </Canvas>
-    </>
+    </section>
   );
 }

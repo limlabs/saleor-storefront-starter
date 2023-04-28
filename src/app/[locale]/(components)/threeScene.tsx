@@ -17,8 +17,11 @@ import HomeText from "./homeTextSection";
 export default function ThreeScene() {
   return (
     <section className="z-10 w-4/5 h-4/5 shadow-shadow-hero">
-      <Canvas className="w-4/5 h-1/2 bg-black" camera={{ position: [4, 7, 0] }}>
-        <Environment preset="studio" background />
+      <Canvas
+        className="w-4/5 h-1/2 bg-black"
+        camera={{ fov: 30, position: [10, -40, 0] }}
+      >
+        <Environment preset="park" background blur={0} />
         <OrbitControls enableZoom={false} />
         {/* <Text scale={[3, 3, 3]} color="black" anchorX="center" anchorY="middle">
           Liminal

@@ -29,7 +29,9 @@ interface TaxedMoney {
 interface Category {
   id;
   name;
+  translation: CategoryTranslation | null;
 }
+
 interface Variant {
   id: string;
   name: string;
@@ -67,6 +69,10 @@ interface ProductTranslation {
   description: string;
 }
 
+interface CategoryTranslation {
+  name: string;
+}
+
 
 interface ProductType {
   name: string;
@@ -85,6 +91,7 @@ interface Product {
   id: string;
   slug: string;
   name: string;
+  description?: string;
   translation: ProductTranslation | null;
   thumbnail: Image;
   rating: number;

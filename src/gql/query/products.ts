@@ -67,6 +67,9 @@ export const gqlProducts = gql`
 					category {
 						id
 						name
+						translation(languageCode: $languageCode){
+							name
+						}
 					}
 					defaultVariant {
 						id

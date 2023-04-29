@@ -28,7 +28,6 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
     thumbnail,
     pricing,
     slug,
-    category,
     variants,
     rating,
   } = product;
@@ -59,7 +58,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
         className="absolute z-10 top-1 left-2"
       />
       <Badge className="absolute top-2 right-2 z-10 badge-accent">
-        {category.name}
+        {info.category.name}
       </Badge>
       <LocaleLink
         href={`/p/${slug}`}

@@ -1,17 +1,15 @@
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
-type Translatable = {
-	translation: ProductTranslation | null;
-} & { [K in keyof ProductTranslation]?: ProductTranslation[K] };
+type Translatable = Pick<
+  Product,
+  "name" | "description" | "translation" | "category"
+>;
 
-export function useProductTranslation({ translation, name, description }: Translatable) {
-	return useMemo(
-		() => {
-			if (translation) {
-				return translation;
-			}
-			return { name, description };
-		},
-		[ translation, name, description ]
-	);
+export function useProductTranslation(product: Translatable) {
+  return useMemo(() => {
+    const { name, description, translation, category } = product;
+    return Object.assign({}, translation ?? { name, description }, {
+      category: category.translation ?? category,
+    });
+  }, [product]);
 }

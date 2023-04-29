@@ -8,14 +8,14 @@ import CardBody from "@/app/daisyui/card-body";
 import CardTitle from "@/app/daisyui/card-title";
 import CardActions from "@/app/daisyui/card-actions";
 import Badge from "@/app/daisyui/badge";
+import { useProductTranslation } from "@/core/client/useProductTranslation";
 import { ProductCardButton } from "./productCardButton";
 import { ProductRating } from "./productRating";
 import { LocaleLink } from "./localeLink";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
-import Indicator from "@/app/daisyui/indicator";
 import { ProductCardVariantList } from "./productCardVariantList";
-import { useProductTranslation } from "@/core/client/useProductTranslation";
+import Indicator from "@/app/daisyui/indicator";
 
 interface ProductCardProps {
   product: Product;
@@ -28,8 +28,6 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
     thumbnail,
     pricing,
     slug,
-    category,
-    variants,
     rating,
   } = product;
   const { onSale } = pricing;
@@ -59,7 +57,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
         className="absolute z-10 top-1 left-2"
       />
       <Badge className="absolute top-2 right-2 z-10 badge-accent">
-        {category.name}
+        {info.category.name}
       </Badge>
       <LocaleLink
         href={`/p/${slug}`}
@@ -85,7 +83,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
           <ProductCardVariantList
             className="absolute top-4 left-0 right-0"
             slug={slug}
-            variants={variants}
+            variants={info.variants}
             selected={variantID}
             onClick={setVarientID}
           />

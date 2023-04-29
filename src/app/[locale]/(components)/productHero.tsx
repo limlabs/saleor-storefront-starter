@@ -2,6 +2,7 @@ import Image from "next/image";
 import { parseJSONText } from "@/core/server/parseJSONText";
 import { ProductPrice } from "./productPrice";
 import { renderEditorJsObject } from "@/core/server/renderJSONText";
+import { useProductTranslation } from "@/core/client/useProductTranslation";
 
 interface PageProps {
   locale: string;
@@ -10,8 +11,9 @@ interface PageProps {
 }
 
 export function ProductHero({ locale, channel, product }: PageProps) {
-  const { name, thumbnail, pricing } = product;
-  const description = parseJSONText(product.description);
+  const info = useProductTranslation(product);
+  const { thumbnail, pricing } = product;
+  const description = parseJSONText(info.description ?? "");
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -24,7 +26,7 @@ export function ProductHero({ locale, channel, product }: PageProps) {
           alt="product photo"
         />
         <div>
-          <h1 className="text-5xl font-bold">{name}</h1>
+          <h1 className="text-5xl font-bold">{info.name}</h1>
           {description ? renderEditorJsObject(description) : null}
           <ProductPrice pricing={pricing} />
         </div>

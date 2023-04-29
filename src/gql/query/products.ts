@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import { pageInfoProps } from "./pageFragment";
 
 export interface QueryProducts {
-  products: Page<Product>;
+	products: Page<Product>;
 }
 
 export const fragMoney = gql`
@@ -67,13 +67,20 @@ export const gqlProducts = gql`
 					category {
 						id
 						name
+						translation(languageCode: $languageCode){
+							name
+						}
 					}
 					defaultVariant {
 						id
 					}
 					variants {
 						id
-						name						
+						name	
+						translation(languageCode: $languageCode){
+							id
+							name
+						}					
 					}
 					pricing {
 						onSale

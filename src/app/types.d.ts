@@ -1,5 +1,6 @@
 type JSONString = string;
 type ProductMediaType = "IMAGE" | "VIDEO";
+type PartialProductVariant = Pick<ProductVariant, "id" | "name">;
 
 interface EditorJSBlock {
   id: string;
@@ -91,7 +92,7 @@ interface Product {
   defaultVariant: {
     id: string;
   };
-  variants: Pick<ProductVariant, "id" | "name">[];
+  variants: PartialProductVariant[];
   pricing: Pricing;
 }
 

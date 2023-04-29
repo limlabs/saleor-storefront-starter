@@ -1,7 +1,7 @@
 import { AppRoot } from "./(components)/root";
-import { AppProvider } from "@/core/client/useApp"
+import { AppProvider } from "@/core/client/useApp";
 import "./globals.css";
-import type { PropsWithChildren } from "react"
+import type { PropsWithChildren } from "react";
 
 export const metadata = {
   title: "Headless Store",
@@ -10,8 +10,8 @@ export const metadata = {
 
 interface RootLayoutProps {
   params: {
-      locale: string;
-  }
+    locale: string;
+  };
 }
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
-        <AppProvider value={{params}}>
+        <AppProvider value={{ params }}>
           <AppRoot>{children}</AppRoot>
         </AppProvider>
       </body>

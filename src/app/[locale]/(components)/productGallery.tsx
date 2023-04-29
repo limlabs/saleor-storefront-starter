@@ -25,10 +25,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
           return (
             <li className="carousel-item justify-center m-2" key={node.slug}>
               <ProductCardProvider>
-                <ProductCard
-                  product={node}
-                  animation="bounce"
-                />
+                <ProductCard product={node} animation="bounce" />
               </ProductCardProvider>
             </li>
           );

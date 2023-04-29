@@ -22,7 +22,7 @@ class StoreGqlClient {
     return this.client.request<QueryProduct>(gqlProduct, variables);
   }
 
-  page(variables?: Variables){
+  page(variables?: Variables) {
     return this.client.request<QueryPage>(gqlPage, variables);
   }
 }

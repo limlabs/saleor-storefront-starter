@@ -1,33 +1,32 @@
 import Image from "next/image";
-import { ProductDetails } from "@/app/types";
+import { parseJSONText } from "@/core/server/parseJSONText";
+import { ProductPrice } from "./productPrice";
+import { renderEditorJsObject } from "@/core/server/renderJSONText";
 
 interface PageProps {
   locale: string;
   channel: string;
-  info: string;
   product: ProductDetails;
 }
 
-export function ProductHero({
-  locale,
-  channel,
-  info = "",
-  product,
-}: PageProps) {
-  const { name, thumbnail } = product;
+export function ProductHero({ locale, channel, product }: PageProps) {
+  const { name, thumbnail, pricing } = product;
+  const description = parseJSONText(product.description);
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content lg:flex-row-reverse">
         <Image
           src={thumbnail.url}
-          width={300}
-          height={300}
+          width={700}
+          height={700}
           className="max-w-sm rounded-lg shadow-2xl"
           alt="product photo"
         />
         <div>
           <h1 className="text-5xl font-bold">{name}</h1>
-          <p dangerouslySetInnerHTML={{ __html: info }}></p>
+          {description ? renderEditorJsObject(description) : null}
+          <ProductPrice pricing={pricing} />
         </div>
       </div>
     </div>

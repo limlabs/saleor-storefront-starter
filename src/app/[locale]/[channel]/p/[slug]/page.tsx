@@ -1,6 +1,5 @@
 import { gqlClient } from "@/gql";
 import { ProductHero } from "@/app/[locale]/(components)/productHero";
-import { useMemo } from "react";
 
 interface PageProps {
   params: {
@@ -24,7 +23,6 @@ export default async function Pdp({
       <ProductHero
         locale={locale}
         channel={channel}
-        info={description?.blocks[0]?.data.text}
         product={product}
       />
     </>

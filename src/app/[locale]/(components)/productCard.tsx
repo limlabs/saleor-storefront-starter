@@ -1,63 +1,39 @@
-import { FC, useMemo } from "react";
+"use client";
+
+import { FC, useState } from "react";
 import clsx from "clsx";
 import Card from "@/app/daisyui/card";
 import CardMedia from "@/app/daisyui/card-media";
 import CardBody from "@/app/daisyui/card-body";
 import CardTitle from "@/app/daisyui/card-title";
 import CardActions from "@/app/daisyui/card-actions";
+import Badge from "@/app/daisyui/badge";
 import { ProductCardButton } from "./productCardButton";
 import { ProductRating } from "./productRating";
-import Link from "next/link";
-import { Product } from "@/app/types";
+import { LocaleLink } from "./localeLink";
 import { QuantitySelector } from "./quantitySelector";
-import Badge from "@/app/daisyui/badge";
 import { ProductPrice } from "./productPrice";
 import Indicator from "@/app/daisyui/indicator";
+import { ProductCardVariantList } from "./productCardVariantList";
+import { useProductTranslation } from "@/core/client/useProductTranslation";
 
 interface ProductCardProps {
   product: Product;
-  locale: string;
   animation?: "zoom" | "bounce";
 }
 
-export const ProductCard: FC<ProductCardProps> = ({
-  product,
-  locale,
-  animation,
-}) => {
-  const image = product.thumbnail;
-  const defID = product.defaultVariant.id;
-  const { onSale, displayGrossPrices, discount, priceRange } = product.pricing;
-
-  const variants = useMemo(() => {
-    const list =
-      product.variants.length > 3
-        ? product.variants
-            .slice(0, 2)
-            .concat([{ id: "rest", name: `+${product.variants.length - 2}` }])
-        : product.variants;
-    return list.flatMap((item) =>
-      item.name !== item.id ? (
-        <Badge
-          key={item.id}
-          outline={defID !== item.id}
-          className="badge-accent ml-2"
-        >
-          {item.name}
-        </Badge>
-      ) : undefined
-    );
-  }, [defID, product.variants]);
-
-  const price = displayGrossPrices
-    ? priceRange.start.gross
-    : priceRange.start.net;
-  const discountPrice = discount
-    ? displayGrossPrices
-      ? discount.gross
-      : discount.net
-    : null;
-  const currency = priceRange.start.currency;
+export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
+  const {
+    defaultVariant,
+    thumbnail,
+    pricing,
+    slug,
+    category,
+    variants,
+    rating,
+  } = product;
+  const { onSale } = pricing;
+  const [variantID, setVarientID] = useState(defaultVariant.id);
 
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
@@ -65,6 +41,8 @@ export const ProductCard: FC<ProductCardProps> = ({
   const cardMediaClasses = clsx("transition ease-in-out", {
     "hover:scale-105": animation === "zoom",
   });
+
+  const info = useProductTranslation(product);
 
   return (
     <Card
@@ -75,27 +53,27 @@ export const ProductCard: FC<ProductCardProps> = ({
       className={cardClasses}
     >
       <ProductRating
-        name={product.slug}
+        name={slug}
         size="sm"
-        rating={product.rating}
+        rating={rating}
         className="absolute z-10 top-1 left-2"
       />
       <Badge className="absolute top-2 right-2 z-10 badge-accent">
-        {product.category.name}
+        {category.name}
       </Badge>
-      <Link
-        href={`/${locale}/p/${product.slug}`}
+      <LocaleLink
+        href={`/p/${slug}`}
         className="link link-primary no-underline text-secondary hover:text-secondary overflow-clip"
       >
         <CardMedia
           accentBg
-          src={image.url}
-          alt={image.alt}
+          src={thumbnail.url}
+          alt={thumbnail.alt}
           width={300}
           height={300}
           className={cardMediaClasses}
         />
-      </Link>
+      </LocaleLink>
       <Indicator
         show={onSale}
         center
@@ -104,32 +82,29 @@ export const ProductCard: FC<ProductCardProps> = ({
         className="badge-primary"
       >
         <CardBody className="relative">
-          <div className="absolute top-4 left-0 right-0 flex justify-center">
-            {variants}
-          </div>
-          <Link
-            href={`/${locale}/p/${product.slug}`}
+          <ProductCardVariantList
+            className="absolute top-4 left-0 right-0"
+            slug={slug}
+            variants={variants}
+            selected={variantID}
+            onClick={setVarientID}
+          />
+          <LocaleLink
+            href={`/p/${slug}`}
             className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
           >
             <CardTitle>
-              <span className="truncate w-48" title={product.name}>
-                {product.name}
+              <span className="truncate w-48" title={info.name}>
+                {info.name}
               </span>
             </CardTitle>
-          </Link>
+          </LocaleLink>
           <div className="flex flex-row place-content-between">
-            <ProductPrice
-              price={price}
-              discountPrice={discountPrice}
-              currency={currency}
-            />
+            <ProductPrice pricing={pricing} />
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton
-              text="Add to Cart"
-              variantID={product.defaultVariant.id}
-            />
+            <ProductCardButton text="Add to Cart" variantID={variantID} />
           </CardActions>
         </CardBody>
       </Indicator>

@@ -1,4 +1,19 @@
-import { Dispatch, SetStateAction } from "react";
+type JSONString = string;
+type ProductMediaType = "IMAGE" | "VIDEO";
+type PartialProductVariant = Pick<ProductVariant, "id" | "name">;
+
+interface EditorJSBlock {
+  id: string;
+  data: {
+    text: string;
+  }
+  type: "paragraph"
+}
+
+interface EditorJSObject {
+  time: number;
+  blocks: EditorJSBlock[];
+}
 
 interface Money {
   amount: number;
@@ -20,79 +35,90 @@ interface Variant {
   name: string;
 }
 
+interface Pricing {
+  onSale: boolean;
+  discount: TaxedMoney | null;
+  displayGrossPrices: boolean;
+  priceRange: {
+    start: TaxedMoney;
+  };
+}
+
+interface Image {
+  url: string;
+  alt: string;
+}
+
+interface ProductMedia {
+  url: string;
+  alt: string;
+  type: ProductMediaType
+}
+
+interface ProductVariant {
+  id
+  name: string;
+  weight: Weight;
+  media: ProductMedia[];
+}
+
+interface ProductTranslation {
+  name: string;
+  description: string;
+}
+
+
+interface ProductType {
+  name: string;
+  slug: string;
+}
+
+interface Weight {
+  unit: string;
+  value: number;
+}
+
+/*
+  query products.product (productGallery)
+*/
 interface Product {
   id: string;
   slug: string;
   name: string;
-  media: ProductImage[];
-  thumbnail: ProductImage;
+  translation: ProductTranslation | null;
+  thumbnail: Image;
   rating: number;
-  isAvailable: boolean;
   category: Category;
   defaultVariant: {
     id: string;
   };
-  variants: Variant[];
-  pricing: {
-    onSale: boolean;
-    discount: TaxedMoney | null;
-    displayGrossPrices: boolean;
-    priceRange: {
-      start: TaxedMoney;
-    };
-  };
+  variants: PartialProductVariant[];
+  pricing: Pricing;
 }
 
-interface TranslatableDetails {
-  name: string;
-  description: string;
-}
 
-type ProductDetails = TranslatableDetails & {
-  slug: string;
-  media: ProductImage[];
-  translation?: TranslatableDetails;
-  thumbnail: ProductImage;
-  isAvailable: boolean;
-  defaultVariant: {
-    id: string;
-  };
-  rating: number;
-  pricing: {
-    onSale: boolean;
-    priceRange: {
-      start: {
-        gross: {
-          amount: number;
-          currency: string;
-        };
-      };
-    };
-  };
-};
-
+/*
+  query product (productHero)
+*/
 interface ProductDetails {
-  slug: string;
+  id: string;
+  seoTitle: string;
   name: string;
-  media: ProductImage[];
   description: string;
-  thumbnail: ProductImage;
-  isAvailable: boolean;
-  defaultVariant: {
-    id: string;
-  };
+  slug: string;
   rating: number;
-  pricing: {
-    onSale: boolean;
-    priceRange: {
-      start: {
-        gross: {
-          amount: number;
-          currency: string;
-        };
-      };
-    };
-  };
+  isAvailable: boolean;
+
+  translation: ProductTranslation | null;
+  
+  thumbnail: Image;
+  
+  productType: ProductType;
+
+  weight: Weight;
+
+  pricing: Pricing;
+  variants: ProductVariant[];
 }
 
 interface Page<T> {

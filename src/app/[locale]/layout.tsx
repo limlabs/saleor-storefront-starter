@@ -1,24 +1,29 @@
 import { AppRoot } from "./(components)/root";
+import { AppProvider } from "@/core/client/useApp";
 import "./globals.css";
+import type { PropsWithChildren } from "react";
 
 export const metadata = {
   title: "Headless Store",
   description: "Open source headless Storefront",
 };
 
-export default function RootLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
+interface RootLayoutProps {
   params: {
     locale: string;
   };
-}) {
+}
+
+export default function RootLayout({
+  children,
+  params,
+}: PropsWithChildren<RootLayoutProps>) {
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
-        <AppRoot>{children}</AppRoot>
+        <AppProvider value={{ params }}>
+          <AppRoot>{children}</AppRoot>
+        </AppProvider>
       </body>
     </html>
   );

@@ -1,14 +1,14 @@
-import { forwardRef, PropsWithChildren } from "react";
+import { forwardRef, HTMLAttributes, PropsWithChildren } from "react";
 import clsx from "clsx";
 
-export interface BadgeProps {
+export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   ghost?: boolean;
   outline?: boolean;
   className?: string;
 }
 
 const Badge = forwardRef<HTMLDivElement, PropsWithChildren<BadgeProps>>(
-  function Badge({ ghost, outline, className, children }, ref) {
+  function Badge({ ghost, outline, className, children, ...divProps }, ref) {
     const classNames = clsx(
       "badge",
       {
@@ -19,7 +19,7 @@ const Badge = forwardRef<HTMLDivElement, PropsWithChildren<BadgeProps>>(
     );
 
     return (
-      <div className={classNames} ref={ref}>
+      <div className={classNames} {...divProps} ref={ref}>
         {children}
       </div>
     );

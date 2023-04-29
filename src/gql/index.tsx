@@ -1,9 +1,11 @@
 import { GraphQLClient } from "graphql-request";
 import { gqlProducts } from "./query/products";
 import { gqlProduct } from "./query/product";
+import { gqlPage } from "./query/page";
 import type { Variables } from "graphql-request";
 import type { QueryProducts } from "./query/products";
 import type { QueryProduct } from "./query/product";
+import type { QueryPage } from "./query/page";
 
 class StoreGqlClient {
   readonly client;
@@ -18,6 +20,10 @@ class StoreGqlClient {
 
   product(variables?: Variables) {
     return this.client.request<QueryProduct>(gqlProduct, variables);
+  }
+
+  page(variables?: Variables) {
+    return this.client.request<QueryPage>(gqlPage, variables);
   }
 }
 

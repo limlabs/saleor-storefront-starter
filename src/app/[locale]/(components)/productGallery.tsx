@@ -1,21 +1,17 @@
 import { FC, Fragment } from "react";
-import Link from "next/link";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ProductCard } from "@/app/[locale]/(components)/productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
 import { ProductCardProvider } from "@/core/client/useProductCard";
-import { Page, Product } from "@/app/types";
 
 interface ProductGalleryProps {
   products: Page<Product>;
-  locale: string;
   filter: FilterOp;
 }
 
 export const ProductGallery: FC<ProductGalleryProps> = ({
   products,
-  locale,
   filter,
 }) => {
   const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
@@ -29,11 +25,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
           return (
             <li className="carousel-item justify-center m-2" key={node.slug}>
               <ProductCardProvider>
-                <ProductCard
-                  product={node}
-                  locale={locale}
-                  animation="bounce"
-                />
+                <ProductCard product={node} animation="bounce" />
               </ProductCardProvider>
             </li>
           );
@@ -43,27 +35,27 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
       <div className="flex justify-between">
         <LinkButton
           href={{
-            pathname: `/${locale}/c/all`,
+            pathname: `/c/all`,
             query: {
               before: startCursor,
               ...filter,
             },
           }}
           disabled={!hasPreviousPage}
-          className="btn btn-neutral"
+          className="btn-neutral"
         >
           <ChevronLeftIcon className="w-6 h-6" /> Prev
         </LinkButton>
         <LinkButton
           href={{
-            pathname: `/${locale}/c/all`,
+            pathname: `/c/all`,
             query: {
               after: endCursor,
               ...filter,
             },
           }}
           disabled={!hasNextPage}
-          className="btn btn-primary"
+          className="btn-primary"
         >
           Next <ChevronRightIcon className="w-6 h-6" />
         </LinkButton>

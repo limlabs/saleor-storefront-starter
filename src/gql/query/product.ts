@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { Page, ProductDetails } from "@/app/types";
+import { fragTaxedMoney, fragMoney } from "./products";
 
 export interface QueryProduct {
   product: ProductDetails;
@@ -17,6 +17,8 @@ export const gqlProduct = gql`
       name
       description
       slug
+      rating
+      isAvailable
 
       translation(languageCode: $languageCode) {
         name
@@ -35,7 +37,20 @@ export const gqlProduct = gql`
         unit
         value
       }
+      pricing {
+        onSale
+        discount {
+          ...TaxedMoney_props
+        }
+        displayGrossPrices
+        priceRange {
+          start {
+            ...TaxedMoney_props
+          }
+        }
+      }
       variants {
+        id
         name
         weight {
           unit
@@ -43,8 +58,12 @@ export const gqlProduct = gql`
         }
         media {
           url
+          alt
+          type
         }
       }
     }
   }
-`;
+  ${fragTaxedMoney}
+  ${fragMoney}
+  `;

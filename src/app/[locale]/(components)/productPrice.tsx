@@ -1,10 +1,7 @@
 import { FC, useMemo } from "react";
-import type { Money } from "@/app/types";
 
 interface ProductPriceProps {
-  currency: string;
-  price: Money;
-  discountPrice?: Money | null;
+  pricing: Pricing;
 }
 
 const CURRENCY_MAP = {
@@ -12,18 +9,33 @@ const CURRENCY_MAP = {
 } as { [key: string]: string };
 
 export const ProductPrice: FC<ProductPriceProps> = ({
-  price,
-  discountPrice,
-  currency,
+  pricing,
 }) => {
-  const dispayPrice = (discountPrice || price)?.amount?.toFixed(2);
+    const {price, discountPrice, currency} = useMemo(()=>{
+   
+    const { displayGrossPrices, discount, priceRange }= pricing;
+
+    const [ price, discountPrice ] = displayGrossPrices ? 
+      [ priceRange.start.gross, discount?.gross ]: 
+      [ priceRange.start.net, discount?.net ];
+
+    return { 
+      price, 
+      discountPrice, 
+      currency: priceRange.start.currency 
+    };
+  }, [pricing]);
+
+  
+
+  const displayPrice = (discountPrice || price)?.amount?.toFixed(2);
   const cSymbol = useMemo(() => CURRENCY_MAP[currency] ?? "$", [currency]);
 
   return (
     <span className="inline-flex">
       <span className="text-neutral font-bold">
         {cSymbol}
-        {dispayPrice}
+        {displayPrice}
       </span>
       {discountPrice ? (
         <span className="text-accent line-through text-xs">

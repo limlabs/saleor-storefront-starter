@@ -16,7 +16,7 @@ export default function HomePage() {
       />
 
       <ThreeScene />
-      <section className="z-10 w-4/5 h-2/5 shadow-shadow-hero bg-light-pink flex flex-col items-center justify-center p-6">
+      <section className="z-10 w-4/5 h-2/5 shadow-shadow-hero bg-light-pink flex flex-col items-center justify-center p-6 border border-almost-black">
         <div className="w-3/5">
           <h1 className="text-almost-black font-press_start_2p text-m text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)]">
             Explore the Liminal Frontier

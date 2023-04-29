@@ -27,8 +27,7 @@ export default function ThreeModel() {
 
   return (
     <mesh ref={meshRef} rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25}>
-      <boxGeometry args={[10, 10, 10]} />
-      {/* <sphereGeometry args={[7, 26, 26]} /> */}
+      <boxGeometry args={[14, 14, 14]} />
       <meshPhongMaterial map={colorMap} />
     </mesh>
   );

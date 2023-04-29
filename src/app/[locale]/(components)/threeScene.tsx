@@ -11,28 +11,35 @@ import {
   Text3D,
   Text,
   Environment,
+  Stats,
 } from "@react-three/drei";
 import HomeText from "./homeTextSection";
 
 export default function ThreeScene() {
   return (
-    <section className="z-10 w-4/5 h-4/5 shadow-shadow-hero">
+    <section className="z-10 w-4/5 h-3/4 shadow-shadow-hero">
       <Canvas
         className="w-4/5 h-1/2 bg-black"
-        camera={{ fov: 30, position: [10, -40, 0] }}
+        camera={{ fov: 75, position: [30, 0, 0] }}
       >
-        <Environment preset="park" background blur={0} />
-        <OrbitControls enableZoom={false} />
-        {/* <Text scale={[3, 3, 3]} color="black" anchorX="center" anchorY="middle">
-          Liminal
-        </Text> */}
+        <Environment
+          files="./img/neon_photostudio_2k.hdr"
+          background
+          blur={0}
+        />
+
         <ambientLight intensity={0.3} />
-        <directionalLight position={[2, 5, 2]} intensity={0.2} />
-        {/* <pointLight position={[5, 5, 5]} intensity={1} />
-        <pointLight position={[-3, -3, 2]} /> */}
+        <directionalLight position={[2, 5, 2]} intensity={0.4} />
+
         <Suspense fallback={null}>
           <ThreeModel />
         </Suspense>
+        <OrbitControls
+          enableZoom={false}
+          // minPolarAngle={Math.PI / 6}
+          // maxPolarAngle={Math.PI - Math.PI / 6}
+        />
+        {/* <Stats /> */}
       </Canvas>
     </section>
   );

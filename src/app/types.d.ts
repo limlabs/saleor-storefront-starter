@@ -1,6 +1,6 @@
 type JSONString = string;
 type ProductMediaType = "IMAGE" | "VIDEO";
-type PartialProductVariant = Pick<ProductVariant, "id" | "name">;
+type PartialProductVariant = Pick<ProductVariant, "id" | "name" | "translation">;
 
 interface EditorJSBlock {
   id: string;
@@ -62,6 +62,7 @@ interface ProductVariant {
   name: string;
   weight: Weight;
   media: ProductMedia[];
+  translation?: ProductVariantTranslation | null;
 }
 
 interface ProductTranslation {
@@ -73,6 +74,10 @@ interface CategoryTranslation {
   name: string;
 }
 
+interface ProductVariantTranslation {
+  id: string;
+  name: string;
+}
 
 interface ProductType {
   name: string;
@@ -115,6 +120,7 @@ interface ProductDetails {
   slug: string;
   rating: number;
   isAvailable: boolean;
+  category: Category;
 
   translation: ProductTranslation | null;
   

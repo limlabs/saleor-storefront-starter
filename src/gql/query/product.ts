@@ -24,7 +24,13 @@ export const gqlProduct = gql`
         name
         description
       }
-
+      category {
+        id
+        name
+        translation(languageCode: $languageCode){
+          name
+        }
+			}
       thumbnail(size: 1200) {
         alt
         url

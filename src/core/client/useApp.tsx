@@ -4,10 +4,11 @@ import { createContext, useContext, useMemo } from "react";
 import type { FC, PropsWithChildren } from "react";
 
 const LANG_CODE = [
-  "en", // English
-  "es", // Spanish
-  "en-us",
-  "es-mx",
+  "en",    // English
+  "en-us", // US-English
+  "es-mx", // Spanish-Mexico
+  "fr-fr", // French-France
+  "it-it", // Italian-Italy
   //...
 ];
 

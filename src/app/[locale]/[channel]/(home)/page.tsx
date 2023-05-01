@@ -4,6 +4,8 @@ import Image from "next/image";
 import Button from "@/app/daisyui/button";
 import { Canvas } from "@react-three/fiber";
 import ThreeScene from "../../(components)/threeScene";
+import HomeMain from "../../(components)/homeMain";
+import HomeHeroMobile from "../../(components)/homeHeroMobile";
 
 export default function HomePage() {
   return (
@@ -16,27 +18,8 @@ export default function HomePage() {
       />
 
       <ThreeScene />
-      <section className="z-10 w-4/5 h-2/5 shadow-shadow-hero bg-light-pink flex flex-col items-center justify-center p-6 border border-almost-black">
-        <div className="w-3/5">
-          <h1 className="text-almost-black font-press_start_2p text-m text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)]">
-            Explore the Liminal Frontier
-          </h1>
-          <p className="text-almost-black font-roboto text-lg text-center">
-            --
-          </p>
-          <h3 className="text-almost-black font-roboto text-lg text-center">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </h3>
-          <p className="text-almost-black font-roboto text-lg text-center">-</p>
-          <p className="text-almost-black font-roboto text-sm text-center">
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don&apos;t look even slightly
-            believable.
-          </p>
-        </div>
-      </section>
+      <HomeHeroMobile />
+      <HomeMain />
     </div>
   );
 }

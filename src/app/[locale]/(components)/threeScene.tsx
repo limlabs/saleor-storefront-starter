@@ -17,7 +17,7 @@ import HomeText from "./homeTextSection";
 
 export default function ThreeScene() {
   return (
-    <section className="z-10 w-4/5 h-3/4 shadow-shadow-hero">
+    <section className="-sm:hidden -md:hidden -lg:flex z-10 w-4/5 h-3/4 shadow-shadow-hero">
       <Canvas
         className="w-4/5 h-1/2 bg-black"
         camera={{ fov: 75, position: [30, 0, 0] }}
@@ -34,12 +34,7 @@ export default function ThreeScene() {
         <Suspense fallback={null}>
           <ThreeModel />
         </Suspense>
-        <OrbitControls
-          enableZoom={false}
-          // minPolarAngle={Math.PI / 6}
-          // maxPolarAngle={Math.PI - Math.PI / 6}
-        />
-        {/* <Stats /> */}
+        <OrbitControls enableZoom={false} />
       </Canvas>
     </section>
   );

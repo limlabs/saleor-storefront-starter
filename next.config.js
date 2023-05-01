@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+
   async rewrites() {
     return [
       {
@@ -19,11 +20,18 @@ const nextConfig = {
       },
     ];
   },
+
+
   async redirects() {
     return [
+      // {
+      //   source: "/",
+      //   destination: "/en-us",
+      //   permanent: false,
+      // },
       {
         source: "/",
-        destination: "/en-us",
+        destination: "/home",
         permanent: false,
       },
     ];

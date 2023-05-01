@@ -14,13 +14,14 @@ export const LocaleLink: FC<LocaleLinkProps> = ({
 }) => {
   const { params } = useApp();
   const hrefWithLocale = useMemo(() => {
-    if (typeof href === "string") {
-      return `/${params.locale}${href}`;
-    }
-    return {
-      ...href,
-      pathname: `/${params.locale}${href.pathname}`,
-    };
+    return href;
+    // if (typeof href === "string") {
+    //   return `/${params.locale}${href}`;
+    // }
+    // return {
+    //   ...href,
+    //   pathname: `/${params.locale}${href.pathname}`,
+    // };
   }, [params.locale, href]);
 
   return (

@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
-import { LocaleLink } from "./localeLink";
 import { CartIcon } from "./cartIcon";
+import type { FC } from "react";
 
 // TODO:
 // - fetch locales for links
@@ -20,7 +19,7 @@ export const RootLayoutHeader: FC = () => {
             <Link href="/home">Home</Link>
           </li>
           <li className="ml-4 hover:text-secondary">
-            <LocaleLink href="/c/all">Shop</LocaleLink>
+            <Link href="/c/all">Shop</Link>
           </li>
         </ul>
       </nav>

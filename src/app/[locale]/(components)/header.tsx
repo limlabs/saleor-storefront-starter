@@ -20,7 +20,7 @@ import Drawer from "@/app/daisyui/drawer";
 
 export const RootLayoutHeader: FC = () => {
   return (
-    <header className="fixed top-0 z-20 grid grid-cols-header-grid  text-lg bg-almost-black text-white justify-items- center items-center h-header-height shadow-vertical-sm w-full ">
+    <header className="fixed top-0 z-20 grid grid-cols-header-grid  text-md bg-almost-black text-white justify-items- center items-center h-header-height shadow-vertical-sm w-full ">
       <div className="flex flex-row justify-center items-center w-full h-full min-w-max -sm:mr-4 mr-2">
         <div>
           <Image src={Logo} height={20} alt="logo"></Image>

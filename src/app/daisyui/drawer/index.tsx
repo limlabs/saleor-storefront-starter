@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, PropsWithChildren } from "react";
+import React, { useState, PropsWithChildren, ReactNode } from "react";
 import clsx from "clsx";
 import hamburger from "../../../../public/hamburger.png";
 import Logo from "../../../../public/logo-white.png";
@@ -7,9 +7,9 @@ import AboutHero from "@/app/[locale]/(components)/aboutHero";
 import AboutMain from "@/app/[locale]/(components)/aboutMain";
 import AboutTeam from "@/app/[locale]/(components)/aboutTeam";
 import Image from "next/image";
-import AboutBreak from "@/app/[locale]/(components)/aboutBreak";
 
 interface DrawerProps {
+  children: ReactNode;
   isOpen?: boolean;
   position?: "left" | "right";
   onClose?: () => void;
@@ -37,11 +37,11 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer ">
+    <div className="drawer w-screen h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col ">
-        <div className="w-full navbar bg-almost-black">
-          <div className="flex-none lg:hidden">
+      <div className="drawer-content flex flex-col w-screen h-screen">
+        <div className=" navbar bg-almost-black w-screen">
+          <div className="flex-none ">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -78,19 +78,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
             </ul>
           </div>
         </div>
-        <main>
-          <section className="h-main-height">
-            <AboutHero />
-          </section>
-          <section className="bg-gradient-to-b grid grid-rows-2 justify-items-center from-light-pink via-light-blue-main to-light-green shadow-inset-shadow ">
-            <div className="h-screen">
-              <AboutMain />
-            </div>
-            <div className="h-screen">
-              <AboutTeam />
-            </div>
-          </section>
-        </main>
+        <main className="h-screen w-screen">{children}</main>
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>

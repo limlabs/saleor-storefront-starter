@@ -43,7 +43,7 @@ export default function RootLayout({
       lang={params.locale}
       className={`${roboto.variable} ${nunito.variable} ${press_start_2p.variable}`}
     >
-      <body className="">
+      <body>
         <AppRoot>{children}</AppRoot>
       </body>
     </html>

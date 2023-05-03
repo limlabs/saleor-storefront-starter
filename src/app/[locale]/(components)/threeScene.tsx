@@ -17,7 +17,7 @@ import HomeText from "./homeTextSection";
 
 export default function ThreeScene() {
   return (
-    <section className="-sm:hidden -md:hidden -lg:flex z-10 w-full h-2/3 shadow-shadow-hero mt-header-margin max-w-full">
+    <section className="-sm:hidden -md:hidden -lg:flex z-10 w-full h-2/3 shadow-shadow-hero max-w-full">
       <Canvas className=" bg-black" camera={{ fov: 75, position: [30, 0, 0] }}>
         <Environment
           files="./img/neon_photostudio_2k.hdr"

@@ -6,12 +6,12 @@ import HomeHeroMobile from "../../(components)/homeHeroMobile";
 
 export default function HomePage() {
   return (
-    <main className="h-main-height  w-full  ">
-      <ThreeScene />
-
+    <main className="h-full  w-screen  ">
       <HomeHeroMobile />
-
-      <HomeMain />
+      <div className="h-full max-h-full">
+        <ThreeScene />
+        <HomeMain />
+      </div>
     </main>
   );
 }

@@ -6,7 +6,7 @@ import HomeHeroMobile from "../../(components)/homeHeroMobile";
 
 export default function HomePage() {
   return (
-    <main className="h-full  w-full -lg:flex-row -md:flex-row justify-center bg-gradient-to-b  from-light-pink to-light-blue-main mt-header-margin max-w-full">
+    <main className="h-main-height  w-full  ">
       <ThreeScene />
 
       <HomeHeroMobile />

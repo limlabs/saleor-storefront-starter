@@ -7,7 +7,7 @@ import LogoBlack from "../../../../public/logo-black.png";
 
 export default function HomeHeroMobile() {
   return (
-    <div className="-sm:flex -md:hidden -lg:hidden relative h-screen  flex flex-row justify-center items-center">
+    <div className="-sm:flex -md:flex -lg:hidden relative h-screen  flex flex-row justify-center items-center">
       <Image src={Hero} alt="background" fill className="brightness-90 " />
       <div className="z-10 flex flex-col justify-center items-center text-almost-black  ">
         <div className="m-4">

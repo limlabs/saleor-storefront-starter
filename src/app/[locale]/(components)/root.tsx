@@ -46,17 +46,10 @@ export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
   return (
     <CheckoutProvider initialQuantity={quantity}>
       <div className=" w-full h-full ">
-        <DrawerContent>
-          <RootLayoutHeader />
-          {children}
-        </DrawerContent>
-
+        <RootLayoutHeader />
+        {children}
         {/* <Drawer /> */}
       </div>
     </CheckoutProvider>
   );
-};
-
-export const DrawerContent = ({ children }) => {
-  return <div className="drawer-content">{children}</div>;
 };

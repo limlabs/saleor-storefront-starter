@@ -17,9 +17,9 @@ import HomeText from "./homeTextSection";
 
 export default function ThreeScene() {
   return (
-    <section className="-sm:hidden -md:hidden -lg:flex z-10 w-4/5 h-3/4 shadow-shadow-hero">
+    <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-2/3 shadow-shadow-hero mt-header-margin">
       <Canvas
-        className="w-4/5 h-1/2 bg-black"
+        className="w-4/5 h-3/4 bg-black"
         camera={{ fov: 75, position: [30, 0, 0] }}
       >
         <Environment

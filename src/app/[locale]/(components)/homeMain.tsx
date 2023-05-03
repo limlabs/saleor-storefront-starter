@@ -7,8 +7,8 @@ import LogoBlack from "../../../../public/logo-black.png";
 
 export default function HomeMain() {
   return (
-    <section className="z-10 -lg:w-4/5 -sm:w-7/8 -lg:h-2/5 -lg:shadow-shadow-hero -sm:shadow-none -lg:bg-light-pink flex flex-col items-center justify-center -lg:p-6 -sm:mt-2 -lg:mt-0 -lg:border -lg:border-almost-black -sm:border-0">
-      <div className="-lg:w-3/5 -sm:w-full -sm:p-4">
+    <section className="z-10 -lg:w-full -sm:w-screen -lg:h-1/3 sm:h-screen -sm:shadow-none -lg:bg-transparent flex flex-col items-center justify-center -lg:p-2s  -lg:mt-0 bg-gradient-to-b  from-light-pink to-light-blue-main">
+      <div className="-lg:w-5/6 -sm:w-5/6 -sm:h-screen">
         <h1 className="text-almost-black font-press_start_2p -text-m text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)]">
           Explore the Liminal Frontier
         </h1>

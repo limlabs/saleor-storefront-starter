@@ -15,8 +15,8 @@ export default function AboutTeam() {
         <div className="flex w-full h-full justify-center items-center">
           <Image
             src={Background}
-            height={270}
-            width={270}
+            height={275}
+            width={275}
             alt="texture"
             className="rounded-lg shadow-shadow-sm -lg:h-95 -lg:w-95"
           />
@@ -24,7 +24,7 @@ export default function AboutTeam() {
       </div>
 
       <section className="flex flex-col -sm:h-7/8  -lg:h-92 w-10/12 -lg:12/13 -lg:mr-6 justify-center items-center  shadow-shadow-sm rounded-lg text-almost-black p-4 text-center bg-gradient-to-b  from-light-pink to-light-blue-main ">
-        <h3 className="font-press_start_2p -sm:mb-2 -lg:mb-4 -lg:text-xl">
+        <h3 className="font-goldman -sm:mb-2 -lg:mb-4 -lg:text-2xl">
           Our Team
         </h3>
         <div className="-sm:mb-2 -lg:mb-4">
@@ -35,7 +35,7 @@ export default function AboutTeam() {
             className="-lg:h-10 -lg:w-10"
           />
         </div>
-        <p className="-lg:p-2 text-sm ">
+        <p className="-lg:p-2 text-m font-prompt">
           Our diverse group spans various backgrounds, including audio, software
           development, filmmaking, and generative AI. We believe that this
           unique combination of skills and perspectives allows us to achieve

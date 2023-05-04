@@ -45,7 +45,7 @@ export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
 
   return (
     <CheckoutProvider initialQuantity={quantity}>
-      <div className=" w-full h-full ">
+      <div className=" w-screen h-full ">
         <Drawer>{children}</Drawer>
       </div>
     </CheckoutProvider>

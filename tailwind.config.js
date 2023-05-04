@@ -17,6 +17,8 @@ module.exports = {
         "light-gray": "rgb(216, 218, 245)",
         "forest-green": "rgb(0, 75, 80)",
         "almost-black": "rgb(0, 0, 19)",
+        "dark-purp": "rgb(58, 1, 95)",
+        "dark-blue": "rgb(19, 27, 108)",
       },
       boxShadow: {
         "header-shadow": "0px 3px 11px 1px rgba(0,0,0,0.89)",
@@ -41,7 +43,9 @@ module.exports = {
         roboto: ["var(--font-roboto)"],
         nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
-        mono: ["var(--font-mono)"],
+        roboto_mono: ["var(--font-roboto_mono)"],
+        prompt: ["var(--font-prompt)"],
+        goldman: ["var(--font-goldman)"],
       },
       blur: {
         xsmall: "2px",
@@ -57,7 +61,7 @@ module.exports = {
         liminalTheme: {
           primary: "rgb(63, 63, 236)",
           secondary: "rgb(255, 21, 236)",
-          accent: "rgb(157, 255, 212)",
+          accent: "rgb(58, 1, 95)",
           neutral: "rgb(0, 0, 19)",
           "base-100": "rgb(42, 48, 60)",
         },

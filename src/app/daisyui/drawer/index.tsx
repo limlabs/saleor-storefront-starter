@@ -35,12 +35,12 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer w-screen h-screen">
+    <div className="drawer  h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col w-screen h-screen">
-        <div className="z-20 fixed navbar bg-almost-black w-screen">
+      <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
+        <div className="z-20 sticky navbar bg-almost-black top-0 w-screen pl-4">
           <div className="flex-none ">
-            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

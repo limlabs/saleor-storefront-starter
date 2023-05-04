@@ -7,7 +7,7 @@ import LogoBlack from "../../../../public/logo-black.png";
 
 export default function HomeMain() {
   return (
-    <section className="z-10 w-screen  -sm:h-screen -md:h-screen -sm:shadow-none -lg:h-1/3 -lg:bg-transparent flex flex-col items-center justify-center  mt-0 bg-gradient-to-b  from-light-pink to-light-blue-main max-w-full ">
+    <section className="z-10 w-screen  -sm:h-screen -md:h-screen -sm:shadow-none -lg:h-1/3 -lg:bg-transparent flex flex-col items-center justify-center  mt-0 bg-gradient-to-b  from-light-pink to-light-green max-w-full ">
       <div className="w-5/6">
         <h1 className="text-almost-black font-press_start_2p -text-m text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)]">
           Explore the Liminal Frontier

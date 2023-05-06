@@ -10,16 +10,18 @@ import Footer from "../../(components)/footer";
 export default function HomePage() {
   return (
     <main className="h-screen  w-screen  ">
-      <HomeHeroMobile />
-      <div className="h-main-height ">
+      <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
+        <HomeHeroMobile />
+      </div>
+      <div className="-lg:h-main-height -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeScene />
         <HomeMain />
       </div>
-      <div className="">
-        <div className="h-screen bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
+      <div>
+        <div className="-lg:h-main-height -md:h-md-main-height bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
           <HomeSectionTwo />
         </div>
-        <div className="h-screen bg-gradient-to-b  from-forest-green to-light-pink shadow-inset-shadow text-almost-black">
+        <div className="-lg:h-main-height -md:h-md-main-height bg-gradient-to-b  from-forest-green to-light-pink shadow-inset-shadow text-almost-black">
           <HomeSectionThree />
         </div>
         <div>

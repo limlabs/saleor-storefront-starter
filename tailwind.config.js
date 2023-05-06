@@ -35,6 +35,7 @@ module.exports = {
       height: {
         "header-height": "7vh",
         "main-height": "93vh",
+        "md-main-height": "95vh",
       },
       spacing: {
         "header-margin": "7vh",

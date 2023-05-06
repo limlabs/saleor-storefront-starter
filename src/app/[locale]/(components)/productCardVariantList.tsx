@@ -3,7 +3,7 @@
 import { FC, useMemo } from "react";
 import Badge from "@/app/daisyui/badge";
 import clsx from "clsx";
-import { LocaleLink } from "./localeLink";
+import { Link } from "./link";
 
 type VariantSelectHandler = (id: string) => void;
 
@@ -23,11 +23,11 @@ const renderVariantItem = (
   return function mapper(item: PartialProductVariant) {
     if (item.id === "rest") {
       return (
-        <LocaleLink href={`/p/${slug}`} className="inline-flex" key={item.id}>
+        <Link href={`/p/${slug}`} className="inline-flex" key={item.id}>
           <Badge className="badge-accent ml-2 cursor-pointer" outline>
             {item.name}
           </Badge>
-        </LocaleLink>
+        </Link>
       );
     }
     if (item.id !== item.name) {

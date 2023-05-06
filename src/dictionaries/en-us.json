@@ -8,7 +8,8 @@
     },
     "header": {
         "home": "Home",
-        "shop": "Shop"
+        "shop": "Shop",
+        "about": "About"
     },
     "component": {
         "add to cart": "Add to Cart",

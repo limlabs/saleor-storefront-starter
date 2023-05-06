@@ -1,7 +1,10 @@
-import { AppRoot } from "./(components)/root";
 import { AppProvider } from "@/core/client/useApp";
+import { i18n } from "@/i18n-config";
+import { AppRoot } from "./(components)/root";
+import { RootLayoutHeader } from "./(components)/header";
 import "./globals.css";
 import type { PropsWithChildren } from "react";
+import { Locale } from "@/i18n-config";
 
 export const metadata = {
   title: "Headless Store",
@@ -10,7 +13,7 @@ export const metadata = {
 
 interface RootLayoutProps {
   params: {
-    locale: string;
+    locale: Locale;
   };
 }
 
@@ -21,8 +24,13 @@ export default function RootLayout({
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
-        <AppProvider value={{ params }}>
-          <AppRoot>{children}</AppRoot>
+        <AppProvider value={{ params, i18n }}>
+          <AppRoot>
+            <div className="mx-auto my-6 w-full max-w-6xl ">
+              <RootLayoutHeader locale={params.locale} />
+              {children}
+            </div>
+          </AppRoot>
         </AppProvider>
       </body>
     </html>

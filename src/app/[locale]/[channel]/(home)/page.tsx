@@ -1,5 +1,5 @@
-import { useI18N } from "@/core/server/i18n";
-import type { Locale } from "@/core/server/i18n";
+import { useI18N } from "@/core/server/useI18N";
+import type { Locale } from "@/i18n-config";
 
 interface HomePageProps {
 	params: {
@@ -8,8 +8,8 @@ interface HomePageProps {
 	}
 }
 
-export default async function HomePage({ params }: HomePageProps) {
-  const t = await useI18N(params.locale);
+export default function HomePage({ params }: HomePageProps) {
+  const t = useI18N(params.locale);
 
   return (
     <main className="container mx-auto my-auto w-full max-w-7xl h-full max-h-screen">

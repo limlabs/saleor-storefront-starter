@@ -1,9 +1,9 @@
 import { FC, PropsWithChildren } from "react";
 import clsx from "clsx";
-import { LocaleLink } from "./localeLink";
-import type { LocaleLinkProps } from "./localeLink";
+import { Link } from "./link";
+import type { LinkProps } from "./link";
 
-interface LinkButtonProps extends LocaleLinkProps  {
+interface LinkButtonProps extends LinkProps  {
   disabled?: boolean; 
 }
 
@@ -21,7 +21,7 @@ export const LinkButton: FC<PropsWithChildren<LinkButtonProps>> = ({
   const btn = <span className={classNames}>{children}</span>;
 
   if (!disabled) {
-    return <LocaleLink {...props}>{btn}</LocaleLink>;
+    return <Link {...props}>{btn}</Link>;
   }
 
   return <>{btn}</>;

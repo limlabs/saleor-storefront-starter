@@ -8,7 +8,8 @@
     },
     "header": {
         "home": "Inicio",
-        "shop": "Compra"
+        "shop": "Compra",
+        "about": "Acerca De"
     },
     "component": {
         "add to cart": "Añadir al Carrito",

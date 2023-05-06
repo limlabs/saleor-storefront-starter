@@ -1,0 +1,24 @@
+{
+    "Home": {
+        "welcome": "Welcome to the Headless Store"
+    },
+    "Gallery": {
+        "shop": "Shop",
+        "all products": "All Products"
+    },
+    "header": {
+        "home": "Home",
+        "shop": "Shop"
+    },
+    "component": {
+        "add to cart": "Add to Cart",
+        "apply": "Apply",
+        "filter": "Filter",
+        "is Available": "is Availabe",
+        "price range": "Price Range",
+        "search": "Search",
+        "next": "Next",
+        "prev": "Prev",
+        "sale": "Sale"
+    }
+}

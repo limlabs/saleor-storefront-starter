@@ -18,7 +18,7 @@ export default function AboutHero() {
         <div className="m-4">
           <Image src={LogoBlack} height={75} alt="logo"></Image>
         </div>
-        <h3 className="text-xl font-mono mb-4 p-4 text-center">
+        <h3 className="text-xl font-goldman mb-4 p-4 text-center">
           Blurring the line between what is known and what is possible.
         </h3>
         <Button variant="primary">Learn More</Button>

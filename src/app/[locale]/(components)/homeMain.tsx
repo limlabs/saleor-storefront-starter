@@ -7,23 +7,17 @@ import LogoBlack from "../../../../public/logo-black.png";
 
 export default function HomeMain() {
   return (
-    <section className="z-10 w-screen  -sm:h-screen -md:h-screen -sm:shadow-none -lg:h-1/3 -lg:bg-transparent flex flex-col items-center justify-center  mt-0 bg-gradient-to-b  from-light-pink to-light-blue-main max-w-full ">
+    <section className="-sm:hidden w-full   -md:h-1/3 -sm:shadow-none  -lg:h-1/3 -lg:bg-transparent -md:flex -lg:flex flex-col items-center justify-center  mt-0 bg-gradient-to-b  from-light-gray to-light-blue-main max-w-full border border-almost-black">
       <div className="w-5/6">
-        <h1 className="text-almost-black font-press_start_2p -text-m text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)]">
+        <h1 className="text-almost-black  text-xl text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)] font-goldman -lg:text-4xl -md:text-5xl -sm:mb-2 -lg:mb-4 -md:mb-4 font-semibold">
           Explore the Liminal Frontier
         </h1>
-        <p className="text-almost-black font-roboto text-lg text-center">--</p>
-        <h3 className="text-almost-black font-roboto text-lg text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
-        </h3>
-        <p className="text-almost-black font-roboto text-lg text-center">-</p>
-        <p className="text-almost-black font-roboto text-sm text-center">
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don&apos;t look even slightly
-          believable.
+        <p className="text-almost-black font-roboto text-lg text-center mb-4">
+          --
         </p>
+        <h3 className="text-almost-black font-prompt -lg:text-lg -md:text-3xl text-center font-extralight">
+          The future of creativity starts here.
+        </h3>
       </div>
     </section>
   );

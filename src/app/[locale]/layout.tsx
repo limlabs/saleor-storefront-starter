@@ -1,6 +1,13 @@
 import { AppRoot } from "./(components)/root";
 import "./globals.css";
-import { Nunito, Roboto, Press_Start_2P, Roboto_Mono } from "next/font/google";
+import {
+  Nunito,
+  Roboto,
+  Press_Start_2P,
+  Roboto_Mono,
+  Prompt,
+  Goldman,
+} from "next/font/google";
 
 export const metadata = {
   title: "Headless Store",
@@ -23,10 +30,22 @@ const press_start_2p = Press_Start_2P({
   variable: "--font-press_start_2p",
 });
 
-const mono = Roboto_Mono({
+const goldman = Goldman({
   weight: "400",
   subsets: ["latin"],
-  variable: "--mono",
+  variable: "--font-goldman",
+});
+
+const roboto_mono = Roboto_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+const prompt = Prompt({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-prompt",
 });
 
 export default function RootLayout({
@@ -41,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang={params.locale}
-      className={`${roboto.variable} ${nunito.variable} ${press_start_2p.variable}`}
+      className={`${roboto.variable} ${roboto_mono.variable} ${prompt.variable}  ${nunito.variable} ${press_start_2p.variable} ${goldman.variable}`}
     >
       <body>
         <AppRoot>{children}</AppRoot>

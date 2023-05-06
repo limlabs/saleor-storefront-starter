@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+// import { useI18N } from "@/core/server/i18n";
 import { CartIcon } from "./cartIcon";
 import type { FC } from "react";
 
@@ -8,6 +9,7 @@ import type { FC } from "react";
 // - what to use for collections link?
 
 export const RootLayoutHeader: FC = () => {
+  // const t = await useI18N(params.locale);
   return (
     <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">
       <div className="flex flex-row px-2">

@@ -1,19 +1,36 @@
-"use server";
+import { cache } from 'react';
 
-const i18n = {
-    'en-us': async () => (await import(`../../dictionaries/en-us.json`)).default,
-    'es-mx': async () => (await import(`../../dictionaries/es-mx.json`)).default,
-};
+const config = {
+    'en-us': {
+        name: "English 🇺🇸",
+        dict: 'en-us.json'
+    },
+    'es-mx': {
+        name: "Spanish 🇲🇽",
+        dict: 'es-mx.json'
+    }
+} as const;
 
-export type Locale = keyof typeof i18n;
+const i18n = Object.fromEntries(
+    Object.entries(config).map(
+        ([name, value]) => [name, async () => (await import(`@/dictionaries/${value.dict}`)).default]));
 
+export type Locale = keyof typeof config;
 
-function _geti18NProp(path: string){
-    const pathParts = path.split('.');
+export const useI18N = cache(async (locale: Locale) => {
+    const translations = await i18n[locale]?.();
+    return (path: string) => {
+        const pathParts = path.split('.');
+        let prop = pathParts.pop();
+        let namespace = translations;
 
-    // for()
+        const error = `(${pathParts.join('.')}.${prop})`;
 
-}
-export async function getI18N(locale: Locale) {
-    return i18n[locale]?.();
-}
+        for (let part of pathParts) {
+            namespace = namespace[part];
+            if (namespace !== undefined) continue;
+            return error;
+        }
+        return namespace[prop as any] ?? error;
+    }
+});

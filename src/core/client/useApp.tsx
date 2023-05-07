@@ -8,6 +8,7 @@ interface AppProviderStore {
   i18n: I18NConf;
   params: {
     locale?: string;
+    channel?: string;
   };
 }
 
@@ -35,6 +36,7 @@ export const AppProvider: FC<PropsWithChildren<AppProvider>> = ({
       ...value,
       params: {
         ...params,
+        channel: 'default-channel',
         locale,
       },
     };

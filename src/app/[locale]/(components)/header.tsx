@@ -19,26 +19,24 @@ export const RootLayoutHeader: FC<RootLayoutHeaderProps> = ({ locale }) => {
 
   return (
     <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">
-      <div className="flex flex-row px-2">
-        <Image src="/logo.svg" width={190} height={60} alt="LIMINAL logo" />
-      </div>
-      <nav className="w-3/5">
-        <ul className="flex flex-row">
-          <li>
-            <Link href="/home" channel="">{t("header.home")}</Link>
-          </li>
-          <li className="ml-4 hover:text-secondary">
-            <Link href="/c/all">{t("header.shop")}</Link>
-          </li>
-          <li className="ml-4 hover:text-secondary">
-            <Link href="/about">
-              {t("header.about")}
-            </Link>
-          </li>
-        </ul>
+      <nav className="navbar bg-base-100 p-0">
+        <div className="navbar-start gap-4">
+          <Image className="mr-5" src="/logo.svg" width={190} height={60} alt="LIMINAL logo" />
+          <Link href="/home" channel="">
+            {t("header.home")}
+          </Link>
+          <Link href="/c/all" className="hover:text-secondary">
+            {t("header.shop")}
+          </Link>
+          <Link href="/about" className="hover:text-secondary">
+            {t("header.about")}
+          </Link>
+        </div>
+        <div className="navbar-end gap-4">
+          <LocaleMenu />
+          <CartIcon />
+        </div>
       </nav>
-      <LocaleMenu />
-      <CartIcon />
     </header>
   );
 };

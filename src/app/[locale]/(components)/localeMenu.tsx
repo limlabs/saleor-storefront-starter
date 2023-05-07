@@ -12,10 +12,10 @@ export const LocaleMenu: FC = () => {
   const handleLocaleChange: ChangeEventHandler<HTMLSelectElement> = ({
     target,
   }) => {
-    const { pathname } = window.location;
+    const { pathname, search } = window.location;
     if (params.locale) {
       const localePathname = pathname.replace(params.locale, target.value);
-      router.replace(localePathname);
+      router.replace(localePathname+search);
     }
   };
 
@@ -25,11 +25,13 @@ export const LocaleMenu: FC = () => {
       defaultValue={params.locale}
       onChange={handleLocaleChange}
     >
-      {Object.entries(i18n.locales).map(([locale, label]) => (
-        <option key={locale} value={locale}>
-          {label}
-        </option>
-      ))}
+      {i18n?.locales
+        ? Object.entries(i18n.locales).map(([locale, label]) => (
+            <option key={locale} value={locale}>
+              {label}
+            </option>
+          ))
+        : null}
     </Select>
   );
 };

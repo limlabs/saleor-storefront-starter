@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import Card from "@/app/daisyui/card";
 import CardMedia from "@/app/daisyui/card-media";
@@ -16,17 +16,18 @@ import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
 import Indicator from "@/app/daisyui/indicator";
+import type { I18NFC } from "@/core/server/useI18NValues";
+import type { ProductCardI18N } from "@/app/i18n/productCard";
 
 interface ProductCardProps {
   product: Product;
   animation?: "zoom" | "bounce";
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
+export const ProductCard: I18NFC<ProductCardProps, ProductCardI18N> = ({ product, animation, i18n }) => {
   const { defaultVariant, thumbnail, pricing, slug, rating } = product;
   const { onSale } = pricing;
   const [variantID, setVarientID] = useState(defaultVariant.id);
-
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -70,7 +71,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
         show={onSale}
         center
         top
-        content="Sale"
+        content={i18n.sale}
         className="badge-primary"
       >
         <CardBody className="relative">
@@ -96,7 +97,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton text="Add to Cart" variantID={variantID} />
+            <ProductCardButton text={i18n["add to cart"]} variantID={variantID} />
           </CardActions>
         </CardBody>
       </Indicator>

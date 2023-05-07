@@ -1,10 +1,12 @@
 "use client";
 
-import { FC, useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
+import { useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
 import Collapse from "@/app/daisyui/collapse";
 import TextInput from "@/app/daisyui/text-input";
 import Badge from "@/app/daisyui/badge";
 import { Link } from "./link";
+import type { I18NFC } from "@/core/server/useI18NValues";
+import type { SearchFilterI18NKeys } from "@/app/i18n/searchFilter";
 
 export interface FilterOp {
   isAvailable: boolean;
@@ -48,34 +50,47 @@ const filterOptions = ["search", "isAvailable", "gte", "lte"] as Array<
   keyof FilterOp
 >;
 
-export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
+export const SearchFilter: I18NFC<SearchFilterProps, SearchFilterI18NKeys> = ({
+  filter,
+  i18n,
+}) => {
   const [state, dispatch] = useReducer(reducer, filter);
 
   const title = useMemo(() => {
     const badges = filterOptions.flatMap((value) => {
-      if (value === "lte" && state.lte)
+      if (value === "lte" && state.lte) {
         return (
           <Badge outline key={value} className="ml-2">
             &lt;= ${state.lte}
           </Badge>
         );
-      if (value === "gte" && state.gte)
+      }
+      if (value === "gte" && state.gte) {
         return (
           <Badge outline key={value} className="ml-2">
             &gt;= ${state.gte}
           </Badge>
         );
-      if (state[value])
+      }
+      if (value === "search" && state.search) {
         return (
           <Badge className="badge-primary ml-2" key={value}>
-            {value}
+            {i18n.search}
           </Badge>
         );
+      }
+      if (value === "isAvailable" && state.isAvailable) {
+        return (
+          <Badge className="badge-primary ml-2" key={value}>
+            {i18n["is Available"]}
+          </Badge>
+        );
+      }
     });
 
     return (
       <div className="flex text-neutral">
-        <span>Filter</span>
+        <span>{i18n.filter}</span>
         <span className="flex flex-1 items-center">{badges}</span>
       </div>
     );
@@ -112,7 +127,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
       <div className="container flex flex-row items-end">
         <div className="form-control flex-1">
           <label className="label">
-            <span className="label-text">Search</span>
+            <span className="label-text">{i18n.search}</span>
           </label>
           <TextInput
             bordered
@@ -123,7 +138,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
         </div>
         <div className="form-control w-40">
           <label className="label cursor-pointer flex justify-around ">
-            <span className="label-text">is Available</span>
+            <span className="label-text">{i18n["is Available"]}</span>
             <input
               type="checkbox"
               name="isAvailable"
@@ -138,7 +153,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
       <div className="flex items-end">
         <div className="form-control flex-1">
           <label className="label">
-            <span className="label-text">Price Range</span>
+            <span className="label-text">{i18n["price range"]}</span>
           </label>
           <div className="flex justify-around align-middle">
             <div className="relative ">
@@ -177,7 +192,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
             }}
             className="btn btn-outline btn-primary"
           >
-            Apply
+            {i18n.apply}
           </Link>
         </div>
       </div>

@@ -38,7 +38,7 @@ export const Link: FC<LinkProps> = ({
       };
     }
     return href;
-  }, [params.locale, locale, channel, href]);
+  }, [params.locale, params.channel, locale, channel, href]);
 
   return (
     <NextLink href={hrefWithLocale} {...props}>

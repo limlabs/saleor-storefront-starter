@@ -94,7 +94,7 @@ export const SearchFilter: I18NFC<SearchFilterProps, SearchFilterI18NKeys> = ({
         <span className="flex flex-1 items-center">{badges}</span>
       </div>
     );
-  }, [state]);
+  }, [state, i18n]);
 
   const query = useMemo(() => {
     return Object.fromEntries(

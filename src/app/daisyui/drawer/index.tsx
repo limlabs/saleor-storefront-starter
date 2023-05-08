@@ -16,7 +16,7 @@ interface DrawerProps {
 const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   children,
   isOpen = false,
-  position = "left",
+  position = "right",
   onClose,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(isOpen);
@@ -35,12 +35,15 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer  h-screen">
+    <div className="drawer drawer-end  h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
         <div className="z-20 sticky navbar bg-almost-black top-0 w-screen pl-4">
-          <div className="flex-none ">
-            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost ">
+          <div className="flex-1 px-2 mx-2">
+            <Image src={Logo} alt="logo" height={20} />
+          </div>
+          <div className="flex-none">
+            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -55,9 +58,6 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                 ></path>
               </svg>
             </label>
-          </div>
-          <div className="flex-1 px-2 mx-2">
-            <Image src={Logo} alt="logo" height={20} />
           </div>
         </div>
         <main className="h-screen w-screen">{children}</main>

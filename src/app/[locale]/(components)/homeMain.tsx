@@ -16,7 +16,7 @@ export default function HomeMain() {
           --
         </p>
         <h3 className="text-almost-black font-prompt -lg:text-lg -md:text-3xl text-center font-extralight">
-          The future of creativity starts here.
+          A sensible choice for extraordinary results.
         </h3>
       </div>
     </section>

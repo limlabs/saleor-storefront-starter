@@ -1,8 +1,14 @@
 "use client";
-import React, { useState, PropsWithChildren, ReactNode } from "react";
+import React, {
+  useState,
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+} from "react";
 import clsx from "clsx";
 import Logo from "../../../../public/logo-white.png";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 import Image from "next/image";
 
@@ -20,12 +26,24 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   onClose,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(isOpen);
+  const [currentPath, setCurrentPath] = useState("");
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
     if (onClose) {
       onClose();
     }
+  };
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setCurrentPath(pathname);
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    return currentPath === href;
   };
 
   const drawerClass = clsx("fixed z-20 w-64 h-full p-4 bg-white shadow-xl", {
@@ -38,7 +56,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
     <div className="drawer drawer-end  h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
-        <div className="z-20 sticky navbar bg-almost-black top-0 w-screen pl-4">
+        <div className="z-20 sticky navbar bg-almost-black top-0 w-screen ">
           <div className="flex-1 px-2 mx-2">
             <Image src={Logo} alt="logo" height={20} />
           </div>
@@ -65,18 +83,19 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 bg-light-gray text-almost-black">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/en-us/c/all">Shop</Link>
-          </li>
-          <li>
-            <a>Software</a>
-          </li>
-          <li>
-            <a>Media</a>
-          </li>
+          {[
+            { name: "Home", path: "/en-us" },
+            { name: "Shop", path: "/en-us/c/all" },
+          ].map((item) => (
+            <li
+              key={item.name}
+              className={
+                isActive(item.path) ? "bg-dark-blue text-white rounded-sm" : ""
+              }
+            >
+              <Link href={item.path}>{item.name}</Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

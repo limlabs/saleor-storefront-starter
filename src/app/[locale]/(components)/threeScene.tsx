@@ -18,7 +18,7 @@ import HomeText from "./homeTextSection";
 export default function ThreeScene() {
   return (
     <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-2/3  max-w-full shadow-vertical-sm">
-      <Canvas className=" bg-black" camera={{ fov: 75, position: [30, 0, 0] }}>
+      <Canvas camera={{ fov: 75, position: [0, 0, 30] }}>
         <Environment files="./img/bridge.hdr" background blur={0} />
 
         <ambientLight intensity={0.3} />

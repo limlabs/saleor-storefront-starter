@@ -2,13 +2,15 @@
 
 import { createContext, useContext, useMemo } from "react";
 import type { FC, PropsWithChildren } from "react";
-import type { I18NConf } from "@/i18n-config";
+import type { I18NConf, Locale } from "@/i18n-config";
+import type { ChannelConf, Channel } from "@/channel-config";
 
 interface AppProviderStore {
   i18n: I18NConf;
+  channels: ChannelConf;
   params: {
-    locale?: string;
-    channel?: string;
+    locale?: Locale;
+    channel?: Channel;
   };
 }
 
@@ -18,7 +20,8 @@ interface AppProvider {
 
 const AppContext = createContext<AppProviderStore>({
   params: {},
-  i18n: {} as any,
+  i18n: {} as I18NConf,
+  channels: {} as ChannelConf,
 });
 
 export const AppProvider: FC<PropsWithChildren<AppProvider>> = ({
@@ -26,17 +29,21 @@ export const AppProvider: FC<PropsWithChildren<AppProvider>> = ({
   value,
 }) => {
   const normalized = useMemo<AppProviderStore>(() => {
-    const { params, i18n } = value;
+    const { params, i18n, channels } = value;
     const locale =
-      (params.locale ?? "") in i18n.locales
+      (params.locale as Locale) in i18n.locales
         ? params.locale
         : i18n.defaultLocale;
+
+    const channel = channels.list.includes(params.channel as Channel)
+      ? params.channel
+      : channels.defaultChannel;
 
     return {
       ...value,
       params: {
         ...params,
-        channel: 'default-channel',
+        channel,
         locale,
       },
     };

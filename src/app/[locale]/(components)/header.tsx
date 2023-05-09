@@ -6,10 +6,6 @@ import { LocaleMenu } from "./localeMenu";
 import type { FC } from "react";
 import type { Locale } from "@/i18n-config";
 
-// TODO:
-// - fetch locales for links
-// - what to use for collections link?
-
 interface RootLayoutHeaderProps {
   locale: Locale;
 }

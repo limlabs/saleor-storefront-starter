@@ -20,14 +20,14 @@ function isInvalidLocale(locale?: string) {
     return (!locale || locales.every(loc => `/${loc}` !== locale));
 }
 
-function findURlLocale(request: NextRequest) {
+function findURLLocale(request: NextRequest) {
     const { pathname } = request.nextUrl;
     return pathname.match(LOCALE_REGEX)?.[0];
 }
 
 export function middleware(request: NextRequest) {
 
-    let locale = findURlLocale(request);
+    let locale = findURLLocale(request);
 
     if (isInvalidLocale(locale)) {
         const userLocale = getLocale(request);

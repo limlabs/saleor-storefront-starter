@@ -3,6 +3,7 @@ import { CheckoutProvider } from "@/core/client/useCheckout";
 import { getCheckoutID } from "@/core/server/checkout";
 import request from "graphql-request";
 import gql from "graphql-tag";
+import Link from "next/link";
 import { FC, ReactNode, Suspense, use } from "react";
 import { RootLayoutHeader } from "./header";
 

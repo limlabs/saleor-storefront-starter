@@ -52,12 +52,6 @@ module.exports = {
       blur: {
         xsmall: "2px",
       },
-      backgroundColor: {
-        "active-class": "rgb(68, 63, 228)",
-      },
-      textColor: {
-        "active-class": "white",
-      },
     },
   },
   plugins: [require("daisyui")],

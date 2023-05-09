@@ -36,6 +36,22 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
     }
   };
 
+  const [showSkipLink, setShowSkipLink] = useState(false);
+
+  useEffect(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        setShowSkipLink(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -55,11 +71,19 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   return (
     <div className="drawer drawer-end  h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+
       <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
         <div className="z-20 sticky navbar bg-almost-black top-0 w-full pl-4">
+          <Link
+            href="/"
+            className={`ml-14 btn-primary p-2 rounded-md absolute transition duration-150 ease-out hover:ease-in ${
+              showSkipLink ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Skip to Main Content
+          </Link>
           <div className="flex-1 px-2 mx-2">
-            <Image src={LogoMark} alt="logomark" height={20} className="mr-4" />
-            <Image src={Logo} alt="logo" height={20} />
+            <Image src={LogoMark} alt="logomark" height={34} className="mr-4" />
           </div>
           <div className="flex-none pl-4">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
@@ -87,6 +111,10 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
           {[
             { name: "Home", path: "/en-us" },
             { name: "Shop", path: "/en-us/c/all" },
+            { name: "Services", path: "/en-us/services" },
+            { name: "Talk To Real Humans!", path: "/en-us/talk" },
+            { name: "Zine", path: "/en-us/zine" },
+            { name: "Support Us", path: "/en-us/support" },
           ].map((item) => (
             <li
               key={item.name}

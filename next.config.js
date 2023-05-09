@@ -7,8 +7,19 @@ const nextConfig = {
     return [
       {
         source: "/about",
-
-        destination: "/en-us/about",
+        destination: "/about",
+      },
+      {
+        source: "/support",
+        destination: "/support",
+      },
+      {
+        source: "/talk",
+        destination: "/talk",
+      },
+      {
+        source: "/zine",
+        destination: "/zine",
       },
       {
         source: "/:locale",

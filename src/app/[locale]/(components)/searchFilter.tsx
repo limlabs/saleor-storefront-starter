@@ -82,7 +82,7 @@ export const SearchFilter: TFC<SearchFilterProps, SearchFilterTranslationKeys> =
       if (value === "isAvailable" && state.isAvailable) {
         return (
           <Badge className="badge-primary ml-2" key={value}>
-            {t["is Available"]}
+            {t["is available"]}
           </Badge>
         );
       }
@@ -138,7 +138,7 @@ export const SearchFilter: TFC<SearchFilterProps, SearchFilterTranslationKeys> =
         </div>
         <div className="form-control w-40">
           <label className="label cursor-pointer flex justify-around ">
-            <span className="label-text">{t["is Available"]}</span>
+            <span className="label-text">{t["is available"]}</span>
             <input
               type="checkbox"
               name="isAvailable"

@@ -8,8 +8,7 @@ export const getTranslations = cache(async (locale: Locale) => {
         const pathParts = path.split('.');
         let prop = pathParts.pop();
         let namespace = translations;
-
-        const error = `(${pathParts.join('.')}.${prop})`;
+        const error = `(${path})`;
 
         for (let part of pathParts) {
             namespace = namespace?.[part];

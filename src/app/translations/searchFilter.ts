@@ -1,6 +1,6 @@
 export const searchFilterTranslationKeys = [
     "price range",
-    "is Available",
+    "is available",
     "search",
     "filter",
     "apply",

@@ -9,6 +9,7 @@ import clsx from "clsx";
 import Logo from "../../../../public/logo-white.png";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import LogoMark from "../../../../public/slide-logo.png";
 
 import Image from "next/image";
 
@@ -35,7 +36,6 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
     }
   };
 
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -56,11 +56,12 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
     <div className="drawer drawer-end  h-screen">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
-        <div className="z-20 sticky navbar bg-almost-black top-0 w-screen ">
+        <div className="z-20 sticky navbar bg-almost-black top-0 w-full pl-4">
           <div className="flex-1 px-2 mx-2">
+            <Image src={LogoMark} alt="logomark" height={20} className="mr-4" />
             <Image src={Logo} alt="logo" height={20} />
           </div>
-          <div className="flex-none">
+          <div className="flex-none pl-4">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -89,9 +90,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
           ].map((item) => (
             <li
               key={item.name}
-              className={
-                isActive(item.path) ? "bg-dark-blue text-white rounded-sm" : ""
-              }
+              className={isActive(item.path) ? "btn-primary" : ""}
             >
               <Link href={item.path}>{item.name}</Link>
             </li>

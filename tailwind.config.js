@@ -19,6 +19,7 @@ module.exports = {
         "almost-black": "rgb(0, 0, 19)",
         "dark-purp": "rgb(58, 1, 95)",
         "dark-blue": "rgb(19, 27, 108)",
+        "blue-main": "rgb(68, 63, 228)",
       },
       boxShadow: {
         "header-shadow": "0px 3px 11px 1px rgba(0,0,0,0.89)",

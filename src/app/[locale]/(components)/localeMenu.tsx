@@ -6,7 +6,7 @@ import Select from "@/app/daisyui/select";
 import type { FC } from "react";
 
 export const LocaleMenu: FC = () => {
-  const { params, i18n } = useApp();
+  const { params, localeConfig } = useApp();
   const router = useRouter();
 
   const handleLocaleChange: ChangeEventHandler<HTMLSelectElement> = ({
@@ -25,8 +25,8 @@ export const LocaleMenu: FC = () => {
       defaultValue={params.locale}
       onChange={handleLocaleChange}
     >
-      {i18n?.locales
-        ? Object.entries(i18n.locales).map(([locale, label]) => (
+      {localeConfig?.locales
+        ? Object.entries(localeConfig.locales).map(([locale, label]) => (
             <option key={locale} value={locale}>
               {label}
             </option>

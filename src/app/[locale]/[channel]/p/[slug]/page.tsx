@@ -1,10 +1,12 @@
 import { gqlClient } from "@/gql";
 import { ProductHero } from "@/app/[locale]/(components)/productHero";
+import type { Locale } from "@/locale-config";
+import type { Channel } from "@/channel-config";
 
 interface PageProps {
   params: {
-    locale: string;
-    channel: string;
+    locale: Locale;
+    channel: Channel;
     slug: string;
   };
 }

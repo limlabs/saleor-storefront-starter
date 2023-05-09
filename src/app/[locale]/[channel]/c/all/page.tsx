@@ -1,8 +1,9 @@
 import { ProductGallery } from "@/app/[locale]/(components)/productGallery";
 import { FilterOp } from "@/app/[locale]/(components)/searchFilter";
-import { getI18N } from "@/core/server/getI18N";
+import { getTranslations } from "@/core/server/getTranslations";
 import { gqlClient } from "@/gql";
-import type { Locale } from "@/i18n-config";
+import type { Locale } from "@/locale-config";
+import type { Channel } from "@/channel-config";
 
 interface SearchParams extends FilterOp {
   after?: string;
@@ -11,7 +12,7 @@ interface SearchParams extends FilterOp {
 interface PageProps {
   params: {
     locale: Locale;
-    channel: string;
+    channel: Channel;
   };
   searchParams?: SearchParams;
 }
@@ -49,15 +50,15 @@ export default async function AllProductsPage({
     }));
   }
 
-  const i18n = await getI18N(locale);
+  const t = await getTranslations(locale);
 
   return (
     <main>
       <h1 className="m-4 text-xl text-secondary-content">
         <div className="text-sm breadcrumbs">
           <ul>
-            <li className="text-secondary">{i18n("Gallery.shop")}</li>
-            <li>{i18n("Gallery.all products")}</li>
+            <li className="text-secondary">{t("Gallery.shop")}</li>
+            <li>{t("Gallery.all products")}</li>
           </ul>
         </div>
       </h1>

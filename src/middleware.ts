@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { i18n } from "./i18n-config";
+import { localeConfig } from "./locale-config";
 import type { NextRequest } from "next/server";
 
-const locales = Object.keys(i18n.locales);
-const defaultLocale = i18n.defaultLocale;
+const locales = Object.keys(localeConfig.locales);
+const defaultLocale = localeConfig.defaultLocale;
 
 const LOCALE_REGEX = /^\/[a-z]{2}-[a-z]{2,}/;
 

@@ -1,17 +1,17 @@
 import Image from "next/image";
-import { useI18N } from "@/core/server/useI18N";
+import { useTranslations } from "@/core/server/useTranslations";
 import { Link } from "./link";
 import { CartIcon } from "./cartIcon";
 import { LocaleMenu } from "./localeMenu";
 import type { FC } from "react";
-import type { Locale } from "@/i18n-config";
+import type { Locale } from "@/locale-config";
 
 interface RootLayoutHeaderProps {
   locale: Locale;
 }
 
 export const RootLayoutHeader: FC<RootLayoutHeaderProps> = ({ locale }) => {
-  const t = useI18N(locale);
+  const t = useTranslations(locale);
 
   return (
     <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">

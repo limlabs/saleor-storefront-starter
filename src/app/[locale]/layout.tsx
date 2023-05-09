@@ -1,12 +1,12 @@
 import { AppProvider } from "@/core/client/useApp";
-import { i18n } from "@/i18n-config";
+import { localeConfig } from "@/locale-config";
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
-import { channels } from "@/channel-config";
+import { channelConfig } from "@/channel-config";
 import { AppRoot } from "./(components)/root";
 import { RootLayoutHeader } from "./(components)/header";
 import "./globals.css";
 import type { PropsWithChildren } from "react";
-import { Locale } from "@/i18n-config";
+import { Locale } from "@/locale-config";
 
 export const metadata = {
   title: "Headless Store",
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
-        <AppProvider value={{ params, i18n, channels }}>
+        <AppProvider value={{ params, localeConfig: localeConfig, channelConfig: channelConfig }}>
           <AppRoot>
             <div className="mx-auto my-6 w-full max-w-6xl ">
               <RootLayoutHeader locale={params.locale} />

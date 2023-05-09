@@ -16,15 +16,19 @@ import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
 import Indicator from "@/app/daisyui/indicator";
-import type { I18NFC } from "@/core/server/useI18NValues";
-import type { ProductCardI18N } from "@/app/i18n/productCard";
+import type { TFC } from "@/core/server/useTranslationValues";
+import type { ProductCardTranslations } from "@/app/translations/productCard";
 
 interface ProductCardProps {
   product: Product;
   animation?: "zoom" | "bounce";
 }
 
-export const ProductCard: I18NFC<ProductCardProps, ProductCardI18N> = ({ product, animation, i18n }) => {
+export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
+  product,
+  animation,
+  t,
+}) => {
   const { defaultVariant, thumbnail, pricing, slug, rating } = product;
   const { onSale } = pricing;
   const [variantID, setVarientID] = useState(defaultVariant.id);
@@ -71,7 +75,7 @@ export const ProductCard: I18NFC<ProductCardProps, ProductCardI18N> = ({ product
         show={onSale}
         center
         top
-        content={i18n.sale}
+        content={t.sale}
         className="badge-primary"
       >
         <CardBody className="relative">
@@ -97,7 +101,7 @@ export const ProductCard: I18NFC<ProductCardProps, ProductCardI18N> = ({ product
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton text={i18n["add to cart"]} variantID={variantID} />
+            <ProductCardButton text={t["add to cart"]} variantID={variantID} />
           </CardActions>
         </CardBody>
       </Indicator>

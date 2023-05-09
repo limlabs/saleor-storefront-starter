@@ -1,8 +1,8 @@
-export const channels =  {
+export const channelConfig =  {
     defaultChannel: 'default-channel',
     list: ['default-channel']
 } as const;
 
-export type ChannelConf = typeof channels;
+export type ChannelConfig = typeof channelConfig;
 
-export type Channel = ChannelConf['list'][number]
+export type Channel = ChannelConfig['list'][number]

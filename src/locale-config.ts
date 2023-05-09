@@ -1,4 +1,4 @@
-export const i18n = {
+export const localeConfig = {
     defaultLocale: "en-us",
     locales: {
         'en-us': "English 🇺🇸",
@@ -9,5 +9,5 @@ export const i18n = {
 } as const;
 
 
-export type I18NConf = typeof i18n;
-export type Locale = keyof typeof i18n['locales'];
+export type LocaleConfig = typeof localeConfig;
+export type Locale = keyof typeof localeConfig['locales'];

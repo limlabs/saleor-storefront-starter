@@ -1,5 +1,5 @@
-import { FC } from "react";
 import Badge from "@/app/daisyui/badge";
+import type { FC } from "react";
 
 export const ProductCardSkeleton: FC = () => {
   return (

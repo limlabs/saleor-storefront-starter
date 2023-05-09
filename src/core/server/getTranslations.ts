@@ -1,8 +1,8 @@
 import { cache } from 'react';
-import { dictionaries } from '@/i18n-dictionaries';
-import type { Locale } from '@/i18n-config';
+import { dictionaries } from '@/translation-dictionaries';
+import type { Locale } from '@/locale-config';
 
-export const getI18N = cache(async (locale: Locale) => {
+export const getTranslations = cache(async (locale: Locale) => {
     const translations = await dictionaries[locale]?.();
     return (path: string) => {
         const pathParts = path.split('.');

@@ -1,14 +1,14 @@
 import { FC, Fragment } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { useI18NValues } from "@/core/server/useI18NValues";
+import { useTranslationValues } from "@/core/server/useTranslationValues";
 import { ProductCardProvider } from "@/core/client/useProductCard";
 import { ProductCard } from "./productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
-import { productCardI18NKeys } from "@/app/i18n/productCard";
-import { productGalleryI18NKeys } from "@/app/i18n/productGallery";
-import { searchFilterI18NKeys } from "@/app/i18n/searchFilter";
-import type { Locale } from "@/i18n-config";
+import { productCardTranslationKeys } from "@/app/translations/productCard";
+import { productGalleryTranslationKeys } from "@/app/translations/productGallery";
+import { searchFilterTranslationKeys } from "@/app/translations/searchFilter";
+import type { Locale } from "@/locale-config";
 
 interface ProductGalleryProps {
   products: Page<Product>;
@@ -24,23 +24,23 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
   const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
     products.pageInfo;
 
-  const productCardI18N = useI18NValues(
+  const productCardTranslations = useTranslationValues(
     locale,
-    productCardI18NKeys,
+    productCardTranslationKeys,
     "component"
   );
 
-  const searchFilterI18N = useI18NValues(
+  const searchFilterTranslations = useTranslationValues(
     locale,
-    searchFilterI18NKeys,
+    searchFilterTranslationKeys,
     "component"
   );
 
-  const i18n = useI18NValues(locale, productGalleryI18NKeys, "component");
+  const t = useTranslationValues(locale, productGalleryTranslationKeys, "component");
 
   return (
     <Fragment>
-      <SearchFilter filter={filter}  i18n={searchFilterI18N}/>
+      <SearchFilter filter={filter}  t={searchFilterTranslations}/>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         {products.edges.map(({ node }) => {
           return (
@@ -48,7 +48,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
               <ProductCardProvider>
                 <ProductCard
                   product={node}
-                  i18n={productCardI18N}
+                  t={productCardTranslations}
                   animation="bounce"
                 />
               </ProductCardProvider>
@@ -69,7 +69,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
           disabled={!hasPreviousPage}
           className="btn-neutral"
         >
-          <ChevronLeftIcon className="w-6 h-6" /> {i18n.prev}
+          <ChevronLeftIcon className="w-6 h-6" /> {t.prev}
         </LinkButton>
         <LinkButton
           href={{
@@ -82,7 +82,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
           disabled={!hasNextPage}
           className="btn-primary"
         >
-          {i18n.next} <ChevronRightIcon className="w-6 h-6" />
+          {t.next} <ChevronRightIcon className="w-6 h-6" />
         </LinkButton>
       </div>
     </Fragment>

@@ -1,9 +1,10 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { useMemo } from "react";
 import Badge from "@/app/daisyui/badge";
 import clsx from "clsx";
 import { Link } from "./link";
+import type { FC } from "react";
 
 type VariantSelectHandler = (id: string) => void;
 

@@ -1,5 +1,5 @@
-import { useI18N } from "@/core/server/useI18N";
-import type { Locale } from "@/i18n-config";
+import { useTranslations } from "@/core/server/useTranslations";
+import type { Locale } from "@/locale-config";
 
 interface HomePageProps {
 	params: {
@@ -9,7 +9,7 @@ interface HomePageProps {
 }
 
 export default function HomePage({ params }: HomePageProps) {
-  const t = useI18N(params.locale);
+  const t = useTranslations(params.locale);
 
   return (
     <main className="container mx-auto my-auto w-full max-w-7xl h-full max-h-screen">

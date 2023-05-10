@@ -5,28 +5,18 @@ import texture from "../../../../public/texture_logo.jpg";
 import { useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 // import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { useFBX, useTexture } from "@react-three/drei";
+import { useGLTF, useTexture } from "@react-three/drei";
 
-const modelPath = "/slideModel.fbx";
+const modelPath = "/LIMINAL_v9.gltf";
 
 export default function ThreeModel() {
   const colorMap = useLoader(TextureLoader, texture.src);
   const meshRef = useRef<Mesh>(null);
-  const slideModel = useFBX(modelPath);
-
-  // useFrame(() => {
-  //   if (meshRef.current) {
-  //     meshRef.current.rotation.y += 0.01;
-  //   }
-  // });
+  const { scene } = useGLTF(modelPath);
 
   return (
-    <mesh ref={meshRef} position={[0, -14, 0]}>
-      <primitive
-        ref={meshRef}
-        object={slideModel}
-        scale={[0.007, 0.007, 0.007]}
-      />
+    <mesh ref={meshRef} position={[0, -16, 0]}>
+      <primitive ref={meshRef} object={scene} scale={[0.75, 0.75, 0.75]} />
     </mesh>
   );
 }

@@ -48,6 +48,7 @@ module.exports = {
         roboto_mono: ["var(--font-roboto_mono)"],
         prompt: ["var(--font-prompt)"],
         goldman: ["var(--font-goldman)"],
+        futura: ["var(--font-futura)"],
       },
       blur: {
         xsmall: "2px",

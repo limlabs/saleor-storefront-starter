@@ -6,6 +6,7 @@ import HomeHeroMobile from "../../(components)/homeHeroMobile";
 import HomeSectionTwo from "../../(components)/homeSectionTwo";
 import HomeSectionThree from "../../(components)/homeSectionThree";
 import Footer from "../../(components)/footer";
+import ThreeScene2 from "../../(components)/threeScene2";
 
 export default function HomePage() {
   return (
@@ -14,7 +15,7 @@ export default function HomePage() {
         <HomeHeroMobile />
       </div>
       <div className="-lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
-        <ThreeScene />
+        <ThreeScene2 />
         <HomeMain />
       </div>
       <div>

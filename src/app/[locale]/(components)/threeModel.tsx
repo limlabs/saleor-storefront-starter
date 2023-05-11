@@ -15,7 +15,7 @@ export default function ThreeModel() {
   const { scene } = useGLTF(modelPath);
 
   return (
-    <mesh ref={meshRef} position={[0, -16, 0]}>
+    <mesh ref={meshRef} position={[0, -16, 0]} castShadow>
       <primitive ref={meshRef} object={scene} scale={[0.75, 0.75, 0.75]} />
     </mesh>
   );

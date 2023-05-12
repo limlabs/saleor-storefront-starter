@@ -27,6 +27,4 @@ class StoreGqlClient {
   }
 }
 
-export const gqlClient = new StoreGqlClient(
-  "https://liminal-labs.saleor.cloud/graphql/"
-);
+export const gqlClient = new StoreGqlClient(process.env.SALEOR_ENDPOINT as string);

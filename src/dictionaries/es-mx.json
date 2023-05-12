@@ -1,0 +1,25 @@
+{
+    "Home": {
+        "welcome": "Bienvenido a la Tienda Headless"
+    },
+    "Gallery": {
+        "shop": "Comprar",
+        "all products": "Todos"
+    },
+    "header": {
+        "home": "Inicio",
+        "shop": "Compra",
+        "about": "Acerca De"
+    },
+    "component": {
+        "add to cart": "Añadir al Carrito",
+        "apply": "Applicar",
+        "filter": "Filtrar",
+        "is available": "Disponible",
+        "price range": "Rango de Precio",
+        "search": "Buscar",
+        "next": "Siguiente",
+        "prev": "Atrás",
+        "sale": "Venta"
+    }
+}

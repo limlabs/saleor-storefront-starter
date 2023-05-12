@@ -1,6 +1,9 @@
 import { ProductGallery } from "@/app/[locale]/(components)/productGallery";
 import { FilterOp } from "@/app/[locale]/(components)/searchFilter";
+import { getTranslations } from "@/core/server/getTranslations";
 import { gqlClient } from "@/gql";
+import type { Locale } from "@/locale-config";
+import type { Channel } from "@/channel-config";
 
 interface SearchParams extends FilterOp {
   after?: string;
@@ -8,8 +11,8 @@ interface SearchParams extends FilterOp {
 }
 interface PageProps {
   params: {
-    locale: string;
-    channel: string;
+    locale: Locale;
+    channel: Channel;
   };
   searchParams?: SearchParams;
 }
@@ -47,19 +50,22 @@ export default async function AllProductsPage({
     }));
   }
 
+  const t = await getTranslations(locale);
+
   return (
     <main>
       <h1 className="m-4 text-xl text-secondary-content">
         <div className="text-sm breadcrumbs">
           <ul>
-            <li className="text-secondary">Shop</li>
-            <li>All Products</li>
+            <li className="text-secondary">{t("Gallery.shop")}</li>
+            <li>{t("Gallery.all products")}</li>
           </ul>
         </div>
       </h1>
       <section className="container mx-auto">
         <ProductGallery
           products={products}
+          locale={locale}
           filter={{
             ...query,
             isAvailable: Boolean(query.isAvailable),

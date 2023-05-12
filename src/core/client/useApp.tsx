@@ -2,19 +2,15 @@
 
 import { createContext, useContext, useMemo } from "react";
 import type { FC, PropsWithChildren } from "react";
-
-const LANG_CODE = [
-  "en",    // English
-  "en-us", // US-English
-  "es-mx", // Spanish-Mexico
-  "fr-fr", // French-France
-  "it-it", // Italian-Italy
-  //...
-];
+import type { LocaleConfig, Locale } from "@/locale-config";
+import type { ChannelConfig, Channel } from "@/channel-config";
 
 interface AppProviderStore {
+  localeConfig: LocaleConfig;
+  channelConfig: ChannelConfig;
   params: {
-    locale?: string;
+    locale?: Locale;
+    channel?: Channel;
   };
 }
 
@@ -22,23 +18,32 @@ interface AppProvider {
   value: AppProviderStore;
 }
 
-const INIT: AppProviderStore = { params: {} };
-const AppContext = createContext<AppProviderStore>(INIT);
+const AppContext = createContext<AppProviderStore>({
+  params: {},
+  localeConfig: {} as LocaleConfig,
+  channelConfig: {} as ChannelConfig,
+});
 
 export const AppProvider: FC<PropsWithChildren<AppProvider>> = ({
   children,
   value,
 }) => {
   const normalized = useMemo<AppProviderStore>(() => {
-    const { params } = value;
-    const locale = LANG_CODE.includes(params.locale ?? "")
-      ? params.locale
-      : "en-us";
+    const { params, localeConfig, channelConfig } = value;
+    const locale =
+      (params.locale as Locale) in localeConfig.locales
+        ? params.locale
+        : localeConfig.defaultLocale;
+
+    const channel = channelConfig.list.includes(params.channel as Channel)
+      ? params.channel
+      : channelConfig.defaultChannel;
 
     return {
       ...value,
       params: {
         ...params,
+        channel,
         locale,
       },
     };

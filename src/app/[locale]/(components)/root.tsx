@@ -2,8 +2,7 @@ import { CheckoutProvider } from "@/core/client/useCheckout";
 import { getCheckoutID } from "@/core/server/checkout";
 import request from "graphql-request";
 import gql from "graphql-tag";
-import { FC, ReactNode, Suspense, use } from "react";
-import { RootLayoutHeader } from "./header";
+import { FC, ReactNode } from "react";
 
 interface CheckoutQuantityResponse {
   checkout: {
@@ -35,11 +34,6 @@ export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
   }
 
   return (
-    <CheckoutProvider initialQuantity={quantity}>
-      <div className="mx-auto my-6 w-full max-w-6xl ">
-        <RootLayoutHeader />
-        {children}
-      </div>
-    </CheckoutProvider>
+    <CheckoutProvider initialQuantity={quantity}>{children}</CheckoutProvider>
   );
 };

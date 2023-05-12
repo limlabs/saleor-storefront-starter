@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import Card from "@/app/daisyui/card";
 import CardMedia from "@/app/daisyui/card-media";
@@ -11,28 +11,27 @@ import Badge from "@/app/daisyui/badge";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
 import { ProductCardButton } from "./productCardButton";
 import { ProductRating } from "./productRating";
-import { LocaleLink } from "./localeLink";
+import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
 import Indicator from "@/app/daisyui/indicator";
+import type { TFC } from "@/core/server/useTranslationValues";
+import type { ProductCardTranslations } from "@/app/translations/productCard";
 
 interface ProductCardProps {
   product: Product;
   animation?: "zoom" | "bounce";
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
-  const {
-    defaultVariant,
-    thumbnail,
-    pricing,
-    slug,
-    rating,
-  } = product;
+export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
+  product,
+  animation,
+  t,
+}) => {
+  const { defaultVariant, thumbnail, pricing, slug, rating } = product;
   const { onSale } = pricing;
   const [variantID, setVarientID] = useState(defaultVariant.id);
-
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -59,7 +58,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
       <Badge className="absolute top-2 right-2 z-10 badge-accent">
         {info.category.name}
       </Badge>
-      <LocaleLink
+      <Link
         href={`/p/${slug}`}
         className="link link-primary no-underline text-secondary hover:text-secondary overflow-clip"
       >
@@ -71,12 +70,12 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
           height={300}
           className={cardMediaClasses}
         />
-      </LocaleLink>
+      </Link>
       <Indicator
         show={onSale}
         center
         top
-        content="Sale"
+        content={t.sale}
         className="badge-primary"
       >
         <CardBody className="relative">
@@ -87,7 +86,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
             selected={variantID}
             onClick={setVarientID}
           />
-          <LocaleLink
+          <Link
             href={`/p/${slug}`}
             className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
           >
@@ -96,13 +95,13 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
                 {info.name}
               </span>
             </CardTitle>
-          </LocaleLink>
+          </Link>
           <div className="flex flex-row place-content-between">
             <ProductPrice pricing={pricing} />
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton text="Add to Cart" variantID={variantID} />
+            <ProductCardButton text={t["add to cart"]} variantID={variantID} />
           </CardActions>
         </CardBody>
       </Indicator>

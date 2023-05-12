@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { boolOrSize, bgBlendMode } from "../util";
+import { shadowClass, bgBlendMode, roundedClass } from "../util";
 import clsx from "clsx";
 
 interface CardProps {
@@ -18,8 +18,8 @@ const Card = React.forwardRef<HTMLDivElement, PropsWithChildren<CardProps>>(
   ) {
     const classNames = clsx(
       "card-borderd",
-      boolOrSize("shadow", shadow),
-      boolOrSize("rounded", rounded),
+      shadowClass(shadow),
+      roundedClass(rounded),
       bgBlendMode(bgBlend),
       {
         glass: glass === true,

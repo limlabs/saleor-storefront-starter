@@ -1,24 +1,26 @@
 import clsx from "clsx";
 
-export function boolOrSize(prefix: string, size?: BoolOrSize) {
+export function roundedClass(size?: BoolOrSize) {
     return clsx({
-        [prefix + '-none']: size === false,
-        [prefix]: size === true,
-        [prefix + '-sm']: size === 'sm',
-        [prefix + '-md']: size === 'md',
-        [prefix + '-lg']: size === 'lg',
-        [prefix + '-xl']: size === 'xl',
+        'rounded-none': size === false,
+        'rounded': size === true,
+        'rounded-sm': size === 'sm',
+        'rounded-md': size === 'md',
+        'rounded-lg': size === 'lg',
+        'rounded-xl': size === 'xl',
     })
 }
 
-export function sizeClass(prefix: string, size?: Size){
+export function shadowClass(size?: BoolOrSize) {
     return clsx({
-        [prefix + '-xs']: size === 'xs',
-        [prefix + '-sm']: size === 'sm',
-        [prefix + '-md']: size === 'md',
-        [prefix + '-lg']: size === 'lg',
-    });
-};
+        'shadow-none': size === false,
+        'shadow': size === true,
+        'shadow-sm': size === 'sm',
+        'shadow-md': size === 'md',
+        'shadow-lg': size === 'lg',
+        'shadow-xl': size === 'xl',
+    })
+}
 
 export function bgBlendMode(effect?: BGBlendMode) {
     return clsx({

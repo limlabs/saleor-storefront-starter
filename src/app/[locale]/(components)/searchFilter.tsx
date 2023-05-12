@@ -1,10 +1,12 @@
 "use client";
 
-import { FC, useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
+import { useReducer, useMemo, Reducer, ChangeEventHandler } from "react";
 import Collapse from "@/app/daisyui/collapse";
 import TextInput from "@/app/daisyui/text-input";
 import Badge from "@/app/daisyui/badge";
-import { LocaleLink } from "./localeLink";
+import { Link } from "./link";
+import type { TFC } from "@/core/server/useTranslationValues";
+import type { SearchFilterTranslationKeys } from "@/app/translations/searchFilter";
 
 export interface FilterOp {
   isAvailable: boolean;
@@ -48,38 +50,51 @@ const filterOptions = ["search", "isAvailable", "gte", "lte"] as Array<
   keyof FilterOp
 >;
 
-export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
+export const SearchFilter: TFC<SearchFilterProps, SearchFilterTranslationKeys> = ({
+  filter,
+  t,
+}) => {
   const [state, dispatch] = useReducer(reducer, filter);
 
   const title = useMemo(() => {
     const badges = filterOptions.flatMap((value) => {
-      if (value === "lte" && state.lte)
+      if (value === "lte" && state.lte) {
         return (
           <Badge outline key={value} className="ml-2">
             &lt;= ${state.lte}
           </Badge>
         );
-      if (value === "gte" && state.gte)
+      }
+      if (value === "gte" && state.gte) {
         return (
           <Badge outline key={value} className="ml-2">
             &gt;= ${state.gte}
           </Badge>
         );
-      if (state[value])
+      }
+      if (value === "search" && state.search) {
         return (
           <Badge className="badge-primary ml-2" key={value}>
-            {value}
+            {t.search}
           </Badge>
         );
+      }
+      if (value === "isAvailable" && state.isAvailable) {
+        return (
+          <Badge className="badge-primary ml-2" key={value}>
+            {t["is available"]}
+          </Badge>
+        );
+      }
     });
 
     return (
       <div className="flex text-neutral">
-        <span>Filter</span>
+        <span>{t.filter}</span>
         <span className="flex flex-1 items-center">{badges}</span>
       </div>
     );
-  }, [state]);
+  }, [state, t]);
 
   const query = useMemo(() => {
     return Object.fromEntries(
@@ -112,7 +127,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
       <div className="container flex flex-row items-end">
         <div className="form-control flex-1">
           <label className="label">
-            <span className="label-text">Search</span>
+            <span className="label-text">{t.search}</span>
           </label>
           <TextInput
             bordered
@@ -123,7 +138,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
         </div>
         <div className="form-control w-40">
           <label className="label cursor-pointer flex justify-around ">
-            <span className="label-text">is Available</span>
+            <span className="label-text">{t["is available"]}</span>
             <input
               type="checkbox"
               name="isAvailable"
@@ -138,7 +153,7 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
       <div className="flex items-end">
         <div className="form-control flex-1">
           <label className="label">
-            <span className="label-text">Price Range</span>
+            <span className="label-text">{t["price range"]}</span>
           </label>
           <div className="flex justify-around align-middle">
             <div className="relative ">
@@ -170,15 +185,15 @@ export const SearchFilter: FC<SearchFilterProps> = ({ filter }) => {
           </div>
         </div>
         <div className="form-control flex-none">
-          <LocaleLink
+          <Link
             href={{
               pathname: "/c/all",
               query: { ...query },
             }}
             className="btn btn-outline btn-primary"
           >
-            Apply
-          </LocaleLink>
+            {t.apply}
+          </Link>
         </div>
       </div>
     </Collapse>

@@ -1,31 +1,38 @@
 import Image from "next/image";
-import Link from "next/link";
-import { FC } from "react";
-import { LocaleLink } from "./localeLink";
+import { useTranslations } from "@/core/server/useTranslations";
+import { Link } from "./link";
 import { CartIcon } from "./cartIcon";
+import { LocaleMenu } from "./localeMenu";
+import type { FC } from "react";
+import type { Locale } from "@/locale-config";
 
-// TODO:
-// - fetch locales for links
-// - what to use for collections link?
+interface RootLayoutHeaderProps {
+  locale: Locale;
+}
 
-export const RootLayoutHeader: FC = () => {
+export const RootLayoutHeader: FC<RootLayoutHeaderProps> = ({ locale }) => {
+  const t = useTranslations(locale);
+
   return (
     <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">
-      <div className="flex flex-row px-2">
-        <Image src="/logo.svg" width={190} height={60} alt="LIMINAL logo" />
-      </div>
-      <nav className="w-3/5">
-        <ul className="flex flex-row">
-          <li>
-            <Link href="/home">Home</Link>
-          </li>
-          <li className="ml-4 hover:text-secondary">
-            <LocaleLink href="/c/all">Shop</LocaleLink>
-          </li>
-        </ul>
+      <nav className="navbar bg-base-100 p-0">
+        <div className="navbar-start gap-4">
+          <Image className="mr-5" src="/logo.svg" width={190} height={60} alt="LIMINAL logo" />
+          <Link href="/home" channel="">
+            {t("header.home")}
+          </Link>
+          <Link href="/c/all" className="hover:text-secondary">
+            {t("header.shop")}
+          </Link>
+          <Link href="/about" className="hover:text-secondary">
+            {t("header.about")}
+          </Link>
+        </div>
+        <div className="navbar-end gap-4">
+          <LocaleMenu />
+          <CartIcon />
+        </div>
       </nav>
-
-      <CartIcon />
     </header>
   );
 };

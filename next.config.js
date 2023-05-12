@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  env: {
+    SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/"
+  },
   async rewrites() {
     return [
       {
@@ -19,11 +22,18 @@ const nextConfig = {
       },
     ];
   },
+
+
   async redirects() {
     return [
+      // {
+      //   source: "/",
+      //   destination: "/en-us",
+      //   permanent: false,
+      // },
       {
         source: "/",
-        destination: "/en-us",
+        destination: "/home",
         permanent: false,
       },
     ];

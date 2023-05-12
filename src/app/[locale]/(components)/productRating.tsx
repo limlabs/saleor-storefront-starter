@@ -1,8 +1,7 @@
 "use client";
 
-import { FC } from "react";
 import clsx from "clsx";
-import { sizeClass } from "@/app/daisyui/util";
+import type { FC } from "react";
 
 interface ProductRatingProps {
   name: string;
@@ -19,7 +18,12 @@ export const ProductRating: FC<ProductRatingProps> = ({
   const classNames = clsx(
     "rating",
     "rating-half",
-    sizeClass("rating", size),
+    clsx({
+      "rating-xs": size === "xs",
+      "rating-sm": size === "sm",
+      "rating-md": size === "md",
+      "rating-lg": size === "lg",
+    }),
     className
   );
   return (

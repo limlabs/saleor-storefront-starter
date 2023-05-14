@@ -1,39 +1,25 @@
+"use server";
+
 import { CheckoutProvider } from "@/core/client/useCheckout";
 import { getCheckoutID } from "@/core/server/checkout";
-import request from "graphql-request";
-import gql from "graphql-tag";
-import { FC, ReactNode } from "react";
+import { gqlClient } from "@/gql";
+import type { PropsWithChildren } from "react";
 
-interface CheckoutQuantityResponse {
-  checkout: {
-    quantity: number;
-  };
-}
-
-/* @ts-expect-error Async Server Component */
-export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
+export default async function AppRoot({ children }: PropsWithChildren) {
   const checkoutID = getCheckoutID();
-
-  const checkoutQuantityQuery = gql`
-    query getCheckoutQuantity($id: ID) {
-      checkout(id: $id) {
-        quantity
-      }
-    }
-  `;
-
   let quantity = 0;
 
-  if (checkoutID !== "") {
-    const resp = await request<CheckoutQuantityResponse>(
-      "https://liminal-labs.saleor.cloud/graphql/",
-      checkoutQuantityQuery,
-      { id: checkoutID }
-    );
-    quantity = resp.checkout?.quantity;
+  if (checkoutID) {
+    const resp = await gqlClient.CheckoutQuantity({
+      id: checkoutID,
+    });
+    const checkout = resp.checkout;
+    if (checkout) {
+      quantity = checkout.quantity;
+    }
   }
 
   return (
     <CheckoutProvider initialQuantity={quantity}>{children}</CheckoutProvider>
   );
-};
+}

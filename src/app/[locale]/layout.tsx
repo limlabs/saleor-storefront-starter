@@ -2,7 +2,7 @@ import { AppProvider } from "@/core/client/useApp";
 import { localeConfig } from "@/locale-config";
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
 import { channelConfig } from "@/channel-config";
-import { AppRoot } from "./(components)/root";
+import AppRoot from "./(components)/root";
 import { RootLayoutHeader } from "./(components)/header";
 import "./globals.css";
 import type { PropsWithChildren } from "react";
@@ -26,7 +26,15 @@ export default function RootLayout({
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
-        <AppProvider value={{ params, localeConfig: localeConfig, channelConfig: channelConfig }}>
+        <AppProvider
+          value={{
+            params,
+            localeConfig: localeConfig,
+            channelConfig: channelConfig,
+          }}
+        >
+          {/* https://github.com/vercel/next.js/issues/42292 */}
+          {/* @ts-expect-error Async Server Component */}
           <AppRoot>
             <div className="mx-auto my-6 w-full max-w-6xl ">
               <RootLayoutHeader locale={params.locale} />

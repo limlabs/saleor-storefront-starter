@@ -8,6 +8,7 @@ import CardBody from "@/app/daisyui/card-body";
 import CardTitle from "@/app/daisyui/card-title";
 import CardActions from "@/app/daisyui/card-actions";
 import Badge from "@/app/daisyui/badge";
+import Indicator from "@/app/daisyui/indicator";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
 import { ProductCardButton } from "./productCardButton";
 import { ProductRating } from "./productRating";
@@ -15,12 +16,12 @@ import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
-import Indicator from "@/app/daisyui/indicator";
 import type { TFC } from "@/core/server/useTranslationValues";
 import type { ProductCardTranslations } from "@/app/translations/productCard";
+import type { IGalleryProduct_PropsFragment } from "@/gql/sdk";
 
 interface ProductCardProps {
-  product: Product;
+  product: IGalleryProduct_PropsFragment;
   animation?: "zoom" | "bounce";
 }
 
@@ -30,8 +31,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   t,
 }) => {
   const { defaultVariant, thumbnail, pricing, slug, rating } = product;
-  const { onSale } = pricing;
-  const [variantID, setVarientID] = useState(defaultVariant.id);
+  const [variantID, setVarientID] = useState(defaultVariant?.id ?? "");
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -56,7 +56,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
         className="absolute z-10 top-1 left-2"
       />
       <Badge className="absolute top-2 right-2 z-10 badge-accent">
-        {info.category.name}
+        {info.category?.name}
       </Badge>
       <Link
         href={`/p/${slug}`}
@@ -64,15 +64,15 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
       >
         <CardMedia
           accentBg
-          src={thumbnail.url}
-          alt={thumbnail.alt}
+          src={thumbnail?.url ?? ""}
+          alt={thumbnail?.alt ?? ""}
           width={300}
           height={300}
           className={cardMediaClasses}
         />
       </Link>
       <Indicator
-        show={onSale}
+        show={!!pricing?.onSale}
         center
         top
         content={t.sale}
@@ -82,7 +82,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
           <ProductCardVariantList
             className="absolute top-4 left-0 right-0"
             slug={slug}
-            variants={info.variants}
+            variants={info.variants ?? []}
             selected={variantID}
             onClick={setVarientID}
           />
@@ -91,13 +91,13 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
           >
             <CardTitle>
-              <span className="truncate w-48" title={info.name}>
+              <span className="truncate w-48" title={info.name ?? ""}>
                 {info.name}
               </span>
             </CardTitle>
           </Link>
           <div className="flex flex-row place-content-between">
-            <ProductPrice pricing={pricing} />
+            {pricing ? <ProductPrice pricing={pricing} /> : null}
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">

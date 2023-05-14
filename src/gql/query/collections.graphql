@@ -1,0 +1,9 @@
+query Collections($channel: String = "default-channel", $first: Int!) {
+  collections(channel: $channel, first: $first) {
+    edges {
+      node {
+        ...Collection_props
+      }
+    }
+  }
+}

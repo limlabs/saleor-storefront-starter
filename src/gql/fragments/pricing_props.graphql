@@ -1,0 +1,12 @@
+fragment Pricing_props on ProductPricingInfo {
+  onSale
+  discount {
+    ...TaxedMoney_props
+  }
+  displayGrossPrices
+  priceRange {
+    start {
+      ...TaxedMoney_props
+    }
+  }
+}

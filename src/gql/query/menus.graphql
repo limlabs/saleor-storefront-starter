@@ -1,0 +1,20 @@
+query Menu($channel: String = "default-channel") {
+  menus(channel: $channel, first: 10) {
+    edges {
+      node {
+        id
+        name
+        slug
+        items {
+          ...MenuItem_props
+          children {
+            ...MenuItem_props
+            children {
+              ...MenuItem_props
+            }
+          }
+        }
+      }
+    }
+  }
+}

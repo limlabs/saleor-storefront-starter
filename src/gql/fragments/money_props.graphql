@@ -1,0 +1,3 @@
+fragment Money_props on Money {
+  amount
+}

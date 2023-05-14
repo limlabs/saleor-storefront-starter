@@ -1,5 +1,6 @@
 import { gqlClient } from "@/gql";
 import { ProductHero } from "@/app/[locale]/(components)/productHero";
+import { getLanguageCode } from "@/core/server/getLanguageCode";
 import type { Locale } from "@/locale-config";
 import type { Channel } from "@/channel-config";
 
@@ -14,19 +15,14 @@ interface PageProps {
 export default async function Pdp({
   params: { locale, channel, slug },
 }: PageProps) {
-  const languageCode = locale.toUpperCase().replace("-", "_");
-  const { product } = await gqlClient.product({ slug, languageCode });
-
-  const raw = product.translation?.description ?? product.description;
-  const description = JSON.parse(raw);
+  const languageCode = getLanguageCode(locale);
+  const { product } = await gqlClient.Product({ slug, languageCode });
 
   return (
     <>
-      <ProductHero
-        locale={locale}
-        channel={channel}
-        product={product}
-      />
+      {product ? (
+        <ProductHero locale={locale} channel={channel} product={product} />
+      ) : null}
     </>
   );
 }

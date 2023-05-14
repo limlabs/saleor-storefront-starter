@@ -1,0 +1,5 @@
+fragment Collection_props on Collection {
+  id
+  name
+  slug
+}

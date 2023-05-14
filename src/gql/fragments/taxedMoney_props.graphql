@@ -1,0 +1,12 @@
+fragment TaxedMoney_props on TaxedMoney {
+  currency
+  gross {
+    ...Money_props
+  }
+  net {
+    ...Money_props
+  }
+  tax {
+    ...Money_props
+  }
+}

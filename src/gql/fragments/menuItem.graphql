@@ -1,0 +1,7 @@
+fragment MenuItem_props on MenuItem {
+  level
+  category {
+    id
+    name
+  }
+}

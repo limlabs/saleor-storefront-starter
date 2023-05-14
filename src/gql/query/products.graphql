@@ -1,0 +1,31 @@
+query Products(
+  $channel: String = "default-channel"
+  $languageCode: LanguageCodeEnum = EN_US
+  $thumbnailSize: Int = 300
+  $first: Int
+  $last: Int
+  $after: String
+  $before: String
+  $filter: ProductFilterInput
+) {
+  products(
+    channel: $channel
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    filter: $filter
+  ) {
+    pageInfo {
+      endCursor
+      startCursor
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        ...GalleryProduct_props
+      }
+    }
+  }
+}

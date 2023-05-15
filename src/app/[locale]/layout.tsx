@@ -13,6 +13,7 @@ import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/getLanguageCode";
 import { renderMenuItems } from "@/core/server/renderMenuItems";
 import MenuTitle from "../daisyui/menu-title";
+import { getTranslations } from "@/core/server/getTranslations";
 
 export const metadata = {
   title: "Headless Store",
@@ -30,9 +31,9 @@ export default async function RootLayout({
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
-
   const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
-  console.log(menu);
+  const t = await getTranslations(params.locale);
+  
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
@@ -50,7 +51,7 @@ export default async function RootLayout({
               id="category-menu"
               side={
                 <Menu className="p-4 w-80 bg-base-100 text-base-content">
-                  <MenuTitle>Categories</MenuTitle>
+                  <MenuTitle>{t("menu.categories")}</MenuTitle>
                   {renderMenuItems(menu)}
                 </Menu>
               }

@@ -1,0 +1,12 @@
+fragment Menu_props on Menu {
+  id
+  items {
+    ...MenuItem_props
+    children {
+      ...MenuItem_props
+      children {
+        ...MenuItem_props
+      }
+    }
+  }
+}

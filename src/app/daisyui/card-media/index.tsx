@@ -13,23 +13,25 @@ interface CardMediaProps {
   className?: string;
 }
 
-const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(function Card(
-  { accentBg, src, loader, alt = "", className, ...imgArgs },
-  ref
-) {
-  const classNames = clsx(
-    "rounded-t-md",
-    {
-      "bg-neutral": accentBg,
-    },
-    className
-  );
+const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(
+  function CardMedia(
+    { accentBg, src, loader, alt = "", className, ...imgArgs },
+    ref
+  ) {
+    const classNames = clsx(
+      "rounded-t-md",
+      {
+        "bg-neutral": accentBg,
+      },
+      className
+    );
 
-  return (
-    <figure ref={ref} className={classNames}>
-      <Image src={src} loader={loader} alt={alt} {...imgArgs} />
-    </figure>
-  );
-});
+    return (
+      <figure ref={ref} className={classNames}>
+        <Image src={src} loader={loader} alt={alt} {...imgArgs} />
+      </figure>
+    );
+  }
+);
 
 export default CardMedia;

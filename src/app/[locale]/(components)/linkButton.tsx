@@ -16,6 +16,7 @@ export const LinkButton: FC<PropsWithChildren<LinkButtonProps>> = ({
   const classNames = clsx("text-base-content/50", "flex", "items-center", {
     btn: !disabled,
     "btn-outline": !disabled,
+    "cursor-not-allowed": disabled,
   }, {[className]: !disabled});
 
   const btn = <span className={classNames}>{children}</span>;

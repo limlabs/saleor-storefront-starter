@@ -4,4 +4,7 @@ fragment MenuItem_props on MenuItem {
     id
     name
   }
+  translation(languageCode: $languageCode) {
+    name
+  }
 }

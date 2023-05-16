@@ -4,6 +4,6 @@ query Product(
   $languageCode: LanguageCodeEnum = EN_US
 ) {
   product(channel: $channel, slug: $slug) {
-    ...PDProductFragment
+    ...ProductDetailsFragment
   }
 }

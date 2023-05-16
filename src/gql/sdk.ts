@@ -4,12 +4,14 @@ import * as Dom from "graphql-request/dist/types.dom";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K]
+  [K in keyof T]: T[K];
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -10219,9 +10221,7 @@ export type IMutation = {
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
-  productVariantChannelListingUpdate?: Maybe<
-    IProductVariantChannelListingUpdate
-  >;
+  productVariantChannelListingUpdate?: Maybe<IProductVariantChannelListingUpdate>;
   /**
    * Creates a new variant for a product.
    *
@@ -10253,9 +10253,7 @@ export type IMutation = {
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
-  productVariantReorderAttributeValues?: Maybe<
-    IProductVariantReorderAttributeValues
-  >;
+  productVariantReorderAttributeValues?: Maybe<IProductVariantReorderAttributeValues>;
   /**
    * Set default variant for a product. Mutation triggers PRODUCT_UPDATED webhook.
    *
@@ -10355,9 +10353,7 @@ export type IMutation = {
    *
    * Requires one of the following permissions: MANAGE_SHIPPING.
    */
-  shippingMethodChannelListingUpdate?: Maybe<
-    IShippingMethodChannelListingUpdate
-  >;
+  shippingMethodChannelListingUpdate?: Maybe<IShippingMethodChannelListingUpdate>;
   /**
    * Deletes shipping prices.
    *
@@ -10387,9 +10383,7 @@ export type IMutation = {
    *
    * Requires one of the following permissions: MANAGE_SHIPPING.
    */
-  shippingPriceRemoveProductFromExclude?: Maybe<
-    IShippingPriceRemoveProductFromExclude
-  >;
+  shippingPriceRemoveProductFromExclude?: Maybe<IShippingPriceRemoveProductFromExclude>;
   /**
    * Creates/updates translations for a shipping method.
    *
@@ -25971,7 +25965,7 @@ export type IMenuItemFragment = {
 
 export type IMoneyFragment = { __typename?: "Money"; amount: number };
 
-export type IPdProductFragment = {
+export type IProductDetailsFragment = {
   __typename?: "Product";
   id: string;
   seoTitle?: string | null;
@@ -26483,8 +26477,8 @@ export const FragMenuFragmentDoc = `
   }
 }
     ${FragMenuItemFragmentDoc}`;
-export const FragPdProductFragmentDoc = `
-    fragment PDProductFragment on Product {
+export const FragProductDetailsFragmentDoc = `
+    fragment ProductDetailsFragment on Product {
   id
   seoTitle
   name
@@ -26613,10 +26607,10 @@ export const PageDocument = `
 export const ProductDocument = `
     query Product($channel: String = "default-channel", $slug: String!, $languageCode: LanguageCodeEnum = EN_US) {
   product(channel: $channel, slug: $slug) {
-    ...PDProductFragment
+    ...ProductDetailsFragment
   }
 }
-    ${FragPdProductFragmentDoc}`;
+    ${FragProductDetailsFragmentDoc}`;
 export const ProductsDocument = `
     query Products($channel: String = "default-channel", $languageCode: LanguageCodeEnum = EN_US, $thumbnailSize: Int = 300, $first: Int, $last: Int, $after: String, $before: String, $filter: ProductFilterInput) {
   products(
@@ -26664,7 +26658,7 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<ICheckoutCreateMutation> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<ICheckoutCreateMutation>(
             CheckoutCreateDocument,
             variables,
@@ -26679,7 +26673,7 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<ICheckoutLinesAddMutation> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<ICheckoutLinesAddMutation>(
             CheckoutLinesAddDocument,
             variables,
@@ -26694,7 +26688,7 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<ICheckoutQuantityQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<ICheckoutQuantityQuery>(
             CheckoutQuantityDocument,
             variables,
@@ -26709,10 +26703,10 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<ICollectionsQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<ICollectionsQuery>(CollectionsDocument, variables, {
             ...requestHeaders,
-            ...wrappedRequestHeaders
+            ...wrappedRequestHeaders,
           }),
         "Collections",
         "query"
@@ -26723,10 +26717,10 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<IMenuQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<IMenuQuery>(MenuDocument, variables, {
             ...requestHeaders,
-            ...wrappedRequestHeaders
+            ...wrappedRequestHeaders,
           }),
         "Menu",
         "query"
@@ -26737,10 +26731,10 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<IPageQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<IPageQuery>(PageDocument, variables, {
             ...requestHeaders,
-            ...wrappedRequestHeaders
+            ...wrappedRequestHeaders,
           }),
         "Page",
         "query"
@@ -26751,10 +26745,10 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<IProductQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<IProductQuery>(ProductDocument, variables, {
             ...requestHeaders,
-            ...wrappedRequestHeaders
+            ...wrappedRequestHeaders,
           }),
         "Product",
         "query"
@@ -26765,15 +26759,15 @@ export function getSdk(
       requestHeaders?: Dom.RequestInit["headers"]
     ): Promise<IProductsQuery> {
       return withWrapper(
-        wrappedRequestHeaders =>
+        (wrappedRequestHeaders) =>
           client.request<IProductsQuery>(ProductsDocument, variables, {
             ...requestHeaders,
-            ...wrappedRequestHeaders
+            ...wrappedRequestHeaders,
           }),
         "Products",
         "query"
       );
-    }
+    },
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;

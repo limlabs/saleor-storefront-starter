@@ -1,4 +1,4 @@
-fragment PDProductFragment on Product {
+fragment ProductDetailsFragment on Product {
   id
   seoTitle
   name

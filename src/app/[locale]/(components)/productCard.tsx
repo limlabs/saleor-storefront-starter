@@ -31,7 +31,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   t,
 }) => {
   const { defaultVariant, thumbnail, pricing, slug, rating } = product;
-  const [variantID, setVarientID] = useState(defaultVariant?.id ?? "");
+  const [variantID, setVariantID] = useState(defaultVariant?.id ?? "");
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -84,7 +84,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             slug={slug}
             variants={info.variants ?? []}
             selected={variantID}
-            onClick={setVarientID}
+            onClick={setVariantID}
           />
           <Link
             href={`/p/${slug}`}

@@ -5,15 +5,12 @@ import { channelConfig } from "@/channel-config";
 import { RootLayoutHeader } from "./(components)/header";
 import AppRoot from "./(components)/root";
 import Drawer from "../daisyui/drawer";
-import Menu from "../daisyui/menu";
 import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
 import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/getLanguageCode";
-import { renderMenuItems } from "@/core/server/renderMenuItems";
-import MenuTitle from "../daisyui/menu-title";
-import { getTranslations } from "@/core/server/getTranslations";
+import { NavbarMenu } from "./(components)/navbarMenu";
 
 export const metadata = {
   title: "Headless Store",
@@ -32,8 +29,7 @@ export default async function RootLayout({
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
   const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
-  const t = await getTranslations(params.locale);
-  
+
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
@@ -49,12 +45,7 @@ export default async function RootLayout({
           <AppRoot>
             <Drawer
               id="category-menu"
-              side={
-                <Menu className="p-4 w-80 bg-base-100 text-base-content">
-                  <MenuTitle>{t("menu.categories")}</MenuTitle>
-                  {renderMenuItems(menu)}
-                </Menu>
-              }
+              side={<NavbarMenu menu={menu} locale={params.locale} />}
             >
               <div className="mx-auto my-6 w-full max-w-6xl ">
                 <RootLayoutHeader locale={params.locale} />

@@ -1,13 +1,9 @@
-import Background from "../../../../../public/irridescent.jpg";
-import Image from "next/image";
-import ThreeScene from "../../(components)/threeScene";
 import HomeMain from "../../(components)/homeMain";
 import HomeHeroMobile from "../../(components)/homeHeroMobile";
 import HomeSectionTwo from "../../(components)/homeSectionTwo";
 import HomeSectionThree from "../../(components)/homeSectionThree";
 import Footer from "../../(components)/footer";
-import ThreeScene2 from "../../(components)/threeScene2";
-import ThreeCanvas from "../../(components)/threeCanvas";
+import ThreeCanvasWrapper from "../../(components)/threeCanvasWrapper";
 
 export default function HomePage() {
   return (
@@ -16,8 +12,7 @@ export default function HomePage() {
         <HomeHeroMobile />
       </div>
       <div className="-lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
-        <ThreeCanvas />
-        {/* <ThreeScene /> */}
+        <ThreeCanvasWrapper />
         <HomeMain />
       </div>
       <div>

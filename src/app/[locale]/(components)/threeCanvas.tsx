@@ -9,12 +9,15 @@ import {
   SpotLight,
   Stage,
 } from "@react-three/drei";
-import ThreeModel2 from "./threeModel2";
-import ThreePlane from "./threePlane";
-import ThreeScene2 from "./threeScene2";
 import { Color, PointLight, TextureLoader } from "three";
 import { Backdrop } from "@react-three/drei";
 import texture from "../../../../public/pano_office.png";
+// import ThreeModel from "./threeModel";
+import dynamic from "next/dynamic";
+
+const ThreeModelWrapper = dynamic(() => import("./threeModelWrapper"), {
+  ssr: false,
+});
 
 export default function ThreeCanvas() {
   const colorMap = useLoader(TextureLoader, texture.src);
@@ -27,14 +30,33 @@ export default function ThreeCanvas() {
         <Environment
           files="./img/liminal_hdr.hdr"
           background
-          resolution={256}
+          resolution={1080}
         ></Environment>
-        <Stage intensity={0.5} shadows="contact">
-          <Suspense fallback={null}>
-            <ThreeModel2 />
-          </Suspense>
-        </Stage>
-        <OrbitControls enablePan={false} enableZoom={false} />
+
+        {/* Ambient light source */}
+        <ambientLight intensity={0.1} />
+
+        {/* Point light sources */}
+        <pointLight position={[10, 10, 10]} intensity={0.3} color="#FF15EC" />
+        <pointLight
+          position={[-10, -10, -10]}
+          intensity={0.3}
+          color="#FF15EC"
+        />
+        <pointLight position={[10, -10, 10]} intensity={0.3} color="#FF15EC" />
+
+        {/* Spotlight */}
+        <spotLight
+          position={[0, 10, 0]}
+          angle={0.7}
+          penumbra={0.3}
+          intensity={0.4}
+        />
+
+        <Suspense fallback={null}>
+          <ThreeModelWrapper />
+        </Suspense>
+        <OrbitControls enablePan={false} enableZoom={true} />
       </Canvas>
     </section>
   );

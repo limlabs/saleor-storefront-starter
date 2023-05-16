@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "graphql-codegen",
-    "prestart": "yarn generate",    
-    "predev": "yarn generate"
+    "prestart": "npm run generate",    
+    "predev": "npm run generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",

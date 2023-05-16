@@ -17,6 +17,7 @@ export default function HomePage() {
       </div>
       <div className="-lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvas />
+        {/* <ThreeScene /> */}
         <HomeMain />
       </div>
       <div>

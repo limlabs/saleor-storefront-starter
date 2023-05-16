@@ -4,6 +4,8 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import ThreeModel2 from "./threeModel2";
 import ThreePlane from "./threePlane";
+import { BackSide } from "three";
+import { Backdrop } from "@react-three/drei";
 
 export default function ThreeScene2() {
   const modelGroupRef = useRef<THREE.Group>(null);
@@ -41,21 +43,19 @@ export default function ThreeScene2() {
         intensity={0.7}
         castShadow
       />
-      <spotLight
-        position={[-8, 13, -8]}
-        angle={-0.4}
-        penumbra={1}
-        intensity={0.5}
-        castShadow
-      />
 
       <group ref={modelGroupRef}>
         <ThreeModel2 />
         <ThreeModel2 />
       </group>
-      <OrbitControls ref={controlsRef} camera={camera} />
+      <OrbitControls
+        ref={controlsRef}
+        camera={camera}
+        enableZoom={false}
+        enablePan={true}
+      />
 
-      <ThreePlane />
+      {/* <ThreePlane /> */}
     </>
   );
 }

@@ -1,4 +1,4 @@
-fragment MenuItem_props on MenuItem {
+fragment MenuItemFragment on MenuItem {
   level
   category {
     id

@@ -18,10 +18,10 @@ import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
 import type { TFC } from "@/core/server/useTranslationValues";
 import type { ProductCardTranslations } from "@/app/translations/productCard";
-import type { IGalleryProduct_PropsFragment } from "@/gql/sdk";
+import type { IGalleryProductFragment } from "@/gql/sdk";
 
 interface ProductCardProps {
-  product: IGalleryProduct_PropsFragment;
+  product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
 }
 

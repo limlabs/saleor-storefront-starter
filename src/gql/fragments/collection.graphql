@@ -1,4 +1,4 @@
-fragment Collection_props on Collection {
+fragment CollectionFragment on Collection {
   id
   name
   slug

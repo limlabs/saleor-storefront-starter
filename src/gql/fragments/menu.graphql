@@ -1,11 +1,11 @@
-fragment Menu_props on Menu {
+fragment MenuFragment on Menu {
   id
   items {
-    ...MenuItem_props
+    ...MenuItemFragment
     children {
-      ...MenuItem_props
+      ...MenuItemFragment
       children {
-        ...MenuItem_props
+        ...MenuItemFragment
       }
     }
   }

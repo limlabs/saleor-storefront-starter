@@ -3,8 +3,6 @@ import { FilterOp } from "@/app/[locale]/(components)/searchFilter";
 import { getTranslations } from "@/core/server/getTranslations";
 import { getLanguageCode } from "@/core/server/getLanguageCode";
 import Breadcrumbs from "@/app/daisyui/breadcrumbs";
-import Drawer from "@/app/daisyui/drawer";
-import Menu from "@/app/daisyui/menu";
 import { Bars3Icon as MenuIcon } from "@heroicons/react/24/outline";
 import { gqlClient } from "@/gql";
 import type { Locale } from "@/locale-config";

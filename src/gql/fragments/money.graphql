@@ -1,0 +1,3 @@
+fragment MoneyFragment on Money {
+  amount
+}

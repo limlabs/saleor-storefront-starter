@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import type { FC } from "react";
-import type { IPricing_PropsFragment } from "@/gql/sdk";
+import type { IPricingFragment } from "@/gql/sdk";
 
 interface ProductPriceProps {
-  pricing: IPricing_PropsFragment;
+  pricing: IPricingFragment;
 }
 
 const CURRENCY_MAP = {

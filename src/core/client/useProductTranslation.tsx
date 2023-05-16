@@ -1,8 +1,8 @@
-import { IGalleryProduct_PropsFragment, IProduct } from "@/gql/sdk";
+import { IGalleryProductFragment, IProduct } from "@/gql/sdk";
 import { useMemo } from "react";
 
 type Translatable = Pick<
-  IGalleryProduct_PropsFragment,
+  IGalleryProductFragment,
   "name" | "translation" | "category" | "variants"
 > &
   Pick<IProduct, "description">;
@@ -20,3 +20,6 @@ export function useProductTranslation(product: Translatable) {
     );
   }, [product]);
 }
+
+
+export type ProductTranslation = ReturnType<typeof useProductTranslation>;

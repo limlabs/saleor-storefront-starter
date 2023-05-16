@@ -1,5 +1,5 @@
 query CheckoutQuantity($id: ID) {
   checkout(id: $id) {
-    ...CheckoutQuantity_props
+    ...CheckoutQuantityFragment
   }
 }

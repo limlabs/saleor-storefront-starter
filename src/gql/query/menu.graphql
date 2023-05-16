@@ -4,6 +4,6 @@ query Menu(
   $languageCode: LanguageCodeEnum!
 ) {
   menu(channel: $channel, slug: $slug) {
-    ...Menu_props
+    ...MenuFragment
   }
 }

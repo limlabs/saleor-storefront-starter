@@ -9,8 +9,8 @@ const config: CodegenConfig = {
   generates: {
     './src/gql/sdk.ts': {
       plugins: [
-        'typescript', 
-        'typescript-operations', 
+        'typescript',
+        'typescript-operations',
         'typescript-graphql-request',
         {
           add: {
@@ -27,10 +27,16 @@ const config: CodegenConfig = {
         documentMode: 'string',
         fragmentVariablePrefix: 'frag',
         interfacePrefix: "I",
-        typesPrefix: "I",        
+        typesPrefix: "I",
         scalars: {
-          JSONString: "JSONString"
+          JSONString: "JSONString",
+          JSON: "Record<string, any>",
+          UUID: "string",
+          Metadata: "Record<string, string>",
+          DateTime: "string",
         },
+        dedupeOperationSuffix: true,
+        enumsAsTypes: true,
       },
     },
   },

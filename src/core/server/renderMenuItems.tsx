@@ -1,20 +1,20 @@
 import { Fragment } from "react";
-import { IMenuItem_PropsFragment, IMenu_PropsFragment } from "@/gql/sdk";
-import { useMenuTranslation } from "./useMenuTranslation";
+import { IMenuItemFragment, IMenuFragment } from "@/gql/sdk";
+import { getMenuTranslation } from "./getMenuTranslation";
 import Collapse from "@/app/daisyui/collapse";
 
-interface Submenu extends IMenuItem_PropsFragment {
-  children?: IMenuItem_PropsFragment[] | null;
+interface Submenu extends IMenuItemFragment {
+  children?: IMenuItemFragment[] | null;
 }
 
-function renderCategory(item: IMenuItem_PropsFragment) {
-  const { name } = useMenuTranslation(item);
+function renderCategory(item: IMenuItemFragment) {
+  const { name } = getMenuTranslation(item);
   const children = (item as Submenu).children?.map(renderCategory) ?? [];
   if (children?.length) {
     return (
       <Collapse
         key={item.category?.id}
-        classNameContent="pr-0 border-secondary  border-solid peer-checked:border-l-[1px]"
+        classNameContent="pr-0 border-primary border-solid peer-checked:border-l-[1px]"
         classNameTitle="font-sm"
         plus
         title={name}
@@ -30,7 +30,7 @@ function renderCategory(item: IMenuItem_PropsFragment) {
   );
 }
 
-export function renderMenuItems(menu?: IMenu_PropsFragment | null) {
+export function renderMenuItems(menu?: IMenuFragment | null) {
   if (!menu) return null;
 
   return <Fragment>{menu.items?.map(renderCategory)}</Fragment>;

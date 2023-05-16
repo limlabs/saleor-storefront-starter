@@ -24,7 +24,7 @@ query Products(
     }
     edges {
       node {
-        ...GalleryProduct_props
+        ...GalleryProductFragment
       }
     }
   }

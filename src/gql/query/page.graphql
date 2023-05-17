@@ -1,0 +1,10 @@
+query Page($slug: String!, $languageCode: LanguageCodeEnum! ) {
+  page(slug: $slug) {
+    title
+    content
+    translation(languageCode: $languageCode) {
+      title
+      content
+    }
+  }
+}

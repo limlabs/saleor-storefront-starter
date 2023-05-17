@@ -3,11 +3,12 @@ import { parseJSONText } from "@/core/server/parseJSONText";
 import { ProductPrice } from "./productPrice";
 import { renderEditorJsObject } from "@/core/server/renderJSONText";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
+import { IPdProductFragment } from "@/gql/sdk";
 
 interface PageProps {
   locale: string;
   channel: string;
-  product: ProductDetails;
+  product: IPdProductFragment;
 }
 
 export function ProductHero({ locale, channel, product }: PageProps) {
@@ -19,7 +20,7 @@ export function ProductHero({ locale, channel, product }: PageProps) {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content lg:flex-row-reverse">
         <Image
-          src={thumbnail.url}
+          src={thumbnail?.url ?? ""}
           width={700}
           height={700}
           className="max-w-sm rounded-lg shadow-2xl"
@@ -28,7 +29,7 @@ export function ProductHero({ locale, channel, product }: PageProps) {
         <div>
           <h1 className="text-5xl font-bold">{info.name}</h1>
           {description ? renderEditorJsObject(description) : null}
-          <ProductPrice pricing={pricing} />
+          {pricing ? <ProductPrice pricing={pricing} /> : null}
         </div>
       </div>
     </div>

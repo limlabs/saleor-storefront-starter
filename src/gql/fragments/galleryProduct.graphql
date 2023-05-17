@@ -1,0 +1,36 @@
+fragment GalleryProductFragment on Product {
+  id
+  slug
+  name
+  translation(languageCode: $languageCode) {
+    name
+    description
+  }
+
+  thumbnail(size: $thumbnailSize) {
+    url
+    alt
+  }
+  rating
+  category {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      name
+    }
+  }
+  defaultVariant {
+    id
+  }
+  variants {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      id
+      name
+    }
+  }
+  pricing {
+    ...PricingFragment
+  }
+}

@@ -1,0 +1,16 @@
+mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
+  checkoutCreate(
+    input: {
+      channel: $channel
+      lines: [{ variantId: $variantID, quantity: $quantity }]
+    }
+  ) {
+    errors {
+      message
+    }
+    checkout {
+      id
+      quantity
+    }
+  }
+}

@@ -1,0 +1,12 @@
+fragment MenuFragment on Menu {
+  id
+  items {
+    ...MenuItemFragment
+    children {
+      ...MenuItemFragment
+      children {
+        ...MenuItemFragment
+      }
+    }
+  }
+}

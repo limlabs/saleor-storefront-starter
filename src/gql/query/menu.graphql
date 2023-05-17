@@ -1,0 +1,9 @@
+query Menu(
+  $channel: String = "default-channel"
+  $slug: String!
+  $languageCode: LanguageCodeEnum!
+) {
+  menu(channel: $channel, slug: $slug) {
+    ...MenuFragment
+  }
+}

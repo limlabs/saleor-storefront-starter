@@ -1,0 +1,3 @@
+fragment CheckoutQuantityFragment on Checkout {
+    quantity
+}

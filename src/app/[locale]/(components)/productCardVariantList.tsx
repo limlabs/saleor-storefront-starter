@@ -5,12 +5,14 @@ import Badge from "@/app/daisyui/badge";
 import clsx from "clsx";
 import { Link } from "./link";
 import type { FC } from "react";
+import type { ProductTranslation } from "@/core/client/useProductTranslation"; 
 
 type VariantSelectHandler = (id: string) => void;
+type ProductVariant = NonNullable<ProductTranslation['variants']>[number]
 
 interface ProductCardVariantListProps {
   slug: string;
-  variants: PartialProductVariant[];
+  variants: ProductVariant[];
   selected?: string;
   className?: string;
   onClick?: VariantSelectHandler;
@@ -21,7 +23,7 @@ const renderVariantItem = (
   selected?: string,
   onClick?: VariantSelectHandler
 ) => {
-  return function mapper(item: PartialProductVariant) {
+  return function mapper(item: ProductVariant) {
     if (item.id === "rest") {
       return (
         <Link href={`/p/${slug}`} className="inline-flex" key={item.id}>

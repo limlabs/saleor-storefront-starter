@@ -1,9 +1,10 @@
 
 
-export function parseJSONText(data: JSONString): EditorJSObject | null {
+export function parseJSONText(data: JSONString | null | undefined): EditorJSObject | null {
     try {
-        return JSON.parse(data);
-    } catch {
-        return null;
-    }
+        if (data) {
+            return JSON.parse(data);
+        }
+    } catch { }
+    return null;
 };

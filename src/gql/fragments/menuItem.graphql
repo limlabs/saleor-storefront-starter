@@ -1,0 +1,10 @@
+fragment MenuItemFragment on MenuItem {
+  level
+  category {
+    id
+    name
+  }
+  translation(languageCode: $languageCode) {
+    name
+  }
+}

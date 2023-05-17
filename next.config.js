@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    // serverActions: true,
   },
   env: {
     SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/"

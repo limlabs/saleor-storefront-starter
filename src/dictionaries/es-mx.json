@@ -11,6 +11,9 @@
         "shop": "Compra",
         "about": "Acerca De"
     },
+    "menu": {
+        "categories": "Categorias"
+    },
     "component": {
         "add to cart": "Añadir al Carrito",
         "apply": "Applicar",

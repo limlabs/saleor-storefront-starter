@@ -5,7 +5,7 @@ import type { FC } from "react";
 
 interface ProductRatingProps {
   name: string;
-  rating: number;
+  rating?: number | null;
   className?: string;
   size?: Size;
 }

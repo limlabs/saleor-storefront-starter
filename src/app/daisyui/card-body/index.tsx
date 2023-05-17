@@ -9,7 +9,7 @@ interface CardBodyProps {
 const CardBody = React.forwardRef<
   HTMLDivElement,
   PropsWithChildren<CardBodyProps>
->(function Card({ centerItems, children, className }, ref) {
+>(function CardBody({ centerItems, children, className }, ref) {
   const classNames = clsx(
     "card-body",
     {

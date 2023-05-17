@@ -9,9 +9,10 @@ import { productCardTranslationKeys } from "@/app/translations/productCard";
 import { productGalleryTranslationKeys } from "@/app/translations/productGallery";
 import { searchFilterTranslationKeys } from "@/app/translations/searchFilter";
 import type { Locale } from "@/locale-config";
+import { IProductCountableConnection } from "@/gql/sdk";
 
 interface ProductGalleryProps {
-  products: Page<Product>;
+  products: IProductCountableConnection;
   filter: FilterOp;
   locale: Locale;
 }

@@ -1,0 +1,23 @@
+mutation checkoutLinesAdd($variantID: ID!, $checkoutID: ID!, $quantity: Int!) {
+  checkoutLinesAdd(
+    id: $checkoutID
+    lines: [{ variantId: $variantID, quantity: $quantity }]
+  ) {
+    checkout {
+      lines {
+        id
+        variant {
+          name
+        }
+        quantity
+      }
+      totalPrice {
+        gross {
+          currency
+          amount
+        }
+      }
+      quantity
+    }
+  }
+}

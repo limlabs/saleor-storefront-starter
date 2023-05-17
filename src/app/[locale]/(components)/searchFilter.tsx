@@ -50,10 +50,10 @@ const filterOptions = ["search", "isAvailable", "gte", "lte"] as Array<
   keyof FilterOp
 >;
 
-export const SearchFilter: TFC<SearchFilterProps, SearchFilterTranslationKeys> = ({
-  filter,
-  t,
-}) => {
+export const SearchFilter: TFC<
+  SearchFilterProps,
+  SearchFilterTranslationKeys
+> = ({ filter, t }) => {
   const [state, dispatch] = useReducer(reducer, filter);
 
   const title = useMemo(() => {

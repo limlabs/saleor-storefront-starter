@@ -1,0 +1,9 @@
+query Product(
+  $channel: String = "default-channel"
+  $slug: String!
+  $languageCode: LanguageCodeEnum = EN_US
+) {
+  product(channel: $channel, slug: $slug) {
+    ...PDProductFragment
+  }
+}

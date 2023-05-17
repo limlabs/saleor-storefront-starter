@@ -6,10 +6,23 @@ interface CollapseProps {
   plus?: boolean;
   title?: ReactNode | undefined;
   className?: string;
+  classNameTitle?: string;
+  classNameContent?: string;
 }
 
 const Collapse = forwardRef<HTMLDivElement, PropsWithChildren<CollapseProps>>(
-  function Collapse({ arrow, plus, title = " ", className, children }, ref) {
+  function Collapse(
+    {
+      arrow,
+      plus,
+      title = " ",
+      className,
+      classNameTitle,
+      classNameContent,
+      children,
+    },
+    ref
+  ) {
     const classNames = clsx(
       "collapse",
       {
@@ -19,13 +32,13 @@ const Collapse = forwardRef<HTMLDivElement, PropsWithChildren<CollapseProps>>(
       className
     );
 
+    const classNamesTitle = clsx("collapse-title font-medium", classNameTitle);
+    const classNamesContent = clsx("collapse-content", classNameContent);
     return (
       <div className={classNames} ref={ref}>
-        <input type="checkbox" />
-        {title ? (
-          <div className="collapse-title font-medium">{title}</div>
-        ) : null}
-        <div className="collapse-content">{children}</div>
+        <input type="checkbox" className="peer" />
+        {title ? <div className={classNamesTitle}>{title}</div> : null}
+        <div className={classNamesContent}>{children}</div>
       </div>
     );
   }

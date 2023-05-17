@@ -25965,6 +25965,48 @@ export type IMenuItemFragment = {
 
 export type IMoneyFragment = { __typename?: "Money"; amount: number };
 
+export type IPricingFragment = {
+  __typename?: "ProductPricingInfo";
+  onSale?: boolean | null;
+  displayGrossPrices: boolean;
+  discount?: {
+    __typename?: "TaxedMoney";
+    currency: string;
+    gross: { __typename?: "Money"; amount: number };
+    net: { __typename?: "Money"; amount: number };
+    tax: { __typename?: "Money"; amount: number };
+  } | null;
+  priceRange?: {
+    __typename?: "TaxedMoneyRange";
+    start?: {
+      __typename?: "TaxedMoney";
+      currency: string;
+      gross: { __typename?: "Money"; amount: number };
+      net: { __typename?: "Money"; amount: number };
+      tax: { __typename?: "Money"; amount: number };
+    } | null;
+  } | null;
+};
+
+export type IProductDetailsAttributeFragment = {
+  __typename?: "SelectedAttribute";
+  attribute: {
+    __typename?: "Attribute";
+    id: string;
+    name?: string | null;
+    translation?: { __typename?: "AttributeTranslation"; name: string } | null;
+  };
+  values: Array<{
+    __typename?: "AttributeValue";
+    id: string;
+    name?: string | null;
+    translation?: {
+      __typename?: "AttributeValueTranslation";
+      name: string;
+    } | null;
+  }>;
+};
+
 export type IProductDetailsFragment = {
   __typename?: "Product";
   id: string;
@@ -25995,6 +26037,27 @@ export type IProductDetailsFragment = {
     unit: IWeightUnitsEnum;
     value: number;
   } | null;
+  attributes: Array<{
+    __typename?: "SelectedAttribute";
+    attribute: {
+      __typename?: "Attribute";
+      id: string;
+      name?: string | null;
+      translation?: {
+        __typename?: "AttributeTranslation";
+        name: string;
+      } | null;
+    };
+    values: Array<{
+      __typename?: "AttributeValue";
+      id: string;
+      name?: string | null;
+      translation?: {
+        __typename?: "AttributeValueTranslation";
+        name: string;
+      } | null;
+    }>;
+  }>;
   pricing?: {
     __typename?: "ProductPricingInfo";
     onSale?: boolean | null;
@@ -26032,30 +26095,103 @@ export type IProductDetailsFragment = {
       alt: string;
       type: IProductMediaType;
     }> | null;
+    attributes: Array<{
+      __typename?: "SelectedAttribute";
+      attribute: {
+        __typename?: "Attribute";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeTranslation";
+          name: string;
+        } | null;
+      };
+      values: Array<{
+        __typename?: "AttributeValue";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeValueTranslation";
+          name: string;
+        } | null;
+      }>;
+    }>;
   }> | null;
+  defaultVariant?: {
+    __typename?: "ProductVariant";
+    id: string;
+    name: string;
+    weight?: {
+      __typename?: "Weight";
+      unit: IWeightUnitsEnum;
+      value: number;
+    } | null;
+    media?: Array<{
+      __typename?: "ProductMedia";
+      url: string;
+      alt: string;
+      type: IProductMediaType;
+    }> | null;
+    attributes: Array<{
+      __typename?: "SelectedAttribute";
+      attribute: {
+        __typename?: "Attribute";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeTranslation";
+          name: string;
+        } | null;
+      };
+      values: Array<{
+        __typename?: "AttributeValue";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeValueTranslation";
+          name: string;
+        } | null;
+      }>;
+    }>;
+  } | null;
 };
 
-export type IPricingFragment = {
-  __typename?: "ProductPricingInfo";
-  onSale?: boolean | null;
-  displayGrossPrices: boolean;
-  discount?: {
-    __typename?: "TaxedMoney";
-    currency: string;
-    gross: { __typename?: "Money"; amount: number };
-    net: { __typename?: "Money"; amount: number };
-    tax: { __typename?: "Money"; amount: number };
+export type IProductVariantFragment = {
+  __typename?: "ProductVariant";
+  id: string;
+  name: string;
+  weight?: {
+    __typename?: "Weight";
+    unit: IWeightUnitsEnum;
+    value: number;
   } | null;
-  priceRange?: {
-    __typename?: "TaxedMoneyRange";
-    start?: {
-      __typename?: "TaxedMoney";
-      currency: string;
-      gross: { __typename?: "Money"; amount: number };
-      net: { __typename?: "Money"; amount: number };
-      tax: { __typename?: "Money"; amount: number };
-    } | null;
-  } | null;
+  media?: Array<{
+    __typename?: "ProductMedia";
+    url: string;
+    alt: string;
+    type: IProductMediaType;
+  }> | null;
+  attributes: Array<{
+    __typename?: "SelectedAttribute";
+    attribute: {
+      __typename?: "Attribute";
+      id: string;
+      name?: string | null;
+      translation?: {
+        __typename?: "AttributeTranslation";
+        name: string;
+      } | null;
+    };
+    values: Array<{
+      __typename?: "AttributeValue";
+      id: string;
+      name?: string | null;
+      translation?: {
+        __typename?: "AttributeValueTranslation";
+        name: string;
+      } | null;
+    }>;
+  }>;
 };
 
 export type ITaxedMoneyFragment = {
@@ -26241,6 +26377,27 @@ export type IProductQuery = {
       unit: IWeightUnitsEnum;
       value: number;
     } | null;
+    attributes: Array<{
+      __typename?: "SelectedAttribute";
+      attribute: {
+        __typename?: "Attribute";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeTranslation";
+          name: string;
+        } | null;
+      };
+      values: Array<{
+        __typename?: "AttributeValue";
+        id: string;
+        name?: string | null;
+        translation?: {
+          __typename?: "AttributeValueTranslation";
+          name: string;
+        } | null;
+      }>;
+    }>;
     pricing?: {
       __typename?: "ProductPricingInfo";
       onSale?: boolean | null;
@@ -26278,7 +26435,65 @@ export type IProductQuery = {
         alt: string;
         type: IProductMediaType;
       }> | null;
+      attributes: Array<{
+        __typename?: "SelectedAttribute";
+        attribute: {
+          __typename?: "Attribute";
+          id: string;
+          name?: string | null;
+          translation?: {
+            __typename?: "AttributeTranslation";
+            name: string;
+          } | null;
+        };
+        values: Array<{
+          __typename?: "AttributeValue";
+          id: string;
+          name?: string | null;
+          translation?: {
+            __typename?: "AttributeValueTranslation";
+            name: string;
+          } | null;
+        }>;
+      }>;
     }> | null;
+    defaultVariant?: {
+      __typename?: "ProductVariant";
+      id: string;
+      name: string;
+      weight?: {
+        __typename?: "Weight";
+        unit: IWeightUnitsEnum;
+        value: number;
+      } | null;
+      media?: Array<{
+        __typename?: "ProductMedia";
+        url: string;
+        alt: string;
+        type: IProductMediaType;
+      }> | null;
+      attributes: Array<{
+        __typename?: "SelectedAttribute";
+        attribute: {
+          __typename?: "Attribute";
+          id: string;
+          name?: string | null;
+          translation?: {
+            __typename?: "AttributeTranslation";
+            name: string;
+          } | null;
+        };
+        values: Array<{
+          __typename?: "AttributeValue";
+          id: string;
+          name?: string | null;
+          translation?: {
+            __typename?: "AttributeValueTranslation";
+            name: string;
+          } | null;
+        }>;
+      }>;
+    } | null;
   } | null;
 };
 
@@ -26477,6 +26692,55 @@ export const FragMenuFragmentDoc = `
   }
 }
     ${FragMenuItemFragmentDoc}`;
+export const FragProductDetailsAttributeFragmentDoc = `
+    fragment ProductDetailsAttributeFragment on SelectedAttribute {
+  attribute {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      name
+    }
+  }
+  values {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      name
+    }
+  }
+}
+    `;
+export const FragProductVariantFragmentDoc = `
+    fragment ProductVariantFragment on ProductVariant {
+  id
+  name
+  weight {
+    unit
+    value
+  }
+  media {
+    url
+    alt
+    type
+  }
+  attributes {
+    attribute {
+      id
+      name
+      translation(languageCode: $languageCode) {
+        name
+      }
+    }
+    values {
+      id
+      name
+      translation(languageCode: $languageCode) {
+        name
+      }
+    }
+  }
+}
+    `;
 export const FragProductDetailsFragmentDoc = `
     fragment ProductDetailsFragment on Product {
   id
@@ -26509,24 +26773,22 @@ export const FragProductDetailsFragmentDoc = `
     unit
     value
   }
+  attributes {
+    ...ProductDetailsAttributeFragment
+  }
   pricing {
     ...PricingFragment
   }
   variants {
-    id
-    name
-    weight {
-      unit
-      value
-    }
-    media {
-      url
-      alt
-      type
-    }
+    ...ProductVariantFragment
+  }
+  defaultVariant {
+    ...ProductVariantFragment
   }
 }
-    ${FragPricingFragmentDoc}`;
+    ${FragProductDetailsAttributeFragmentDoc}
+${FragPricingFragmentDoc}
+${FragProductVariantFragmentDoc}`;
 export const CheckoutCreateDocument = `
     mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
   checkoutCreate(

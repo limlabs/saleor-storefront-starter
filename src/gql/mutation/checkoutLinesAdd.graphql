@@ -4,6 +4,7 @@ mutation checkoutLinesAdd($variantID: ID!, $checkoutID: ID!, $quantity: Int!) {
     lines: [{ variantId: $variantID, quantity: $quantity }]
   ) {
     checkout {
+      id
       lines {
         id
         variant {

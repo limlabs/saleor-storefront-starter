@@ -122,15 +122,83 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
           </div>
           {/* <div className="flex-1 px-2 mx-2">Navbar Title</div> */}
           <div className="flex-none hidden -lg:block space-x-3">
-            <ul className="menu menu-horizontal space-x-3">
-              {navLinks.map((item) => (
+            <ul className="menu menu-horizontal space-x-3 z-50">
+              <li tabIndex={0}>
+                <a>
+                  Services
+                  <svg
+                    className="fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                  </svg>
+                </a>
+                <ul className="p-2 bg-almost-black z-50">
+                  <li className="hover-bordered">
+                    <a>What We Do</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Software</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Media</a>
+                  </li>
+                </ul>
+              </li>
+              <li tabIndex={0}>
+                <a>
+                  Use Cases
+                  <svg
+                    className="fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                  </svg>
+                </a>
+                <ul className="p-2 bg-almost-black z-50">
+                  <li className="hover-bordered">
+                    <a>Life Sciences</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Entertainment</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Commerce</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Small Business</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Creators</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a>Talk To Real Humans!</a>
+              </li>
+              <li>
+                <a>Zine</a>
+              </li>
+              <li>
+                <a>Store</a>
+              </li>
+              <li>
+                <a>Support Us</a>
+              </li>
+              {/* {navLinks.map((item) => (
                 <li
                   key={item.name}
                   className={isActive(item.path) ? "glass  text-white" : ""}
                 >
                   <Link href={item.path}>{item.name}</Link>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
         </div>

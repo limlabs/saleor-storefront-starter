@@ -25,12 +25,13 @@ export default function ThreeCanvas() {
   return (
     <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-2/3  max-w-full shadow-vertical-sm">
       <Canvas shadows resize={{ scroll: false }}>
-        <PerspectiveCamera makeDefault position={[0, 0, 15]} />
+        <PerspectiveCamera makeDefault position={[0, 0, 20]} />
 
         <Environment
-          files="./img/liminal_hdr.hdr"
+          files="./img/lim360.hdr"
           background
           resolution={1080}
+          frames={Infinity}
         ></Environment>
 
         {/* Ambient light source */}
@@ -56,7 +57,7 @@ export default function ThreeCanvas() {
         <Suspense fallback={null}>
           <ThreeModelWrapper />
         </Suspense>
-        <OrbitControls enablePan={false} enableZoom={true} />
+        <OrbitControls enablePan={false} enableZoom={false} />
       </Canvas>
     </section>
   );

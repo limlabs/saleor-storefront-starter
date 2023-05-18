@@ -4,6 +4,7 @@ import Slide from "../../../../public/slide-logo.png";
 import Hero from "../../../../public/texture-logo.jpg";
 import Button from "@/app/daisyui/button";
 import LogoBlack from "../../../../public/logo-black.png";
+import Menu from "@/app/daisyui/menu";
 
 export default function HomeMain() {
   return (

@@ -1,5 +1,6 @@
-import { forwardRef, HTMLAttributes, PropsWithChildren } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
+import type { HTMLAttributes, PropsWithChildren } from "react";
 
 export interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   ghost?: boolean;

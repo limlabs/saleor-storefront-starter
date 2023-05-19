@@ -186,19 +186,11 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                 <a>Zine</a>
               </li>
               <li>
-                <a>Store</a>
+                <Link href="/en-us/c/all">Store</Link>
               </li>
               <li>
                 <a>Support Us</a>
               </li>
-              {/* {navLinks.map((item) => (
-                <li
-                  key={item.name}
-                  className={isActive(item.path) ? "glass  text-white" : ""}
-                >
-                  <Link href={item.path}>{item.name}</Link>
-                </li>
-              ))} */}
             </ul>
           </div>
         </div>

@@ -1,18 +1,12 @@
 "use client";
-import React, { Suspense, useRef } from "react";
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
 import {
   Environment,
-  Lightformer,
   OrbitControls,
   PerspectiveCamera,
-  SpotLight,
-  Stage,
 } from "@react-three/drei";
-import { Color, PointLight, TextureLoader } from "three";
-import { Backdrop } from "@react-three/drei";
-import texture from "../../../../public/pano_office.png";
-// import ThreeModel from "./threeModel";
+
 import dynamic from "next/dynamic";
 
 const ThreeModelWrapper = dynamic(() => import("./threeModelWrapper"), {
@@ -20,10 +14,8 @@ const ThreeModelWrapper = dynamic(() => import("./threeModelWrapper"), {
 });
 
 export default function ThreeCanvas() {
-  const colorMap = useLoader(TextureLoader, texture.src);
-
   return (
-    <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-2/3  max-w-full shadow-vertical-sm">
+    <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-full  max-w-full shadow-vertical-sm">
       <Canvas shadows resize={{ scroll: false }}>
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
 

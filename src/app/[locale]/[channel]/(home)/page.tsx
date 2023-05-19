@@ -7,12 +7,14 @@ import ThreeCanvasWrapper from "../../(components)/threeCanvasWrapper";
 
 export default function HomePage() {
   return (
-    <main className="h-screen  w-screen  ">
+    <main className="h-screen  w-screen  relative">
       <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
         <HomeHeroMobile />
       </div>
       <div className="-lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
+      </div>
+      <div className="-lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center">
         <HomeMain />
       </div>
       <div>

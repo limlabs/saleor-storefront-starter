@@ -1,4 +1,4 @@
-import Logo from "./assets/logos/logo-white.png";
+import Logo from "../../../../public/logo-white.png";
 import Image from "next/image";
 import Hero from "../../../../public/texture-logo.jpg";
 import Background from "../../../../public/dirt.svg";
@@ -14,14 +14,14 @@ export default function HomeMain() {
         objectPosition="center"
         className="absolute z-10"
       />
-      <div className="w-5/6 z-20">
-        <h1 className="text-white  text-xl text-center [text-shadow:_0_1.2px_0_rgb(0_0_0_/_40%)] font-futura -lg:text-4xl -md:text-5xl -sm:mb-2 -lg:mb-4 -md:mb-4 font-semibold ">
-          Explore the Liminal Frontier
+      <div className="w-5/6 z-20 flex justify-center items-center">
+        <h1 className="text-white  text-xl font-futura -lg:text-4xl -md:text-5xl -sm:mb-2  -md:mb-4 font-semibold mr-4 mt-6">
+          Explore The
         </h1>
-        <p className="text-white font-roboto text-lg text-center mb-4">--</p>
-        <h3 className="text-light-pink font-prompt -lg:text-lg -md:text-3xl text-center font-extralight">
-          A sensible choice for extraordinary results.
-        </h3>
+        <Image src={Logo} alt="logo" height={50} />
+        <h1 className="text-white  text-xl font-futura -lg:text-4xl -md:text-5xl -sm:mb-2  -md:mb-4 font-semibold ml-4 mt-6">
+          Frontier
+        </h1>
       </div>
     </section>
   );

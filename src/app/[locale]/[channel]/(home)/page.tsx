@@ -4,6 +4,10 @@ import HomeSectionTwo from "../../(components)/homeSectionTwo";
 import HomeSectionThree from "../../(components)/homeSectionThree";
 import Footer from "../../(components)/footer";
 import ThreeCanvasWrapper from "../../(components)/threeCanvasWrapper";
+import HomeReviews from "../../(components)/homeReviews";
+import Sequencing from "../../(components)/sequencing";
+import CacheMeOutside from "../../(components)/cacheMeOutside";
+import StoreDemo from "../../(components)/storeDemo";
 
 export default function HomePage() {
   return (
@@ -11,18 +15,27 @@ export default function HomePage() {
       <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
         <HomeHeroMobile />
       </div>
-      <div className="-lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
+      <div className="relative -lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
       </div>
-      <div className="-lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center">
+      <div className="relative z-100 -lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center">
         <HomeMain />
       </div>
       <div>
-        <div className="-lg:h-screen -md:h-md-screen bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
+        <div className="-lg:h-screen -md:h-md-screen bg-almost-black shadow-inset-shadow ">
           <HomeSectionTwo />
         </div>
-        <div className="-lg:h-screen -md:h-md-screen bg-gradient-to-b  from-forest-green to-light-pink shadow-inset-shadow text-almost-black">
-          <HomeSectionThree />
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+          <HomeReviews />
+        </div>
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+          <Sequencing />
+        </div>
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+          <CacheMeOutside />
+        </div>
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+          <StoreDemo />
         </div>
         <div>
           <Footer />

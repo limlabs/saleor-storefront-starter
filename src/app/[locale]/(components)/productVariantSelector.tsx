@@ -37,7 +37,7 @@ const ProductVariantAttributeSelectorOption = ({
   return (
     <button
       onClick={() => onSelected?.(values?.map((v) => v.id) ?? [])}
-      className={isSelected ? "btn btn-active" : "btn btn-outline"}
+      className={`w-full btn ${isSelected ? "btn-active" : "btn-outline"}`}
     >
       {text}
     </button>
@@ -67,9 +67,9 @@ const ProductVariantAttributeSelector = ({
 
   // Render a list of options for the attribute
   return (
-    <div>
+    <div className="my-3">
       <h4>{attribute.translation?.name ?? attribute.name}</h4>
-      <ul>
+      <ul className={`mt-2 grid gap-2 grid-cols-3`}>
         {variants.map((variant) => (
           <li key={variant.id}>
             <ProductVariantAttributeSelectorOption
@@ -141,7 +141,7 @@ export const ProductVariantSelector = ({
 
   // Render a list of attribute selectors for the product.
   return (
-    <div>
+    <div className="my-2">
       {product?.defaultVariant?.attributes.map(({ attribute }) => (
         <ProductVariantAttributeSelector
           key={attribute.id}

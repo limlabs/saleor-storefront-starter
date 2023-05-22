@@ -47,6 +47,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
               <ProductSelectionProvider
                 initialQuantity={1}
                 initialSelectedVariantID={node.defaultVariant?.id}
+                productVariants={node.variants ?? []}
               >
                 <ProductCard
                   product={node}

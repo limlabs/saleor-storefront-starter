@@ -1,5 +1,6 @@
 "use client";
 
+import { IProductVariantFragment } from "@/gql/sdk";
 import {
   createContext,
   FC,
@@ -8,10 +9,12 @@ import {
   useState,
   Dispatch,
   SetStateAction,
+  useMemo,
 } from "react";
 
 export interface ProductSelectionContextData {
   quantity: number;
+  variants: IProductVariantFragment[];
   selectedVariantID: string;
   updateQuantity: Dispatch<SetStateAction<number>>;
   updateSelectedVariant: Dispatch<SetStateAction<string>>;
@@ -20,6 +23,7 @@ export interface ProductSelectionContextData {
 const ProductSelectionContext = createContext<ProductSelectionContextData>({
   quantity: 1,
   selectedVariantID: "",
+  variants: [],
   updateQuantity: function (value: SetStateAction<number>): void {
     throw new Error("Function not implemented.");
   },
@@ -28,11 +32,19 @@ const ProductSelectionContext = createContext<ProductSelectionContextData>({
   },
 });
 
-export const ProductSelectionProvider: FC<{
+interface ProductSelectionProviderProps {
   children: ReactNode;
   initialSelectedVariantID?: string | undefined;
   initialQuantity?: number;
-}> = ({ children, initialSelectedVariantID = "", initialQuantity = 1 }) => {
+  productVariants: IProductVariantFragment[] | undefined;
+}
+
+export const ProductSelectionProvider: FC<ProductSelectionProviderProps> = ({
+  children,
+  productVariants = [],
+  initialSelectedVariantID = "",
+  initialQuantity = 1,
+}) => {
   const [quantity, updateQuantity] = useState(initialQuantity);
   const [selectedVariantID, updateSelectedVariant] = useState(
     initialSelectedVariantID
@@ -45,6 +57,7 @@ export const ProductSelectionProvider: FC<{
         updateQuantity,
         selectedVariantID,
         updateSelectedVariant,
+        variants: productVariants,
       }}
     >
       {children}
@@ -53,5 +66,15 @@ export const ProductSelectionProvider: FC<{
 };
 
 export const useProductSelection = () => {
-  return useContext(ProductSelectionContext);
+  const selectionCtx = useContext(ProductSelectionContext);
+  const selectedVariant = useMemo(() => {
+    return selectionCtx.variants.find(
+      (variant) => variant.id === selectionCtx.selectedVariantID
+    );
+  }, [selectionCtx.selectedVariantID, selectionCtx.variants]);
+
+  return {
+    ...selectionCtx,
+    selectedVariant,
+  };
 };

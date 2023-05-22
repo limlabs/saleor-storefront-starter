@@ -103,7 +103,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <AddToCartButton locale={locale} variantID={variantID} />
+            <AddToCartButton locale={locale} />
           </CardActions>
         </CardBody>
       </Indicator>

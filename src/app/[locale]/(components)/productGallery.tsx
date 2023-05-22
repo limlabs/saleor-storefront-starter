@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useTranslationValues } from "@/core/server/useTranslationValues";
-import { ProductCardProvider } from "@/core/client/useProductCard";
+import { ProductSelectionProvider } from "@/core/client/useProductSelection";
 import { ProductCard } from "./productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
@@ -50,14 +50,17 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
         {products.edges.map(({ node }) => {
           return (
             <li className="carousel-item justify-center m-2" key={node.slug}>
-              <ProductCardProvider>
+              <ProductSelectionProvider
+                initialQuantity={1}
+                initialSelectedVariantID={node.defaultVariant?.id}
+              >
                 <ProductCard
                   product={node}
                   t={productCardTranslations}
                   animation="bounce"
                   locale={locale}
                 />
-              </ProductCardProvider>
+              </ProductSelectionProvider>
             </li>
           );
         })}

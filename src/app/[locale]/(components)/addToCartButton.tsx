@@ -2,19 +2,15 @@
 
 import { productCardTranslationKeys } from "@/app/translations/productCard";
 import { useCheckout } from "@/core/client/useCheckout";
+import { useProductSelection } from "@/core/client/useProductSelection";
 import { useTranslationValues } from "@/core/server/useTranslationValues";
-import { Locale } from "@/locale-config";
+import { LocalizedClientComponentProps } from "@/locale-config";
 import type { FC } from "react";
 
-interface AddToCartButtonProps {
-  locale: Locale;
-  variantID?: string;
-}
-
-export const AddToCartButton: FC<AddToCartButtonProps> = ({
-  variantID,
+export const AddToCartButton: FC<LocalizedClientComponentProps> = ({
   locale,
 }) => {
+  const { selectedVariantID, quantity } = useProductSelection();
   const { addItem } = useCheckout();
   const productCardTranslations = useTranslationValues(
     locale,
@@ -23,16 +19,16 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
   );
 
   const onClickHandler = () => {
-    if (!variantID) return;
+    if (!selectedVariantID) return;
 
-    addItem(variantID, 1);
+    addItem(selectedVariantID, quantity);
   };
 
   return (
     <button
       className="btn btn-primary"
       onClick={onClickHandler}
-      disabled={!variantID}
+      disabled={!selectedVariantID || quantity < 1}
     >
       {productCardTranslations["add to cart"]}
     </button>

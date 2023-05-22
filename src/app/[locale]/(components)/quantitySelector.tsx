@@ -1,16 +1,16 @@
 "use client";
 
-import { useProductCard } from "@/core/client/useProductCard";
+import { useProductSelection } from "@/core/client/useProductSelection";
 import { FC } from "react";
 
 export const QuantitySelector: FC = () => {
-  const { productQuantity, updateProductQuantity } = useProductCard();
+  const { quantity, updateQuantity } = useProductSelection();
   const plusHandler = () => {
-    updateProductQuantity(productQuantity + 1);
+    updateQuantity(quantity + 1);
   };
 
   const minusHandler = () => {
-    if (productQuantity > 1) updateProductQuantity(productQuantity - 1);
+    if (quantity > 1) updateQuantity(quantity - 1);
   };
 
   return (
@@ -21,7 +21,7 @@ export const QuantitySelector: FC = () => {
       >
         -
       </button>
-      <span className="px-2">{productQuantity}</span>
+      <span className="px-2">{quantity}</span>
       <button
         className="btn btn-xs btn-outline btn-secondary"
         onClick={plusHandler}

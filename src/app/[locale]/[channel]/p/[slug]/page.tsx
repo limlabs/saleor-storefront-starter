@@ -6,6 +6,8 @@ import type { Channel } from "@/channel-config";
 import { IProductVariantFragment } from "@/gql/sdk";
 import { redirect } from "next/navigation";
 import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
+import { ProductVariantSelector } from "@/app/[locale]/(components)/productVariantSelector";
+import { ProductSelectionProvider } from "@/core/client/useProductSelection";
 
 interface PageProps {
   params: {
@@ -41,58 +43,6 @@ const ImageGrid = ({
 
 const StarRating = ({ rating }: { rating: number }) => {
   return <div>Rating: {rating}</div>;
-};
-
-const ProductVariantAttributeSelectorOption = ({
-  variant,
-  attributeId,
-}: {
-  variant: IProductVariantFragment;
-  attributeId: string;
-}) => {
-  const { attribute, values } =
-    variant.attributes.find(({ attribute }) => attribute.id === attributeId) ??
-    {};
-
-  if (!attribute) {
-    return null;
-  }
-
-  const text = values?.map((v) => v.translation?.name ?? v.name).join(", ");
-  return <button>{text}</button>;
-};
-
-const ProductVariantAttributeSelector = ({
-  attributeId,
-  variants,
-}: {
-  attributeId: string;
-  variants: IProductVariantFragment[];
-}) => {
-  const { attribute } =
-    variants[0].attributes.find(
-      ({ attribute }) => attribute.id === attributeId
-    ) ?? {};
-
-  if (!attribute) {
-    return null;
-  }
-
-  return (
-    <div>
-      <h4>{attribute.translation?.name ?? attribute.name}</h4>
-      <ul>
-        {variants.map((variant) => (
-          <li key={variant.id}>
-            <ProductVariantAttributeSelectorOption
-              variant={variant}
-              attributeId={attributeId}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 };
 
 interface SaleorContentBlockBase {
@@ -181,27 +131,20 @@ export default async function Pdp({
         {(product.rating ?? 0) > 0 && (
           <StarRating rating={product.rating as number} />
         )}
-        {product.defaultVariant?.attributes.map(({ attribute }) => (
-          <ProductVariantAttributeSelector
-            key={attribute.id}
-            attributeId={attribute.id}
-            variants={product.variants ?? []}
-          />
-        ))}
-        {(product.description ?? product.translation?.description ?? "")
-          .length > 0 && (
-          <SaleorProductDescription
-            description={
-              product.translation?.description ?? product.description
-            }
-          />
-        )}
-        <div>
-          <AddToCartButton
-            variantID={product.defaultVariant?.id}
-            locale={locale}
-          />
-        </div>
+        <ProductSelectionProvider>
+          <ProductVariantSelector product={product} />
+          {(product.description ?? product.translation?.description ?? "")
+            .length > 0 && (
+            <SaleorProductDescription
+              description={
+                product.translation?.description ?? product.description
+              }
+            />
+          )}
+          <div>
+            <AddToCartButton locale={locale} />
+          </div>
+        </ProductSelectionProvider>
       </section>
     </main>
   );

@@ -1,24 +1,16 @@
 "use client";
 
-import { productCardTranslationKeys } from "@/app/translations/productCard";
-import { useApp } from "@/core/client/useApp";
 import { useCheckout } from "@/core/client/useCheckout";
 import { useProductSelection } from "@/core/client/useProductSelection";
-import { useTranslationValues } from "@/core/server/useTranslationValues";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
-export const AddToCartButton: FC = () => {
+interface AddToCartButtonProps {
+  children: ReactNode;
+}
+
+export const AddToCartButton: FC<AddToCartButtonProps> = ({ children }) => {
   const { selectedVariantID, quantity } = useProductSelection();
   const { addItem } = useCheckout();
-  const {
-    params: { locale },
-  } = useApp();
-
-  const productCardTranslations = useTranslationValues(
-    locale,
-    productCardTranslationKeys,
-    "component"
-  );
 
   const onClickHandler = () => {
     if (!selectedVariantID) return;
@@ -32,7 +24,7 @@ export const AddToCartButton: FC = () => {
       onClick={onClickHandler}
       disabled={!selectedVariantID || quantity < 1}
     >
-      {productCardTranslations["add to cart"]}
+      {children}
     </button>
   );
 };

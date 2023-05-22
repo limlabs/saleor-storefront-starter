@@ -25965,6 +25965,76 @@ export type IMenuItemFragment = {
 
 export type IMoneyFragment = { __typename?: "Money"; amount: number };
 
+export type IPdProductFragment = {
+  __typename?: "Product";
+  id: string;
+  seoTitle?: string | null;
+  name: string;
+  description?: JSONString | null;
+  slug: string;
+  rating?: number | null;
+  isAvailable?: boolean | null;
+  translation?: {
+    __typename?: "ProductTranslation";
+    name?: string | null;
+    description?: JSONString | null;
+  } | null;
+  category?: {
+    __typename?: "Category";
+    id: string;
+    name: string;
+    translation?: {
+      __typename?: "CategoryTranslation";
+      name?: string | null;
+    } | null;
+  } | null;
+  thumbnail?: { __typename?: "Image"; alt?: string | null; url: string } | null;
+  productType: { __typename?: "ProductType"; name: string; slug: string };
+  weight?: {
+    __typename?: "Weight";
+    unit: IWeightUnitsEnum;
+    value: number;
+  } | null;
+  pricing?: {
+    __typename?: "ProductPricingInfo";
+    onSale?: boolean | null;
+    displayGrossPrices: boolean;
+    discount?: {
+      __typename?: "TaxedMoney";
+      currency: string;
+      gross: { __typename?: "Money"; amount: number };
+      net: { __typename?: "Money"; amount: number };
+      tax: { __typename?: "Money"; amount: number };
+    } | null;
+    priceRange?: {
+      __typename?: "TaxedMoneyRange";
+      start?: {
+        __typename?: "TaxedMoney";
+        currency: string;
+        gross: { __typename?: "Money"; amount: number };
+        net: { __typename?: "Money"; amount: number };
+        tax: { __typename?: "Money"; amount: number };
+      } | null;
+    } | null;
+  } | null;
+  variants?: Array<{
+    __typename?: "ProductVariant";
+    id: string;
+    name: string;
+    weight?: {
+      __typename?: "Weight";
+      unit: IWeightUnitsEnum;
+      value: number;
+    } | null;
+    media?: Array<{
+      __typename?: "ProductMedia";
+      url: string;
+      alt: string;
+      type: IProductMediaType;
+    }> | null;
+  }> | null;
+};
+
 export type IPricingFragment = {
   __typename?: "ProductPricingInfo";
   onSale?: boolean | null;
@@ -26693,6 +26763,56 @@ export const FragMenuFragmentDoc = `
   }
 }
     ${FragMenuItemFragmentDoc}`;
+export const FragPdProductFragmentDoc = `
+    fragment PDProductFragment on Product {
+  id
+  seoTitle
+  name
+  description
+  slug
+  rating
+  isAvailable
+  translation(languageCode: $languageCode) {
+    name
+    description
+  }
+  category {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      name
+    }
+  }
+  thumbnail(size: 1200) {
+    alt
+    url
+  }
+  productType {
+    name
+    slug
+  }
+  weight {
+    unit
+    value
+  }
+  pricing {
+    ...PricingFragment
+  }
+  variants {
+    id
+    name
+    weight {
+      unit
+      value
+    }
+    media {
+      url
+      alt
+      type
+    }
+  }
+}
+    ${FragPricingFragmentDoc}`;
 export const FragProductDetailsAttributeFragmentDoc = `
     fragment ProductDetailsAttributeFragment on SelectedAttribute {
   attribute {

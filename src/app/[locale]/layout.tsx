@@ -9,7 +9,7 @@ import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
 import { gqlClient } from "@/gql";
-import { getLanguageCode } from "@/core/server/getLanguageCode";
+import { getLanguageCode, setLocale } from "@/core/server/locale";
 import { NavbarMenu } from "./(components)/navbarMenu";
 
 export const metadata = {
@@ -29,6 +29,7 @@ export default async function RootLayout({
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
+  setLocale(params.locale);
   const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
 
   let channel: Channel = params.channel as Channel;

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { gqlClient } from "@/gql";
-import { getLanguageCode } from "@/core/server/getLanguageCode";
+import { getLanguageCode, getLocale } from "@/core/server/locale";
 import type { Locale } from "@/locale-config";
 import type { Channel } from "@/channel-config";
 import { IProductVariantFragment } from "@/gql/sdk";
@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
 import { ProductVariantSelector } from "@/app/[locale]/(components)/productVariantSelector";
 import { ProductSelectionProvider } from "@/core/client/useProductSelection";
+import { getTranslations } from "@/core/server/getTranslations";
 
 interface PageProps {
   params: {
@@ -103,7 +104,10 @@ export default async function ProductDetailsPage({
   params: { locale, channel, slug },
 }: PageProps) {
   const languageCode = getLanguageCode(locale);
-  const { product } = await gqlClient.Product({ slug, languageCode, channel });
+  const [{ product }, staticTranslations] = await Promise.all([
+    gqlClient.Product({ slug, languageCode, channel }),
+    getTranslations(getLocale()),
+  ]);
 
   if (!product) {
     return redirect("/404");
@@ -142,7 +146,9 @@ export default async function ProductDetailsPage({
             />
           )}
           <div>
-            <AddToCartButton />
+            <AddToCartButton>
+              {staticTranslations("component.add to cart")}
+            </AddToCartButton>
           </div>
         </ProductSelectionProvider>
       </section>

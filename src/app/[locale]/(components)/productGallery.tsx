@@ -26,22 +26,16 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
     products.pageInfo;
 
   const productCardTranslations = useTranslationValues(
-    locale,
     productCardTranslationKeys,
     "component"
   );
 
   const searchFilterTranslations = useTranslationValues(
-    locale,
     searchFilterTranslationKeys,
     "component"
   );
 
-  const t = useTranslationValues(
-    locale,
-    productGalleryTranslationKeys,
-    "component"
-  );
+  const t = useTranslationValues(productGalleryTranslationKeys, "component");
 
   return (
     <Fragment>
@@ -58,7 +52,6 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
                   product={node}
                   t={productCardTranslations}
                   animation="bounce"
-                  locale={locale}
                 />
               </ProductSelectionProvider>
             </li>

@@ -13,8 +13,11 @@ import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
-import type { TFC } from "@/core/server/useTranslationValues";
-import type { ProductCardTranslations } from "@/app/translations/productCard";
+import { TFC, useTranslationValues } from "@/core/server/useTranslationValues";
+import {
+  productCardTranslationKeys,
+  ProductCardTranslations,
+} from "@/app/translations/productCard";
 import type { IGalleryProductFragment } from "@/gql/sdk";
 
 interface ProductCardProps {
@@ -37,6 +40,11 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   });
 
   const info = useProductTranslation(product);
+
+  const productCardTranslations = useTranslationValues(
+    productCardTranslationKeys,
+    "component"
+  );
 
   return (
     <Card
@@ -96,7 +104,9 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <AddToCartButton />
+            <AddToCartButton>
+              {productCardTranslations["add to cart"]}
+            </AddToCartButton>
           </CardActions>
         </CardBody>
       </Indicator>

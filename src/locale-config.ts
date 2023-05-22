@@ -10,6 +10,3 @@ export const localeConfig = {
 
 export type LocaleConfig = typeof localeConfig;
 export type Locale = keyof (typeof localeConfig)["locales"];
-export interface LocalizedClientComponentProps {
-  locale: Locale;
-}

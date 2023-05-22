@@ -1,7 +1,7 @@
 import { AppProvider } from "@/core/client/useApp";
 import { localeConfig } from "@/locale-config";
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
-import { channelConfig } from "@/channel-config";
+import { Channel, channelConfig } from "@/channel-config";
 import { RootLayoutHeader } from "./(components)/header";
 import AppRoot from "./(components)/root";
 import Drawer from "../daisyui/drawer";
@@ -23,6 +23,7 @@ export const metadata = {
 interface RootLayoutProps {
   params: {
     locale: Locale;
+    channel: string;
   };
 }
 
@@ -33,13 +34,21 @@ export default async function RootLayout({
   const languageCode = getLanguageCode(params.locale);
   const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
   const t = await getTranslations(params.locale);
-  
+
+  let channel: Channel = params.channel as Channel;
+  if (!channel || !channelConfig.list.includes(channel)) {
+    channel = channelConfig.defaultChannel;
+  }
+
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
       <body>
         <AppProvider
           value={{
-            params,
+            params: {
+              locale: params.locale ?? localeConfig.defaultLocale,
+              channel,
+            },
             localeConfig: localeConfig,
             channelConfig: channelConfig,
           }}

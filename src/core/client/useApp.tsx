@@ -9,8 +9,8 @@ interface AppProviderStore {
   localeConfig: LocaleConfig;
   channelConfig: ChannelConfig;
   params: {
-    locale?: Locale;
-    channel?: Channel;
+    locale: Locale;
+    channel: Channel;
   };
 }
 
@@ -19,7 +19,10 @@ interface AppProvider {
 }
 
 const AppContext = createContext<AppProviderStore>({
-  params: {},
+  params: {
+    locale: "en-us",
+    channel: "default-channel",
+  },
   localeConfig: {} as LocaleConfig,
   channelConfig: {} as ChannelConfig,
 });

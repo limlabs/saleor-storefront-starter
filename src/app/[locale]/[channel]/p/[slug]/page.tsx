@@ -99,7 +99,7 @@ const SaleorProductDescription = ({
   );
 };
 
-export default async function Pdp({
+export default async function ProductDetailsPage({
   params: { locale, channel, slug },
 }: PageProps) {
   const languageCode = getLanguageCode(locale);
@@ -142,7 +142,7 @@ export default async function Pdp({
             />
           )}
           <div>
-            <AddToCartButton locale={locale} />
+            <AddToCartButton />
           </div>
         </ProductSelectionProvider>
       </section>

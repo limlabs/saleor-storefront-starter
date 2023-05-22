@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import clsx from "clsx";
 import Card from "@/app/daisyui/card";
 import CardMedia from "@/app/daisyui/card-media";
@@ -19,21 +16,19 @@ import { ProductCardVariantList } from "./productCardVariantList";
 import type { TFC } from "@/core/server/useTranslationValues";
 import type { ProductCardTranslations } from "@/app/translations/productCard";
 import type { IGalleryProductFragment } from "@/gql/sdk";
-import { LocalizedClientComponentProps } from "@/locale-config";
 
-interface ProductCardProps extends LocalizedClientComponentProps {
+interface ProductCardProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
 }
 
 export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   product,
-  locale,
   animation,
   t,
 }) => {
-  const { defaultVariant, thumbnail, pricing, slug, rating } = product;
-  const [variantID, setVarientID] = useState(defaultVariant?.id ?? "");
+  const { thumbnail, pricing, slug, rating } = product;
+
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -85,8 +80,6 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             className="absolute top-4 left-0 right-0"
             slug={slug}
             variants={info.variants ?? []}
-            selected={variantID}
-            onClick={setVarientID}
           />
           <Link
             href={`/p/${slug}`}
@@ -103,7 +96,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <AddToCartButton locale={locale} />
+            <AddToCartButton />
           </CardActions>
         </CardBody>
       </Indicator>

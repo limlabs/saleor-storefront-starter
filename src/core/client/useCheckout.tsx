@@ -19,7 +19,7 @@ import {
 } from "@/gql/sdk";
 
 export interface CheckoutContextData {
-  checkoutQuantity: number;
+  checkoutQuantity: number | undefined;
   addItem(
     variantID: string,
     quantity: number
@@ -50,9 +50,10 @@ const getCookie = (name: string) => {
 
 export const CheckoutProvider: FC<{
   children: ReactNode;
-  initialQuantity: number;
-}> = ({ children, initialQuantity }) => {
-  const [checkoutQuantity, updateCheckoutQuantity] = useState(initialQuantity);
+}> = ({ children }) => {
+  const [checkoutQuantity, updateCheckoutQuantity] = useState<
+    number | undefined
+  >();
   const addItem = useCallback(async (variantID: string, quantity = 1) => {
     const checkoutID = getCookie("CheckoutID");
 

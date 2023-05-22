@@ -22,19 +22,19 @@ export default function HomePage() {
         <HomeMain />
       </div>
       <div>
-        <div className="-lg:h-screen -md:h-md-screen bg-almost-black shadow-inset-shadow ">
+        <div className="-lg:h-auto -md:h-md-screen bg-almost-black shadow-inset-shadow ">
           <HomeSectionTwo />
         </div>
-        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen   text-almost-black">
           <HomeReviews />
         </div>
-        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen   text-almost-black">
           <Sequencing />
         </div>
-        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen   text-almost-black">
           <CacheMeOutside />
         </div>
-        <div className=" relative z-100 -lg:h-screen -md:h-md-screen bg-gradient-to-b   text-almost-black">
+        <div className=" relative z-100 -lg:h-screen -md:h-md-screen   text-almost-black">
           <StoreDemo />
         </div>
         <div>

@@ -28,6 +28,9 @@ module.exports = {
         "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.3)",
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
       },
+      backgroundImage: {
+        checker: "url('/Checkerboard_tile.png')",
+      },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",
         "landing-grid": "2fr 1fr ",

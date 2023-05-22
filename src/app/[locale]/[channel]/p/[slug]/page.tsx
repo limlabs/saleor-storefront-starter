@@ -9,6 +9,7 @@ import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
 import { ProductVariantSelector } from "@/app/[locale]/(components)/productVariantSelector";
 import { ProductSelectionProvider } from "@/core/client/useProductSelection";
 import { getTranslations } from "@/core/server/getTranslations";
+import { QuantitySelector } from "@/app/[locale]/(components)/quantitySelector";
 
 interface PageProps {
   params: {
@@ -120,6 +121,9 @@ export default async function ProductDetailsPage({
    * - What if no images (less important / likely)?
    */
 
+  const initialSelectedVariant =
+    (product.variants?.length ?? 0) > 1 ? null : product.defaultVariant;
+
   return (
     <main className="lg:flex lg:justify-between">
       <section className="lg:w-2/3">
@@ -135,8 +139,13 @@ export default async function ProductDetailsPage({
         {(product.rating ?? 0) > 0 && (
           <StarRating rating={product.rating as number} />
         )}
-        <ProductSelectionProvider>
-          <ProductVariantSelector product={product} />
+        <ProductSelectionProvider
+          initialSelectedVariantID={initialSelectedVariant?.id}
+        >
+          {!initialSelectedVariant?.id && (
+            <ProductVariantSelector product={product} />
+          )}
+          {initialSelectedVariant?.id && <QuantitySelector />}
           {(product.description ?? product.translation?.description ?? "")
             .length > 0 && (
             <SaleorProductDescription

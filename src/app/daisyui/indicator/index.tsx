@@ -1,8 +1,10 @@
-import { PropsWithChildren, forwardRef, ReactNode, Fragment } from "react";
-import Badge, { BadgeProps } from "../badge";
+import { forwardRef, Fragment } from "react";
+import Badge from "../badge";
 import clsx from "clsx";
+import type { PropsWithChildren, ReactNode } from "react";
+import type { BadgeProps } from "../badge";
 
-interface IndicatorProps extends BadgeProps {
+interface IndicatorProps extends Omit<BadgeProps, "content"> {
   show?: boolean;
   top?: boolean;
   middle?: boolean;

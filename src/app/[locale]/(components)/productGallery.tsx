@@ -37,11 +37,15 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
     "component"
   );
 
-  const t = useTranslationValues(locale, productGalleryTranslationKeys, "component");
+  const t = useTranslationValues(
+    locale,
+    productGalleryTranslationKeys,
+    "component"
+  );
 
   return (
     <Fragment>
-      <SearchFilter filter={filter}  t={searchFilterTranslations}/>
+      <SearchFilter filter={filter} t={searchFilterTranslations} />
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         {products.edges.map(({ node }) => {
           return (
@@ -51,6 +55,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
                   product={node}
                   t={productCardTranslations}
                   animation="bounce"
+                  locale={locale}
                 />
               </ProductCardProvider>
             </li>

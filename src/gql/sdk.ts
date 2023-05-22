@@ -26229,6 +26229,7 @@ export type ICheckoutLinesAddMutation = {
     __typename?: "CheckoutLinesAdd";
     checkout?: {
       __typename?: "Checkout";
+      id: string;
       quantity: number;
       lines: Array<{
         __typename?: "CheckoutLine";
@@ -26811,6 +26812,7 @@ export const CheckoutLinesAddDocument = `
     lines: [{variantId: $variantID, quantity: $quantity}]
   ) {
     checkout {
+      id
       lines {
         id
         variant {

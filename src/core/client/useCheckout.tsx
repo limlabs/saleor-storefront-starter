@@ -11,16 +11,26 @@ import {
 
 import { checkoutStorageKey } from "@/core/constants";
 import { gqlClient } from "@/gql";
-import { ICheckout, Maybe } from "@/gql/sdk";
+import {
+  ICheckout,
+  ICheckoutCreate,
+  ICheckoutLinesAdd,
+  Maybe,
+} from "@/gql/sdk";
 
 export interface CheckoutContextData {
   checkoutQuantity: number;
-  addItem(variantID: string, quantity: number): Promise<void>;
+  addItem(
+    variantID: string,
+    quantity: number
+  ): Promise<Maybe<ICheckout> | undefined>;
 }
 
 const CheckoutContext = createContext<CheckoutContextData>({
   checkoutQuantity: 0,
-  addItem() {},
+  async addItem() {
+    return undefined;
+  },
 });
 
 const getCookie = (name: string) => {
@@ -46,14 +56,16 @@ export const CheckoutProvider: FC<{
   const addItem = useCallback(async (variantID: string, quantity = 1) => {
     const checkoutID = getCookie("CheckoutID");
 
-    let checkout: ICheckout | null | undefined;
+    let checkout: Maybe<ICheckout> | null | undefined;
     if (checkoutID) {
       const resp = await gqlClient.checkoutLinesAdd({
         variantID,
         checkoutID,
         quantity,
       });
-      checkout = resp?.checkoutLinesAdd?.checkout;
+      checkout = resp?.checkoutLinesAdd?.checkout as Maybe<
+        ICheckoutLinesAdd["checkout"]
+      >;
       if (checkout) {
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New item added to checkout ${checkout.lines[0].id}.`);
@@ -64,7 +76,9 @@ export const CheckoutProvider: FC<{
         quantity,
       });
 
-      const checkout = resp?.checkoutCreate?.checkout;
+      checkout = resp?.checkoutCreate?.checkout as Maybe<
+        ICheckoutCreate["checkout"]
+      >;
       if (checkout) {
         document.cookie = [
           `${checkoutStorageKey}=${checkout.id}`,
@@ -75,12 +89,15 @@ export const CheckoutProvider: FC<{
         console.log(`New checkout created with ID ${checkout.id}`);
       }
     }
+
+    return checkout;
   }, []);
+
   return (
     <CheckoutContext.Provider
       value={{
         checkoutQuantity,
-        updateCheckoutQuantity,
+        addItem,
       }}
     >
       {children}

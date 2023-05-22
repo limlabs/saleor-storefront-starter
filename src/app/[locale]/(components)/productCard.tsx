@@ -10,7 +10,7 @@ import CardActions from "@/app/daisyui/card-actions";
 import Badge from "@/app/daisyui/badge";
 import Indicator from "@/app/daisyui/indicator";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
-import { ProductCardButton } from "./productCardButton";
+import { AddToCartButton } from "./addToCartButton";
 import { ProductRating } from "./productRating";
 import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
@@ -19,14 +19,16 @@ import { ProductCardVariantList } from "./productCardVariantList";
 import type { TFC } from "@/core/server/useTranslationValues";
 import type { ProductCardTranslations } from "@/app/translations/productCard";
 import type { IGalleryProductFragment } from "@/gql/sdk";
+import { LocalizedClientComponentProps } from "@/locale-config";
 
-interface ProductCardProps {
+interface ProductCardProps extends LocalizedClientComponentProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
 }
 
 export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   product,
+  locale,
   animation,
   t,
 }) => {
@@ -101,7 +103,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton text={t["add to cart"]} variantID={variantID} />
+            <AddToCartButton locale={locale} variantID={variantID} />
           </CardActions>
         </CardBody>
       </Indicator>

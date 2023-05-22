@@ -5,6 +5,7 @@ import type { Locale } from "@/locale-config";
 import type { Channel } from "@/channel-config";
 import { IProductVariantFragment } from "@/gql/sdk";
 import { redirect } from "next/navigation";
+import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
 
 interface PageProps {
   params: {
@@ -94,6 +95,60 @@ const ProductVariantAttributeSelector = ({
   );
 };
 
+interface SaleorContentBlockBase {
+  id: string;
+}
+
+interface ParagraphBlock extends SaleorContentBlockBase {
+  type: "paragraph";
+  data: {
+    text: string;
+  };
+}
+
+type SaleorContentBlock = ParagraphBlock;
+
+interface SaleorContentBlockData {
+  time: number;
+  blocks: SaleorContentBlock[];
+}
+
+const SaleorProductDescription = ({
+  description,
+}: {
+  description: string | null | undefined;
+}) => {
+  let content: SaleorContentBlockData | null = null;
+  try {
+    content = JSON.parse(description ?? '""') as SaleorContentBlockData;
+  } catch (err) {
+    console.error("Error parsing JSON: ", err);
+  }
+
+  if (!content) {
+    console.warn("Missing or invalid product description content");
+    return null;
+  }
+
+  return (
+    <div>
+      {content.blocks.map((block) => {
+        switch (block.type) {
+          case "paragraph":
+            return (
+              <div
+                key={block.id}
+                dangerouslySetInnerHTML={{ __html: block.data.text }}
+              />
+            );
+          default:
+            return null;
+        }
+      })}
+    </div>
+  );
+};
+
 export default async function Pdp({
   params: { locale, channel, slug },
 }: PageProps) {
@@ -133,6 +188,20 @@ export default async function Pdp({
             variants={product.variants ?? []}
           />
         ))}
+        {(product.description ?? product.translation?.description ?? "")
+          .length > 0 && (
+          <SaleorProductDescription
+            description={
+              product.translation?.description ?? product.description
+            }
+          />
+        )}
+        <div>
+          <AddToCartButton
+            variantID={product.defaultVariant?.id}
+            locale={locale}
+          />
+        </div>
       </section>
     </main>
   );

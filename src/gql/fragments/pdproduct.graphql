@@ -1,0 +1,49 @@
+fragment PDProductFragment on Product {
+  id
+  seoTitle
+  name
+  description
+  slug
+  rating
+  isAvailable
+
+  translation(languageCode: $languageCode) {
+    name
+    description
+  }
+  category {
+    id
+    name
+    translation(languageCode: $languageCode) {
+      name
+    }
+  }
+  thumbnail(size: 1200) {
+    alt
+    url
+  }
+  productType {
+    name
+    slug
+  }
+  weight {
+    unit
+    value
+  }
+  pricing {
+    ...PricingFragment
+  }
+  variants {
+    id
+    name
+    weight {
+      unit
+      value
+    }
+    media {
+      url
+      alt
+      type
+    }
+  }
+}

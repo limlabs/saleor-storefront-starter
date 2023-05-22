@@ -1,0 +1,29 @@
+fragment ProductVariantFragment on ProductVariant {
+  id
+  name
+  weight {
+    unit
+    value
+  }
+  media {
+    url
+    alt
+    type
+  }
+  attributes {
+    attribute {
+      id
+      name
+      translation(languageCode: $languageCode) {
+        name
+      }
+    }
+    values {
+      id
+      name
+      translation(languageCode: $languageCode) {
+        name
+      }
+    }
+  }
+}

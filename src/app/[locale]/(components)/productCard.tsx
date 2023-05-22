@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import clsx from "clsx";
 import Card from "@/app/daisyui/card";
 import CardMedia from "@/app/daisyui/card-media";
@@ -10,14 +7,17 @@ import CardActions from "@/app/daisyui/card-actions";
 import Badge from "@/app/daisyui/badge";
 import Indicator from "@/app/daisyui/indicator";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
-import { ProductCardButton } from "./productCardButton";
+import { AddToCartButton } from "./addToCartButton";
 import { ProductRating } from "./productRating";
 import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
-import type { TFC } from "@/core/server/useTranslationValues";
-import type { ProductCardTranslations } from "@/app/translations/productCard";
+import { TFC, useTranslationValues } from "@/core/server/useTranslationValues";
+import {
+  productCardTranslationKeys,
+  ProductCardTranslations,
+} from "@/app/translations/productCard";
 import type { IGalleryProductFragment } from "@/gql/sdk";
 
 interface ProductCardProps {
@@ -30,8 +30,8 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   animation,
   t,
 }) => {
-  const { defaultVariant, thumbnail, pricing, slug, rating } = product;
-  const [variantID, setVariantID] = useState(defaultVariant?.id ?? "");
+  const { thumbnail, pricing, slug, rating } = product;
+
   const cardClasses = clsx("relative transition ease-in-out", {
     "hover:-translate-y-1": animation === "bounce",
   });
@@ -40,6 +40,11 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   });
 
   const info = useProductTranslation(product);
+
+  const productCardTranslations = useTranslationValues(
+    productCardTranslationKeys,
+    "component"
+  );
 
   return (
     <Card
@@ -83,8 +88,6 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             className="absolute top-4 left-0 right-0"
             slug={slug}
             variants={info.variants ?? []}
-            selected={variantID}
-            onClick={setVariantID}
           />
           <Link
             href={`/p/${slug}`}
@@ -101,7 +104,9 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <ProductCardButton text={t["add to cart"]} variantID={variantID} />
+            <AddToCartButton>
+              {productCardTranslations["add to cart"]}
+            </AddToCartButton>
           </CardActions>
         </CardBody>
       </Indicator>

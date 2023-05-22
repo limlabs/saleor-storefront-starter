@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useTranslationValues } from "@/core/server/useTranslationValues";
-import { ProductCardProvider } from "@/core/client/useProductCard";
+import { ProductSelectionProvider } from "@/core/client/useProductSelection";
 import { ProductCard } from "./productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
@@ -26,33 +26,35 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
     products.pageInfo;
 
   const productCardTranslations = useTranslationValues(
-    locale,
     productCardTranslationKeys,
     "component"
   );
 
   const searchFilterTranslations = useTranslationValues(
-    locale,
     searchFilterTranslationKeys,
     "component"
   );
 
-  const t = useTranslationValues(locale, productGalleryTranslationKeys, "component");
+  const t = useTranslationValues(productGalleryTranslationKeys, "component");
 
   return (
     <Fragment>
-      <SearchFilter filter={filter}  t={searchFilterTranslations}/>
+      <SearchFilter filter={filter} t={searchFilterTranslations} />
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         {products.edges.map(({ node }) => {
           return (
             <li className="carousel-item justify-center m-2" key={node.slug}>
-              <ProductCardProvider>
+              <ProductSelectionProvider
+                initialQuantity={1}
+                initialSelectedVariantID={node.defaultVariant?.id}
+                productVariants={node.variants ?? []}
+              >
                 <ProductCard
                   product={node}
                   t={productCardTranslations}
                   animation="bounce"
                 />
-              </ProductCardProvider>
+              </ProductSelectionProvider>
             </li>
           );
         })}

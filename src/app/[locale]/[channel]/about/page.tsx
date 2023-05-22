@@ -1,6 +1,6 @@
 import { parseJSONText } from "@/core/server/parseJSONText";
 import { renderEditorJsObject } from "@/core/server/renderJSONText";
-import { getLanguageCode } from "@/core/server/getLanguageCode";
+import { getLanguageCode } from "@/core/server/locale";
 import { gqlClient } from "@/gql";
 import { Locale } from "@/locale-config";
 

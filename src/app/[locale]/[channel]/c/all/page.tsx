@@ -1,7 +1,7 @@
 import { ProductGallery } from "@/app/[locale]/(components)/productGallery";
 import { FilterOp } from "@/app/[locale]/(components)/searchFilter";
 import { getTranslations } from "@/core/server/getTranslations";
-import { getLanguageCode } from "@/core/server/getLanguageCode";
+import { getLanguageCode } from "@/core/server/locale";
 import Breadcrumbs from "@/app/daisyui/breadcrumbs";
 import { Bars3Icon as MenuIcon } from "@heroicons/react/24/outline";
 import { gqlClient } from "@/gql";
@@ -66,9 +66,12 @@ export default async function AllProductsPage({
           <ul>
             <li className="text-secondary">{t("Gallery.shop")}</li>
             <li>
-              <label htmlFor="category-menu" className="flex gap-1 cursor-pointer">
-                  <MenuIcon className="w-4 h-4" />
-                  {t("Gallery.all products")}
+              <label
+                htmlFor="category-menu"
+                className="flex gap-1 cursor-pointer"
+              >
+                <MenuIcon className="w-4 h-4" />
+                {t("Gallery.all products")}
               </label>
             </li>
           </ul>

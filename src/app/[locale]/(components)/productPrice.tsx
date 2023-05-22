@@ -3,7 +3,7 @@ import type { FC } from "react";
 import type { IPricingFragment } from "@/gql/sdk";
 
 interface ProductPriceProps {
-  pricing: IPricingFragment;
+  pricing: IPricingFragment | null | undefined;
 }
 
 const CURRENCY_MAP = {
@@ -12,7 +12,7 @@ const CURRENCY_MAP = {
 
 export const ProductPrice: FC<ProductPriceProps> = ({ pricing }) => {
   const { price, discountPrice, currency } = useMemo(() => {
-    const { displayGrossPrices, discount, priceRange } = pricing;
+    const { displayGrossPrices, discount, priceRange } = pricing ?? {};
 
     const [price, discountPrice] = displayGrossPrices
       ? [priceRange?.start?.gross, discount?.gross]
@@ -27,6 +27,10 @@ export const ProductPrice: FC<ProductPriceProps> = ({ pricing }) => {
 
   const displayPrice = (discountPrice || price)?.amount?.toFixed(2);
   const cSymbol = useMemo(() => CURRENCY_MAP[currency] ?? "$", [currency]);
+
+  if (!pricing) {
+    return null;
+  }
 
   return (
     <span className="inline-flex">

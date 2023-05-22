@@ -3,12 +3,12 @@ import { parseJSONText } from "@/core/server/parseJSONText";
 import { ProductPrice } from "./productPrice";
 import { renderEditorJsObject } from "@/core/server/renderJSONText";
 import { useProductTranslation } from "@/core/client/useProductTranslation";
-import { IPdProductFragment } from "@/gql/sdk";
+import { IProductDetailsFragment } from "@/gql/sdk";
 
 interface PageProps {
   locale: string;
   channel: string;
-  product: IPdProductFragment;
+  product: IProductDetailsFragment;
 }
 
 export function ProductHero({ locale, channel, product }: PageProps) {

@@ -37,10 +37,7 @@ export const RootLayoutHeader: FC<RootLayoutHeaderProps> = ({ locale }) => {
         </div>
         <div className="navbar-end gap-4">
           <LocaleMenu />
-          <Suspense fallback={<CartIcon />}>
-            {/* @ts-expect-error */}
-            <CartIconWithCount />
-          </Suspense>
+          <CartIconWithCount />
         </div>
       </nav>
     </header>

@@ -24,6 +24,7 @@ export function CartIconWithCount() {
 
   return (
     <Suspense fallback={<CartIcon />}>
+      {/* @ts-expect-error */}
       <AsyncCartIcon promise={getQuantity} />
     </Suspense>
   );

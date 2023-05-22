@@ -50,8 +50,6 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          {/* https://github.com/vercel/next.js/issues/42292 */}
-          {/* @ts-expect-error Async Server Component */}
           <AppRoot>
             <Drawer
               id="category-menu"

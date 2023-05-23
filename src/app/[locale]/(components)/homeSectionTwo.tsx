@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Squig from "../../../../public/pink_squiggle.png";
+import { ContentSection } from "./contentSection";
 
 export default function HomeSectionTwo() {
   return (
-    <div className="flex flex-col justify-center items-center h-auto -sm:pr-2  -sm:h-full -lg:p-0 bg-almost-black ">
+    <ContentSection className="pb-0 px-0 ">
       <div className="mr-10 mt-40">
         <h3 className="font-futura font-bold text-2xl italic text-white mb-2 mr-[475px]">
           A SENSIBLE CHOICE FOR
@@ -19,9 +20,9 @@ export default function HomeSectionTwo() {
           RESULTS
         </h2>
       </div>
-      <div className="mt-24  relative w-full   bottom-2 right-50">
+      <div className="mt-24  relative w-full   bottom-0">
         <Image src={Squig} alt="squiggle w-full" />
       </div>
-    </div>
+    </ContentSection>
   );
 }

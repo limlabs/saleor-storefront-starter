@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import Checker from "../../../../public/Checkerboard_tile.png";
 import quote from "../../../../public/quote.png";
+import { ContentSection } from "./contentSection";
 
 export default function HomeReviews() {
   return (
-    <section className="-mt-10 pt-10 -sm:hidden -lg:w-full -md:h-1/3 -sm:shadow-none -lg:h-full -md:flex -lg:flex flex-col items-center justify-center relative bg-gradient-to-b from-light-pink to-light-green">
+    <ContentSection className="bg-gradient-to-b from-light-pink to-light-green">
       <div className="w-5/6 z-20 flex flex-col justify-center items-center">
         <div className="mr-80 mb-8">
           <div className="flex">
@@ -38,6 +38,6 @@ export default function HomeReviews() {
         </div>
       </div>
       <div className="h-16 mt-28  w-screen  bg-checkerboard bg-50"></div>
-    </section>
+    </ContentSection>
   );
 }

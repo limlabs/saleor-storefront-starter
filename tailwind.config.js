@@ -36,7 +36,7 @@ module.exports = {
             rgb(0, 0, 19) 180deg 270deg,
             transparent 270deg
             )`,
-        dirt: "url(/dirt.svg)",
+        dirt: "url(/dirt.png)",
       },
       backgroundSize: {
         50: "50px 50px",

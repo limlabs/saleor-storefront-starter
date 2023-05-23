@@ -1,7 +1,5 @@
 import Logo from "../../../../public/logo-white.png";
 import Image from "next/image";
-import Hero from "../../../../public/texture-logo.jpg";
-import Background from "../../../../public/dirt.svg";
 
 export default function HomeMain() {
   return (

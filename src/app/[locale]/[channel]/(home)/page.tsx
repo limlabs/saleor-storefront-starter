@@ -18,7 +18,7 @@ export default function HomePage() {
       <div className="z-0 relative -lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
       </div>
-      <div className="bg-dirt  object-cover relative z-100 -lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center top-[-24px] mb-[-20px]">
+      <div className="bg-dirt  bg-repeat-x relative z-100 -lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center top-[-24px] mb-[-20px]">
         <HomeMain />
       </div>
       <div>

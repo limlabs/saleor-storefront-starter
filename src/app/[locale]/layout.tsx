@@ -50,18 +50,21 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <AppRoot>
-            <Drawer
-              id="category-menu"
-              side={<NavbarMenu menu={menu} locale={params.locale} />}
-            >
-              <div className="mx-auto my-6 w-full max-w-6xl ">
-                <RootLayoutHeader locale={params.locale} />
-                {children}
-              </div>
-            </Drawer>
-          </AppRoot>
+          <div className="z-0">
+            <AppRoot>
+              <Drawer
+                id="category-menu"
+                side={<NavbarMenu menu={menu} locale={params.locale} />}
+              >
+                <div className="mx-auto my-6 w-full max-w-6xl ">
+                  <RootLayoutHeader locale={params.locale} />
+                  {children}
+                </div>
+              </Drawer>
+            </AppRoot>
+          </div>
         </AppProvider>
+        <div id="modal-root" className="absolute top-0 z-10"></div>
       </body>
     </html>
   );

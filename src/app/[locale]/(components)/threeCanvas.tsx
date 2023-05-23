@@ -15,7 +15,7 @@ const ThreeModelWrapper = dynamic(() => import("./threeModelWrapper"), {
 
 export default function ThreeCanvas() {
   return (
-    <section className="-sm:hidden -md:flex -lg:flex z-10 w-full h-full  max-w-full shadow-vertical-sm">
+    <section className="-sm:hidden -md:flex -lg:flex z-0 w-full h-full  max-w-full shadow-vertical-sm">
       <Canvas shadows resize={{ scroll: false }}>
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
 

@@ -6,8 +6,8 @@ import Checker from "../../../../public/Checkerboard_tile.png";
 
 export default function CacheMeOutside() {
   return (
-    <section className="relative -sm:hidden -lg:w-full   -md:h-1/3 -sm:shadow-none  -lg:h-full  -md:flex -lg:flex flex-col items-end justify-center  mt-0 bg-light-green   ">
-      <div className="h-96 bg-forest-green w-5/6 grid grid-cols-2">
+    <section className="-mt-10 pt-10 -sm:hidden -lg:w-full -md:h-1/3 -sm:shadow-none -lg:h-full -md:flex -lg:grid -lg:grid-rows-2 justify-items-end  flex-col items-center justify-center relative bg-gradient-to-b from-light-pink to-light-blue-main">
+      <div className="h-96  bg-forest-green w-5/6 grid grid-cols-2 mt-56 shadow-shadow-sm">
         <div className="w-5/6 z-20 flex flex-col justify-center items-center">
           <h1 className=" ml-12 font-futura text-light-blue-main -lg:text-8xl -md:text-5xl -sm:mb-2  -md:mb-4 font-semibold  mt-6">
             CACHE ME OUTSIDE
@@ -23,7 +23,7 @@ export default function CacheMeOutside() {
           />
         </div>
       </div>
-      <div className="absolute mt-16 h-12 bottom-0 w-full bg-checker bg-repeat-x"></div>
+      <div className=" self-end h-12 mt-10 bottom-0  w-screen  bg-checkerboard bg-50"></div>
     </section>
   );
 }

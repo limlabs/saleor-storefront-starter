@@ -137,9 +137,9 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                   </svg>
                 </a>
                 <ul className="p-2 bg-almost-black z-50">
-                  <li className="hover-bordered">
+                  {/* <li className="hover-bordered">
                     <a>What We Do</a>
-                  </li>
+                  </li> */}
                   <li className="hover-bordered">
                     <a>Software</a>
                   </li>
@@ -148,7 +148,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                   </li>
                 </ul>
               </li>
-              <li tabIndex={0}>
+              {/* <li tabIndex={0}>
                 <a>
                   Use Cases
                   <svg
@@ -178,19 +178,19 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                     <a>Creators</a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               <li>
                 <a>Talk To Real Humans!</a>
               </li>
-              <li>
+              {/* <li>
                 <a>Zine</a>
-              </li>
+              </li> */}
               <li>
                 <Link href="/en-us/c/all">Store</Link>
               </li>
-              <li>
+              {/* <li>
                 <a>Support Us</a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

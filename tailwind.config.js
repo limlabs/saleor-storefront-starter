@@ -27,9 +27,19 @@ module.exports = {
         "vertical-sm": " 0px 2px 9px 0px rgba(255,191,244,0.3)",
         "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.3)",
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
+        "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
       },
       backgroundImage: {
-        checker: "url('/Checkerboard_tile.png')",
+        checkerboard: `conic-gradient(
+            rgb(0, 0, 19) 90deg,
+            transparent 90deg 180deg,
+            rgb(0, 0, 19) 180deg 270deg,
+            transparent 270deg
+            )`,
+        dirt: "url(/dirt.svg)",
+      },
+      backgroundSize: {
+        50: "50px 50px",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",

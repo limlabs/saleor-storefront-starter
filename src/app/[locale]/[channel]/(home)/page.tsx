@@ -11,14 +11,14 @@ import StoreDemo from "../../(components)/storeDemo";
 
 export default function HomePage() {
   return (
-    <main className="h-screen  w-screen  relative">
+    <main className="h-screen  w-screen  relative bg-almost-black">
       <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
         <HomeHeroMobile />
       </div>
-      <div className="relative -lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
+      <div className="z-0 relative -lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
       </div>
-      <div className="relative z-100 -lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center">
+      <div className="bg-dirt  object-cover relative z-100 -lg:h-96 -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col justify-center items-center top-[-24px] mb-[-20px]">
         <HomeMain />
       </div>
       <div>

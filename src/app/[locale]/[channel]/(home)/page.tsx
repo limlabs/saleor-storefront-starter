@@ -10,6 +10,7 @@ import CacheMeOutside from "../../(components)/cacheMeOutside";
 import StoreDemo from "../../(components)/storeDemo";
 import ExploreTheFrontier from "../../(components)/exploreTheFrontier";
 import SensibleChoice from "../../(components)/sensibleChoice";
+import SeeWhatsPossible from "../../(components)/seeWhatsPossible";
 
 export default function HomePage() {
   return (
@@ -23,7 +24,8 @@ export default function HomePage() {
       <ExploreTheFrontier />
       <SensibleChoice />
       <HomeReviews />
-      <Sequencing />
+      <SeeWhatsPossible />
+      {/* <Sequencing /> */}
       <CacheMeOutside />
       {/* <StoreDemo /> */}
 

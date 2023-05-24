@@ -20,6 +20,16 @@ export default function SensibleChoice() {
           RESULTS
         </h2>
       </div>
+      <div className=" font-futura text-light-blue-main text-2xl italic w-3/6 text-center mt-32 mb-32 ">
+        <p className="leading-10">
+          Liminal Labs is an innovative software company bridging the physical
+          and digital worlds. They empower businesses with custom software
+          solutions, advanced data analytics, and emerging technologies like AI,
+          blockchain, and VR. With a user-centric design approach, they reshape
+          industries and drive sustainable growth through transformative
+          software applications.
+        </p>
+      </div>
       <div className="mt-24  relative w-full   bottom-0">
         <Image src={Squig} alt="squiggle w-full" />
       </div>

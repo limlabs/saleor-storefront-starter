@@ -18,7 +18,7 @@ interface ProductImageGridProps {
 
 const SingleImage: FC<{ url?: string; alt?: string }> = ({ url, alt }) => {
   return (
-    <div className="flex justify-center items-center pr-8 pt-2">
+    <div className="flex justify-center items-center lg:pr-8 lg:pt-2">
       <Image
         key={url}
         src={url ?? ""}

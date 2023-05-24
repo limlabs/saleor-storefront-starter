@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "graphql-codegen",
-    "prestart": "npm run generate",    
     "predev": "npm run generate"
   },
   "dependencies": {

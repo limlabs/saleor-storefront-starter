@@ -1,8 +1,8 @@
+import { redirect } from "next/navigation";
 import { gqlClient } from "@/gql";
 import { getLanguageCode, getLocale } from "@/core/server/locale";
 import type { Locale } from "@/locale-config";
 import type { Channel } from "@/channel-config";
-import { redirect } from "next/navigation";
 import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
 import { ProductVariantSelector } from "@/app/[locale]/(components)/productVariantSelector";
 import { ProductSelectionProvider } from "@/core/client/useProductSelection";
@@ -46,17 +46,17 @@ export default async function ProductDetailsPage({
       productVariants={product.variants ?? []}
       initialSelectedVariantID={initialSelectedVariant?.id}
     >
-      <main className="lg:flex lg:justify-between sm:mx-2 lg:mx-0 mt-4">
+      <main className="lg:flex lg:justify-between lg:mx-0 mt-4">
         <section className="lg:w-2/3">
           <ProductImageGrid
             initialVariant={initialSelectedVariant ?? product.defaultVariant}
           />
         </section>
-        <section className="lg:w-1/3">
-          <h4 className="text-2xl">
+        <section className="lg:w-1/3 px-3">
+          <div className="text-2xl text-accent mt-6 lg:mt-0 ">
             {product.category?.translation?.name ?? product.category?.name}
-          </h4>
-          <h1 className="text-5xl my-2">
+          </div>
+          <h1 className="text-5xl text-neutral my-2">
             {product.translation?.name ?? product.name}
           </h1>
           <ProductPrice pricing={product.pricing} />
@@ -70,12 +70,13 @@ export default async function ProductDetailsPage({
           {(product.description ?? product.translation?.description ?? "")
             .length > 0 && (
             <ProductDescription
+              className="mt-5 text-neutral"
               description={
                 product.translation?.description ?? product.description
               }
             />
           )}
-          <div className="mt-3">
+          <div className="mt-5">
             <AddToCartButton>
               {staticTranslations("component.add to cart")}
             </AddToCartButton>

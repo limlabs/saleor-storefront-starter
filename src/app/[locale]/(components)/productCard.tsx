@@ -19,6 +19,7 @@ import {
   ProductCardTranslations,
 } from "@/app/translations/productCard";
 import type { IGalleryProductFragment } from "@/gql/sdk";
+import { addToCartTranslationKeys } from "@/app/translations/addToCart";
 
 interface ProductCardProps {
   product: IGalleryProductFragment;
@@ -41,8 +42,8 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
 
   const info = useProductTranslation(product);
 
-  const productCardTranslations = useTranslationValues(
-    productCardTranslationKeys,
+  const translations = useTranslationValues(
+    addToCartTranslationKeys,
     "component"
   );
 
@@ -104,9 +105,14 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
             <QuantitySelector />
           </div>
           <CardActions justify="center" className="mt-4">
-            <AddToCartButton>
-              {productCardTranslations["add to cart"]}
-            </AddToCartButton>
+            <AddToCartButton
+              buttonText={translations["add to cart"]}
+              confirmationTitleText={translations["add to cart confirmation"]}
+              confirmationCheckoutButtonText={translations["checkout"]}
+              confirmationContinueShoppingButtonText={
+                translations["continue shopping"]
+              }
+            />
           </CardActions>
         </CardBody>
       </Indicator>

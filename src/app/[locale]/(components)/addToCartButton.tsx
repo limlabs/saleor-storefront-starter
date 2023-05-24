@@ -6,10 +6,18 @@ import { FC, ReactNode, useState } from "react";
 import { AddToCartConfirmation } from "./addToCartConfirmation";
 
 interface AddToCartButtonProps {
-  children: ReactNode;
+  buttonText: ReactNode;
+  confirmationTitleText: ReactNode;
+  confirmationCheckoutButtonText: ReactNode;
+  confirmationContinueShoppingButtonText: ReactNode;
 }
 
-export const AddToCartButton: FC<AddToCartButtonProps> = ({ children }) => {
+export const AddToCartButton: FC<AddToCartButtonProps> = ({
+  buttonText,
+  confirmationTitleText,
+  confirmationCheckoutButtonText,
+  confirmationContinueShoppingButtonText,
+}) => {
   const { selectedVariantID, quantity } = useProductSelection();
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const { addItem } = useCheckout();
@@ -33,9 +41,16 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({ children }) => {
         onClick={onClickHandler}
         disabled={!selectedVariantID || quantity < 1}
       >
-        {children}
+        {buttonText}
       </button>
-      {confirmationOpen && <AddToCartConfirmation onClose={onCloseHandler} />}
+      {confirmationOpen && (
+        <AddToCartConfirmation
+          onClose={onCloseHandler}
+          titleText={confirmationTitleText}
+          checkoutButtonText={confirmationCheckoutButtonText}
+          continueShoppingButtonText={confirmationContinueShoppingButtonText}
+        />
+      )}
     </>
   );
 };

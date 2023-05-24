@@ -76,9 +76,18 @@ export default async function ProductDetailsPage({
             />
           )}
           <div className="mt-3">
-            <AddToCartButton>
-              {staticTranslations("component.add to cart")}
-            </AddToCartButton>
+            <AddToCartButton
+              buttonText={staticTranslations("component.add to cart")}
+              confirmationTitleText={staticTranslations(
+                "component.add to cart confirmation"
+              )}
+              confirmationCheckoutButtonText={staticTranslations(
+                "component.checkout"
+              )}
+              confirmationContinueShoppingButtonText={staticTranslations(
+                "component.continue shopping"
+              )}
+            />
           </div>
         </section>
       </main>

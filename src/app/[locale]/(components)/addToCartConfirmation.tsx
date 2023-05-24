@@ -1,12 +1,18 @@
 import { useProductSelection } from "@/core/client/useProductSelection";
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { ProductPrice } from "./productPrice";
+import { useTranslationValues } from "@/core/server/useTranslationValues";
+import { productCardTranslationKeys } from "@/app/translations/productCard";
+import { addToCartTranslationKeys } from "@/app/translations/addToCart";
 
 interface AddToCartConfirmationProps {
   onClose: () => void;
+  titleText: ReactNode;
+  checkoutButtonText: ReactNode;
+  continueShoppingButtonText: ReactNode;
 }
 
 const ProductAttributeSummary: FC = () => {
@@ -37,8 +43,15 @@ const ProductAttributeSummary: FC = () => {
   );
 };
 
+interface AddToCartConfirmationTitleProps {
+  children: ReactNode;
+}
+
 export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
   onClose,
+  titleText,
+  checkoutButtonText,
+  continueShoppingButtonText,
 }) => {
   "use client";
 
@@ -54,20 +67,18 @@ export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
       onClick={onClose}
     >
       <div className="animate-fade-down bg-opacity-95 bg-gradient-to-b to-accent from-secondary w-96 rounded shadow text-base-300 p-8">
-        <h1 className="mb-4 text-sm font-bold text-primary">
-          Item added to cart successfully!
-        </h1>
-        <div className="grid grid-flow-col sm:grid-col md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <h1 className="mb-4 font-bold text-primary">{titleText}</h1>
+        <div className="grid grid-flow-col sm:grid-col md:grid-cols-3 lg:grid-cols-3 gap-4">
           <div className="col-span-1">
             <Image
               src={thumbnail?.url ?? ""}
               width={100}
               height={100}
               alt={thumbnail?.alt ?? ""}
-              className="bg-warning rounded-full p-2"
+              className="bg-white rounded-full p-2"
             />
           </div>
-          <div className="col-span-2 text-lg">
+          <div className="col-span-2 text-lg pt-1">
             <h2 className="font-semibold">
               {product.translation?.name ?? product.name}
             </h2>
@@ -80,10 +91,10 @@ export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
           </div>
         </div>
         <Link className="btn btn-primary mt-4 w-full" href="/checkout">
-          Checkout
+          {checkoutButtonText}
         </Link>
         <button className="btn btn-info mt-4 w-full" onClick={onClose}>
-          Continue Shopping
+          {continueShoppingButtonText}
         </button>
       </div>
     </div>,

@@ -20,7 +20,7 @@ export default function ThreeCanvas() {
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
 
         <Environment
-          files="./img/lim360.hdr"
+          files="./img/dreamlike_vapor_wave_liminal_envir.hdr"
           background
           resolution={1080}
           frames={Infinity}

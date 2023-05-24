@@ -27,13 +27,15 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({ children }) => {
   };
 
   return (
-    <button
-      className="btn btn-primary"
-      onClick={onClickHandler}
-      disabled={!selectedVariantID || quantity < 1}
-    >
-      {children}
-      <AddToCartConfirmation open={confirmationOpen} onClose={onCloseHandler} />
-    </button>
+    <>
+      <button
+        className="btn btn-primary"
+        onClick={onClickHandler}
+        disabled={!selectedVariantID || quantity < 1}
+      >
+        {children}
+      </button>
+      {confirmationOpen && <AddToCartConfirmation onClose={onCloseHandler} />}
+    </>
   );
 };

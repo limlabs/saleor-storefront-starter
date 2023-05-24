@@ -10590,7 +10590,7 @@ export type IMutation = {
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
-   * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
+   * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
    */
   transactionEventReport?: Maybe<ITransactionEventReport>;
   /**
@@ -10620,13 +10620,13 @@ export type IMutation = {
    */
   transactionRequestAction?: Maybe<ITransactionRequestAction>;
   /**
-   * Create transaction for checkout or order.
+   * Update transaction.
    *
    * Added in Saleor 3.4.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
-   * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
+   * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
    */
   transactionUpdate?: Maybe<ITransactionUpdate>;
   /**
@@ -22617,7 +22617,7 @@ export type ITransactionEventInput = {
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
- * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
+ * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
  */
 export type ITransactionEventReport = {
   __typename?: "TransactionEventReport";
@@ -23138,13 +23138,13 @@ export type ITransactionRequestActionErrorCode =
 export type ITransactionStatus = "FAILURE" | "PENDING" | "SUCCESS";
 
 /**
- * Create transaction for checkout or order.
+ * Update transaction.
  *
  * Added in Saleor 3.4.
  *
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
- * Requires the following permissions: OWNER and HANDLE_PAYMENTS.
+ * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
  */
 export type ITransactionUpdate = {
   __typename?: "TransactionUpdate";

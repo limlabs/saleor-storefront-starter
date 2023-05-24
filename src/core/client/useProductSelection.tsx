@@ -1,6 +1,10 @@
 "use client";
 
-import { IProductVariantFragment } from "@/gql/sdk";
+import {
+  IProduct,
+  IProductDetailsFragment,
+  IProductVariantFragment,
+} from "@/gql/sdk";
 import {
   createContext,
   FC,
@@ -14,7 +18,7 @@ import {
 
 export interface ProductSelectionContextData {
   quantity: number;
-  variants: IProductVariantFragment[];
+  product: IProductDetailsFragment;
   selectedVariantID: string;
   updateQuantity: Dispatch<SetStateAction<number>>;
   updateSelectedVariant: Dispatch<SetStateAction<string>>;
@@ -23,7 +27,7 @@ export interface ProductSelectionContextData {
 const ProductSelectionContext = createContext<ProductSelectionContextData>({
   quantity: 1,
   selectedVariantID: "",
-  variants: [],
+  product: {} as IProduct,
   updateQuantity: function (value: SetStateAction<number>): void {
     throw new Error("Function not implemented.");
   },
@@ -36,12 +40,12 @@ interface ProductSelectionProviderProps {
   children: ReactNode;
   initialSelectedVariantID?: string | undefined;
   initialQuantity?: number;
-  productVariants: IProductVariantFragment[] | undefined;
+  product: IProductDetailsFragment;
 }
 
 export const ProductSelectionProvider: FC<ProductSelectionProviderProps> = ({
   children,
-  productVariants = [],
+  product,
   initialSelectedVariantID = "",
   initialQuantity = 1,
 }) => {
@@ -57,7 +61,7 @@ export const ProductSelectionProvider: FC<ProductSelectionProviderProps> = ({
         updateQuantity,
         selectedVariantID,
         updateSelectedVariant,
-        variants: productVariants,
+        product,
       }}
     >
       {children}
@@ -68,10 +72,10 @@ export const ProductSelectionProvider: FC<ProductSelectionProviderProps> = ({
 export const useProductSelection = () => {
   const selectionCtx = useContext(ProductSelectionContext);
   const selectedVariant = useMemo(() => {
-    return selectionCtx.variants.find(
+    return selectionCtx.product.variants?.find(
       (variant) => variant.id === selectionCtx.selectedVariantID
     );
-  }, [selectionCtx.selectedVariantID, selectionCtx.variants]);
+  }, [selectionCtx.selectedVariantID, selectionCtx.product]);
 
   return {
     ...selectionCtx,

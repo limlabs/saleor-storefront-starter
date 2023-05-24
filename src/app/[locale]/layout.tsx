@@ -64,7 +64,7 @@ export default async function RootLayout({
             </AppRoot>
           </div>
         </AppProvider>
-        <div id="modal-root" className="absolute top-0 z-10"></div>
+        <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />
       </body>
     </html>
   );

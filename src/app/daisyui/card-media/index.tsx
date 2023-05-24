@@ -1,4 +1,4 @@
-import React, { ForwardRefRenderFunction } from "react";
+import React from "react";
 import Image from "next/image";
 import clsx from "clsx";
 

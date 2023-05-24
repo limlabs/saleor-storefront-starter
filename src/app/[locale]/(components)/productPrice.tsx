@@ -2,15 +2,29 @@ import { useMemo } from "react";
 import type { FC } from "react";
 import type { IPricingFragment } from "@/gql/sdk";
 
+type PaletteBase =
+  | "primary"
+  | "accent"
+  | "neutral"
+  | "secondary"
+  | "success"
+  | "info"
+  | "error"
+  | "warning";
+
 interface ProductPriceProps {
   pricing: IPricingFragment | null | undefined;
+  textColor?: PaletteBase | `${PaletteBase}${"-focus" | "-content"}`;
 }
 
 const CURRENCY_MAP = {
   USD: "$",
 } as { [key: string]: string };
 
-export const ProductPrice: FC<ProductPriceProps> = ({ pricing }) => {
+export const ProductPrice: FC<ProductPriceProps> = ({
+  pricing,
+  textColor = "neutral",
+}) => {
   const { price, discountPrice, currency } = useMemo(() => {
     const { displayGrossPrices, discount, priceRange } = pricing ?? {};
 
@@ -34,12 +48,12 @@ export const ProductPrice: FC<ProductPriceProps> = ({ pricing }) => {
 
   return (
     <span className="inline-flex">
-      <span className="text-neutral font-bold">
+      <span className={`text-${textColor} font-bold`}>
         {cSymbol}
         {displayPrice}
       </span>
       {discountPrice ? (
-        <span className="text-accent line-through text-xs">
+        <span className={`text-accent line-through text-sm`}>
           {cSymbol}
           {price?.amount.toFixed(2)}
         </span>

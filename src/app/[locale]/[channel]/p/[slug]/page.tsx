@@ -43,7 +43,7 @@ export default async function ProductDetailsPage({
 
   return (
     <ProductSelectionProvider
-      productVariants={product.variants ?? []}
+      product={product}
       initialSelectedVariantID={initialSelectedVariant?.id}
     >
       <main className="lg:flex lg:justify-between sm:mx-2 lg:mx-0 mt-4">

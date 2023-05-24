@@ -1,45 +1,92 @@
+import { useProductSelection } from "@/core/client/useProductSelection";
+import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 import { createPortal } from "react-dom";
+import { ProductPrice } from "./productPrice";
 
 interface AddToCartConfirmationProps {
-  open: boolean;
   onClose: () => void;
 }
 
+const ProductAttributeSummary: FC = () => {
+  const { selectedVariant } = useProductSelection();
+  return (
+    <>
+      {selectedVariant?.attributes?.map(({ attribute, values }, index) => {
+        const content = (
+          <div key={attribute.id}>
+            <label className="mr-2 font-semibold">
+              {attribute?.translation?.name ?? attribute?.name}
+            </label>
+            <span>
+              {values
+                .map((v) => v.translation?.name ?? v.name ?? "")
+                .join(", ")}
+            </span>
+          </div>
+        );
+
+        if (index < selectedVariant.attributes.length - 1) {
+          return <>{content},</>;
+        }
+
+        return content;
+      })}
+    </>
+  );
+};
+
 export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
-  open,
   onClose,
 }) => {
   "use client";
 
+  const { product } = useProductSelection();
   const target = document.getElementById("modal-root");
+  const thumbnail = product.thumbnail;
   if (!target) return null;
 
-  console.log("re rendering with state open: ", open);
-
   return createPortal(
-    <>
-      {open && (
-        <div
-          id="cartModal"
-          className="fixed inset-0 flex items-center justify-center z-10"
-        >
-          <div className="bg-white w-64 p-4 rounded shadow">
-            <h3 className="text-xl font-bold mb-2">Item added to cart</h3>
-            <p className="text-gray-700">
-              Your item has been added to the cart.
-            </p>
-            <button
-              id="closeModalButton"
-              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mt-4"
-              onClick={onClose}
-            >
-              Close
-            </button>
+    <div
+      id="cartModal"
+      className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="animate-fade-down bg-opacity-95 bg-gradient-to-b to-accent from-secondary w-96 rounded shadow text-base-300 p-8">
+        <h1 className="mb-4 text-sm font-bold text-primary">
+          Item added to cart successfully!
+        </h1>
+        <div className="grid grid-flow-col sm:grid-col md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="col-span-1">
+            <Image
+              src={thumbnail?.url ?? ""}
+              width={100}
+              height={100}
+              alt={thumbnail?.alt ?? ""}
+              className="bg-warning rounded-full p-2"
+            />
+          </div>
+          <div className="col-span-2 text-lg">
+            <h2 className="font-semibold">
+              {product.translation?.name ?? product.name}
+            </h2>
+            <h3>
+              <ProductAttributeSummary />
+            </h3>
+            <h3>
+              <ProductPrice pricing={product.pricing} textColor="info" />
+            </h3>
           </div>
         </div>
-      )}
-    </>,
+        <Link className="btn btn-primary mt-4 w-full" href="/checkout">
+          Checkout
+        </Link>
+        <button className="btn btn-info mt-4 w-full" onClick={onClose}>
+          Continue Shopping
+        </button>
+      </div>
+    </div>,
     target,
     "addToCartConfirmation"
   );

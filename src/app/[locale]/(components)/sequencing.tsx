@@ -4,7 +4,7 @@ import { ContentSection } from "./contentSection";
 
 export default function Sequencing() {
   return (
-    <ContentSection>
+    <ContentSection className="-lg:pt-24 -lg:pb-24">
       <Image
         priority
         src="/sequencing_shopping.jpg"

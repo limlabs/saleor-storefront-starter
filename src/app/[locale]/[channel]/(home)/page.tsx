@@ -1,6 +1,6 @@
 import HomeMain from "../../(components)/exploreTheFrontier";
 import HomeHeroMobile from "../../(components)/homeHeroMobile";
-import HomeSectionTwo from "../../(components)/homeSectionTwo";
+import HomeSectionTwo from "../../(components)/sensibleChoice";
 import HomeSectionThree from "../../(components)/homeSectionThree";
 import Footer from "../../(components)/footer";
 import ThreeCanvasWrapper from "../../(components)/threeCanvasWrapper";
@@ -9,6 +9,7 @@ import Sequencing from "../../(components)/sequencing";
 import CacheMeOutside from "../../(components)/cacheMeOutside";
 import StoreDemo from "../../(components)/storeDemo";
 import ExploreTheFrontier from "../../(components)/exploreTheFrontier";
+import SensibleChoice from "../../(components)/sensibleChoice";
 
 export default function HomePage() {
   return (
@@ -16,15 +17,15 @@ export default function HomePage() {
       <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
         <HomeHeroMobile />
       </div>
-      <div className="z-0 relative -lg:h-screen -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
+      <div className="z-0 relative -lg:h-main-height -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
       </div>
       <ExploreTheFrontier />
-      <HomeSectionTwo />
+      <SensibleChoice />
       <HomeReviews />
       <Sequencing />
       <CacheMeOutside />
-      <StoreDemo />
+      {/* <StoreDemo /> */}
 
       <div>
         <Footer />

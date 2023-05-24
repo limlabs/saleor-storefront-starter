@@ -46,9 +46,12 @@ module.exports = {
         "landing-grid": "2fr 1fr ",
         "about-grid-mobile": "2fr 3fr",
       },
+      gridTemplateRows: {
+        contentsection: "1fr, auto",
+      },
       height: {
         "header-height": "7vh",
-        "main-height": "93vh",
+        "main-height": "92vh",
         "md-main-height": "95vh",
       },
       spacing: {
@@ -62,6 +65,7 @@ module.exports = {
         prompt: ["var(--font-prompt)"],
         goldman: ["var(--font-goldman)"],
         futura: ["var(--font-futura)"],
+        garamond: ["var(--font-garamond)"],
       },
       blur: {
         xsmall: "2px",

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Squig from "../../../../public/pink_squiggle.png";
 import { ContentSection } from "./contentSection";
 
-export default function HomeSectionTwo() {
+export default function SensibleChoice() {
   return (
     <ContentSection className="pb-0 px-0 ">
       <div className="mr-10 mt-40">

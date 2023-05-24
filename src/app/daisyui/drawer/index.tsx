@@ -95,12 +95,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               href="/en-us"
               className="cursor-pointer hover:scale-110 ease-in-out duration-200"
             >
-              <Image
-                src={LogoMark}
-                alt="logomark"
-                height={34}
-                className="mr-4"
-              />
+              <Image src={Logo} alt="logomark" height={34} className="mr-4" />
             </Link>
           </div>
           <div className="flex-none -lg:hidden">

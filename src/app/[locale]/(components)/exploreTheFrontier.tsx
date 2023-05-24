@@ -6,7 +6,8 @@ export default function ExploreTheFrontier() {
   return (
     <ContentSection>
       <div className=" bg-dirt  mt-[-24px] pb-24 bg-repeat-x w-full  flex justify-center items-start pt-36">
-        <Image src={Logo} alt="logo" height={75} />
+        <span className="h-48"></span>
+        {/* <Image src={Logo} alt="logo" height={75} className="transparent" /> */}
       </div>
     </ContentSection>
   );

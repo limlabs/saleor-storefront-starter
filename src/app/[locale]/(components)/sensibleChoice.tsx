@@ -5,7 +5,7 @@ import { ContentSection } from "./contentSection";
 export default function SensibleChoice() {
   return (
     <ContentSection className="pb-0 px-0 ">
-      <div className="mr-10 mt-40">
+      <div className="mr-10 ">
         <h3 className="font-futura font-bold text-2xl italic text-white mb-2 mr-[475px]">
           A SENSIBLE CHOICE FOR
         </h3>

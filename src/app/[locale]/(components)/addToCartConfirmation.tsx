@@ -50,7 +50,7 @@ export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
   return createPortal(
     <div
       id="cartModal"
-      className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-75 backdrop-blur-sm"
       onClick={onClose}
     >
       <div className="animate-fade-down bg-opacity-95 bg-gradient-to-b to-accent from-secondary w-96 rounded shadow text-base-300 p-8">

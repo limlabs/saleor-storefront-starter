@@ -4,9 +4,6 @@ import Link from "next/link";
 import { FC, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { ProductPrice } from "./productPrice";
-import { useTranslationValues } from "@/core/server/useTranslationValues";
-import { productCardTranslationKeys } from "@/app/translations/productCard";
-import { addToCartTranslationKeys } from "@/app/translations/addToCart";
 
 interface AddToCartConfirmationProps {
   onClose: () => void;
@@ -42,10 +39,6 @@ const ProductAttributeSummary: FC = () => {
     </>
   );
 };
-
-interface AddToCartConfirmationTitleProps {
-  children: ReactNode;
-}
 
 export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
   onClose,
@@ -86,7 +79,10 @@ export const AddToCartConfirmation: FC<AddToCartConfirmationProps> = ({
               <ProductAttributeSummary />
             </h3>
             <h3>
-              <ProductPrice pricing={product.pricing} textColor="info" />
+              <ProductPrice
+                pricing={product.pricing}
+                textColor="info-content"
+              />
             </h3>
           </div>
         </div>

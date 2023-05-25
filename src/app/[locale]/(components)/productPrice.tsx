@@ -1,16 +1,8 @@
 import { useMemo } from "react";
 import type { FC } from "react";
 import type { IPricingFragment } from "@/gql/sdk";
-
-type PaletteBase =
-  | "primary"
-  | "accent"
-  | "neutral"
-  | "secondary"
-  | "success"
-  | "info"
-  | "error"
-  | "warning";
+import { PaletteBase, textColorClass } from "@/app/daisyui/util";
+import clsx from "clsx";
 
 interface ProductPriceProps {
   pricing: IPricingFragment | null | undefined;
@@ -48,7 +40,7 @@ export const ProductPrice: FC<ProductPriceProps> = ({
 
   return (
     <span className="inline-flex">
-      <span className={`text-${textColor} font-bold`}>
+      <span className={clsx("font-bold", textColorClass(textColor))}>
         {cSymbol}
         {displayPrice}
       </span>

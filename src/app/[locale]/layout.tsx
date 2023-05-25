@@ -9,7 +9,7 @@ import {
 } from "next/font/google";
 
 export const metadata = {
-  title: "Home - L I M I N A",
+  title: "Home - L I M I N A L",
   description: "Open source headless Storefront",
 };
 

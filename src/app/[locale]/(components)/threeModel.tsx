@@ -2,12 +2,27 @@
 import React, { useLayoutEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { TextureLoader } from "three";
+import { useThree } from "@react-three/fiber";
 
 export default function ThreeModel() {
-  const modelPath = "/slide_rivets.gltf";
+  const modelPath = "/low_poly_mesh.gltf";
   const gltf = useGLTF(modelPath);
   // @ts-ignore
-  const { scene, nodes, materials } = gltf;
+  const { scene } = gltf;
+  const { size } = useThree();
+
+  let scale;
+  let position;
+  if (size.width < 500) {
+    scale = 0.2;
+    position = [0, -4, 0];
+  } else if (size.width < 800) {
+    scale = 0.2;
+    position = [0, -4, 0];
+  } else {
+    scale = 0.25;
+    position = [0, -5, 0];
+  }
 
   const metallicTexture = useMemo(
     () =>
@@ -35,11 +50,11 @@ export default function ThreeModel() {
       ),
     []
   );
-  const heightTexture = useMemo(
-    () =>
-      new TextureLoader().load("/Metal_Gold_001_SD/Metal_Gold_001_height.png"),
-    []
-  );
+  // const heightTexture = useMemo(
+  //   () =>
+  //     new TextureLoader().load("/Metal_Gold_001_SD/Metal_Gold_001_height.png"),
+  //   []
+  // );
   const baseColorTexture = useMemo(
     () => new TextureLoader().load("/base_color/Slide_teal_gradient_4.jpg"),
     []
@@ -58,7 +73,7 @@ export default function ThreeModel() {
         // @ts-ignore
         object.material.roughnessMap = roughnessTexture;
         // @ts-ignore
-        object.material.displacementMap = heightTexture;
+        // object.material.displacementMap = heightTexture;
         // @ts-ignore
         object.material.aoMap = ambientOcclusionTexture;
         // @ts-ignore
@@ -70,14 +85,14 @@ export default function ThreeModel() {
     metallicTexture,
     normalTexture,
     roughnessTexture,
-    heightTexture,
+    // heightTexture,
     baseColorTexture,
     ambientOcclusionTexture,
   ]);
 
   return (
-    <mesh position={[0, -5, 0]}>
-      <primitive object={scene} scale={[0.25, 0.25, 0.25]} />
+    <mesh position={position}>
+      <primitive object={scene} scale={[scale, scale, scale]} />
     </mesh>
   );
 }

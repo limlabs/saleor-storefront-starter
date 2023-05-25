@@ -15,12 +15,12 @@ const ThreeModelWrapper = dynamic(() => import("./threeModelWrapper"), {
 
 export default function ThreeCanvas() {
   return (
-    <section className="-sm:hidden -md:flex -lg:flex z-0 w-full h-full  max-w-full shadow-vertical-sm">
+    <section className="-sm:flex -md:flex -lg:flex z-0 w-full h-full  max-w-full shadow-vertical-sm">
       <Canvas shadows resize={{ scroll: false }}>
         <PerspectiveCamera makeDefault position={[0, 0, 20]} />
 
         <Environment
-          files="./img/dreamlike_vapor_wave_liminal_envir.hdr"
+          files="./img/dreamlike_small.hdr"
           background
           resolution={1080}
           frames={Infinity}

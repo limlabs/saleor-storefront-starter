@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import LogoMark from "../../../../public/slide-logo.png";
 
 import Image from "next/image";
+import useWindowSize from "@/core/client/useWindowSize";
 
 interface DrawerProps {
   children: ReactNode;
@@ -37,12 +38,18 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   const [drawerOpen, setDrawerOpen] = useState(isOpen);
   const [currentPath, setCurrentPath] = useState("");
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-    if (onClose) {
-      onClose();
+  const windowSize = useWindowSize();
+  let logoHeight;
+
+  if (windowSize.width !== null) {
+    if (windowSize.width < 500) {
+      logoHeight = 24;
+    } else if (windowSize.width < 800) {
+      logoHeight = 24;
+    } else {
+      logoHeight = 34;
     }
-  };
+  }
 
   const [showSkipLink, setShowSkipLink] = useState(false);
 
@@ -95,7 +102,12 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               href="/en-us"
               className="cursor-pointer hover:scale-110 ease-in-out duration-200"
             >
-              <Image src={Logo} alt="logomark" height={34} className="mr-4" />
+              <Image
+                src={Logo}
+                alt="logomark"
+                height={logoHeight}
+                className="mr-4"
+              />
             </Link>
           </div>
           <div className="flex-none -lg:hidden">
@@ -175,7 +187,7 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                 </ul>
               </li> */}
               <li>
-                <a>Talk To Real Humans!</a>
+                <Link href="/talk">Talk To Us</Link>
               </li>
               {/* <li>
                 <a>Zine</a>

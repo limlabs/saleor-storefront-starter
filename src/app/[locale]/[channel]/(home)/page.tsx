@@ -15,10 +15,7 @@ import SeeWhatsPossible from "../../(components)/seeWhatsPossible";
 export default function HomePage() {
   return (
     <main className="relative bg-almost-black">
-      <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
-        <HomeHeroMobile />
-      </div>
-      <div className="z-0 relative -lg:h-main-height -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
+      <div className="z-0 relative -lg:h-main-height -md:h-md-main-height  -sm:h-main-height -lg:flex -md:flex flex-col">
         <ThreeCanvasWrapper />
       </div>
       <ExploreTheFrontier />

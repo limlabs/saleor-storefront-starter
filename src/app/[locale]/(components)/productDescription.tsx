@@ -20,10 +20,12 @@ interface SaleorContentBlockData {
 
 interface ProductDescriptionProps {
   description: string | null | undefined;
+  className?: string;
 }
 
 export const ProductDescription: FC<ProductDescriptionProps> = ({
   description,
+  className,
 }) => {
   let content: SaleorContentBlockData | null = null;
   try {
@@ -38,7 +40,7 @@ export const ProductDescription: FC<ProductDescriptionProps> = ({
   }
 
   return (
-    <div>
+    <div className={className}>
       {content.blocks.map((block) => {
         switch (block.type) {
           case "paragraph":

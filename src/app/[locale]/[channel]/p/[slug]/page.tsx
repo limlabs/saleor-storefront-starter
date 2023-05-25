@@ -48,21 +48,19 @@ export default async function ProductDetailsPage({
     >
       <main className="lg:flex lg:justify-between lg:mx-0 mt-4">
         <section className="lg:w-2/3">
-          <ProductImageGrid
-            initialVariant={initialSelectedVariant ?? product.defaultVariant}
-          />
+          <ProductImageGrid media={product.media} />
         </section>
-        <section className="lg:w-1/3 px-3">
+        <section className="lg:w-1/3 px-6">
           <div className="text-2xl text-accent mt-6 lg:mt-0 ">
             {product.category?.translation?.name ?? product.category?.name}
           </div>
-          <h1 className="text-5xl text-neutral my-2">
+          <h1 className="text-4xl text-neutral my-2">
             {product.translation?.name ?? product.name}
           </h1>
-          <ProductPrice pricing={product.pricing} />
           {(product.rating ?? 0) > 0 && (
             <ProductReviewSummary rating={product.rating as number} />
           )}
+          <ProductPrice pricing={product.pricing} />
           {!initialSelectedVariant?.id && (
             <ProductVariantSelector product={product} />
           )}

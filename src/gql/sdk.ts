@@ -26086,6 +26086,12 @@ export type IProductDetailsFragment = {
   slug: string;
   rating?: number | null;
   isAvailable?: boolean | null;
+  media?: Array<{
+    __typename?: "ProductMedia";
+    url: string;
+    alt: string;
+    type: IProductMediaType;
+  }> | null;
   translation?: {
     __typename?: "ProductTranslation";
     name?: string | null;
@@ -26423,6 +26429,12 @@ export type IProductQuery = {
     slug: string;
     rating?: number | null;
     isAvailable?: boolean | null;
+    media?: Array<{
+      __typename?: "ProductMedia";
+      url: string;
+      alt: string;
+      type: IProductMediaType;
+    }> | null;
     translation?: {
       __typename?: "ProductTranslation";
       name?: string | null;
@@ -26871,6 +26883,11 @@ export const FragProductDetailsFragmentDoc = `
   slug
   rating
   isAvailable
+  media {
+    url
+    alt
+    type
+  }
   translation(languageCode: $languageCode) {
     name
     description

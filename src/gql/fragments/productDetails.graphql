@@ -3,6 +3,7 @@ fragment ProductDetailsFragment on Product {
   seoTitle
   name
   description
+  seoDescription
   slug
   rating
   isAvailable
@@ -15,6 +16,8 @@ fragment ProductDetailsFragment on Product {
 
   translation(languageCode: $languageCode) {
     name
+    seoTitle
+    seoDescription
     description
   }
   category {

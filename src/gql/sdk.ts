@@ -26083,6 +26083,7 @@ export type IProductDetailsFragment = {
   seoTitle?: string | null;
   name: string;
   description?: JSONString | null;
+  seoDescription?: string | null;
   slug: string;
   rating?: number | null;
   isAvailable?: boolean | null;
@@ -26095,6 +26096,8 @@ export type IProductDetailsFragment = {
   translation?: {
     __typename?: "ProductTranslation";
     name?: string | null;
+    seoTitle?: string | null;
+    seoDescription?: string | null;
     description?: JSONString | null;
   } | null;
   category?: {
@@ -26426,6 +26429,7 @@ export type IProductQuery = {
     seoTitle?: string | null;
     name: string;
     description?: JSONString | null;
+    seoDescription?: string | null;
     slug: string;
     rating?: number | null;
     isAvailable?: boolean | null;
@@ -26438,6 +26442,8 @@ export type IProductQuery = {
     translation?: {
       __typename?: "ProductTranslation";
       name?: string | null;
+      seoTitle?: string | null;
+      seoDescription?: string | null;
       description?: JSONString | null;
     } | null;
     category?: {
@@ -26880,6 +26886,7 @@ export const FragProductDetailsFragmentDoc = `
   seoTitle
   name
   description
+  seoDescription
   slug
   rating
   isAvailable
@@ -26890,6 +26897,8 @@ export const FragProductDetailsFragmentDoc = `
   }
   translation(languageCode: $languageCode) {
     name
+    seoTitle
+    seoDescription
     description
   }
   category {

@@ -12,12 +12,55 @@ import { ProductDescription } from "@/app/[locale]/(components)/productDescripti
 import { ProductReviewSummary } from "@/app/[locale]/(components)/productReviewSummary";
 import { ProductImageGrid } from "@/app/[locale]/(components)/productImageGrid";
 import { ProductPrice } from "@/app/[locale]/(components)/productPrice";
+import { ResolvingMetadata, Metadata, ResolvedMetadata } from "next";
 
 interface PageProps {
   params: {
     locale: Locale;
     channel: Channel;
     slug: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata
+): Promise<ResolvedMetadata> {
+  const languageCode = getLanguageCode(params.locale);
+  const { product } = await gqlClient.Product({
+    slug: params.slug,
+    languageCode,
+    channel: params.channel,
+  });
+
+  if (!product) {
+    return {
+      ...parent,
+      title: "404",
+    };
+  }
+
+  const productTitle =
+    product.translation?.seoTitle ||
+    product.seoTitle ||
+    product.translation?.name ||
+    product.name ||
+    "";
+  const seoDescription =
+    product.translation?.seoDescription || product.seoDescription;
+
+  return {
+    ...parent,
+    title: productTitle,
+    description: seoDescription,
+    openGraph: {
+      type: "article",
+      title: productTitle,
+      locale: params.locale,
+      url: `/${params.locale}/${params.channel}/p/${params.slug}`,
+      images: [product.thumbnail?.url],
+      description: seoDescription,
+    },
   };
 }
 
@@ -33,6 +76,9 @@ export default async function ProductDetailsPage({
   if (!product) {
     return redirect("/404");
   }
+
+  const productDescription =
+    product.translation?.description ?? product.description ?? "";
 
   const initialSelectedVariant =
     (product.variants?.length ?? 0) > 1 ? null : product.defaultVariant;
@@ -67,13 +113,10 @@ export default async function ProductDetailsPage({
             <ProductVariantSelector product={product} />
           )}
           {initialSelectedVariant?.id && <QuantitySelector />}
-          {(product.description ?? product.translation?.description ?? "")
-            .length > 0 && (
+          {productDescription.length > 0 && (
             <ProductDescription
               className="mt-5 text-neutral"
-              description={
-                product.translation?.description ?? product.description
-              }
+              description={productDescription}
             />
           )}
           <div className="mt-5">

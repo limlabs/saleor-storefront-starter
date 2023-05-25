@@ -66,7 +66,7 @@ export default async function ProductDetailsPage({
           {!initialSelectedVariant?.id && (
             <ProductVariantSelector product={product} />
           )}
-          {initialSelectedVariant?.id && <QuantitySelector />}
+          {initialSelectedVariant?.id && <QuantitySelector className="mt-4" />}
           {(product.description ?? product.translation?.description ?? "")
             .length > 0 && (
             <ProductDescription

@@ -24,7 +24,7 @@ export default function SeeWhatsPossible() {
               loop
               className="rounded-lg"
             >
-              <source src="/video/cartoon_pc.mp4" type="video/mp4"></source>
+              <source src="/video/chrome_anthony.mp4" type="video/mp4"></source>
             </video>
           </div>
         </div>

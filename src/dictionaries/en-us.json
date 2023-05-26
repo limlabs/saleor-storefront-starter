@@ -1,28 +1,32 @@
 {
-    "Home": {
-        "welcome": "Welcome to the Headless Store"
-    },
-    "Gallery": {
-        "shop": "Shop",
-        "all products": "All Products"
-    },
-    "header": {
-        "home": "Home",
-        "shop": "Shop",
-        "about": "About"
-    },
-    "menu": {
-        "categories": "Categories"
-    },
-    "component": {
-        "add to cart": "Add to Cart",
-        "apply": "Apply",
-        "filter": "Filter",
-        "is available": "is Available",
-        "price range": "Price Range",
-        "search": "Search",
-        "next": "Next",
-        "prev": "Prev",
-        "sale": "Sale"
-    }
+  "Home": {
+    "welcome": "Welcome to the Headless Store"
+  },
+  "Gallery": {
+    "shop": "Shop",
+    "all products": "All Products"
+  },
+  "header": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About"
+  },
+  "menu": {
+    "categories": "Categories"
+  },
+  "component": {
+    "add to cart": "Add to Cart",
+    "add to cart confirmation": "Item added to cart successfully!",
+    "checkout": "Checkout",
+    "continue shopping": "Continue Shopping",
+    "apply": "Apply",
+    "filter": "Filter",
+    "is available": "is Available",
+    "price range": "Price Range",
+    "search": "Search",
+    "next": "Next",
+    "prev": "Prev",
+    "sale": "Sale",
+    "rating": "Rating"
+  }
 }

@@ -13,7 +13,7 @@ import { useProductSelection } from "@/core/client/useProductSelection";
  */
 
 interface ProductImageGridProps {
-  initialVariant: IProductVariantFragment | null | undefined;
+  media: IProductVariantFragment["media"];
 }
 
 const SingleImage: FC<{ url?: string; alt?: string }> = ({ url, alt }) => {
@@ -31,31 +31,26 @@ const SingleImage: FC<{ url?: string; alt?: string }> = ({ url, alt }) => {
   );
 };
 
-export const ProductImageGrid: FC<ProductImageGridProps> = ({
-  initialVariant,
-}) => {
-  const { selectedVariant } = useProductSelection();
-  const variant = selectedVariant ?? initialVariant;
-
-  if (!variant?.media) {
+export const ProductImageGrid: FC<ProductImageGridProps> = ({ media }) => {
+  if (!media) {
     return null;
   }
 
-  if (variant.media.length === 1) {
-    const { url, alt } = variant.media[0] as IProductMedia;
+  if (media.length === 1) {
+    const { url, alt } = media[0] as IProductMedia;
     return <SingleImage url={url} alt={alt} />;
   }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-      {variant.media.map((media) => (
+      {media.map((item) => (
         <Image
-          key={media.url}
-          src={media?.url ?? ""}
-          alt={media?.alt ?? ""}
+          key={item.url}
+          src={item?.url ?? ""}
+          alt={item?.alt ?? ""}
           width={420}
           height={420}
-          className="bg-neutral"
+          className="bg-white"
         />
       ))}
     </div>

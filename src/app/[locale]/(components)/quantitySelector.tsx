@@ -1,9 +1,14 @@
 "use client";
 
 import { useProductSelection } from "@/core/client/useProductSelection";
+import clsx from "clsx";
 import { FC } from "react";
 
-export const QuantitySelector: FC = () => {
+interface QuantitySelectorProps {
+  className?: string;
+}
+
+export const QuantitySelector: FC<QuantitySelectorProps> = ({ className }) => {
   const { quantity, updateQuantity } = useProductSelection();
   const plusHandler = () => {
     updateQuantity(quantity + 1);
@@ -14,7 +19,7 @@ export const QuantitySelector: FC = () => {
   };
 
   return (
-    <div className="flex flex-row">
+    <div className={clsx("flex", "flex-row", className)}>
       <button
         className="btn btn-xs btn-outline btn-secondary"
         onClick={minusHandler}

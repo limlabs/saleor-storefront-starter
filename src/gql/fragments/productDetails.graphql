@@ -8,6 +8,12 @@ fragment ProductDetailsFragment on Product {
   rating
   isAvailable
 
+  media {
+    url
+    alt
+    type
+  }
+
   translation(languageCode: $languageCode) {
     name
     seoTitle

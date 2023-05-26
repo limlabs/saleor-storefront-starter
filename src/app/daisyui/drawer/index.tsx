@@ -144,9 +144,6 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                   </svg>
                 </a>
                 <ul className="p-2 bg-almost-black z-50">
-                  {/* <li className="hover-bordered">
-                    <a>What We Do</a>
-                  </li> */}
                   <li className="hover-bordered">
                     <a>Software</a>
                   </li>
@@ -155,49 +152,14 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
                   </li>
                 </ul>
               </li>
-              {/* <li tabIndex={0}>
-                <a>
-                  Use Cases
-                  <svg
-                    className="fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                  </svg>
-                </a>
-                <ul className="p-2 bg-almost-black z-50">
-                  <li className="hover-bordered">
-                    <a>Life Sciences</a>
-                  </li>
-                  <li className="hover-bordered">
-                    <a>Entertainment</a>
-                  </li>
-                  <li className="hover-bordered">
-                    <a>Commerce</a>
-                  </li>
-                  <li className="hover-bordered">
-                    <a>Small Business</a>
-                  </li>
-                  <li className="hover-bordered">
-                    <a>Creators</a>
-                  </li>
-                </ul>
-              </li> */}
+
               <li>
                 <Link href="/talk">Talk To Us</Link>
               </li>
-              {/* <li>
-                <a>Zine</a>
-              </li> */}
+
               <li>
                 <Link href="/en-us/c/all">Store</Link>
               </li>
-              {/* <li>
-                <a>Support Us</a>
-              </li> */}
             </ul>
           </div>
         </div>

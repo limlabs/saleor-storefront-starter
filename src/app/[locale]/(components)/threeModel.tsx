@@ -5,11 +5,13 @@ import { TextureLoader } from "three";
 import { useThree } from "@react-three/fiber";
 
 export default function ThreeModel() {
-  const modelPath = "/low_poly_mesh.gltf";
+  const modelPath = "/slide2.gltf";
   const gltf = useGLTF(modelPath);
   // @ts-ignore
   const { scene } = gltf;
   const { size } = useThree();
+
+  console.log(scene);
 
   let scale;
   let position;
@@ -50,11 +52,7 @@ export default function ThreeModel() {
       ),
     []
   );
-  // const heightTexture = useMemo(
-  //   () =>
-  //     new TextureLoader().load("/Metal_Gold_001_SD/Metal_Gold_001_height.png"),
-  //   []
-  // );
+
   const baseColorTexture = useMemo(
     () => new TextureLoader().load("/base_color/Slide_teal_gradient_4.jpg"),
     []
@@ -72,8 +70,6 @@ export default function ThreeModel() {
         object.material.normalMap = normalTexture;
         // @ts-ignore
         object.material.roughnessMap = roughnessTexture;
-        // @ts-ignore
-        // object.material.displacementMap = heightTexture;
         // @ts-ignore
         object.material.aoMap = ambientOcclusionTexture;
         // @ts-ignore

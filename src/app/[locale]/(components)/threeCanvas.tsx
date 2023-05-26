@@ -17,19 +17,17 @@ export default function ThreeCanvas() {
   return (
     <section className="-sm:flex -md:flex -lg:flex z-0 w-full h-full  max-w-full shadow-vertical-sm">
       <Canvas shadows resize={{ scroll: false }}>
-        <PerspectiveCamera makeDefault position={[0, 0, 20]} />
+        <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={70} />
 
         <Environment
           files="./img/dreamlike_small.hdr"
-          background
+          background={true}
           resolution={1080}
           frames={Infinity}
         ></Environment>
 
-        {/* Ambient light source */}
         <ambientLight intensity={0.1} />
 
-        {/* Point light sources */}
         <pointLight position={[10, 10, 10]} intensity={0.3} color="#FF15EC" />
         <pointLight
           position={[-10, -10, -10]}
@@ -38,7 +36,6 @@ export default function ThreeCanvas() {
         />
         <pointLight position={[10, -10, 10]} intensity={0.3} color="#FF15EC" />
 
-        {/* Spotlight */}
         <spotLight
           position={[0, 10, 0]}
           angle={0.7}

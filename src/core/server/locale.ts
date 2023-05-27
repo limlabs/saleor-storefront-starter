@@ -15,13 +15,13 @@ export const getLocaleContext = cache(() => {
   return map;
 });
 
-interface LocaleParam {
+interface LocaleProps {
   params: {
     locale: Locale;
   }
 }
 
-export function withTranslations<Context extends LocaleParam>(serverComponent: (ctx: Context) => (Promise<JSX.Element> | JSX.Element)) {
+export function withTranslations<Context extends LocaleProps>(serverComponent: (ctx: Context) => (Promise<JSX.Element> | JSX.Element)) {
   return (context: Context) => {
     const localeCtx = getLocaleContext();
     localeCtx.set('locale', context.params.locale);

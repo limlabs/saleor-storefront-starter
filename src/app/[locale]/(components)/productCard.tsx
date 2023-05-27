@@ -13,24 +13,18 @@ import { Link } from "./link";
 import { QuantitySelector } from "./quantitySelector";
 import { ProductPrice } from "./productPrice";
 import { ProductCardVariantList } from "./productCardVariantList";
-import { TFC, useTranslationValues } from "@/core/server/useTranslationValues";
-import {
-  productCardTranslationKeys,
-  ProductCardTranslations,
-} from "@/app/translations/productCard";
+import { useTranslationValues } from "@/core/server/useTranslationValues";
+import type { FC } from "react";
 import type { IGalleryProductFragment } from "@/gql/sdk";
 import { addToCartTranslationKeys } from "@/app/translations/addToCart";
+import { productCardTranslationKeys } from "@/app/translations/productCard";
 
 interface ProductCardProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
 }
 
-export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
-  product,
-  animation,
-  t,
-}) => {
+export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
   const { thumbnail, pricing, slug, rating } = product;
 
   const cardClasses = clsx("relative transition ease-in-out", {
@@ -41,7 +35,7 @@ export const ProductCard: TFC<ProductCardProps, ProductCardTranslations> = ({
   });
 
   const info = useProductTranslation(product);
-
+  const t = useTranslationValues(productCardTranslationKeys, "component");
   const translations = useTranslationValues(
     addToCartTranslationKeys,
     "component"

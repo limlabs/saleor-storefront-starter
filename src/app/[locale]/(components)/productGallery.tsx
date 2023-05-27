@@ -5,30 +5,21 @@ import { ProductSelectionProvider } from "@/core/client/useProductSelection";
 import { ProductCard } from "./productCard";
 import { LinkButton } from "./linkButton";
 import { FilterOp, SearchFilter } from "./searchFilter";
-import { productCardTranslationKeys } from "@/app/translations/productCard";
 import { productGalleryTranslationKeys } from "@/app/translations/productGallery";
 import { searchFilterTranslationKeys } from "@/app/translations/searchFilter";
-import type { Locale } from "@/locale-config";
 import { IProductCountableConnection } from "@/gql/sdk";
 
 interface ProductGalleryProps {
   products: IProductCountableConnection;
   filter: FilterOp;
-  locale: Locale;
 }
 
 export const ProductGallery: FC<ProductGalleryProps> = ({
   products,
   filter,
-  locale,
 }) => {
   const { startCursor, endCursor, hasNextPage, hasPreviousPage } =
     products.pageInfo;
-
-  const productCardTranslations = useTranslationValues(
-    productCardTranslationKeys,
-    "component"
-  );
 
   const searchFilterTranslations = useTranslationValues(
     searchFilterTranslationKeys,
@@ -50,8 +41,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
                 product={node}
               >
                 <ProductCard
-                  product={node}
-                  t={productCardTranslations}
+                  product={node}                  
                   animation="bounce"
                 />
               </ProductSelectionProvider>

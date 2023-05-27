@@ -9,7 +9,7 @@ import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
 import { gqlClient } from "@/gql";
-import { getLanguageCode, setLocale } from "@/core/server/locale";
+import { getLanguageCode } from "@/core/server/locale";
 import { NavbarMenu } from "./(components)/navbarMenu";
 
 export const metadata = {
@@ -29,9 +29,7 @@ export default async function RootLayout({
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
-  setLocale(params.locale);
   const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
-
   let channel: Channel = params.channel as Channel;
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
@@ -52,12 +50,9 @@ export default async function RootLayout({
         >
           <div className="z-0">
             <AppRoot>
-              <Drawer
-                id="category-menu"
-                side={<NavbarMenu menu={menu} locale={params.locale} />}
-              >
+              <Drawer id="category-menu" side={<NavbarMenu menu={menu} />}>
                 <div className="mx-auto my-6 w-full max-w-6xl ">
-                  <RootLayoutHeader locale={params.locale} />
+                  <RootLayoutHeader />
                   {children}
                 </div>
               </Drawer>

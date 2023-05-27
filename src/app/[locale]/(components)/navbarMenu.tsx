@@ -4,15 +4,13 @@ import { useTranslations } from "@/core/server/useTranslations";
 import { NavbarMenuCategory } from "./navbarMenuCategories";
 import { IMenuFragment } from "@/gql/sdk";
 import type { FC } from "react";
-import type { Locale } from "@/locale-config";
 
 interface NavbarMenuProps {
-  locale: Locale;
   menu?: IMenuFragment | null;
 }
 
-export const NavbarMenu: FC<NavbarMenuProps> = ({ locale, menu }) => {
-  const t = useTranslations(locale);
+export const NavbarMenu: FC<NavbarMenuProps> = ({ menu }) => {
+  const t = useTranslations();
   return (
     <Menu className="p-4 w-80 bg-base-100 text-base-content">
       <MenuTitle>{t("menu.categories")}</MenuTitle>

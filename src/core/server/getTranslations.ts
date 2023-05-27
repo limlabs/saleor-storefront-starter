@@ -1,8 +1,9 @@
 import { cache } from 'react';
 import { dictionaries } from '@/translation-dictionaries';
+import { getLocaleContext } from './locale';
 import type { Locale } from '@/locale-config';
 
-export const getTranslations = cache(async (locale: Locale) => {
+export const getTranslations = cache(async (locale: Locale = getLocaleContext().get('locale')) => {
     const translations = await dictionaries[locale]?.();
     return (path: string) => {
         const pathParts = path.split('.');

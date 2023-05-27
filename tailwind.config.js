@@ -63,10 +63,8 @@ module.exports = {
         nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
         roboto_mono: ["var(--font-roboto_mono)"],
-        prompt: ["var(--font-prompt)"],
-        goldman: ["var(--font-goldman)"],
         futura: ["var(--font-futura)"],
-        garamond: ["var(--font-garamond)"],
+        elephant: ["Elephant", ...fontFamily.sans],
       },
       blur: {
         xsmall: "2px",

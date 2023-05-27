@@ -10,7 +10,7 @@ export default function HomeReviews() {
         <div className="-lg:mr-80 -sm:mr-4 mb-8">
           <div className="flex">
             <h1 className="text-9xl font-garamond text-hot-pink">&quot;</h1>
-            <h1 className="text-almost-black  -sm:text-xl font-roboto-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
+            <h1 className="text-almost-black  -sm:text-xl font-roboto_mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
               These folks are the real deal
             </h1>
           </div>
@@ -22,33 +22,33 @@ export default function HomeReviews() {
         <div className="-lg:ml-80 -sm:ml-4 mb-8">
           <div className="flex">
             <h1 className="text-9xl font-garamond text-hot-pink">&quot;</h1>
-            <h1 className="text-almost-black  -sm:text-xl font-roboto-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
+            <h1 className="text-almost-black  -sm:text-xl font-roboto_mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
               These folks are the real deal
             </h1>
           </div>
-          <p className="font-roboto -lg:text-lg -sm:text-sm ml-12">
+          <p className="font-roboto_mono -lg:text-lg -sm:text-sm ml-12">
             -Jack Herrington
           </p>
         </div>
         <div className="-lg:mr-80 -sm:mr-4 mb-8">
           <div className="flex">
             <h1 className="text-9xl font-garamond text-hot-pink">&quot;</h1>
-            <h1 className="text-almost-black  -sm:text-xl font-roboto-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
+            <h1 className="text-almost-black  -sm:text-xl font-roboto_mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
               These folks are the real deal
             </h1>
           </div>
-          <p className="font-roboto -lg:text-lg -sm:text-sm ml-12">
+          <p className="font-roboto_mono -lg:text-lg -sm:text-sm ml-12">
             -Jack Herrington
           </p>
         </div>
         <div className="-lg:ml-80 -sm:ml-4 mb-8">
           <div className="flex">
             <h1 className="text-9xl font-garamond text-hot-pink">&quot;</h1>
-            <h1 className="text-almost-black  -sm:text-xl font-roboto-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
+            <h1 className="text-almost-black  -sm:text-xl font-roboto_mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4   mt-6">
               These folks are the real deal
             </h1>
           </div>
-          <p className="font-roboto -lg:text-lg -sm:text-sm ml-12">
+          <p className="font-roboto_mono -lg:text-lg -sm:text-sm ml-12">
             -Jack Herrington
           </p>
         </div>

@@ -32,7 +32,7 @@ const press_start_2p = Press_Start_2P({
 const roboto_mono = Roboto_Mono({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-roboto_mono",
 });
 
 const eb_garamond = EB_Garamond({

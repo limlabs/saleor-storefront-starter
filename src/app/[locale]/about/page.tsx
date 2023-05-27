@@ -1,21 +1,23 @@
 import AboutMain from "../(components)/aboutMain";
 import AboutHero from "../(components)/aboutHero";
 import AboutTeam from "../(components)/aboutTeam";
+import Footer from "../(components)/footer";
 
 export default function AboutPage() {
   return (
-    <main className="h-auto  w-full ">
+    <main className=" w-full ">
       <div className="h-screen">
         <AboutHero />
       </div>
-      <div className="bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
-        <div className="h-full ">
+      <div className="bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow h-auto">
+        <div className="min-h-screen ">
           <AboutMain />
         </div>
-        <div className="h-full ">
+        <div className="min-h-screen -sm:pt-12 -sm:pb-12">
           <AboutTeam />
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

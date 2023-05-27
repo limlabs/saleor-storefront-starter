@@ -3,7 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 @import url("https://p.typekit.net/p.css?s=1&k=qmo4srl&ht=tk&f=10881.10882.10884.10885.15357.15358.15361.15362.32874.32875&a=120003932&app=typekit&e=css");
-
 .checker-background {
   background-image: url("/Checkerboard_tile.png");
   background-repeat: repeat-x;

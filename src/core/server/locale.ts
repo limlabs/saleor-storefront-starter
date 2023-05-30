@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { ILanguageCodeEnum } from "@/gql/sdk";
 import { Locale, localeConfig } from "@/locale-config";
 
@@ -5,12 +6,25 @@ export const getLanguageCode = (locale: Locale) => {
   return locale.toUpperCase().replace("-", "_") as ILanguageCodeEnum;
 };
 
-let locale: Locale = localeConfig.defaultLocale;
+/**
+ * https://prismic.io/blog/advanced-nextjs-server-context
+ */
+export const getLocaleContext = cache(() => {
+  const map = new Map();
+  map.set('locale', localeConfig.defaultLocale as Locale);
+  return map;
+});
 
-export const setLocale = (value: Locale) => {
-  locale = value;
-};
+interface LocaleProps {
+  params: {
+    locale: Locale;
+  }
+}
 
-export const getLocale = () => {
-  return locale;
-};
+export function withTranslations<Context extends LocaleProps>(serverComponent: (ctx: Context) => (Promise<JSX.Element> | JSX.Element)) {
+  return (context: Context) => {
+    const localeCtx = getLocaleContext();
+    localeCtx.set('locale', context.params.locale);
+    return serverComponent(context);
+  }
+}

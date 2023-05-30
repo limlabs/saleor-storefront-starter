@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { gqlClient } from "@/gql";
-import { getLanguageCode, getLocale } from "@/core/server/locale";
+import { getLanguageCode, withTranslations } from "@/core/server/locale";
 import type { Locale } from "@/locale-config";
 import type { Channel } from "@/channel-config";
 import { AddToCartButton } from "@/app/[locale]/(components)/addToCartButton";
@@ -12,7 +12,7 @@ import { ProductDescription } from "@/app/[locale]/(components)/productDescripti
 import { ProductReviewSummary } from "@/app/[locale]/(components)/productReviewSummary";
 import { ProductImageGrid } from "@/app/[locale]/(components)/productImageGrid";
 import { ProductPrice } from "@/app/[locale]/(components)/productPrice";
-import { ResolvingMetadata, Metadata, ResolvedMetadata } from "next";
+import { ResolvingMetadata, ResolvedMetadata } from "next";
 
 interface PageProps {
   params: {
@@ -64,13 +64,13 @@ export async function generateMetadata(
   };
 }
 
-export default async function ProductDetailsPage({
+export default withTranslations<PageProps>(async function ProductDetailsPage({
   params: { locale, channel, slug },
-}: PageProps) {
+}) {
   const languageCode = getLanguageCode(locale);
   const [{ product }, staticTranslations] = await Promise.all([
     gqlClient.Product({ slug, languageCode, channel }),
-    getTranslations(getLocale()),
+    getTranslations(),
   ]);
 
   if (!product) {
@@ -136,4 +136,4 @@ export default async function ProductDetailsPage({
       </main>
     </ProductSelectionProvider>
   );
-}
+});

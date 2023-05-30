@@ -1,3 +1,4 @@
+import { withTranslations } from "@/core/server/locale";
 import { useTranslations } from "@/core/server/useTranslations";
 import type { Locale } from "@/locale-config";
 
@@ -8,8 +9,8 @@ interface HomePageProps {
   };
 }
 
-export default function HomePage({ params }: HomePageProps) {
-  const t = useTranslations(params.locale);
+export default withTranslations<HomePageProps>(function HomePage() {
+  const t = useTranslations();
 
   return (
     <main className="container mx-auto my-auto w-full max-w-7xl h-full max-h-screen">
@@ -18,4 +19,4 @@ export default function HomePage({ params }: HomePageProps) {
       </h1>
     </main>
   );
-}
+});

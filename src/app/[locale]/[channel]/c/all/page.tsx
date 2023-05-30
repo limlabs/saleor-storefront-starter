@@ -1,7 +1,7 @@
 import { ProductGallery } from "@/app/[locale]/(components)/productGallery";
 import { FilterOp } from "@/app/[locale]/(components)/searchFilter";
 import { getTranslations } from "@/core/server/getTranslations";
-import { getLanguageCode } from "@/core/server/locale";
+import { getLanguageCode, withTranslations } from "@/core/server/locale";
 import Breadcrumbs from "@/app/daisyui/breadcrumbs";
 import { Bars3Icon as MenuIcon } from "@heroicons/react/24/outline";
 import { gqlClient } from "@/gql";
@@ -24,10 +24,10 @@ interface PageProps {
   searchParams?: SearchParams;
 }
 
-export default async function AllProductsPage({
+export default withTranslations<PageProps>(async function AllProductsPage({
   params: { locale, channel },
   searchParams = {} as SearchParams,
-}: PageProps) {
+}) {
   const { before, after, ...query } = searchParams;
 
   const filter: IProductFilterInput = {
@@ -57,7 +57,7 @@ export default async function AllProductsPage({
     }));
   }
 
-  const t = await getTranslations(locale);
+  const t = await getTranslations();
 
   return (
     <main>
@@ -80,7 +80,6 @@ export default async function AllProductsPage({
       <section className="container mx-auto">
         <ProductGallery
           products={products as IProductCountableConnection}
-          locale={locale}
           filter={{
             ...query,
             isAvailable: Boolean(query.isAvailable),
@@ -89,4 +88,4 @@ export default async function AllProductsPage({
       </section>
     </main>
   );
-}
+});

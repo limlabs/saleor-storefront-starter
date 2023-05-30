@@ -1,18 +1,12 @@
 import Image from "next/image";
 import { useTranslations } from "@/core/server/useTranslations";
 import { Link } from "./link";
-import { CartIcon } from "./cartIcon";
 import { LocaleMenu } from "./localeMenu";
-import { FC, Suspense } from "react";
-import type { Locale } from "@/locale-config";
+import type { FC } from "react";
 import { CartIconWithCount } from "./cartIconWithCount";
 
-interface RootLayoutHeaderProps {
-  locale: Locale;
-}
-
-export const RootLayoutHeader: FC<RootLayoutHeaderProps> = ({ locale }) => {
-  const t = useTranslations(locale);
+export const RootLayoutHeader: FC = () => {
+  const t = useTranslations();
 
   return (
     <header className="flex flex-row text-lg items-center justify-between text-primary sm:px-4 lg:px-2">

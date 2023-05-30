@@ -6,12 +6,11 @@ import { useProductTranslation } from "@/core/client/useProductTranslation";
 import { IProductDetailsFragment } from "@/gql/sdk";
 
 interface PageProps {
-  locale: string;
   channel: string;
   product: IProductDetailsFragment;
 }
 
-export function ProductHero({ locale, channel, product }: PageProps) {
+export function ProductHero({ product }: PageProps) {
   const info = useProductTranslation(product);
   const { thumbnail, pricing } = product;
   const description = parseJSONText(info.description ?? "");

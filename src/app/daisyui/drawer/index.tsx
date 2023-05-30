@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import LogoMark from "../../../../public/slide-logo.png";
 
 import Image from "next/image";
+import useWindowSize from "@/core/client/useWindowSize";
 
 interface DrawerProps {
   children: ReactNode;
@@ -19,6 +20,14 @@ interface DrawerProps {
   position?: "left" | "right";
   onClose?: () => void;
 }
+
+const navLinks = [
+  { name: "Shop", path: "/en-us/c/all" },
+  { name: "Services", path: "/en-us/services" },
+  { name: "Talk To Real Humans!", path: "/en-us/talk" },
+  { name: "Zine", path: "/en-us/zine" },
+  { name: "Support Us", path: "/en-us/support" },
+];
 
 const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   children,
@@ -29,12 +38,18 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   const [drawerOpen, setDrawerOpen] = useState(isOpen);
   const [currentPath, setCurrentPath] = useState("");
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-    if (onClose) {
-      onClose();
+  const windowSize = useWindowSize();
+  let logoHeight;
+
+  if (windowSize.width !== null) {
+    if (windowSize.width < 500) {
+      logoHeight = 24;
+    } else if (windowSize.width < 800) {
+      logoHeight = 24;
+    } else {
+      logoHeight = 34;
     }
-  };
+  }
 
   const [showSkipLink, setShowSkipLink] = useState(false);
 
@@ -69,23 +84,33 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer drawer-end  h-screen">
+    <div className="drawer drawer-end">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-
       <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
-        <div className="z-20 sticky navbar bg-almost-black top-0 w-full pl-4">
-          <Link
-            href="/"
+        <div className="w-full navbar bg-almost-black">
+          <a
+            href="#main-content"
+            onClick={() => setShowSkipLink(false)}
             className={`ml-14 btn-primary p-2 rounded-md absolute transition duration-150 ease-out hover:ease-in ${
               showSkipLink ? "opacity-100" : "opacity-0"
             }`}
           >
             Skip to Main Content
-          </Link>
+          </a>
           <div className="flex-1 px-2 mx-2">
-            <Image src={LogoMark} alt="logomark" height={34} className="mr-4" />
+            <Link
+              href="/en-us"
+              className="cursor-pointer hover:scale-110 ease-in-out duration-200"
+            >
+              <Image
+                src={Logo}
+                alt="logomark"
+                height={logoHeight}
+                className="mr-4"
+              />
+            </Link>
           </div>
-          <div className="flex-none pl-4">
+          <div className="flex-none -lg:hidden">
             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,23 +127,51 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               </svg>
             </label>
           </div>
+          {/* <div className="flex-1 px-2 mx-2">Navbar Title</div> */}
+          <div className="flex-none hidden -lg:block space-x-3">
+            <ul className="menu menu-horizontal space-x-3 z-50">
+              <li tabIndex={0}>
+                <a>
+                  Services
+                  <svg
+                    className="fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                  </svg>
+                </a>
+                <ul className="p-2 bg-almost-black z-50">
+                  <li className="hover-bordered">
+                    <a>Software</a>
+                  </li>
+                  <li className="hover-bordered">
+                    <a>Media</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <Link href="/talk">Talk To Us</Link>
+              </li>
+
+              <li>
+                <Link href="/en-us/c/all">Store</Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <main className="h-screen w-screen">{children}</main>
+        <main id="main-content">{children}</main>
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 bg-light-gray text-almost-black">
-          {[
-            { name: "Home", path: "/en-us" },
-            { name: "Shop", path: "/en-us/c/all" },
-            { name: "Services", path: "/en-us/services" },
-            { name: "Talk To Real Humans!", path: "/en-us/talk" },
-            { name: "Zine", path: "/en-us/zine" },
-            { name: "Support Us", path: "/en-us/support" },
-          ].map((item) => (
+          {navLinks.map((item) => (
             <li
               key={item.name}
-              className={isActive(item.path) ? "btn-primary" : ""}
+              className={isActive(item.path) ? "btn-primary rounded-md" : ""}
             >
               <Link href={item.path}>{item.name}</Link>
             </li>

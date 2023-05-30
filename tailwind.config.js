@@ -13,6 +13,7 @@ module.exports = {
         "light-green": "rgb(157, 255, 212)",
         "hot-pink": "rgb(255, 21, 236)",
         "light-blue-main": "rgb(5, 249, 249)",
+        "lightest-green": "rgb(157, 255, 212)",
         "light-pink": "rgb(255, 191, 244)",
         "light-gray": "rgb(216, 218, 245)",
         "forest-green": "rgb(0, 75, 80)",
@@ -27,15 +28,31 @@ module.exports = {
         "vertical-sm": " 0px 2px 9px 0px rgba(255,191,244,0.3)",
         "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.3)",
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
+        "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
+      },
+      backgroundImage: {
+        checkerboard: `conic-gradient(
+            rgb(0, 0, 19) 90deg,
+            transparent 90deg 180deg,
+            rgb(0, 0, 19) 180deg 270deg,
+            transparent 270deg
+            )`,
+        dirt: "url(/dirt.png)",
+      },
+      backgroundSize: {
+        50: "50px 50px",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",
         "landing-grid": "2fr 1fr ",
         "about-grid-mobile": "2fr 3fr",
       },
+      gridTemplateRows: {
+        contentsection: "1fr, auto",
+      },
       height: {
         "header-height": "7vh",
-        "main-height": "93vh",
+        "main-height": "92vh",
         "md-main-height": "95vh",
       },
       spacing: {
@@ -46,8 +63,8 @@ module.exports = {
         nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
         roboto_mono: ["var(--font-roboto_mono)"],
-        prompt: ["var(--font-prompt)"],
-        goldman: ["var(--font-goldman)"],
+        futura: ["var(--font-futura)"],
+        elephant: ["Elephant", ...fontFamily.sans],
       },
       blur: {
         xsmall: "2px",

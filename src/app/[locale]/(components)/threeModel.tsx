@@ -1,32 +1,77 @@
 "use client";
-import { Mesh } from "three";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import texture from "../../../../public/texture_logo.jpg";
-import { useRef } from "react";
-import { useFrame, useLoader } from "@react-three/fiber";
-// import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
-import { useFBX, useTexture } from "@react-three/drei";
-
-const modelPath = "/slideModel.fbx";
+import React, { useLayoutEffect, useMemo } from "react";
+import { useGLTF } from "@react-three/drei";
+import { TextureLoader } from "three";
 
 export default function ThreeModel() {
-  const colorMap = useLoader(TextureLoader, texture.src);
-  const meshRef = useRef<Mesh>(null);
-  const slideModel = useFBX(modelPath);
+  const modelPath = "/slide2.gltf";
+  const gltf = useGLTF(modelPath);
+  // @ts-ignore
+  const { scene } = gltf;
 
-  // useFrame(() => {
-  //   if (meshRef.current) {
-  //     meshRef.current.rotation.y += 0.01;
-  //   }
-  // });
+  const metallicTexture = useMemo(
+    () =>
+      new TextureLoader().load(
+        "/Metal_Gold_001_SD/Metal_Gold_001_metallic.jpg"
+      ),
+    []
+  );
+  const normalTexture = useMemo(
+    () =>
+      new TextureLoader().load("/Metal_Gold_001_SD/Metal_Gold_001_normal.jpg"),
+    []
+  );
+  const roughnessTexture = useMemo(
+    () =>
+      new TextureLoader().load(
+        "/Metal_Gold_001_SD/Metal_Gold_001_roughness.jpg"
+      ),
+    []
+  );
+  const ambientOcclusionTexture = useMemo(
+    () =>
+      new TextureLoader().load(
+        "/Metal_Gold_001_SD/Metal_Gold_001_ambientOcclusion.jpg"
+      ),
+    []
+  );
+
+  const baseColorTexture = useMemo(
+    () => new TextureLoader().load("/base_color/Slide_teal_gradient_4.jpg"),
+    []
+  );
+
+  useLayoutEffect(() => {
+    scene.traverse((object) => {
+      // @ts-ignore
+      if (object.isMesh && object.material.name === "scratched plastic") {
+        // @ts-ignore
+        object.material.map = baseColorTexture;
+        // @ts-ignore
+        object.material.metalnessMap = metallicTexture;
+        // @ts-ignore
+        object.material.normalMap = normalTexture;
+        // @ts-ignore
+        object.material.roughnessMap = roughnessTexture;
+        // @ts-ignore
+        object.material.aoMap = ambientOcclusionTexture;
+        // @ts-ignore
+        object.material.needsUpdate = true;
+      }
+    });
+  }, [
+    scene,
+    metallicTexture,
+    normalTexture,
+    roughnessTexture,
+    // heightTexture,
+    baseColorTexture,
+    ambientOcclusionTexture,
+  ]);
 
   return (
-    <mesh ref={meshRef} position={[0, -14, 0]}>
-      <primitive
-        ref={meshRef}
-        object={slideModel}
-        scale={[0.007, 0.007, 0.007]}
-      />
+    <mesh position={[0, -5, 0]}>
+      <primitive object={scene} scale={[0.25, 0.25, 0.25]} />
     </mesh>
   );
 }

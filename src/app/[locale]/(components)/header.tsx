@@ -45,7 +45,6 @@ export const RootLayoutHeader: FC = () => {
       </div>
       <div className="hidden -sm:flex -md:hidden -lg:hidden mr-2">
         <Image src={hamburger} height={50} alt="hamburger-icon" />
-        {/* <Drawer></Drawer> */}
       </div>
     </header>
   );

@@ -5,12 +5,11 @@ import {
   Roboto,
   Press_Start_2P,
   Roboto_Mono,
-  Prompt,
-  Goldman,
+  EB_Garamond,
 } from "next/font/google";
 
 export const metadata = {
-  title: "Headless Store",
+  title: "Home - L I M I N A L",
   description: "Open source headless Storefront",
 };
 
@@ -30,22 +29,16 @@ const press_start_2p = Press_Start_2P({
   variable: "--font-press_start_2p",
 });
 
-const goldman = Goldman({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-goldman",
-});
-
 const roboto_mono = Roboto_Mono({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-roboto_mono",
 });
 
-const prompt = Prompt({
+const eb_garamond = EB_Garamond({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-prompt",
+  variable: "--font-garamond",
 });
 
 export default function RootLayout({
@@ -60,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang={params.locale}
-      className={`${roboto.variable} ${roboto_mono.variable} ${prompt.variable}  ${nunito.variable} ${press_start_2p.variable} ${goldman.variable}`}
+      className={`${roboto.variable} ${roboto_mono.variable} ${eb_garamond.variable}  ${nunito.variable} ${press_start_2p.variable} `}
     >
       <body>
         <AppRoot>{children}</AppRoot>

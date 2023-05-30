@@ -1,32 +1,33 @@
-import Background from "../../../../../public/irridescent.jpg";
-import Image from "next/image";
-import ThreeScene from "../../(components)/threeScene";
-import HomeMain from "../../(components)/homeMain";
+import HomeMain from "../../(components)/exploreTheFrontier";
 import HomeHeroMobile from "../../(components)/homeHeroMobile";
-import HomeSectionTwo from "../../(components)/homeSectionTwo";
+import HomeSectionTwo from "../../(components)/sensibleChoice";
 import HomeSectionThree from "../../(components)/homeSectionThree";
 import Footer from "../../(components)/footer";
+import ThreeCanvasWrapper from "../../(components)/threeCanvasWrapper";
+import HomeReviews from "../../(components)/homeReviews";
+import Sequencing from "../../(components)/sequencing";
+import CacheMeOutside from "../../(components)/cacheMeOutside";
+import StoreDemo from "../../(components)/storeDemo";
+import ExploreTheFrontier from "../../(components)/exploreTheFrontier";
+import SensibleChoice from "../../(components)/sensibleChoice";
+import SeeWhatsPossible from "../../(components)/seeWhatsPossible";
 
 export default function HomePage() {
   return (
-    <main className="h-screen  w-screen  ">
-      <div className="-sm:flex -sm:h-main-height -lg:hidden -md:hidden">
-        <HomeHeroMobile />
+    <main className="relative bg-almost-black">
+      <div className="z-0 relative -lg:h-main-height -md:h-md-main-height  -sm:h-main-height -lg:flex -md:flex flex-col">
+        <ThreeCanvasWrapper />
       </div>
-      <div className="-lg:h-main-height -md:h-md-main-height  -sm:hidden -lg:flex -md:flex flex-col">
-        <ThreeScene />
-        <HomeMain />
-      </div>
+      <ExploreTheFrontier />
+      <SensibleChoice />
+      <HomeReviews />
+      <SeeWhatsPossible />
+      {/* <Sequencing /> */}
+      <CacheMeOutside />
+      {/* <StoreDemo /> */}
+
       <div>
-        <div className="-lg:h-main-height -md:h-md-main-height bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
-          <HomeSectionTwo />
-        </div>
-        <div className="-lg:h-main-height -md:h-md-main-height bg-gradient-to-b  from-forest-green to-light-pink shadow-inset-shadow text-almost-black">
-          <HomeSectionThree />
-        </div>
-        <div>
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </main>
   );

@@ -9,22 +9,6 @@ export default function ThreeModel() {
   const gltf = useGLTF(modelPath);
   // @ts-ignore
   const { scene } = gltf;
-  const { size } = useThree();
-
-  console.log(scene);
-
-  let scale;
-  let position;
-  if (size.width < 500) {
-    scale = 0.2;
-    position = [0, -4, 0];
-  } else if (size.width < 800) {
-    scale = 0.2;
-    position = [0, -4, 0];
-  } else {
-    scale = 0.25;
-    position = [0, -5, 0];
-  }
 
   const metallicTexture = useMemo(
     () =>
@@ -87,8 +71,8 @@ export default function ThreeModel() {
   ]);
 
   return (
-    <mesh position={position}>
-      <primitive object={scene} scale={[scale, scale, scale]} />
+    <mesh position={[0, -5, 0]}>
+      <primitive object={scene} scale={[0.25, 0.25, 0.25]} />
     </mesh>
   );
 }

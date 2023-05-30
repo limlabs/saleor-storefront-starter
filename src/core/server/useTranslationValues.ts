@@ -1,5 +1,3 @@
-"use server";
-
 import { useTranslations } from "./useTranslations";
 import type { FC } from "react";
 

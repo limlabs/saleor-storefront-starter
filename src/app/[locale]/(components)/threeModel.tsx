@@ -2,7 +2,6 @@
 import React, { useLayoutEffect, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { TextureLoader } from "three";
-import { useThree } from "@react-three/fiber";
 
 export default function ThreeModel() {
   const modelPath = "/slide2.gltf";

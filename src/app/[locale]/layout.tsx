@@ -7,6 +7,7 @@ import {
   Roboto_Mono,
   EB_Garamond,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Home - L I M I N A L",
@@ -57,6 +58,7 @@ export default function RootLayout({
     >
       <body>
         <AppRoot>{children}</AppRoot>
+        <Analytics />
       </body>
     </html>
   );

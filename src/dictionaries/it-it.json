@@ -1,7 +1,26 @@
 {
+    "Gallery": {
+        "shop": "Negozio",
+        "all products": "Tutti"
+    },
     "header": {
-        "home": "Home",
-        "shop": "Compra",
-        "about": "A proposito di"
+        "home": "Inizio",
+        "shop": "Negozio",
+        "about": "A proposito"
+    },
+    "menu": {
+        "categories": "Categorie"
+    },
+    "component": {
+        "add to cart": "Aggiungi al carrello",
+        "apply": "Applicare",
+        "filter": "Filtro",
+        "next": "Prossimo",
+        "prev": "Precedente",
+        "is available": "Disponibile",
+        "price range": "Prezzo",
+        "search": "Ricerca",
+        "sale": "Sconto"
+
     }
 }

@@ -1,1 +1,25 @@
-{}
+{
+    "Gallery": {
+        "shop": "Boutique",
+        "all products": "Tous"
+    },
+    "header": {
+        "home": "Accueil",
+        "shop": "Boutique",
+        "about": "À propos"
+    },
+    "menu": {
+        "categories": "Catégories"
+    },
+    "component": {
+        "add to cart": "Ajouter au panier",
+        "filter": "Filtre",
+        "apply": "Appliquer",
+        "is available": "Disponible",
+        "next": "Suivant",
+        "search": "Rechercher",
+        "prev": "Précédent",
+        "price range": "Prix",
+        "sale": "En solde"
+    }
+}

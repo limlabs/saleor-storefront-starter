@@ -7,10 +7,14 @@ import {
   Roboto_Mono,
   EB_Garamond,
 } from "next/font/google";
+import { usePathname } from "next/navigation";
+import { PreloadHomeAssets } from "./[channel]/(home)/(components)/assets";
+import { headers } from "next/headers";
 
 export const metadata = {
-  title: "Home - L I M I N A L",
-  description: "Open source headless Storefront",
+  title: "Home - LIMINAL",
+  description:
+    "Liminal Labs provides software and media consulting services crafted to help brands thrive in the digital age.",
 };
 
 const roboto = Roboto({
@@ -30,7 +34,7 @@ const press_start_2p = Press_Start_2P({
 });
 
 const roboto_mono = Roboto_Mono({
-  weight: "400",
+  weight: "700",
   subsets: ["latin"],
   variable: "--font-roboto_mono",
 });
@@ -55,6 +59,7 @@ export default function RootLayout({
       lang={params.locale}
       className={`${roboto.variable} ${roboto_mono.variable} ${eb_garamond.variable}  ${nunito.variable} ${press_start_2p.variable} `}
     >
+      <PreloadHomeAssets />
       <body>
         <AppRoot>{children}</AppRoot>
       </body>

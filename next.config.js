@@ -1,7 +1,20 @@
+const immutableResourceHeader = {
+  key: "Cache-Control",
+  value: "public, max-age=31536000, immutable",
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
+  },
+  async headers() {
+    return [
+      {
+        source: `/3d/:path*`,
+        headers: [immutableResourceHeader],
+      },
+    ];
   },
   async rewrites() {
     return [

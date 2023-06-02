@@ -1,18 +1,9 @@
-import {
-  MagnifyingGlassIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { CartIcon } from "./cartIcon";
-import hamburger from "../../../../public/hamburger.png";
-import { LogoSVG } from "./logo";
-import LogoMark from "../../../../public/slide-logo.png";
-import Logo from "../../../../public/logo-white-small.png";
-import { ThemePicker } from "./theme";
 import Image from "next/image";
-import Drawer from "@/app/daisyui/drawer";
 
 // TODO:
 // - fetch locales for links
@@ -21,10 +12,13 @@ import Drawer from "@/app/daisyui/drawer";
 export const RootLayoutHeader: FC = () => {
   return (
     <header className="fixed top-0 z-20 grid grid-cols-header-grid  text-md bg-almost-black text-white justify-items- center items-center h-header-height shadow-vertical-sm w-full ">
-      <div className="flex flex-row justify-center items-center w-full h-full min-w-max -sm:mr-4 mr-2">
-        <div>
-          <Image src={Logo} height={20} alt="logo"></Image>
-        </div>
+      <div className="flex flex-row justify-center items-center w-full h-full -sm:mr-4 mr-2">
+        <Image
+          src={"/img/logo-white-small.png"}
+          width={120}
+          height={20}
+          alt="logo"
+        />
       </div>
       <nav className=" w-3/5 text-white">
         <ul className="flex flex-row h-full -sm:hidden -md:flex -lg:flex">
@@ -43,8 +37,13 @@ export const RootLayoutHeader: FC = () => {
           Log In
         </Link>
       </div>
-      <div className="hidden -sm:flex -md:hidden -lg:hidden mr-2">
-        <Image src={hamburger} height={50} alt="hamburger-icon" />
+      <div className="hidden sm:flex md:hidden lg:hidden mr-2">
+        <Image
+          src={"/img/hamburger.png"}
+          width={50}
+          height={50}
+          alt="hamburger-icon"
+        />
       </div>
     </header>
   );

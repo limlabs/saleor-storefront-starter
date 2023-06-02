@@ -71,7 +71,7 @@ export default function ThreeModel() {
 
   return (
     <mesh position={[0, -5, 0]}>
-      <primitive object={scene} scale={[0.25, 0.25, 0.25]} />
+      <primitive object={scene} scale={[0.24, 0.24, 0.24]} />
     </mesh>
   );
 }

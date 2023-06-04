@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 import { threeDimensionalAssetPath } from "@/core/constants";
 import SlideModel from "./slideModel";
 import RoomModel from "./roomModel";
-import useSmoothScrollPosition from "@/core/client/useScrollPosition";
+import { useSmoothScrollHandler } from "@/core/client/useSmoothScrollHandler";
 import { GlitchTransition } from "./glitchTransition";
 
 declare global {
@@ -103,7 +103,10 @@ const HomeHeroContentScene = () => {
 
 const HomeHeroContent: FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  useSmoothScrollPosition(sectionRef, 0.05, "up");
+  useSmoothScrollHandler(sectionRef, (section, position) => {
+    const shrinkValue = Math.round(position * 0.05);
+    section.style.transform = `translateY(${shrinkValue}px)`;
+  });
 
   return (
     <div className="h-5/6 overflow-hidden">

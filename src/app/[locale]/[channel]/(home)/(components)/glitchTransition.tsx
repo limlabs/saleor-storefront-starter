@@ -1,12 +1,12 @@
 "use client";
 import { ContentSection } from "@/app/[locale]/(components)/contentSection";
-import useSmoothScrollPosition from "@/core/client/useScrollPosition";
+import { useSmoothScrollHandler } from "@/core/client/useSmoothScrollHandler";
 import clsx from "clsx";
 import { FC, useRef } from "react";
 
 export const GlitchTransition: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
-  useSmoothScrollPosition(ref, 6);
+  // useSmoothScrollPosition(ref, 6);
   return (
     <ContentSection
       ref={ref}

@@ -14,10 +14,10 @@ export const Testimonials: FC = () => {
         "relative",
         "after:bg-checkerboard",
         "after:bg-repeat",
-        "after:bg-50",
+        "after:bg-checker-lg",
         'after:contents-[""]',
         "after:block",
-        "after:h-[50px]",
+        "after:h-[75px]",
         "after:relative",
         "after:w-full",
         "after:bottom-0"

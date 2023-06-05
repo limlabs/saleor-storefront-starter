@@ -94,7 +94,7 @@ export const Intro = () => {
         </h2>
       </div>
 
-      <div className="-sm:text-l -md:text-xl z-10  w-5/6 max-w-3xl font-roboto text-center relative mt-32 p-8">
+      <div className="-sm:text-l -md:text-xl z-10  w-5/6 max-w-3xl font-roboto text-center relative mt-32">
         <p className="font-mono font-bold italic -sm:text-l -md:text-3xl relative z-10 -sm:px-8 -md:px-20 pt-16 pb-14 rounded-t-[150px] block bg-light-pink -sm:leading-10 -md:leading-10">
           Liminal Labs builds software and media for people who value quality
           and timeliness.

@@ -47,7 +47,7 @@ export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
 
   return (
     <CheckoutProvider initialQuantity={quantity}>
-      <div className=" w-screen bg-almost-black">
+      <div className="bg-almost-black">
         <Drawer />
         <main id="main-content">{children}</main>
       </div>

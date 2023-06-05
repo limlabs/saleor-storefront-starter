@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className=" w-screen  -sm:h-3/5 -md:h-72 -sm:shadow-none -lg:h-44  grid grid-cols-2 items-center justify-items-center  mt-0 bg-almost-black text-white -sm:p-4">
+    <footer className=" -sm:h-3/5 -md:h-72 -sm:shadow-none -lg:h-44  grid grid-cols-2 items-center justify-items-center  mt-0 bg-almost-black text-white -sm:p-4">
       <div className="mr-12">
         <Image src={Logo} alt="logo" height={50} />
       </div>

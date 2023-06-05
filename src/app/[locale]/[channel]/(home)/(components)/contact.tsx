@@ -28,7 +28,7 @@ export const Contact = () => {
           />
         </div>
       </div>
-      <div className="h-12 mt-40 w-full bg-checkerboard bg-50 -sm:hidden -lg:block"></div>
+      <div className="h-12 mt-40 w-full bg-checkerboard bg-checker-md  bg-repeat"></div>
     </ContentSection>
   );
 };

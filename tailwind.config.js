@@ -52,8 +52,9 @@ module.exports = {
         glitch: "url(/textures/glitch-transition.svg)",
       },
       backgroundSize: {
-        50: "50px 50px",
-        "checker-small": "10px 10px",
+        "checker-sm": "10px 10px",
+        "checker-md": "25px 25px",
+        "checker-lg": "50px 50px",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",

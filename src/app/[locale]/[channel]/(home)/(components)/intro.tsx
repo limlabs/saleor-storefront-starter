@@ -51,15 +51,15 @@ export const Intro = () => {
 
   return (
     <ContentSection className="pb-0 px-0 relative z-0">
-      <div className=" flex flex-col">
-        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl italic text-white max-w-xl -sm:px-4">
+      <div className=" flex flex-col w-full max-w-3xl overflow-hidden">
+        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl italic text-white max-w-xl -sm:px-4 ">
           A SENSIBLE CHOICE FOR
         </h3>
 
         <h1
           ref={headingRef}
           className={clsx(
-            "font-press_start_2p text-light-pink font-thin -sm:text-2xl -md:text-3xl my-12 text-center transition-all duration-700",
+            "font-press_start_2p text-light-pink font-thin -sm:text-2xl -lg:text-3xl my-12 text-center transition-all duration-700",
             {
               "bg-gradient-to-r": true,
               "bg-clip-text": true,

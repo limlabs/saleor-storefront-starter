@@ -56,7 +56,13 @@ export default function RootLayout({
   return (
     <html
       lang={params.locale}
-      className={`${roboto.variable} ${roboto_mono.variable} ${eb_garamond.variable}  ${nunito.variable} ${press_start_2p.variable} `}
+      className={`
+        ${roboto.variable} 
+        ${roboto_mono.variable}
+        ${eb_garamond.variable}
+        ${nunito.variable}
+        ${press_start_2p.variable}
+      `}
     >
       <PreloadHomeAssets />
       <body>

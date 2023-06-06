@@ -11,15 +11,12 @@ const MAX_SCALE_DESKTOP = 2.5;
 
 export const Intro = () => {
   const [fontScale, setFontScale] = useState(0);
+  const [animateResultsText, setAnimateResultsText] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const isMobile = useMemo(() => {
     return typeof window === "undefined" ? true : window.innerWidth < 800;
   }, []);
-
-  const animateResultsText = useMemo(() => {
-    return fontScale === (isMobile ? MAX_SCALE_MOBILE : MAX_SCALE_DESKTOP);
-  }, [fontScale, isMobile]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,12 +31,11 @@ export const Intro = () => {
 
         const { top, height } = headingRef.current.getBoundingClientRect();
         const offset = Math.max(window.innerHeight - top, 0);
-        let newScale = minScale;
-        if (offset >= top + height * 0.5) {
-          newScale = maxScale;
-        }
 
-        setFontScale(newScale);
+        if (offset >= (top + height) * 0.5) {
+          setAnimateResultsText(true);
+          setTimeout(() => setFontScale(maxScale), 250);
+        }
       }
     };
 
@@ -53,11 +49,16 @@ export const Intro = () => {
   }, [fontScale, isMobile]);
 
   return (
-    <ContentSection className="pb-0 px-0 items-center">
+    <ContentSection className="pb-0 px-0 items-center uppercase">
       <div className="flex flex-col w-full max-w-5xl overflow-hidden">
-        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4 uppercase">
+        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4">
           A{" "}
-          <span className="inline-block -skew-x-12 transition-transform">
+          <span
+            className={clsx("inline-block transform-gpu transition-transform", {
+              "animate-emphasize": animateResultsText,
+              "-skew-x-12": animateResultsText,
+            })}
+          >
             sensible
           </span>{" "}
           choice for
@@ -77,13 +78,11 @@ export const Intro = () => {
           )}
           style={{
             transform: `scale(${fontScale})`,
-
             WebkitTextFillColor: animateResultsText ? "transparent" : "none",
           }}
         >
-          EXTRAORDINARY
+          Extraordinary
         </h1>
-
         <h2
           className={clsx({
             "font-futura": true,
@@ -91,13 +90,14 @@ export const Intro = () => {
             "-md:text-3xl": true,
             "font-extrabold": true,
             "text-white": true,
-            italic: true,
             "text-center": true,
             "max-w-xl": true,
             "m-auto": true,
+            "animate-bigly": animateResultsText,
           })}
+          style={{ animationDelay: "850ms" }}
         >
-          RESULTS
+          results
         </h2>
       </div>
 

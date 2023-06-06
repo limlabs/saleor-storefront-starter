@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, Ref, useEffect, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 
@@ -7,8 +7,8 @@ import { Vector3 } from "three";
 import { threeDimensionalAssetPath } from "@/core/constants";
 import SlideModel from "./slideModel";
 import RoomModel from "./roomModel";
-import useSmoothScrollPosition from "@/core/client/useScrollPosition";
-import { GlitchTransition } from "./glitchTransition";
+import { useSmoothScrollHandler } from "@/core/client/useSmoothScrollHandler";
+import { BlurScrim } from "./blurScrim";
 
 declare global {
   interface Window {
@@ -103,17 +103,19 @@ const HomeHeroContentScene = () => {
 
 const HomeHeroContent: FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  useSmoothScrollPosition(sectionRef, 0.05, "up");
+  useSmoothScrollHandler(sectionRef, (section, position) => {
+    const shrinkValue = Math.round(position * 0.05);
+    section.style.transform = `translateY(${shrinkValue}px)`;
+  });
 
   return (
-    <div className="h-5/6 overflow-hidden">
-      <section ref={sectionRef} className="z-10 w-full h-full  max-w-full">
+    <>
+      <section ref={sectionRef} className="z-10 w-full h-full max-w-full">
         <Canvas shadows>
           <HomeHeroContentScene />
         </Canvas>
       </section>
-      <GlitchTransition />
-    </div>
+    </>
   );
 };
 

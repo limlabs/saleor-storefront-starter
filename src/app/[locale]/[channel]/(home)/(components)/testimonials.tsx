@@ -12,12 +12,13 @@ export const Testimonials: FC = () => {
         "from-light-pink",
         "to-light-green",
         "relative",
+        "items-center",
         "after:bg-checkerboard",
         "after:bg-repeat",
-        "after:bg-50",
+        "after:bg-checker-lg",
         'after:contents-[""]',
         "after:block",
-        "after:h-[50px]",
+        "after:h-[75px]",
         "after:relative",
         "after:w-full",
         "after:bottom-0"
@@ -28,7 +29,7 @@ export const Testimonials: FC = () => {
         alt=""
         width={15896}
         height={1859}
-        className="absolute w-full   bottom-[99%]"
+        className="absolute w-full bottom-[99%]"
       />
       <div className="flex flex-col justify-center items-center my-14 w-full max-w-2xl">
         <div className="flex">
@@ -39,7 +40,7 @@ export const Testimonials: FC = () => {
             The folks at Liminal are highly skilled, productive, and reliable.
             Best of all, they are always up for a challenge!
             <p className="font-roboto -lg:text-2xl -sm:text-xl mt-4">
-              <span className="font-extrabold">Jack Herrington</span>, Blue
+              <span className="font-extrabold">-- Jack Herrington</span>, Blue
               Collar Coder
             </p>
           </h1>

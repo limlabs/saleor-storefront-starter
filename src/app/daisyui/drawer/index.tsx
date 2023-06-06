@@ -18,11 +18,9 @@ interface DrawerProps {
 }
 
 const navLinks = [
-  { name: "Shop", path: "/en-us/c/all" },
-  { name: "Services", path: "/en-us/services" },
-  { name: "Talk To Real Humans!", path: "/en-us/talk" },
-  { name: "Zine", path: "/en-us/zine" },
-  { name: "Support Us", path: "/en-us/support" },
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "Contact", path: "/contact" },
 ];
 
 const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({

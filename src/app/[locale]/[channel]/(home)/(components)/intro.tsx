@@ -51,7 +51,7 @@ export const Intro = () => {
 
   return (
     <ContentSection className="pb-0 px-0 relative z-0">
-      <div className=" flex flex-col w-full max-w-3xl overflow-hidden">
+      <div className=" flex flex-col w-full max-w-5xl overflow-hidden">
         <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl italic text-white max-w-xl -sm:px-4 ">
           A SENSIBLE CHOICE FOR
         </h3>

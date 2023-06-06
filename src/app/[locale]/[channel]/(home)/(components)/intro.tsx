@@ -10,7 +10,7 @@ const MIN_SCALE_DESKTOP = 1.5;
 const MAX_SCALE_DESKTOP = 2.5;
 
 export const Intro = () => {
-  const [fontScale, setFontScale] = useState(1);
+  const [fontScale, setFontScale] = useState(MIN_SCALE_MOBILE);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const isMobile = useMemo(() => {

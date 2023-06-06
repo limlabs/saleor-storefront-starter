@@ -10,7 +10,7 @@ const MIN_SCALE_DESKTOP = 1.5;
 const MAX_SCALE_DESKTOP = 2.5;
 
 export const Intro = () => {
-  const [fontScale, setFontScale] = useState(MIN_SCALE_MOBILE);
+  const [fontScale, setFontScale] = useState(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const isMobile = useMemo(() => {
@@ -44,16 +44,23 @@ export const Intro = () => {
     };
 
     window.addEventListener("scroll", onScroll);
+    if (fontScale === 0) {
+      onScroll();
+    }
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [isMobile]);
+  }, [fontScale, isMobile]);
 
   return (
-    <ContentSection className="pb-0 px-0 relative z-0">
-      <div className=" flex flex-col w-full max-w-5xl overflow-hidden">
-        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl italic text-white max-w-xl -sm:px-4 ">
-          A SENSIBLE CHOICE FOR
+    <ContentSection className="pb-0 px-0 items-center">
+      <div className="flex flex-col w-full max-w-5xl overflow-hidden">
+        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4 uppercase">
+          A{" "}
+          <span className="inline-block -skew-x-12 transition-transform">
+            sensible
+          </span>{" "}
+          choice for
         </h3>
 
         <h1

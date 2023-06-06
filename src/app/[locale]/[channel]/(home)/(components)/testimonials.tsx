@@ -12,6 +12,7 @@ export const Testimonials: FC = () => {
         "from-light-pink",
         "to-light-green",
         "relative",
+        "items-center",
         "after:bg-checkerboard",
         "after:bg-repeat",
         "after:bg-checker-lg",
@@ -28,7 +29,7 @@ export const Testimonials: FC = () => {
         alt=""
         width={15896}
         height={1859}
-        className="absolute w-full   bottom-[99%]"
+        className="absolute w-full bottom-[99%]"
       />
       <div className="flex flex-col justify-center items-center my-14 w-full max-w-2xl">
         <div className="flex">

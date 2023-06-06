@@ -40,7 +40,7 @@ export const Testimonials: FC = () => {
             The folks at Liminal are highly skilled, productive, and reliable.
             Best of all, they are always up for a challenge!
             <p className="font-roboto -lg:text-2xl -sm:text-xl mt-4">
-              <span className="font-extrabold">Jack Herrington</span>, Blue
+              <span className="font-extrabold">-- Jack Herrington</span>, Blue
               Collar Coder
             </p>
           </h1>

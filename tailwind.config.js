@@ -14,9 +14,24 @@ module.exports = {
           "0%": { filter: "hue-rotate(0deg)" },
           "100%": { filter: "hue-rotate(360deg)" },
         },
+        emphasize: {
+          "0%": { transform: "skewX(0) scale(1)" },
+          "50%": { transform: "skewX(-30deg) scale(1.1)" },
+          "100%": { transform: "skewX(-12deg) scale(1)" },
+        },
+        bigly: {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.2)",
+          },
+        },
       },
       animation: {
         "hue-rotate": "hue-rotate 3s infinite linear",
+        emphasize: "emphasize 750ms ease-out",
+        bigly: "bigly 750ms ease-in-out",
       },
       colors: {
         "light-green": "rgb(157, 255, 212)",
@@ -52,8 +67,9 @@ module.exports = {
         glitch: "url(/textures/glitch-transition.svg)",
       },
       backgroundSize: {
-        50: "50px 50px",
-        "checker-small": "10px 10px",
+        "checker-sm": "10px 10px",
+        "checker-md": "25px 25px",
+        "checker-lg": "50px 50px",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",

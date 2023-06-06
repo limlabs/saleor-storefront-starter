@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { FC, forwardRef, ForwardRefExoticComponent } from "react";
 
 interface ContentSectionProps {
@@ -9,10 +10,14 @@ export const ContentSection = forwardRef(function ContentSection(
   { children, className = "" }: ContentSectionProps,
   ref
 ) {
-  const fullClassName = `flex flex-col items-center justify-center bg-almost-black relative  ${className}`;
+  const fullClassName = clsx(
+    `flex flex-col  bg-almost-black relative z-100 text-almost-black`,
+    className
+  );
+
   return (
-    <div ref={ref as any} className="relative z-100 text-almost-black">
-      <section className={fullClassName}>{children}</section>
-    </div>
+    <section ref={ref as any} className={fullClassName}>
+      {children}
+    </section>
   );
 });

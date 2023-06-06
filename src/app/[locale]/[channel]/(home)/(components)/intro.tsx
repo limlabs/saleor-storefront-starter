@@ -10,16 +10,13 @@ const MIN_SCALE_DESKTOP = 1.5;
 const MAX_SCALE_DESKTOP = 2.5;
 
 export const Intro = () => {
-  const [fontScale, setFontScale] = useState(1);
+  const [fontScale, setFontScale] = useState(0);
+  const [animateResultsText, setAnimateResultsText] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const isMobile = useMemo(() => {
     return typeof window === "undefined" ? true : window.innerWidth < 800;
   }, []);
-
-  const animateResultsText = useMemo(() => {
-    return fontScale === (isMobile ? MAX_SCALE_MOBILE : MAX_SCALE_DESKTOP);
-  }, [fontScale, isMobile]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,32 +31,43 @@ export const Intro = () => {
 
         const { top, height } = headingRef.current.getBoundingClientRect();
         const offset = Math.max(window.innerHeight - top, 0);
-        let newScale = minScale;
-        if (offset >= top + height * 0.5) {
-          newScale = maxScale;
-        }
 
-        setFontScale(newScale);
+        if (offset >= (top + height) * 0.5) {
+          setAnimateResultsText(true);
+          setTimeout(() => setFontScale(maxScale), 250);
+        }
       }
     };
 
     window.addEventListener("scroll", onScroll);
+    if (fontScale === 0) {
+      onScroll();
+    }
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [isMobile]);
+  }, [fontScale, isMobile]);
 
   return (
-    <ContentSection className="pb-0 px-0 relative z-0">
-      <div className=" flex flex-col">
-        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl italic text-white max-w-xl -sm:px-4">
-          A SENSIBLE CHOICE FOR
-        </h3>
+    <ContentSection className="pb-0 px-0 items-center ">
+      <div className="flex flex-col w-full max-w-5xl overflow-hidden uppercase">
+        <div className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4">
+          A{" "}
+          <span
+            className={clsx("inline-block transform-gpu transition-transform", {
+              "animate-emphasize": animateResultsText,
+              "-skew-x-12": animateResultsText,
+            })}
+          >
+            sensible
+          </span>{" "}
+          choice for
+        </div>
 
-        <h1
+        <div
           ref={headingRef}
           className={clsx(
-            "font-press_start_2p text-light-pink font-thin -sm:text-2xl -md:text-3xl my-12 text-center transition-all duration-700",
+            "font-press_start_2p text-light-pink font-thin -sm:text-2xl -lg:text-3xl my-12 text-center transition-all duration-700",
             {
               "bg-gradient-to-r": true,
               "bg-clip-text": true,
@@ -70,31 +78,30 @@ export const Intro = () => {
           )}
           style={{
             transform: `scale(${fontScale})`,
-
             WebkitTextFillColor: animateResultsText ? "transparent" : "none",
           }}
         >
-          EXTRAORDINARY
-        </h1>
-
-        <h2
+          Extraordinary
+        </div>
+        <div
           className={clsx({
             "font-futura": true,
             "-sm:text-xl": true,
             "-md:text-3xl": true,
             "font-extrabold": true,
             "text-white": true,
-            italic: true,
             "text-center": true,
             "max-w-xl": true,
             "m-auto": true,
+            "animate-bigly": animateResultsText,
           })}
+          style={{ animationDelay: "850ms" }}
         >
-          RESULTS
-        </h2>
+          results
+        </div>
       </div>
 
-      <div className="-sm:text-l -md:text-xl z-10  w-5/6 max-w-3xl font-roboto text-center relative mt-32 p-8">
+      <div className="-sm:text-l -md:text-xl z-10  w-5/6 max-w-3xl font-roboto text-center relative mt-32">
         <p className="font-mono font-bold italic -sm:text-l -md:text-3xl relative z-10 -sm:px-8 -md:px-20 pt-16 pb-14 rounded-t-[150px] block bg-light-pink -sm:leading-10 -md:leading-10">
           Liminal Labs builds software and media for people who value quality
           and timeliness.

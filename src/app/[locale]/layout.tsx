@@ -13,6 +13,7 @@ export const metadata = {
   title: "Home - LIMINAL",
   description:
     "Liminal Labs provides software and media consulting services crafted to help brands thrive in the digital age.",
+  viewport: "width=device-width,initial-scale=1.0",
 };
 
 const roboto = Roboto({

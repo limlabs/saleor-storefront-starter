@@ -18,11 +18,14 @@ interface CheckoutQuantityResponse {
 export const AppRoot: FC<{ children: ReactNode }> = async ({ children }) => {
   return (
     <>
-      <div className="w-screen bg-almost-black">
+
+      <div className="bg-almost-black">
         <Drawer />
         <main id="main-content">{children}</main>
+        <Footer />
       </div>
       <Footer />
+
     </>
   );
 };

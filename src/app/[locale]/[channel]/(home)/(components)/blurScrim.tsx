@@ -12,7 +12,7 @@ export const BlurScrim: FC = () => {
   return (
     <div
       ref={ref}
-      className="w-full h-5/6 bg-repeat absolute top-0 z-20 transition-opacity bg-gray-500 bg-opacity-10"
+      className="w-full h-full absolute top-0 z-20 transition-opacity bg-gray-500 bg-opacity-10"
     ></div>
   );
 };

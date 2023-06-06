@@ -109,14 +109,13 @@ const HomeHeroContent: FC = () => {
   });
 
   return (
-    <div className="h-5/6 overflow-hidden">
+    <>
       <section ref={sectionRef} className="z-10 w-full h-full max-w-full">
         <Canvas shadows>
           <HomeHeroContentScene />
         </Canvas>
       </section>
-      <BlurScrim />
-    </div>
+    </>
   );
 };
 

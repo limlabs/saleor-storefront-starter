@@ -3,8 +3,6 @@ import { ContentSection } from "./contentSection";
 import slideMain from "../../../../public/test-contact/main_slide_background.png";
 import slideBackground from "../../../../public/test-contact/slide-stitched.jpg";
 import vhs from "../../../../public/test-contact/vhs.png";
-import discord from "../../../../public/test-contact/discord.png";
-import linkedin from "../../../../public/test-contact/linkedin.png";
 import jumpIn from "../../../../public/test-contact/jump_in.png";
 import Button from "@/app/daisyui/button";
 import { ContactIcons } from "./contactIcons";
@@ -16,7 +14,7 @@ export default function Contact() {
         <Image
           src={slideBackground}
           alt="slide-background"
-          layout="fill"
+          fill
           className="-sm:hidden -lg:flex"
         />
         <div className="h-full -lg:w-2/3 -sm:w-full relative shadow-shadow-sm">

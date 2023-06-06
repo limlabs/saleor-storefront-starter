@@ -19,15 +19,17 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: "/",
+        destination: "/en-us",
+      },
+      {
         source: "/about",
         destination: "/en-us/about",
       },
-
       {
-        source: "/talk",
-        destination: "/en-us/talk",
+        source: "/contact",
+        destination: "/en-us/contact",
       },
-
       {
         source: "/:locale",
         destination: "/:locale/default-channel",
@@ -39,15 +41,6 @@ const nextConfig = {
       {
         source: "/:locale/p/:slug",
         destination: "/:locale/default-channel/p/:slug",
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/en-us",
-        permanent: false,
       },
     ];
   },

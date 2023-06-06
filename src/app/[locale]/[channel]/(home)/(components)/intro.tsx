@@ -49,9 +49,9 @@ export const Intro = () => {
   }, [fontScale, isMobile]);
 
   return (
-    <ContentSection className="pb-0 px-0 items-center uppercase">
-      <div className="flex flex-col w-full max-w-5xl overflow-hidden">
-        <h3 className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4">
+    <ContentSection className="pb-0 px-0 items-center ">
+      <div className="flex flex-col w-full max-w-5xl overflow-hidden uppercase">
+        <div className="font-futura font-extrabold -sm:text-xl -md:text-3xl text-white max-w-xl -sm:px-4">
           A{" "}
           <span
             className={clsx("inline-block transform-gpu transition-transform", {
@@ -62,9 +62,9 @@ export const Intro = () => {
             sensible
           </span>{" "}
           choice for
-        </h3>
+        </div>
 
-        <h1
+        <div
           ref={headingRef}
           className={clsx(
             "font-press_start_2p text-light-pink font-thin -sm:text-2xl -lg:text-3xl my-12 text-center transition-all duration-700",
@@ -82,8 +82,8 @@ export const Intro = () => {
           }}
         >
           Extraordinary
-        </h1>
-        <h2
+        </div>
+        <div
           className={clsx({
             "font-futura": true,
             "-sm:text-xl": true,
@@ -98,7 +98,7 @@ export const Intro = () => {
           style={{ animationDelay: "850ms" }}
         >
           results
-        </h2>
+        </div>
       </div>
 
       <div className="-sm:text-l -md:text-xl z-10  w-5/6 max-w-3xl font-roboto text-center relative mt-32">

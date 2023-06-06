@@ -7,14 +7,13 @@ import {
   Roboto_Mono,
   EB_Garamond,
 } from "next/font/google";
-import { usePathname } from "next/navigation";
 import { PreloadHomeAssets } from "./[channel]/(home)/(components)/assets";
-import { headers } from "next/headers";
 
 export const metadata = {
   title: "Home - LIMINAL",
   description:
     "Liminal Labs provides software and media consulting services crafted to help brands thrive in the digital age.",
+  viewport: "width=device-width,initial-scale=1.0",
 };
 
 const roboto = Roboto({

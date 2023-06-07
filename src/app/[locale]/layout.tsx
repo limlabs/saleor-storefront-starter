@@ -7,6 +7,7 @@ import {
   Roboto_Mono,
   EB_Garamond,
 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { PreloadHomeAssets } from "./[channel]/(home)/(components)/assets";
 
 export const metadata = {
@@ -67,6 +68,7 @@ export default function RootLayout({
       <PreloadHomeAssets />
       <body>
         <AppRoot>{children}</AppRoot>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 import Logo from "../../../../public/logo-white.png";
 import Image from "next/image";
 import Link from "next/link";
-import { ContactIcons } from "./contactIcons";
+import { DiscordIcon } from "./discordIcon";
+import { LinkedinIcon } from "./linkedinIcon";
 
 export default function Footer() {
   return (
@@ -29,25 +30,8 @@ export default function Footer() {
         </div>
 
         <div className="flex justify-evenly items-center w-full -sm:ml-12">
-          <a href="https://discord.gg/limlabs" target="_blank">
-            <Image
-              src="/test-contact/discord.png"
-              alt="discord icon"
-              height={50}
-              width={50}
-              className="cursor-pointer"
-            />
-          </a>
-
-          <a href="https://www.linkedin.com/company/limlabs/" target="_blank">
-            <Image
-              src="/test-contact/linkedin.png"
-              alt="linkedin icon"
-              height={50}
-              width={50}
-              className="cursor-pointer"
-            />
-          </a>
+          <DiscordIcon />
+          <LinkedinIcon />
         </div>
       </div>
     </footer>

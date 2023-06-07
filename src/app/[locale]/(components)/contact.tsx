@@ -5,17 +5,18 @@ import slideBackground from "../../../../public/test-contact/slide-stitched.jpg"
 import vhs from "../../../../public/test-contact/vhs.png";
 import jumpIn from "../../../../public/test-contact/jump_in.png";
 import Button from "@/app/daisyui/button";
-import { ContactIcons } from "./contactIcons";
+import { DiscordIcon } from "./discordIcon";
+import { LinkedinIcon } from "./linkedinIcon";
 
 export default function Contact() {
   return (
     <ContentSection>
-      <div className=" w-full -lg:h-[80vh] -sm:h-[50vh] relative z-100 flex justify-center items-center">
+      <div className=" w-full -lg:h-[90vh] -sm:h-[90vh] relative z-100 flex justify-center items-center">
         <Image
           src={slideBackground}
           alt="slide background"
           fill
-          className="-sm:hidden -lg:flex"
+          className="-sm:hidden -lg:flex object-cover"
         />
         <div className="h-full -lg:w-2/3 -sm:w-full relative shadow-shadow-sm">
           <Image src={slideMain} alt="slide background layer" layout="fill" />
@@ -24,7 +25,7 @@ export default function Contact() {
           <Image src={jumpIn} alt="jump-in" height={200} />
           <div>
             <a href="mailto:info@liminal.sh">
-              <Button variant="secondary">Say Hey</Button>
+              <Button variant="primary">Say Hey</Button>
             </a>
           </div>
         </div>
@@ -52,8 +53,10 @@ export default function Contact() {
               Look here.
             </h2>
           </div>
-
-          <ContactIcons />
+          <div className="flex justify-evenly mt-12">
+            <DiscordIcon />
+            <LinkedinIcon />
+          </div>
         </div>
       </div>
     </ContentSection>

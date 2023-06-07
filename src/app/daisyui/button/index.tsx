@@ -10,16 +10,29 @@ interface ButtonProps {
 const Button = React.forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
->(function CardActions({ children, variant, glass, disabled }, ref) {
+>(function CardActions(
+  { children, variant = "primary", glass, disabled },
+  ref
+) {
   const modifiers = clsx({
     glass: glass === true,
-    "btn-secondary": variant === "secondary",
-    "btn-primary": variant === "primary",
-    "btn-accent": variant === "accent",
   });
 
+  const backgroundColors = {
+    primary: "rgb(5, 249, 249)",
+    secondary: "rgb(255, 21, 236)",
+    accent: "rgb(157, 255, 212)",
+  };
+
+  const backgroundColor = backgroundColors[variant]; // 'variant' will always be defined here
+
   return (
-    <button disabled={disabled} className={`btn ${modifiers}`} ref={ref}>
+    <button
+      disabled={disabled}
+      style={{ backgroundColor }}
+      className={`py-4 px-16 shadow-button-shadow text-white font-roboto_mono -lg:text-xl -sm:text-base italic font-semibold ${modifiers}`}
+      ref={ref}
+    >
       {children}
     </button>
   );

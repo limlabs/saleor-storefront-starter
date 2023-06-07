@@ -54,6 +54,7 @@ module.exports = {
         "shadow-sm": "  3px 5px 4px 0px rgba(0,0,0,0.3)",
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
         "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
+        "button-shadow": "4px 4px 2px 0px rgba(0,0,0,0.75)",
       },
 
       content: {

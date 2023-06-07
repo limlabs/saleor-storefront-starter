@@ -9,6 +9,30 @@ module.exports = {
       "-lg": "1024px",
     },
     extend: {
+      keyframes: {
+        "hue-rotate": {
+          "0%": { filter: "hue-rotate(0deg)" },
+          "100%": { filter: "hue-rotate(360deg)" },
+        },
+        emphasize: {
+          "0%": { transform: "skewX(0) scale(1)" },
+          "50%": { transform: "skewX(-30deg) scale(1.1)" },
+          "100%": { transform: "skewX(-12deg) scale(1)" },
+        },
+        bigly: {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.2)",
+          },
+        },
+      },
+      animation: {
+        "hue-rotate": "hue-rotate 3s infinite linear",
+        emphasize: "emphasize 750ms ease-out",
+        bigly: "bigly 750ms ease-in-out",
+      },
       colors: {
         "light-green": "rgb(157, 255, 212)",
         "hot-pink": "rgb(255, 21, 236)",
@@ -30,17 +54,22 @@ module.exports = {
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
         "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
       },
+      content: {
+        drip: "url(/img/home/drip.svg)",
+      },
       backgroundImage: {
         checkerboard: `conic-gradient(
             rgb(0, 0, 19) 90deg,
             transparent 90deg 180deg,
             rgb(0, 0, 19) 180deg 270deg,
             transparent 270deg
-            )`,
-        dirt: "url(/dirt.png)",
+        )`,
+        glitch: "url(/textures/glitch-transition.svg)",
       },
       backgroundSize: {
-        50: "50px 50px",
+        "checker-sm": "10px 10px",
+        "checker-md": "25px 25px",
+        "checker-lg": "50px 50px",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",
@@ -62,7 +91,9 @@ module.exports = {
         roboto: ["var(--font-roboto)"],
         nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
-        roboto_mono: ["var(--font-roboto_mono)"],
+        roboto_mono: ["var(--font-mono)"],
+        prompt: ["var(--font-prompt)"],
+        goldman: ["var(--font-goldman)"],
         futura: ["var(--font-futura)"],
         elephant: ["Elephant", ...fontFamily.sans],
       },

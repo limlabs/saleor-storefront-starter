@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",
-    "@next/font": "^13.3.0",
     "@react-three/drei": "^9.66.1",
     "@react-three/fiber": "^8.13.0",
     "@types/node": "18.14.6",
@@ -25,9 +24,10 @@
     "graphql": "^16.6.0",
     "graphql-request": "^5.2.0",
     "graphql-tag": "^2.12.6",
-    "next": "13.2.3",
+    "next": "13.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-scroll-percentage": "^4.3.0",
     "three": "^0.152.0",
     "typescript": "4.9.5"
   },

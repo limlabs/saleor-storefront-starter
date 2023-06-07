@@ -6,51 +6,30 @@ import React, {
   useEffect,
 } from "react";
 import clsx from "clsx";
-import Logo from "../../../../public/logo-white.png";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import LogoMark from "../../../../public/slide-logo.png";
+import { usePathname } from "next/navigation";
 
 import Image from "next/image";
-import useWindowSize from "@/core/client/useWindowSize";
 
 interface DrawerProps {
-  children: ReactNode;
   isOpen?: boolean;
   position?: "left" | "right";
   onClose?: () => void;
 }
 
 const navLinks = [
-  { name: "Shop", path: "/en-us/c/all" },
-  { name: "Services", path: "/en-us/services" },
-  { name: "Talk To Real Humans!", path: "/en-us/talk" },
-  { name: "Zine", path: "/en-us/zine" },
-  { name: "Support Us", path: "/en-us/support" },
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+  { name: "Contact", path: "/contact" },
 ];
 
 const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
-  children,
   isOpen = false,
   position = "right",
   onClose,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(isOpen);
   const [currentPath, setCurrentPath] = useState("");
-
-  const windowSize = useWindowSize();
-  let logoHeight;
-
-  if (windowSize.width !== null) {
-    if (windowSize.width < 500) {
-      logoHeight = 24;
-    } else if (windowSize.width < 800) {
-      logoHeight = 24;
-    } else {
-      logoHeight = 34;
-    }
-  }
-
   const [showSkipLink, setShowSkipLink] = useState(false);
 
   useEffect(() => {
@@ -84,9 +63,8 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
   });
 
   return (
-    <div className="drawer drawer-end">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col  w-full overflow-x-hidden">
+    <>
+      <div className="drawer-content flex flex-col  w-full overflow-x-hidden relative z-20">
         <div className="w-full navbar bg-almost-black">
           <a
             href="#main-content"
@@ -103,9 +81,10 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               className="cursor-pointer hover:scale-110 ease-in-out duration-200"
             >
               <Image
-                src={Logo}
+                src={"/img/logo-white-small.png"}
                 alt="logomark"
-                height={logoHeight}
+                width={120}
+                height={20}
                 className="mr-4"
               />
             </Link>
@@ -127,58 +106,36 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               </svg>
             </label>
           </div>
-          {/* <div className="flex-1 px-2 mx-2">Navbar Title</div> */}
           <div className="flex-none hidden -lg:block space-x-3">
-            <ul className="menu menu-horizontal space-x-3 z-50">
-              <li tabIndex={0}>
-                <a>
-                  Services
-                  <svg
-                    className="fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                  </svg>
-                </a>
-                <ul className="p-2 bg-almost-black z-50">
-                  <li className="hover-bordered">
-                    <a>Software</a>
-                  </li>
-                  <li className="hover-bordered">
-                    <a>Media</a>
-                  </li>
-                </ul>
-              </li>
-
+            <ul className="menu menu-horizontal space-x-3 z-50 pr-2">
               <li>
-                <Link href="/talk">Talk To Us</Link>
+                <Link href="/en-us">Home</Link>
               </li>
-
               <li>
-                <Link href="/en-us/c/all">Store</Link>
+                <Link href="/en-us/contact">Talk To Us</Link>
               </li>
             </ul>
           </div>
         </div>
-        <main id="main-content">{children}</main>
       </div>
-      <div className="drawer-side">
-        <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 bg-light-gray text-almost-black">
-          {navLinks.map((item) => (
-            <li
-              key={item.name}
-              className={isActive(item.path) ? "btn-primary rounded-md" : ""}
-            >
-              <Link href={item.path}>{item.name}</Link>
-            </li>
-          ))}
-        </ul>
+      <div className="hidden drawer drawer-end">
+        <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-80 bg-light-gray text-almost-black">
+            {navLinks.map((item) => (
+              <li
+                key={item.name}
+                className={isActive(item.path) ? "btn-primary rounded-md" : ""}
+              >
+                <Link href={item.path}>{item.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

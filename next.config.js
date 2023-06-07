@@ -1,20 +1,35 @@
+const immutableResourceHeader = {
+  key: "Cache-Control",
+  value: "public, max-age=31536000, immutable",
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
     appDir: true,
   },
+  async headers() {
+    return [
+      {
+        source: `/3d/:path*`,
+        headers: [immutableResourceHeader],
+      },
+    ];
+  },
   async rewrites() {
     return [
+      {
+        source: "/",
+        destination: "/en-us",
+      },
       {
         source: "/about",
         destination: "/en-us/about",
       },
-
       {
-        source: "/talk",
-        destination: "/en-us/talk",
+        source: "/contact",
+        destination: "/en-us/contact",
       },
-
       {
         source: "/:locale",
         destination: "/:locale/default-channel",
@@ -26,15 +41,6 @@ const nextConfig = {
       {
         source: "/:locale/p/:slug",
         destination: "/:locale/default-channel/p/:slug",
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/en-us",
-        permanent: false,
       },
     ];
   },

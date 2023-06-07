@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Hero from "../../../../public/about-stitched.jpg";
-import Button from "@/app/daisyui/button";
-import LogoBlack from "../../../../public/logo-black.png";
 import HeroMobile from "../../../../public/about_mobile.jpg";
+import Button from "@/app/daisyui/button";
 
 export default function AboutHero() {
   return (
@@ -16,7 +15,7 @@ export default function AboutHero() {
       />
       <div className="z-10 flex flex-col justify-center items-center text-almost-black  ">
         <div className="m-4">
-          <Image src={LogoBlack} height={75} alt="logo"></Image>
+          <Image src="/logo-black.png" height={75} alt="logo"></Image>
         </div>
         <h3 className="-lg:text-4xl font-roboto_mono font-semibold p-4 text-center  text-white ">
           BLURRING THE LINE BETWEEN WHAT IS POSSIBLE

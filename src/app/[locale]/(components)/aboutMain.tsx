@@ -12,7 +12,7 @@ export default function AboutMain() {
         <Image
           src={Texture}
           height={275}
-          alt="texture"
+          alt="liminal cafeteria"
           className="rounded-lg shadow-shadow-sm -lg:h-96 -lg:w-96"
         />
       </div>
@@ -28,7 +28,7 @@ export default function AboutMain() {
           <Image
             src={Slide}
             height={30}
-            alt="slide"
+            alt="small slide logo"
             className="-lg:h-10 -lg:w-10"
           />
         </div>

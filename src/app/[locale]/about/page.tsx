@@ -5,8 +5,8 @@ import Footer from "../(components)/footer";
 
 export default function AboutPage() {
   return (
-    <main className=" w-full ">
-      <div className="h-screen">
+    <main className=" relative overflow-x-hidden">
+      <div className="-lg:h-[85vh] -sm:h-[90vh]">
         <AboutHero />
       </div>
       <div className="bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow h-auto">
@@ -17,7 +17,6 @@ export default function AboutPage() {
           <AboutTeam />
         </div>
       </div>
-      <Footer />
     </main>
   );
 }

@@ -26,17 +26,17 @@ export const Testimonials: FC = () => {
     >
       <Image
         src={"/img/home/pink_squiggle.png"}
-        alt=""
+        alt="pink squiggle image"
         width={15896}
         height={1859}
         className="absolute w-full bottom-[99%]"
       />
-      <div className="flex flex-col justify-center items-center my-14 w-full max-w-2xl">
+      <div className="flex flex-col justify-center -sm:px-4    items-center my-14 w-full max-w-2xl">
         <div className="flex">
           <h1 className="text-9xl font-garamond text-hot-pink relative top-[-20px]">
             &quot;
           </h1>
-          <h1 className="text-almost-black  -sm:text-xl font-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4 -sm:leading-10 -md:leading-10 -lg:leading-10 ">
+          <h1 className="text-almost-black  -sm:text-lg font-mono -lg:text-4xl -md:text-5xl -sm:mb-0 -md:mb-4 -sm:leading-10 -md:leading-10 -lg:leading-10 ">
             The folks at Liminal are highly skilled, productive, and reliable.
             Best of all, they are always up for a challenge!
             <p className="font-roboto -lg:text-2xl -sm:text-xl mt-4">

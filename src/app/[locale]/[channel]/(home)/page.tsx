@@ -9,7 +9,7 @@ export default function HomePage() {
       <HomeHero />
       <Intro />
       <Testimonials />
-      <Contact />
+      {/* <Contact /> */}
     </main>
   );
 }

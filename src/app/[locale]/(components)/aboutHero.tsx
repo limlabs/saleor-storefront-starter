@@ -6,16 +6,26 @@ import Button from "@/app/daisyui/button";
 export default function AboutHero() {
   return (
     <div className=" relative h-full  flex flex-row justify-center items-center">
-      <Image src={Hero} alt="background" fill className="-sm:hidden -lg:flex" />
       <Image
-        src={HeroMobile}
-        alt="background"
+        src="/about-stitched.jpg"
+        alt="liminal hallway background"
+        fill
+        className="-sm:hidden -lg:flex"
+      />
+      <Image
+        src="/about_mobile.jpg"
+        alt="mobile palm tree background"
         fill
         className="-lg:hidden -sm:flex"
       />
       <div className="z-10 flex flex-col justify-center items-center text-almost-black  ">
         <div className="m-4">
-          <Image src="/logo-black.png" height={75} alt="logo"></Image>
+          <Image
+            src="/logo-black.png"
+            height={200}
+            width={400}
+            alt="liminal logo black"
+          ></Image>
         </div>
         <h3 className="-lg:text-4xl font-roboto_mono font-semibold p-4 text-center  text-white ">
           BLURRING THE LINE BETWEEN WHAT IS POSSIBLE

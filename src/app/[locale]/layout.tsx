@@ -1,12 +1,6 @@
 import { AppRoot } from "./(components)/root";
 import "./globals.css";
-import {
-  Nunito,
-  Roboto,
-  Press_Start_2P,
-  Roboto_Mono,
-  EB_Garamond,
-} from "next/font/google";
+import { Nunito, Roboto, Press_Start_2P, Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { PreloadHomeAssets } from "./[channel]/(home)/(components)/assets";
 
@@ -39,12 +33,6 @@ const roboto_mono = Roboto_Mono({
   variable: "--font-roboto_mono",
 });
 
-const eb_garamond = EB_Garamond({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-garamond",
-});
-
 export default function RootLayout({
   children,
   params,
@@ -60,7 +48,6 @@ export default function RootLayout({
       className={`
         ${roboto.variable} 
         ${roboto_mono.variable}
-        ${eb_garamond.variable}
         ${nunito.variable}
         ${press_start_2p.variable}
       `}

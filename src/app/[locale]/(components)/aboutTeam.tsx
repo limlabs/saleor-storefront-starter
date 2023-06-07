@@ -10,14 +10,14 @@ export default function AboutTeam() {
     <div className=" -sm:grid -sm:grid-rows-about-grid-mobile -lg:grid-rows-2 justify-center justify-items-center items-center h-screen ">
       <div className=" -lg:grid -lg:grid-cols-2 justify-center items-center w-screen">
         <div className="-sm:hidden -lg:flex flex justify-center  items-center h-20 w-full bg-almost-black left-0 rounded-r-lg shadow-shadow-sm">
-          <Image src={Logo} alt="logo" height={30} />
+          <Image src={Logo} alt="liminal logo black" height={30} />
         </div>
         <div className="flex w-full  justify-center items-center">
           <Image
             src={Background}
             height={275}
             width={275}
-            alt="texture"
+            alt="liminal window image"
             className="rounded-lg shadow-shadow-sm -lg:h-95 -lg:w-95"
           />
         </div>
@@ -31,7 +31,7 @@ export default function AboutTeam() {
           <Image
             src={Slide}
             height={30}
-            alt="slide"
+            alt="small slide logo"
             className="-lg:h-10 -lg:w-10"
           />
         </div>

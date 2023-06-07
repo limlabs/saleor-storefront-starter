@@ -114,6 +114,9 @@ const Drawer: React.FC<PropsWithChildren<DrawerProps>> = ({
               <li>
                 <Link href="/en-us/contact">Talk To Us</Link>
               </li>
+              <li>
+                <Link href="/en-us/services">Services</Link>
+              </li>
             </ul>
           </div>
         </div>

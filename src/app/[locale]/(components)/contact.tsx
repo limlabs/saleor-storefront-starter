@@ -13,26 +13,38 @@ export default function Contact() {
       <div className=" w-full -lg:h-[80vh] -sm:h-[50vh] relative z-100 flex justify-center items-center">
         <Image
           src={slideBackground}
-          alt="slide-background"
+          alt="slide background"
           fill
           className="-sm:hidden -lg:flex"
         />
         <div className="h-full -lg:w-2/3 -sm:w-full relative shadow-shadow-sm">
-          <Image src={slideMain} alt="slide-layer" layout="fill" />
+          <Image src={slideMain} alt="slide background layer" layout="fill" />
         </div>
         <div className="absolute flex flex-col justify-center items-center">
           <Image src={jumpIn} alt="jump-in" height={200} />
           <div>
-            <Button variant="secondary">Say Hey</Button>
+            <a href="mailto:info@liminal.sh">
+              <Button variant="secondary">Say Hey</Button>
+            </a>
           </div>
         </div>
       </div>
-      <div className="h-[30vh] flex flex-col w-full justify-center items-center -lg:mt-32 -lg:mb-32">
-        <Image src={vhs} alt="glitch" width={2440} />
-        <Image src={vhs} alt="glitch" width={2440} className="-lg:hidden" />
-        <Image src={vhs} alt="glitch" width={2440} className="-lg:hidden" />
+      <div className="h-[30vh] flex flex-col w-full justify-center items-center -lg:mt-32 -sm:mt-16 -lg:mb-32">
+        <Image src={vhs} alt="glitch effect" width={2440} />
+        <Image
+          src={vhs}
+          alt="glitch effect"
+          width={2440}
+          className="-lg:hidden"
+        />
+        <Image
+          src={vhs}
+          alt="glitch effect"
+          width={2440}
+          className="-lg:hidden"
+        />
         <div className="absolute">
-          <div className="flex -lg:flex-row -sm:flex-col">
+          <div className="flex -lg:flex-row -sm:flex-col -sm:ml-6">
             <h2 className="font-press_start_2p text-light-pink -lg:text-3xl -sm:text-xl -lg:mr-8">
               Find us.
             </h2>

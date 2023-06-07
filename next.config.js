@@ -31,6 +31,11 @@ const nextConfig = {
         destination: "/en-us/contact",
       },
       {
+        source: "/services",
+        destination: "/en-us/services",
+      },
+
+      {
         source: "/:locale",
         destination: "/:locale/default-channel",
       },

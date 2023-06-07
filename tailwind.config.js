@@ -45,6 +45,7 @@ module.exports = {
         "dark-purp": "rgb(58, 1, 95)",
         "dark-blue": "rgb(19, 27, 108)",
         "blue-main": "rgb(68, 63, 228)",
+        "liminal-teal": "rgb(75, 207, 190)",
       },
       boxShadow: {
         "header-shadow": "0px 3px 11px 1px rgba(0,0,0,0.89)",
@@ -54,6 +55,7 @@ module.exports = {
         "shadow-hero": "3px -2px 12px 0px rgba(0,0,0,0.75)",
         "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
       },
+
       content: {
         drip: "url(/img/home/drip.svg)",
       },

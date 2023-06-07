@@ -1,21 +1,16 @@
-import AboutMain from "../(components)/aboutMain";
-import AboutHero from "../(components)/aboutHero";
-import AboutTeam from "../(components)/aboutTeam";
+import { Intro } from "./(components)/intro";
+import { ServicesHero } from "./(components)/servicesHero";
+import { SeeAndFeel } from "./(components)/seeAndFeel";
 
-export default function AboutPage() {
+export default function HomePage() {
   return (
-    <main className="h-auto mt-header-margin w-full ">
-      <div className="h-main-height">
-        <AboutHero />
+    <main className="relative bg-almost-black">
+      <div className="h-screen">
+        <ServicesHero />
       </div>
-      <div className="bg-gradient-to-b  from-light-pink to-light-blue-main shadow-inset-shadow ">
-        <div className="h-main-height ">
-          <AboutMain />
-        </div>
-        <div className="h-main-height ">
-          <AboutTeam />
-        </div>
-      </div>
+
+      <Intro />
+      <SeeAndFeel />
     </main>
   );
 }

@@ -156,6 +156,8 @@ module.exports = {
           position: "relative",
           display: "inline-block",
           zIndex: "1",
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
         },
         ".liminal-text::before": {
           content: "attr(data-text)",
@@ -166,17 +168,18 @@ module.exports = {
           zIndex: -1,
           top: 0,
           left: "-1px",
+          padding: "inherit",
         },
         ".liminal-text::after": {
           content: "attr(data-text)",
           display: "block",
           color: "rgb(255, 21, 236)",
-
           pointerEvents: "none",
           position: "absolute",
           zIndex: -1,
           top: 0,
           left: "1px",
+          padding: "inherit",
         },
       };
 

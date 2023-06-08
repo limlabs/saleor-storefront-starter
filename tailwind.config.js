@@ -27,15 +27,30 @@ module.exports = {
             transform: "scale(1.2)",
           },
         },
+        "honeydrop-fall": {
+          "0%": { top: "10px", transform: "scaleY(1)" },
+          "25%": { top: "105px", transform: "scaleY(1.5)" },
+          "50%": { top: "200vh", transform: "scaleY(1)" },
+          "100%": { top: "200vh", transform: "scaleY(1)" },
+        },
+        "honeydrop-stretch": {
+          "0%": { height: "40px", width: "20px" },
+          "25%": { height: "100px", width: "22px" },
+          "50%": { height: "40px", width: "20px" },
+          "100%": { height: "40px", width: "20px" },
+        },
       },
       animation: {
         "hue-rotate": "hue-rotate 3s infinite linear",
         emphasize: "emphasize 750ms ease-out",
         bigly: "bigly 750ms ease-in-out",
+        "honeydrop-fall": "honeydrop-fall 12s infinite",
+        "honeydrop-stretch": "honeydrop-stretch 12s infinite",
       },
       colors: {
         "light-green": "rgb(157, 255, 212)",
         "hot-pink": "rgb(255, 21, 236)",
+        "liminal-hot-pink": "rgb(255, 21, 236)",
         "light-blue-main": "rgb(5, 249, 249)",
         "lightest-green": "rgb(157, 255, 212)",
         "light-pink": "rgb(255, 191, 244)",
@@ -46,6 +61,7 @@ module.exports = {
         "dark-blue": "rgb(19, 27, 108)",
         "blue-main": "rgb(68, 63, 228)",
         "liminal-teal": "rgb(75, 207, 190)",
+        white: "#FFF5E6",
       },
       boxShadow: {
         "header-shadow": "0px 3px 11px 1px rgba(0,0,0,0.89)",
@@ -56,11 +72,19 @@ module.exports = {
         "shadow-white": " 3px 5px 5px 0px rgba(151,252,237,0.2)",
         "button-shadow": "4px 4px 2px 0px rgba(0,0,0,0.75)",
       },
-
+      backgroundPosition: {
+        "top-up": "50% -300px",
+      },
       content: {
         drip: "url(/img/home/drip.svg)",
       },
       backgroundImage: {
+        "circular-gradient-secondary": `radial-gradient(
+          ellipse, 
+          rgba(5,249,249,1) 0%, 
+          rgba(5,249,249,1) 40%, 
+          rgba(5,249,249,0) 65%
+        )`,
         checkerboard: `conic-gradient(
             rgb(0, 0, 19) 90deg,
             transparent 90deg 180deg,
@@ -73,6 +97,10 @@ module.exports = {
         "checker-sm": "10px 10px",
         "checker-md": "25px 25px",
         "checker-lg": "50px 50px",
+        "top-up-stretch": "130%",
+      },
+      borderRadius: {
+        "honeydrop-tear": "100% 100% 110% 110%",
       },
       gridTemplateColumns: {
         "header-grid": "1fr 6fr 1fr",
@@ -92,7 +120,6 @@ module.exports = {
       },
       fontFamily: {
         roboto: ["var(--font-roboto)"],
-        nunito: ["var(--font-nunito)"],
         press_start_2p: ["var(--font-press_start_2p)"],
         roboto_mono: ["var(--font-mono)"],
         prompt: ["var(--font-prompt)"],
@@ -166,6 +193,7 @@ module.exports = {
           secondary: "rgb(255, 21, 236)",
           accent: "rgb(58, 1, 95)",
           neutral: "rgb(0, 0, 19)",
+
           "base-100": "rgb(42, 48, 60)",
         },
       },
@@ -178,9 +206,6 @@ module.exports = {
           "base-100": "rgb(42, 48, 60)",
         },
       },
-      "dark",
-      "light",
-      "synthwave",
     ],
   },
 };

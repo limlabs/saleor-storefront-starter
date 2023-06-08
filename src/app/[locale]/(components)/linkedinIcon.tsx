@@ -1,32 +1,27 @@
-"use client";
-import discord from "../../../../public/test-contact/discord.png";
-import linkedin from "../../../../public/test-contact/linkedin.png";
-
+import clsx from "clsx";
 import Image from "next/image";
-import { FC } from "react";
-import useWindowSize from "@/core/client/useWindowSize";
 
-export const LinkedinIcon: FC = () => {
-  const windowSize = useWindowSize();
-  let iconHeight;
+const sizes = {
+  sm: "-sm:w-[40px] -sm:h-[40px] -md:w-[50px] -md:h-[50px]",
+  md: "-sm:w-[50px] -sm:h-[50px] -md:w-[60px] -md:h-[60px]",
+  lg: "-sm:w-[60px] -sm:h-[60px] -md:w-[70px] -md:h-[70px]",
+};
 
-  if (windowSize.width !== null) {
-    if (windowSize.width < 500) {
-      iconHeight = 40;
-    } else if (windowSize.width < 800) {
-      iconHeight = 40;
-    } else {
-      iconHeight = 50;
-    }
-  }
+export const LinkedinIcon = ({
+  size = "sm",
+}: {
+  size?: keyof typeof sizes;
+}) => {
+  const className = clsx("cursor-pointer", sizes[size]);
   return (
     <div>
       <a href="https://www.linkedin.com/company/limlabs/" target="_blank">
         <Image
-          src={linkedin}
-          alt="discord"
-          height={iconHeight}
-          className="cursor-pointer"
+          src={"/img/icons/linkedin.png"}
+          alt="LinkedIn Icon"
+          width={70}
+          height={70}
+          className={className}
         />
       </a>
     </div>

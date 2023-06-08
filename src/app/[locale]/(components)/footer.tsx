@@ -6,30 +6,32 @@ import { LinkedinIcon } from "./linkedinIcon";
 
 export default function Footer() {
   return (
-    <footer className="-sm:h-3/5 -md:h-72 -sm:shadow-none -lg:h-44  -lg:grid grid-cols-2 items-center justify-items-center -lg:pl-12 py-12 mt-0 bg-almost-black text-white -sm:flex justify-center">
-      <div className="mr-12 -sm:hidden -lg:flex">
-        <Image src={Logo} alt="liminal logo white" height={50} />
+    <footer className="w-full mt-12 -sm:flex -sm:flex-col -md:grid -md:grid-cols-3 items-center -md:px-12 -md:pr-12 py-12 bg-almost-black text-white justify-center">
+      <div>
+        <Image
+          src={Logo}
+          alt="liminal logo white"
+          height={50}
+          className="-md:scale-75 -lg:scale-100 -md:-translate-x-[12.5%] -lg:translate-x-0 -sm:mb-6 -md:mb-0"
+        />
       </div>
-
-      <div className="-lg:grid grid-cols-2 w-5/6 justify-items-center content-center -sm:flex justify-evenly -sm:ml-8">
-        <div>
-          <p className="text-xl font-roboto_mono text-light-green">
-            Liminal.sh
-          </p>
-          <ul className="-lg:text-sm -sm:text-xs -md:text-xl font-roboto font-extralight -sm:mt-2">
-            <li className="cursor-pointer hover:text-light-pink mb-px">
-              <Link href={"/contact"}>Contact</Link>
-            </li>
-            <li className="cursor-pointer hover:text-light-pink mb-px">
-              <Link href={"/about"}>About Us</Link>
-            </li>
-            <li className="cursor-pointer hover:text-light-pink mb-px">
-              <Link href={"/services"}>Services</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="flex justify-evenly items-center w-full -sm:ml-12">
+      <div className="m-auto w-full max-w-xs pt-2 pb-4 text-center">
+        Copyright © {new Date().getFullYear()} Liminal Labs LLC.
+        All&nbsp;Rights&nbsp;Reserved.
+      </div>
+      <div className="-sm:justify-between -md:justify-end -sm:flex w-full -sm:max-w-[90%] -md:max-w-none">
+        <ul className="-sm:text-lg -md:text-sm font-roboto font-extralight">
+          <li className="cursor-pointer hover:text-light-pink mb-px">
+            <Link href={"/"}>Home</Link>
+          </li>
+          <li className="cursor-pointer hover:text-light-pink mb-px">
+            <Link href={"/privacy.html"}>Privacy Policy</Link>
+          </li>
+          <li className="cursor-pointer hover:text-light-pink mb-px">
+            <Link href={"/contact"}>Contact</Link>
+          </li>
+        </ul>
+        <div className="flex justify-end items-center -sm:ml-4 gap-4">
           <DiscordIcon />
           <LinkedinIcon />
         </div>

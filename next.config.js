@@ -1,3 +1,7 @@
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const immutableResourceHeader = {
   key: "Cache-Control",
   value: "public, max-age=31536000, immutable",
@@ -20,7 +24,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/en-us",
+        destination: "/en-us/home",
       },
       {
         source: "/about",
@@ -67,4 +71,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

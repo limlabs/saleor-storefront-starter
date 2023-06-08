@@ -1,8 +1,8 @@
 import { AppRoot } from "./(components)/root";
 import "./globals.css";
-import { Nunito, Roboto, Press_Start_2P, Roboto_Mono } from "next/font/google";
+import { Roboto, Press_Start_2P, Roboto_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import { PreloadHomeAssets } from "./[channel]/(home)/(components)/assets";
+import { PreloadHomeAssets } from "./home/(components)/assets";
 
 export const metadata = {
   title: "Home - LIMINAL",
@@ -16,11 +16,7 @@ const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
 });
-const nunito = Nunito({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-nunito",
-});
+
 const press_start_2p = Press_Start_2P({
   weight: "400",
   subsets: ["latin"],
@@ -48,12 +44,14 @@ export default function RootLayout({
       className={`
         ${roboto.variable} 
         ${roboto_mono.variable}
-        ${nunito.variable}
         ${press_start_2p.variable}
       `}
     >
-      <PreloadHomeAssets />
-      <body>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <PreloadHomeAssets />
+      </head>
+      <body className="bg-almost-black">
         <AppRoot>{children}</AppRoot>
         <Analytics />
       </body>

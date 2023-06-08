@@ -1,0 +1,61 @@
+import { threeDimensionalAssetPath } from "@/core/constants";
+
+export function PreloadHomeAssets() {
+  return (
+    <>
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("models/slide.gltf")}
+        as="fetch"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("environments/home.hdr")}
+        as="fetch"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("textures/home.webp")}
+        as="image"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("materials/slide/basecolor.webp")}
+        as="image"
+        type="image/webp"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("materials/slide/ambientOcclusion.jpg")}
+        as="image"
+        type="image/jpeg"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("materials/slide/roughness.jpg")}
+        as="image"
+        type="image/jpeg"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("materials/slide/normal.jpg")}
+        as="image"
+        type="image/jpeg"
+      />
+      <link
+        crossOrigin="anonymous"
+        rel="preload"
+        href={threeDimensionalAssetPath("materials/slide/metallic.webp")}
+        as="image"
+        type="image/jpeg"
+      />
+    </>
+  );
+}

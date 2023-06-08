@@ -1,8 +1,22 @@
+"use client";
+
+import clsx from "clsx";
 import { ReactNode } from "react";
+import { useDrawer } from ".";
 
 export const DrawerContent = ({ children }: { children: ReactNode }) => {
+  const { sidebarOpen } = useDrawer();
   return (
-    <div className="drawer-content flex flex-col  w-full overflow-x-hidden relative z-20">
+    <div
+      className={clsx(
+        "drawer-content flex flex-col w-full h-full overflow-x-hidden relative z-20",
+        {
+          "h-screen": sidebarOpen,
+          "overflow-y-hidden": sidebarOpen,
+        }
+      )}
+      aria-hidden={sidebarOpen}
+    >
       {children}
     </div>
   );

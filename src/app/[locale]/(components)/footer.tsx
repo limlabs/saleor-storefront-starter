@@ -28,7 +28,7 @@ export default function Footer() {
             <Link href={"/privacy.html"}>Privacy Policy</Link>
           </li>
           <li className="cursor-pointer hover:text-light-pink mb-px">
-            <Link href={"/contact"}>Contact</Link>
+            <Link href={"/en-us/contact"}>Contact</Link>
           </li>
         </ul>
         <div className="flex justify-end items-center -sm:ml-4 gap-4">

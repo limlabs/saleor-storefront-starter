@@ -13,7 +13,7 @@ export const Contact = () => {
             We&#39;re here to&nbsp;help
           </h1>
           <div className="mt-4">
-            <Link href="/contact">
+            <Link href="/en-us/contact">
               <Button variant="secondary" className="text-white">
                 Get in Touch
               </Button>

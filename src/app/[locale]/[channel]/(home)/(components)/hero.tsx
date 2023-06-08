@@ -19,7 +19,7 @@ export const HomeHero = () => {
       </div>
       <Image
         src="/textures/glitch-transition.svg"
-        alt=""
+        alt="glitch texture"
         priority
         width={3819}
         height={251}

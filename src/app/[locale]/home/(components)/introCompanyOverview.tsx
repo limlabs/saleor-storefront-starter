@@ -9,7 +9,7 @@ export const IntroCompanyOverview = () => {
         timeliness.
       </p>
       <p className="-sm:px-2 -md:px-8 w-full mt-10 z-20  leading-8 -md:max-w-[80%]">
-        Our team combines deep background in software engineering and media
+        Our team combines a deep background in software engineering and media
         production with the latest in emerging technologies to deliver solutions
         that are both innovative and practical for organizations of
         all&nbsp;sizes.

@@ -14,7 +14,7 @@ export const Contact = () => {
           </h1>
           <div className="mt-4">
             <Link href="/en-us/contact">
-              <Button variant="secondary" className="text-white">
+              <Button variant="secondary" className="text-white animate-bounce">
                 Get in Touch
               </Button>
             </Link>

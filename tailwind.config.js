@@ -105,7 +105,57 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    function ({ addComponents }) {
+      const newComponents = {
+        ".reflected-text": {
+          position: "relative",
+          display: "inline-block",
+          transform: "rotateZ(-2deg)",
+        },
+        ".reflected-text::after": {
+          content: "attr(data-text)",
+          display: "block",
+          transform: "rotateX(-145deg) rotateZ(-2deg)  translateZ(-5px)",
+
+          opacity: "0.2",
+          position: "absolute",
+          top: "50%",
+          left: "0",
+          pointerEvents: "none",
+        },
+        ".liminal-text": {
+          position: "relative",
+          display: "inline-block",
+          zIndex: "1",
+        },
+        ".liminal-text::before": {
+          content: "attr(data-text)",
+          display: "block",
+          color: "rgb(5, 249, 249)",
+          pointerEvents: "none",
+          position: "absolute",
+          zIndex: -1,
+          top: 0,
+          left: "-1px",
+        },
+        ".liminal-text::after": {
+          content: "attr(data-text)",
+          display: "block",
+          color: "rgb(255, 21, 236)",
+
+          pointerEvents: "none",
+          position: "absolute",
+          zIndex: -1,
+          top: 0,
+          left: "1px",
+        },
+      };
+
+      addComponents(newComponents);
+    },
+  ],
 
   //daisyUI config
   daisyui: {

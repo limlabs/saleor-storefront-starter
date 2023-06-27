@@ -21,6 +21,7 @@ export type Scalars = {
   Float: number;
   Date: any;
   DateTime: string;
+  Day: any;
   Decimal: any;
   GenericScalar: any;
   JSON: Record<string, any>;
@@ -146,6 +147,12 @@ export type IAccountInput = {
   languageCode?: InputMaybe<ILanguageCodeEnum>;
   /** Family name. */
   lastName?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
 };
 
 /** Register a new user. */
@@ -529,6 +536,14 @@ export type IApp = INode &
      */
     author?: Maybe<Scalars["String"]>;
     /**
+     * App's brand data.
+     *
+     * Added in Saleor 3.14.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    brand?: Maybe<IAppBrand>;
+    /**
      * URL to iframe with the configuration for the app.
      * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
      */
@@ -654,6 +669,56 @@ export type IAppActivate = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   appErrors: Array<IAppError>;
   errors: Array<IAppError>;
+};
+
+/**
+ * Represents the app's brand data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppBrand = {
+  __typename?: "AppBrand";
+  /**
+   * App's logos details.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  logo: IAppBrandLogo;
+};
+
+/**
+ * Represents the app's brand logo data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppBrandLogo = {
+  __typename?: "AppBrandLogo";
+  /**
+   * URL to the default logo image.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  default: Scalars["String"];
+};
+
+/**
+ * Represents the app's brand logo data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppBrandLogoDefaultArgs = {
+  format?: InputMaybe<IIconThumbnailFormatEnum>;
+  size?: InputMaybe<Scalars["Int"]>;
 };
 
 export type IAppCountableConnection = {
@@ -891,6 +956,14 @@ export type IAppInstallation = IJob &
   INode & {
     __typename?: "AppInstallation";
     appName: Scalars["String"];
+    /**
+     * App's brand data.
+     *
+     * Added in Saleor 3.14.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    brand?: Maybe<IAppBrand>;
     /** Created date time of job in ISO 8601 format. */
     createdAt: Scalars["DateTime"];
     id: Scalars["ID"];
@@ -920,6 +993,56 @@ export type IAppInstalled = IEvent & {
   recipient?: Maybe<IApp>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Represents the app's manifest brand data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppManifestBrand = {
+  __typename?: "AppManifestBrand";
+  /**
+   * App's logos details.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  logo: IAppManifestBrandLogo;
+};
+
+/**
+ * Represents the app's manifest brand data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppManifestBrandLogo = {
+  __typename?: "AppManifestBrandLogo";
+  /**
+   * Data URL with a base64 encoded logo image.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  default: Scalars["String"];
+};
+
+/**
+ * Represents the app's manifest brand data.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IAppManifestBrandLogoDefaultArgs = {
+  format?: InputMaybe<IIconThumbnailFormatEnum>;
+  size?: InputMaybe<Scalars["Int"]>;
 };
 
 export type IAppManifestExtension = {
@@ -1304,6 +1427,53 @@ export type IAttributeBulkDelete = {
   errors: Array<IAttributeError>;
 };
 
+/**
+ * Creates/updates translations for attributes.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+ */
+export type IAttributeBulkTranslate = {
+  __typename?: "AttributeBulkTranslate";
+  /** Returns how many translations were created/updated. */
+  count: Scalars["Int"];
+  errors: Array<IAttributeBulkTranslateError>;
+  /** List of the translations. */
+  results: Array<IAttributeBulkTranslateResult>;
+};
+
+export type IAttributeBulkTranslateError = {
+  __typename?: "AttributeBulkTranslateError";
+  /** The error code. */
+  code: IAttributeTranslateErrorCode;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+  /** Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  path?: Maybe<Scalars["String"]>;
+};
+
+export type IAttributeBulkTranslateInput = {
+  /** External reference of an attribute. */
+  externalReference?: InputMaybe<Scalars["String"]>;
+  /** Attribute ID. */
+  id?: InputMaybe<Scalars["ID"]>;
+  /** Translation language code. */
+  languageCode: ILanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: INameTranslationInput;
+};
+
+export type IAttributeBulkTranslateResult = {
+  __typename?: "AttributeBulkTranslateResult";
+  /** List of errors occurred on translation attempt. */
+  errors?: Maybe<Array<IAttributeBulkTranslateError>>;
+  /** Attribute translation data. */
+  translation?: Maybe<IAttributeTranslation>;
+};
+
 export type IAttributeChoicesSortField =
   /** Sort attribute choice by name. */
   | "NAME"
@@ -1601,6 +1771,13 @@ export type IAttributeTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/** An enumeration. */
+export type IAttributeTranslateErrorCode =
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND"
+  | "REQUIRED";
+
 export type IAttributeTranslation = INode & {
   __typename?: "AttributeTranslation";
   id: Scalars["ID"];
@@ -1755,6 +1932,53 @@ export type IAttributeValueBulkDelete = {
   errors: Array<IAttributeError>;
 };
 
+/**
+ * Creates/updates translations for attributes values.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+ */
+export type IAttributeValueBulkTranslate = {
+  __typename?: "AttributeValueBulkTranslate";
+  /** Returns how many translations were created/updated. */
+  count: Scalars["Int"];
+  errors: Array<IAttributeValueBulkTranslateError>;
+  /** List of the translations. */
+  results: Array<IAttributeValueBulkTranslateResult>;
+};
+
+export type IAttributeValueBulkTranslateError = {
+  __typename?: "AttributeValueBulkTranslateError";
+  /** The error code. */
+  code: IAttributeValueTranslateErrorCode;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+  /** Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  path?: Maybe<Scalars["String"]>;
+};
+
+export type IAttributeValueBulkTranslateInput = {
+  /** External reference of an attribute value. */
+  externalReference?: InputMaybe<Scalars["String"]>;
+  /** Attribute value ID. */
+  id?: InputMaybe<Scalars["ID"]>;
+  /** Translation language code. */
+  languageCode: ILanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: IAttributeValueTranslationInput;
+};
+
+export type IAttributeValueBulkTranslateResult = {
+  __typename?: "AttributeValueBulkTranslateResult";
+  /** List of errors occurred on translation attempt. */
+  errors?: Maybe<Array<IAttributeValueBulkTranslateError>>;
+  /** Attribute value translation data. */
+  translation?: Maybe<IAttributeValueTranslation>;
+};
+
 export type IAttributeValueCountableConnection = {
   __typename?: "AttributeValueCountableConnection";
   edges: Array<IAttributeValueCountableEdge>;
@@ -1886,17 +2110,23 @@ export type IAttributeValueInput = {
   /** Represents the date/time value of the attribute value. */
   dateTime?: InputMaybe<Scalars["DateTime"]>;
   /**
-   * Attribute value ID.
+   * Attribute value ID or external reference.
    *
    * Added in Saleor 3.9.
    */
   dropdown?: InputMaybe<IAttributeValueSelectableTypeInput>;
+  /**
+   * External ID of this attribute.
+   *
+   * Added in Saleor 3.14.
+   */
+  externalReference?: InputMaybe<Scalars["String"]>;
   /** URL of the file attribute. Every time, a new value is created. */
   file?: InputMaybe<Scalars["String"]>;
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars["ID"]>;
   /**
-   * List of attribute value IDs.
+   * List of attribute value IDs or external references.
    *
    * Added in Saleor 3.9.
    */
@@ -1914,7 +2144,7 @@ export type IAttributeValueInput = {
   /** Text content in JSON format. */
   richText?: InputMaybe<Scalars["JSONString"]>;
   /**
-   * Attribute value ID.
+   * Attribute value ID or external reference.
    *
    * Added in Saleor 3.9.
    */
@@ -1924,11 +2154,21 @@ export type IAttributeValueInput = {
 };
 
 /**
- * Represents attribute value. If no ID provided, value will be resolved.
+ * Represents attribute value.
+ * 1. If ID is provided, then attribute value will be resolved by ID.
+ * 2. If externalReference is provided, then attribute value will be resolved by external reference.
+ * 3. If value is provided, then attribute value will be resolved by value. If this attribute value doesn't exist, then it will be created.
+ * 4. If externalReference and value is provided then new attribute value will be created.
  *
  * Added in Saleor 3.9.
  */
 export type IAttributeValueSelectableTypeInput = {
+  /**
+   * External reference of an attribute value.
+   *
+   * Added in Saleor 3.14.
+   */
+  externalReference?: InputMaybe<Scalars["String"]>;
   /** ID of an attribute value. */
   id?: InputMaybe<Scalars["ID"]>;
   /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
@@ -1978,6 +2218,13 @@ export type IAttributeValueTranslate = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   translationErrors: Array<ITranslationError>;
 };
+
+/** An enumeration. */
+export type IAttributeValueTranslateErrorCode =
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND"
+  | "REQUIRED";
 
 export type IAttributeValueTranslation = INode & {
   __typename?: "AttributeValueTranslation";
@@ -2127,6 +2374,12 @@ export type IBulkAttributeValueInput = {
    * Added in Saleor 3.12.
    */
   dropdown?: InputMaybe<IAttributeValueSelectableTypeInput>;
+  /**
+   * External ID of this attribute.
+   *
+   * Added in Saleor 3.14.
+   */
+  externalReference?: InputMaybe<Scalars["String"]>;
   /**
    * URL of the file attribute. Every time, a new value is created.
    *
@@ -2379,6 +2632,7 @@ export type ICategoryProductsArgs = {
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
   sortBy?: InputMaybe<IProductOrder>;
+  where?: InputMaybe<IProductWhereInput>;
 };
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
@@ -3296,6 +3550,63 @@ export type ICheckoutCreate = {
   errors: Array<ICheckoutError>;
 };
 
+/**
+ * Create new checkout from existing order.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type ICheckoutCreateFromOrder = {
+  __typename?: "CheckoutCreateFromOrder";
+  /** Created checkout. */
+  checkout?: Maybe<ICheckout>;
+  errors: Array<ICheckoutCreateFromOrderError>;
+  /** Variants that were not attached to the checkout. */
+  unavailableVariants?: Maybe<
+    Array<ICheckoutCreateFromOrderUnavailableVariant>
+  >;
+};
+
+export type ICheckoutCreateFromOrderError = {
+  __typename?: "CheckoutCreateFromOrderError";
+  /** The error code. */
+  code: ICheckoutCreateFromOrderErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type ICheckoutCreateFromOrderErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "ORDER_NOT_FOUND"
+  | "TAX_ERROR";
+
+export type ICheckoutCreateFromOrderUnavailableVariant = {
+  __typename?: "CheckoutCreateFromOrderUnavailableVariant";
+  /** The error code. */
+  code: ICheckoutCreateFromOrderUnavailableVariantErrorCode;
+  /** Order line ID that is unavailable. */
+  lineId: Scalars["ID"];
+  /** The error message. */
+  message: Scalars["String"];
+  /** Variant ID that is unavailable. */
+  variantId: Scalars["ID"];
+};
+
+/** An enumeration. */
+export type ICheckoutCreateFromOrderUnavailableVariantErrorCode =
+  | "INSUFFICIENT_STOCK"
+  | "NOT_FOUND"
+  | "PRODUCT_NOT_PUBLISHED"
+  | "PRODUCT_UNAVAILABLE_FOR_PURCHASE"
+  | "QUANTITY_GREATER_THAN_LIMIT"
+  | "UNAVAILABLE_VARIANT_IN_CHANNEL";
+
 export type ICheckoutCreateInput = {
   /** Billing address of the customer. */
   billingAddress?: InputMaybe<IAddressInput>;
@@ -3913,6 +4224,7 @@ export type ICollectionProductsArgs = {
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
   sortBy?: InputMaybe<IProductOrder>;
+  where?: InputMaybe<IProductWhereInput>;
 };
 
 /** Represents a collection of products. */
@@ -4982,8 +5294,20 @@ export type ICustomerInput = {
   languageCode?: InputMaybe<ILanguageCodeEnum>;
   /** Family name. */
   lastName?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** A note about the user. */
   note?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
 };
 
 /**
@@ -5061,6 +5385,29 @@ export type IDeactivateAllUserTokens = {
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
   accountErrors: Array<IAccountError>;
   errors: Array<IAccountError>;
+};
+
+/**
+ * Define the filtering options for decimal fields.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IDecimalFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars["Decimal"]>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars["Decimal"]>>;
+  /** The value in range. */
+  range?: InputMaybe<IDecimalRangeInput>;
+};
+
+export type IDecimalRangeInput = {
+  /** Decimal value greater than or equal to. */
+  gte?: InputMaybe<Scalars["Decimal"]>;
+  /** Decimal value less than or equal to. */
+  lte?: InputMaybe<Scalars["Decimal"]>;
 };
 
 /** Delete metadata of an object. To use it, you need to have access to the modified object. */
@@ -6390,12 +6737,14 @@ export type IGiftCard = INode &
      * The customer who used a gift card.
      *
      * Added in Saleor 3.1.
+     * @deprecated This field will be removed in Saleor 4.0.
      */
     usedBy?: Maybe<IUser>;
     /**
      * Email address of the customer who used a gift card.
      *
      * Added in Saleor 3.1.
+     * @deprecated This field will be removed in Saleor 4.0.
      */
     usedByEmail?: Maybe<Scalars["String"]>;
     /**
@@ -7049,13 +7398,43 @@ export type IGiftCardUpdated = IEvent & {
   version?: Maybe<Scalars["String"]>;
 };
 
+/**
+ * Define the filtering options for foreign key fields.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IGlobalIdFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars["ID"]>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars["ID"]>>;
+};
+
 /** Represents permission group data. */
 export type IGroup = INode & {
   __typename?: "Group";
+  /**
+   * List of channels the group has access to.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  accessibleChannels?: Maybe<Array<IChannel>>;
   id: Scalars["ID"];
   name: Scalars["String"];
   /** List of group permissions */
   permissions?: Maybe<Array<IPermission>>;
+  /**
+   * Determine if the group have restricted access to channels.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  restrictedAccessToChannels: Scalars["Boolean"];
   /** True, if the currently authenticated user has rights to manage a group. */
   userCanManage: Scalars["Boolean"];
   /**
@@ -7082,6 +7461,9 @@ export type IGroupCountableEdge = {
   /** The item at the end of the edge. */
   node: IGroup;
 };
+
+/** Thumbnail formats for icon images. */
+export type IIconThumbnailFormatEnum = "ORIGINAL" | "WEBP";
 
 /** Represents an image. */
 export type IImage = {
@@ -7197,8 +7579,20 @@ export type IInvoiceCreate = {
 };
 
 export type IInvoiceCreateInput = {
+  /**
+   * Fields required to update the invoice metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** Invoice number. */
   number: Scalars["String"];
+  /**
+   * Fields required to update the invoice private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
   /** URL of an invoice to download. */
   url: Scalars["String"];
 };
@@ -8209,6 +8603,14 @@ export type IManifest = {
    */
   author?: Maybe<Scalars["String"]>;
   /**
+   * App's brand data.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  brand?: Maybe<IAppManifestBrand>;
+  /**
    * URL to iframe with the configuration for the app.
    * @deprecated This field will be removed in Saleor 4.0. Use `appUrl` instead.
    */
@@ -9163,6 +9565,16 @@ export type IMutation = {
    * Requires one of the following permissions: MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
    */
   attributeBulkDelete?: Maybe<IAttributeBulkDelete>;
+  /**
+   * Creates/updates translations for attributes.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+   */
+  attributeBulkTranslate?: Maybe<IAttributeBulkTranslate>;
   /** Creates an attribute. */
   attributeCreate?: Maybe<IAttributeCreate>;
   /**
@@ -9195,6 +9607,16 @@ export type IMutation = {
    * Requires one of the following permissions: MANAGE_PAGE_TYPES_AND_ATTRIBUTES.
    */
   attributeValueBulkDelete?: Maybe<IAttributeValueBulkDelete>;
+  /**
+   * Creates/updates translations for attributes values.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+   */
+  attributeValueBulkTranslate?: Maybe<IAttributeValueBulkTranslate>;
   /**
    * Creates a value for an attribute.
    *
@@ -9296,6 +9718,14 @@ export type IMutation = {
   checkoutComplete?: Maybe<ICheckoutComplete>;
   /** Create a new checkout. */
   checkoutCreate?: Maybe<ICheckoutCreate>;
+  /**
+   * Create new checkout from existing order.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  checkoutCreateFromOrder?: Maybe<ICheckoutCreateFromOrder>;
   /**
    * Sets the customer as the owner of the checkout.
    *
@@ -9749,6 +10179,16 @@ export type IMutation = {
    * Requires one of the following permissions: MANAGE_ORDERS.
    */
   orderBulkCancel?: Maybe<IOrderBulkCancel>;
+  /**
+   * Creates multiple orders.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_ORDERS_IMPORT.
+   */
+  orderBulkCreate?: Maybe<IOrderBulkCreate>;
   /**
    * Cancel an order.
    *
@@ -10563,7 +11003,7 @@ export type IMutation = {
   taxExemptionManage?: Maybe<ITaxExemptionManage>;
   /** Create JWT token. */
   tokenCreate?: Maybe<ICreateToken>;
-  /** Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie. */
+  /** Refresh JWT token. Mutation tries to take refreshToken from the input. If it fails it will try to take `refreshToken` from the http-only cookie `refreshToken`. `csrfToken` is required when `refreshToken` is provided as a cookie. */
   tokenRefresh?: Maybe<IRefreshToken>;
   /** Verify JWT token. */
   tokenVerify?: Maybe<IVerifyToken>;
@@ -10883,6 +11323,11 @@ export type IMutationAttributeBulkDeleteArgs = {
   ids: Array<Scalars["ID"]>;
 };
 
+export type IMutationAttributeBulkTranslateArgs = {
+  errorPolicy?: InputMaybe<IErrorPolicyEnum>;
+  translations: Array<IAttributeBulkTranslateInput>;
+};
+
 export type IMutationAttributeCreateArgs = {
   input: IAttributeCreateInput;
 };
@@ -10911,6 +11356,11 @@ export type IMutationAttributeUpdateArgs = {
 
 export type IMutationAttributeValueBulkDeleteArgs = {
   ids: Array<Scalars["ID"]>;
+};
+
+export type IMutationAttributeValueBulkTranslateArgs = {
+  errorPolicy?: InputMaybe<IErrorPolicyEnum>;
+  translations: Array<IAttributeValueBulkTranslateInput>;
 };
 
 export type IMutationAttributeValueCreateArgs = {
@@ -11013,6 +11463,10 @@ export type IMutationCheckoutCompleteArgs = {
 
 export type IMutationCheckoutCreateArgs = {
   input: ICheckoutCreateInput;
+};
+
+export type IMutationCheckoutCreateFromOrderArgs = {
+  id: Scalars["ID"];
 };
 
 export type IMutationCheckoutCustomerAttachArgs = {
@@ -11421,6 +11875,12 @@ export type IMutationOrderAddNoteArgs = {
 
 export type IMutationOrderBulkCancelArgs = {
   ids: Array<Scalars["ID"]>;
+};
+
+export type IMutationOrderBulkCreateArgs = {
+  errorPolicy?: InputMaybe<IErrorPolicyEnum>;
+  orders: Array<IOrderBulkCreateInput>;
+  stockUpdatePolicy?: InputMaybe<IStockUpdatePolicyEnum>;
 };
 
 export type IMutationOrderCancelArgs = {
@@ -12674,6 +13134,264 @@ export type IOrderBulkCancel = {
 };
 
 /**
+ * Creates multiple orders.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_ORDERS_IMPORT.
+ */
+export type IOrderBulkCreate = {
+  __typename?: "OrderBulkCreate";
+  /** Returns how many objects were created. */
+  count: Scalars["Int"];
+  errors: Array<IOrderBulkCreateError>;
+  /** List of the created orders. */
+  results: Array<IOrderBulkCreateResult>;
+};
+
+export type IOrderBulkCreateDeliveryMethodInput = {
+  /** The ID of the shipping method. */
+  shippingMethodId?: InputMaybe<Scalars["ID"]>;
+  /** The name of the shipping method. */
+  shippingMethodName?: InputMaybe<Scalars["String"]>;
+  /** The price of the shipping. */
+  shippingPrice?: InputMaybe<ITaxedMoneyInput>;
+  /** The ID of the tax class. */
+  shippingTaxClassId?: InputMaybe<Scalars["ID"]>;
+  /** Metadata of the tax class. */
+  shippingTaxClassMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** The name of the tax class. */
+  shippingTaxClassName?: InputMaybe<Scalars["String"]>;
+  /** Private metadata of the tax class. */
+  shippingTaxClassPrivateMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** Tax rate of the shipping. */
+  shippingTaxRate?: InputMaybe<Scalars["PositiveDecimal"]>;
+  /** The ID of the warehouse. */
+  warehouseId?: InputMaybe<Scalars["ID"]>;
+  /** The name of the warehouse. */
+  warehouseName?: InputMaybe<Scalars["String"]>;
+};
+
+export type IOrderBulkCreateError = {
+  __typename?: "OrderBulkCreateError";
+  /** The error code. */
+  code?: Maybe<IOrderBulkCreateErrorCode>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+  /** Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  path?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IOrderBulkCreateErrorCode =
+  | "BULK_LIMIT"
+  | "FUTURE_DATE"
+  | "GRAPHQL_ERROR"
+  | "INCORRECT_CURRENCY"
+  | "INSUFFICIENT_STOCK"
+  | "INVALID"
+  | "INVALID_QUANTITY"
+  | "METADATA_KEY_REQUIRED"
+  | "NEGATIVE_INDEX"
+  | "NON_EXISTING_STOCK"
+  | "NOTE_LENGTH"
+  | "NOT_FOUND"
+  | "NO_RELATED_ORDER_LINE"
+  | "ORDER_LINE_FULFILLMENT_LINE_MISMATCH"
+  | "PRICE_ERROR"
+  | "REQUIRED"
+  | "TOO_MANY_IDENTIFIERS"
+  | "UNIQUE";
+
+export type IOrderBulkCreateFulfillmentInput = {
+  /** List of items informing how to fulfill the order. */
+  lines?: InputMaybe<Array<IOrderBulkCreateFulfillmentLineInput>>;
+  /** Fulfillment's tracking code. */
+  trackingCode?: InputMaybe<Scalars["String"]>;
+};
+
+export type IOrderBulkCreateFulfillmentLineInput = {
+  /** 0-based index of order line, which the fulfillment line refers to. */
+  orderLineIndex: Scalars["Int"];
+  /** The number of line items to be fulfilled from given warehouse. */
+  quantity: Scalars["Int"];
+  /** The external ID of the product variant. */
+  variantExternalReference?: InputMaybe<Scalars["String"]>;
+  /** The ID of the product variant. */
+  variantId?: InputMaybe<Scalars["ID"]>;
+  /** The SKU of the product variant. */
+  variantSku?: InputMaybe<Scalars["String"]>;
+  /** ID of the warehouse from which the item will be fulfilled. */
+  warehouse: Scalars["ID"];
+};
+
+export type IOrderBulkCreateInput = {
+  /** Billing address of the customer. */
+  billingAddress: IAddressInput;
+  /** Slug of the channel associated with the order. */
+  channel: Scalars["String"];
+  /** The date, when the order was inserted to Saleor database. */
+  createdAt: Scalars["DateTime"];
+  /** Currency code. */
+  currency: Scalars["String"];
+  /** Note about customer. */
+  customerNote?: InputMaybe<Scalars["String"]>;
+  /** The delivery method selected for this order. */
+  deliveryMethod?: InputMaybe<IOrderBulkCreateDeliveryMethodInput>;
+  /** List of discounts. */
+  discounts?: InputMaybe<Array<IOrderDiscountCommonInput>>;
+  /** Determines whether checkout prices should include taxes, when displayed in a storefront. */
+  displayGrossPrices?: InputMaybe<Scalars["Boolean"]>;
+  /** External ID of the order. */
+  externalReference?: InputMaybe<Scalars["String"]>;
+  /** Fulfillments of the order. */
+  fulfillments?: InputMaybe<Array<IOrderBulkCreateFulfillmentInput>>;
+  /** List of gift card codes associated with the order. */
+  giftCards?: InputMaybe<Array<Scalars["String"]>>;
+  /** Invoices related to the order. */
+  invoices?: InputMaybe<Array<IOrderBulkCreateInvoiceInput>>;
+  /** Order language code. */
+  languageCode: ILanguageCodeEnum;
+  /** List of order lines. */
+  lines: Array<IOrderBulkCreateOrderLineInput>;
+  /** Metadata of the order. */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
+  /** Notes related to the order. */
+  notes?: InputMaybe<Array<IOrderBulkCreateNoteInput>>;
+  /** Private metadata of the order. */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** URL of a view, where users should be redirected to see the order details. */
+  redirectUrl?: InputMaybe<Scalars["String"]>;
+  /** Shipping address of the customer. */
+  shippingAddress?: InputMaybe<IAddressInput>;
+  /** Status of the order. */
+  status?: InputMaybe<IOrderStatus>;
+  /** Tracking ID of the customer. */
+  trackingClientId?: InputMaybe<Scalars["String"]>;
+  /** Transactions related to the order. */
+  transactions?: InputMaybe<Array<ITransactionCreateInput>>;
+  /** Customer associated with the order. */
+  user: IOrderBulkCreateUserInput;
+  /** Code of a voucher associated with the order. */
+  voucher?: InputMaybe<Scalars["String"]>;
+  /** Weight of the order in kg. */
+  weight?: InputMaybe<Scalars["WeightScalar"]>;
+};
+
+export type IOrderBulkCreateInvoiceInput = {
+  /** The date, when the invoice was created. */
+  createdAt: Scalars["DateTime"];
+  /** Metadata of the invoice. */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
+  /** Invoice number. */
+  number?: InputMaybe<Scalars["String"]>;
+  /** Private metadata of the invoice. */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** URL of the invoice to download. */
+  url?: InputMaybe<Scalars["String"]>;
+};
+
+export type IOrderBulkCreateNoteInput = {
+  /** The app ID associated with the message. */
+  appId?: InputMaybe<Scalars["ID"]>;
+  /** The date associated with the message. */
+  date?: InputMaybe<Scalars["DateTime"]>;
+  /** Note message. Max characters: 255. */
+  message: Scalars["String"];
+  /** The user email associated with the message. */
+  userEmail?: InputMaybe<Scalars["ID"]>;
+  /** The user external ID associated with the message. */
+  userExternalReference?: InputMaybe<Scalars["ID"]>;
+  /** The user ID associated with the message. */
+  userId?: InputMaybe<Scalars["ID"]>;
+};
+
+export type IOrderBulkCreateOrderLineInput = {
+  /** The date, when the order line was created. */
+  createdAt: Scalars["DateTime"];
+  /** Gift card flag. */
+  isGiftCard: Scalars["Boolean"];
+  /** Determines whether shipping of the order line items is required. */
+  isShippingRequired: Scalars["Boolean"];
+  /** Metadata of the order line. */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
+  /** Private metadata of the order line. */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** The name of the product. */
+  productName?: InputMaybe<Scalars["String"]>;
+  /** Number of items in the order line */
+  quantity: Scalars["Int"];
+  /** The ID of the tax class. */
+  taxClassId?: InputMaybe<Scalars["ID"]>;
+  /** Metadata of the tax class. */
+  taxClassMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** The name of the tax class. */
+  taxClassName?: InputMaybe<Scalars["String"]>;
+  /** Private metadata of the tax class. */
+  taxClassPrivateMetadata?: InputMaybe<Array<IMetadataInput>>;
+  /** Tax rate of the order line. */
+  taxRate?: InputMaybe<Scalars["PositiveDecimal"]>;
+  /** Price of the order line. */
+  totalPrice: ITaxedMoneyInput;
+  /** Translation of the product name. */
+  translatedProductName?: InputMaybe<Scalars["String"]>;
+  /** Translation of the product variant name. */
+  translatedVariantName?: InputMaybe<Scalars["String"]>;
+  /** Price of the order line excluding applied discount. */
+  undiscountedTotalPrice: ITaxedMoneyInput;
+  /** The external ID of the product variant. */
+  variantExternalReference?: InputMaybe<Scalars["String"]>;
+  /** The ID of the product variant. */
+  variantId?: InputMaybe<Scalars["ID"]>;
+  /** The name of the product variant. */
+  variantName?: InputMaybe<Scalars["String"]>;
+  /** The SKU of the product variant. */
+  variantSku?: InputMaybe<Scalars["String"]>;
+  /** The ID of the warehouse, where the line will be allocated. */
+  warehouse: Scalars["ID"];
+};
+
+export type IOrderBulkCreateResult = {
+  __typename?: "OrderBulkCreateResult";
+  /** List of errors occurred on create attempt. */
+  errors?: Maybe<Array<IOrderBulkCreateError>>;
+  /** Order data. */
+  order?: Maybe<IOrder>;
+};
+
+export type IOrderBulkCreateUserInput = {
+  /** Customer email associated with the order. */
+  email?: InputMaybe<Scalars["String"]>;
+  /** Customer external ID associated with the order. */
+  externalReference?: InputMaybe<Scalars["String"]>;
+  /** Customer ID associated with the order. */
+  id?: InputMaybe<Scalars["ID"]>;
+};
+
+/**
+ * Event sent when orders are imported.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IOrderBulkCreated = IEvent & {
+  __typename?: "OrderBulkCreated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The orders the event relates to. */
+  orders?: Maybe<Array<IOrder>>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
  * Cancel an order.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
@@ -12923,7 +13641,7 @@ export type IOrderDiscountDelete = {
 };
 
 /** An enumeration. */
-export type IOrderDiscountType = "MANUAL" | "VOUCHER";
+export type IOrderDiscountType = "MANUAL" | "SALE" | "VOUCHER";
 
 /**
  * Update discount for the order.
@@ -13044,7 +13762,7 @@ export type IOrderEvent = INode & {
   shippingCostsIncluded?: Maybe<Scalars["Boolean"]>;
   /**
    * The status of payment's transaction.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `TransactionEvent` to track the status of `TransactionItem`.
+   * @deprecated This field will be removed in Saleor 3.15 (Preview Feature).Use `TransactionEvent` to track the status of `TransactionItem`.
    */
   status?: Maybe<ITransactionStatus>;
   /** The transaction reference of captured payment. */
@@ -13161,13 +13879,13 @@ export type IOrderEventsEnum =
   | "REMOVED_PRODUCTS"
   | "TRACKING_UPDATED"
   | "TRANSACTION_CANCEL_REQUESTED"
-  /** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED` instead. */
+  /** This field will be removed in Saleor 3.15 (Preview Feature). Use `TRANSACTION_CHARGE_REQUESTED` instead. */
   | "TRANSACTION_CAPTURE_REQUESTED"
   | "TRANSACTION_CHARGE_REQUESTED"
   | "TRANSACTION_EVENT"
   | "TRANSACTION_MARK_AS_PAID_FAILED"
   | "TRANSACTION_REFUND_REQUESTED"
-  /** This field will be removed in Saleor 3.14 (Preview Feature). Use `TRANSACTION_CANCEL_REQUESTED` instead. */
+  /** This field will be removed in Saleor 3.15 (Preview Feature). Use `TRANSACTION_CANCEL_REQUESTED` instead. */
   | "TRANSACTION_VOID_REQUESTED"
   | "UPDATED_ADDRESS";
 
@@ -13308,6 +14026,27 @@ export type IOrderFulfilled = IEvent & {
  */
 export type IOrderFullyPaid = IEvent & {
   __typename?: "OrderFullyPaid";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The order the event relates to. */
+  order?: Maybe<IOrder>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * The order is fully refunded.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IOrderFullyRefunded = IEvent & {
+  __typename?: "OrderFullyRefunded";
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
@@ -13583,6 +14322,14 @@ export type IOrderLineCreateInput = {
    * Added in Saleor 3.6.
    */
   forceNewLine?: InputMaybe<Scalars["Boolean"]>;
+  /**
+   * Custom price of the item.When the line with the same variant will be provided multiple times, the last price will be used.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  price?: InputMaybe<Scalars["PositiveDecimal"]>;
   /** Number of variant items ordered. */
   quantity: Scalars["Int"];
   /** Product variant ID. */
@@ -13709,7 +14456,28 @@ export type IOrderMetadataUpdated = IEvent & {
 export type IOrderOrCheckout = ICheckout | IOrder;
 
 /** An enumeration. */
-export type IOrderOriginEnum = "CHECKOUT" | "DRAFT" | "REISSUE";
+export type IOrderOriginEnum = "BULK_CREATE" | "CHECKOUT" | "DRAFT" | "REISSUE";
+
+/**
+ * Payment has been made. The order may be partially or fully paid.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IOrderPaid = IEvent & {
+  __typename?: "OrderPaid";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The order the event relates to. */
+  order?: Maybe<IOrder>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
 
 /**
  * Refund an order.
@@ -13748,6 +14516,27 @@ export type IOrderRefundProductsInput = {
   includeShippingCosts?: InputMaybe<Scalars["Boolean"]>;
   /** List of unfulfilled lines to refund. */
   orderLines?: InputMaybe<Array<IOrderRefundLineInput>>;
+};
+
+/**
+ * The order received a refund. The order may be partially or fully refunded.
+ *
+ * Added in Saleor 3.14.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IOrderRefunded = IEvent & {
+  __typename?: "OrderRefunded";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The order the event relates to. */
+  order?: Maybe<IOrder>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
 };
 
 export type IOrderReturnFulfillmentLineInput = {
@@ -13797,6 +14586,14 @@ export type IOrderSettings = {
    */
   defaultTransactionFlowStrategy: ITransactionFlowStrategyEnum;
   /**
+   * The time in days after expired orders will be deleted.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  deleteExpiredOrdersAfter: Scalars["Day"];
+  /**
    * Expiration time in minutes. Default null - means do not expire any orders.
    *
    * Added in Saleor 3.13.
@@ -13842,6 +14639,14 @@ export type IOrderSettingsInput = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   defaultTransactionFlowStrategy?: InputMaybe<ITransactionFlowStrategyEnum>;
+  /**
+   * The time in days after expired orders will be deleted.Allowed range is from 1 to 120.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  deleteExpiredOrdersAfter?: InputMaybe<Scalars["Day"]>;
   /**
    * Expiration time in minutes. Default null - means do not expire any orders. Enter 0 or null to disable.
    *
@@ -15383,6 +16188,7 @@ export type IPermissionEnum =
   | "MANAGE_MENUS"
   | "MANAGE_OBSERVABILITY"
   | "MANAGE_ORDERS"
+  | "MANAGE_ORDERS_IMPORT"
   | "MANAGE_PAGES"
   | "MANAGE_PAGE_TYPES_AND_ATTRIBUTES"
   | "MANAGE_PLUGINS"
@@ -15409,12 +16215,28 @@ export type IPermissionGroupCreate = {
 };
 
 export type IPermissionGroupCreateInput = {
+  /**
+   * List of channels to assign to this group.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  addChannels?: InputMaybe<Array<Scalars["ID"]>>;
   /** List of permission code names to assign to this group. */
   addPermissions?: InputMaybe<Array<IPermissionEnum>>;
   /** List of users to assign to this group. */
   addUsers?: InputMaybe<Array<Scalars["ID"]>>;
   /** Group name. */
   name: Scalars["String"];
+  /**
+   * Determine if the group has restricted access to channels.  DEFAULT: False
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  restrictedAccessToChannels?: InputMaybe<Scalars["Boolean"]>;
 };
 
 /**
@@ -15470,6 +16292,8 @@ export type IPermissionGroupDeleted = IEvent & {
 
 export type IPermissionGroupError = {
   __typename?: "PermissionGroupError";
+  /** List of chnnels IDs which causes the error. */
+  channels?: Maybe<Array<Scalars["ID"]>>;
   /** The error code. */
   code: IPermissionGroupErrorCode;
   /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
@@ -15488,6 +16312,7 @@ export type IPermissionGroupErrorCode =
   | "CANNOT_REMOVE_FROM_LAST_GROUP"
   | "DUPLICATED_INPUT_ITEM"
   | "LEFT_NOT_MANAGEABLE_PERMISSION"
+  | "OUT_OF_SCOPE_CHANNEL"
   | "OUT_OF_SCOPE_PERMISSION"
   | "OUT_OF_SCOPE_USER"
   | "REQUIRED"
@@ -15524,16 +16349,40 @@ export type IPermissionGroupUpdate = {
 };
 
 export type IPermissionGroupUpdateInput = {
+  /**
+   * List of channels to assign to this group.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  addChannels?: InputMaybe<Array<Scalars["ID"]>>;
   /** List of permission code names to assign to this group. */
   addPermissions?: InputMaybe<Array<IPermissionEnum>>;
   /** List of users to assign to this group. */
   addUsers?: InputMaybe<Array<Scalars["ID"]>>;
   /** Group name. */
   name?: InputMaybe<Scalars["String"]>;
+  /**
+   * List of channels to unassign from this group.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  removeChannels?: InputMaybe<Array<Scalars["ID"]>>;
   /** List of permission code names to unassign from this group. */
   removePermissions?: InputMaybe<Array<IPermissionEnum>>;
   /** List of users to unassign from this group. */
   removeUsers?: InputMaybe<Array<Scalars["ID"]>>;
+  /**
+   * Determine if the group has restricted access to channels.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  restrictedAccessToChannels?: InputMaybe<Scalars["Boolean"]>;
 };
 
 /**
@@ -17694,6 +18543,12 @@ export type IProductVariantBulkError = {
   /** The error message. */
   message?: Maybe<Scalars["String"]>;
   /**
+   * Path to field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+   *
+   * Added in Saleor 3.14.
+   */
+  path?: Maybe<Scalars["String"]>;
+  /**
    * List of stocks IDs which causes the error.
    *
    * Added in Saleor 3.12.
@@ -17812,7 +18667,7 @@ export type IProductVariantBulkUpdateInput = {
   weight?: InputMaybe<Scalars["WeightScalar"]>;
 };
 
-/** Represents product varaint channel listing. */
+/** Represents product variant channel listing. */
 export type IProductVariantChannelListing = INode & {
   __typename?: "ProductVariantChannelListing";
   channel: IChannel;
@@ -18358,6 +19213,53 @@ export type IProductVariantUpdatedProductVariantArgs = {
   channel?: InputMaybe<Scalars["String"]>;
 };
 
+export type IProductWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<IProductWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<IProductWhereInput>>;
+  /** Filter by attributes associated with the product. */
+  attributes?: InputMaybe<Array<IAttributeInput>>;
+  /** Filter by the date of availability for purchase. */
+  availableFrom?: InputMaybe<Scalars["DateTime"]>;
+  /** Filter by product category. */
+  category?: InputMaybe<IGlobalIdFilterInput>;
+  /** Filter by collection. */
+  collection?: InputMaybe<IGlobalIdFilterInput>;
+  /** Filter on whether product is a gift card or not. */
+  giftCard?: InputMaybe<Scalars["Boolean"]>;
+  /** Filter by product with category assigned. */
+  hasCategory?: InputMaybe<Scalars["Boolean"]>;
+  /** Filter by product with preordered variants. */
+  hasPreorderedVariants?: InputMaybe<Scalars["Boolean"]>;
+  ids?: InputMaybe<Array<Scalars["ID"]>>;
+  /** Filter by availability for purchase. */
+  isAvailable?: InputMaybe<Scalars["Boolean"]>;
+  /** Filter by public visibility. */
+  isPublished?: InputMaybe<Scalars["Boolean"]>;
+  /** Filter by visibility on the channel. */
+  isVisibleInListing?: InputMaybe<Scalars["Boolean"]>;
+  metadata?: InputMaybe<Array<IMetadataFilter>>;
+  /** Filter by the lowest variant price after discounts. */
+  minimalPrice?: InputMaybe<IDecimalFilterInput>;
+  /** Filter by product name. */
+  name?: InputMaybe<IStringFilterInput>;
+  /** Filter by product variant price. */
+  price?: InputMaybe<IDecimalFilterInput>;
+  /** Filter by product type. */
+  productType?: InputMaybe<IGlobalIdFilterInput>;
+  /** Filter by the publication date. */
+  publishedFrom?: InputMaybe<Scalars["DateTime"]>;
+  /** Filter by product slug. */
+  slug?: InputMaybe<IStringFilterInput>;
+  /** Filter by variants having specific stock status. */
+  stockAvailability?: InputMaybe<IStockAvailability>;
+  /** Filter by stock of the product variant. */
+  stocks?: InputMaybe<IProductStockFilterInput>;
+  /** Filter by when was the most recent update. */
+  updatedAt?: InputMaybe<IDateTimeRangeInput>;
+};
+
 export type IPublishableChannelListingInput = {
   /** ID of a channel. */
   channelId: Scalars["ID"];
@@ -18381,7 +19283,11 @@ export type IQuery = {
   __typename?: "Query";
   _entities?: Maybe<Array<Maybe<I_Entity>>>;
   _service?: Maybe<I_Service>;
-  /** Look up an address by ID. */
+  /**
+   * Look up an address by ID.
+   *
+   * Requires one of the following permissions: MANAGE_USERS, OWNER.
+   */
   address?: Maybe<IAddress>;
   /** Returns address validation rules. */
   addressValidationRules?: Maybe<IAddressValidationData>;
@@ -19134,7 +20040,9 @@ export type IQueryProductsArgs = {
   filter?: InputMaybe<IProductFilterInput>;
   first?: InputMaybe<Scalars["Int"]>;
   last?: InputMaybe<Scalars["Int"]>;
+  search?: InputMaybe<Scalars["String"]>;
   sortBy?: InputMaybe<IProductOrder>;
+  where?: InputMaybe<IProductWhereInput>;
 };
 
 export type IQueryReportProductSalesArgs = {
@@ -19296,7 +20204,7 @@ export type IReducedRate = {
   rateType: Scalars["String"];
 };
 
-/** Refresh JWT token. Mutation tries to take refreshToken from the input.If it fails it will try to take refreshToken from the http-only cookie -refreshToken. csrfToken is required when refreshToken is provided as a cookie. */
+/** Refresh JWT token. Mutation tries to take refreshToken from the input. If it fails it will try to take `refreshToken` from the http-only cookie `refreshToken`. `csrfToken` is required when `refreshToken` is provided as a cookie. */
 export type IRefreshToken = {
   __typename?: "RefreshToken";
   /** @deprecated This field will be removed in Saleor 4.0. Use `errors` field instead. */
@@ -20890,6 +21798,14 @@ export type IShop = {
   /** Shop's domain data. */
   domain: IDomain;
   /**
+   * Determines if account confirmation by email is enabled.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Requires one of the following permissions: MANAGE_SETTINGS.
+   */
+  enableAccountConfirmationByEmail?: Maybe<Scalars["Boolean"]>;
+  /**
    * Allow to approve fulfillments which are unpaid.
    *
    * Added in Saleor 3.1.
@@ -21085,6 +22001,12 @@ export type IShopSettingsInput = {
    */
   displayGrossPrices?: InputMaybe<Scalars["Boolean"]>;
   /**
+   * Enable automatic account confirmation by email.
+   *
+   * Added in Saleor 3.14.
+   */
+  enableAccountConfirmationByEmail?: InputMaybe<Scalars["Boolean"]>;
+  /**
    * Enable ability to approve fulfillments which are unpaid.
    *
    * Added in Saleor 3.1.
@@ -21214,8 +22136,20 @@ export type IStaffCreateInput = {
   isActive?: InputMaybe<Scalars["Boolean"]>;
   /** Family name. */
   lastName?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** A note about the user. */
   note?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
   /** URL of a view where users should be redirected to set the password. URL in RFC 1808 format. */
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
@@ -21381,8 +22315,20 @@ export type IStaffUpdateInput = {
   isActive?: InputMaybe<Scalars["Boolean"]>;
   /** Family name. */
   lastName?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** A note about the user. */
   note?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
   /** List of permission group IDs from which user should be unassigned. */
   removeGroups?: InputMaybe<Array<Scalars["ID"]>>;
 };
@@ -21566,6 +22512,16 @@ export type IStockUpdateInput = {
   /** Stock. */
   stock: Scalars["ID"];
 };
+
+/**
+ * Determine how stocks should be updated, while processing an order.
+ *
+ *     SKIP - stocks are not checked and not updated.
+ *     UPDATE - only do update, if there is enough stock.
+ *     FORCE - force update, if there is not enough stock.
+ *
+ */
+export type IStockUpdatePolicyEnum = "FORCE" | "SKIP" | "UPDATE";
 
 /** Enum representing the type of a payment storage in a gateway. */
 export type IStorePaymentMethodEnum =
@@ -22239,6 +23195,13 @@ export type ITaxedMoney = {
   tax: IMoney;
 };
 
+export type ITaxedMoneyInput = {
+  /** Gross value of an item. */
+  gross: Scalars["PositiveDecimal"];
+  /** Net value of an item. */
+  net: Scalars["PositiveDecimal"];
+};
+
 /** Represents a range of monetary values. */
 export type ITaxedMoneyRange = {
   __typename?: "TaxedMoneyRange";
@@ -22465,7 +23428,7 @@ export type ITransactionCreateInput = {
   /**
    * Amount voided by this transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `amountCanceled` instead.
    */
   amountVoided?: InputMaybe<IMoneyInput>;
   /** List of all possible actions for the transaction */
@@ -22501,19 +23464,19 @@ export type ITransactionCreateInput = {
   /**
    * Reference of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `pspReference` instead.
    */
   reference?: InputMaybe<Scalars["String"]>;
   /**
    * Status of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
    */
   status?: InputMaybe<Scalars["String"]>;
   /**
    * Payment type used for this transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `name` and `message` instead.
    */
   type?: InputMaybe<Scalars["String"]>;
 };
@@ -22550,7 +23513,7 @@ export type ITransactionEvent = INode & {
   message: Scalars["String"];
   /**
    * Name of the transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead.
+   * @deprecated This field will be removed in Saleor 3.15 (Preview Feature). Use `message` instead.
    */
   name?: Maybe<Scalars["String"]>;
   /**
@@ -22561,12 +23524,12 @@ export type ITransactionEvent = INode & {
   pspReference: Scalars["String"];
   /**
    * Reference of transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
+   * @deprecated This field will be removed in Saleor 3.15 (Preview Feature).Use `pspReference` instead.
    */
   reference: Scalars["String"];
   /**
    * Status of transaction's event.
-   * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `type` instead.
+   * @deprecated This field will be removed in Saleor 3.15 (Preview Feature). Use `type` instead.
    */
   status?: Maybe<ITransactionStatus>;
   /**
@@ -22587,7 +23550,7 @@ export type ITransactionEventInput = {
   /**
    * Name of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `message` instead. `name` field will be added to `message`.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `message` instead. `name` field will be added to `message`.
    */
   name?: InputMaybe<Scalars["String"]>;
   /**
@@ -22599,13 +23562,13 @@ export type ITransactionEventInput = {
   /**
    * Reference of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `pspReference` instead.
    */
   reference?: InputMaybe<Scalars["String"]>;
   /**
    * Current status of the payment transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Status will be calculated by Saleor.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Status will be calculated by Saleor.
    */
   status?: InputMaybe<ITransactionStatus>;
 };
@@ -22892,7 +23855,7 @@ export type ITransactionItem = INode &
     pspReference: Scalars["String"];
     /**
      * Reference of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `pspReference` instead.
+     * @deprecated This field will be removed in Saleor 3.15 (Preview Feature).Use `pspReference` instead.
      */
     reference: Scalars["String"];
     /**
@@ -22905,17 +23868,17 @@ export type ITransactionItem = INode &
     refundedAmount: IMoney;
     /**
      * Status of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+     * @deprecated This field will be removed in Saleor 3.15 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
      */
     status: Scalars["String"];
     /**
      * Type of transaction.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature). Use `name` or `message` instead.
+     * @deprecated This field will be removed in Saleor 3.15 (Preview Feature). Use `name` or `message` instead.
      */
     type: Scalars["String"];
     /**
      * Total amount voided for this payment.
-     * @deprecated This field will be removed in Saleor 3.14 (Preview Feature).Use `canceledAmount` instead.
+     * @deprecated This field will be removed in Saleor 3.15 (Preview Feature).Use `canceledAmount` instead.
      */
     voidedAmount: IMoney;
   };
@@ -23187,7 +24150,7 @@ export type ITransactionUpdateInput = {
   /**
    * Amount voided by this transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `amountCanceled` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `amountCanceled` instead.
    */
   amountVoided?: InputMaybe<IMoneyInput>;
   /** List of all possible actions for the transaction */
@@ -23223,19 +24186,19 @@ export type ITransactionUpdateInput = {
   /**
    * Reference of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `pspReference` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `pspReference` instead.
    */
   reference?: InputMaybe<Scalars["String"]>;
   /**
    * Status of the transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). The `status` is not needed. The amounts can be used to define the current status of transactions.
    */
   status?: InputMaybe<Scalars["String"]>;
   /**
    * Payment type used for this transaction.
    *
-   * DEPRECATED: this field will be removed in Saleor 3.14 (Preview Feature). Use `name` and `message` instead.
+   * DEPRECATED: this field will be removed in Saleor 3.15 (Preview Feature). Use `name` and `message` instead.
    */
   type?: InputMaybe<Scalars["String"]>;
 };
@@ -23364,8 +24327,20 @@ export type ITranslationUpdated = IEvent & {
 };
 
 export type IUpdateInvoiceInput = {
+  /**
+   * Fields required to update the invoice metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** Invoice number */
   number?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the invoice private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
   /** URL of an invoice to download. */
   url?: InputMaybe<Scalars["String"]>;
 };
@@ -23405,6 +24380,14 @@ export type IUploadErrorCode = "GRAPHQL_ERROR";
 export type IUser = INode &
   IObjectWithMetadata & {
     __typename?: "User";
+    /**
+     * List of channels the user has access to. The sum of channels from all user groups. If at least one group has `restrictedAccessToChannels` set to False - all channels are returned.
+     *
+     * Added in Saleor 3.14.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    accessibleChannels?: Maybe<Array<IChannel>>;
     /** List of all user's addresses. */
     addresses: Array<IAddress>;
     avatar?: Maybe<IImage>;
@@ -23504,6 +24487,14 @@ export type IUser = INode &
      * Note: this API is currently in Feature Preview and can be subject to changes at later point.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
+    /**
+     * Determine if user have restricted access to channels. False if at least one user group has `restrictedAccessToChannels` set to False.
+     *
+     * Added in Saleor 3.14.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     */
+    restrictedAccessToChannels: Scalars["Boolean"];
     /** List of stored payment sources. */
     storedPaymentSources?: Maybe<Array<IPaymentSource>>;
     updatedAt: Scalars["DateTime"];
@@ -23659,8 +24650,20 @@ export type IUserCreateInput = {
   languageCode?: InputMaybe<ILanguageCodeEnum>;
   /** Family name. */
   lastName?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  metadata?: InputMaybe<Array<IMetadataInput>>;
   /** A note about the user. */
   note?: InputMaybe<Scalars["String"]>;
+  /**
+   * Fields required to update the user private metadata.
+   *
+   * Added in Saleor 3.14.
+   */
+  privateMetadata?: InputMaybe<Array<IMetadataInput>>;
   /** URL of a view where users should be redirected to set the password. URL in RFC 1808 format. */
   redirectUrl?: InputMaybe<Scalars["String"]>;
 };
@@ -25028,6 +26031,14 @@ export type IWebhookEventTypeAsyncEnum =
   | "NOTIFY_USER"
   /** An observability event is created. */
   | "OBSERVABILITY"
+  /**
+   * Orders are imported.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_BULK_CREATED"
   /** An order is cancelled. */
   | "ORDER_CANCELLED"
   /** An order is confirmed (status change unconfirmed -> unfulfilled) by a staff user using the OrderConfirm mutation. It also triggers when the user completes the checkout and the shop setting `automatically_confirm_all_new_orders` is enabled. */
@@ -25041,11 +26052,35 @@ export type IWebhookEventTypeAsyncEnum =
   /** Payment is made and an order is fully paid. */
   | "ORDER_FULLY_PAID"
   /**
+   * The order is fully refunded.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_FULLY_REFUNDED"
+  /**
    * An order metadata is updated.
    *
    * Added in Saleor 3.8.
    */
   | "ORDER_METADATA_UPDATED"
+  /**
+   * Payment has been made. The order may be partially or fully paid.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_PAID"
+  /**
+   * The order received a refund. The order may be partially or fully refunded.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_REFUNDED"
   /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
   | "ORDER_UPDATED"
   /** A new page is created. */
@@ -25343,6 +26378,14 @@ export type IWebhookEventTypeEnum =
   /** An observability event is created. */
   | "OBSERVABILITY"
   /**
+   * Orders are imported.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_BULK_CREATED"
+  /**
    * Event called for order tax calculation.
    *
    * Added in Saleor 3.6.
@@ -25363,11 +26406,35 @@ export type IWebhookEventTypeEnum =
   /** Payment is made and an order is fully paid. */
   | "ORDER_FULLY_PAID"
   /**
+   * The order is fully refunded.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_FULLY_REFUNDED"
+  /**
    * An order metadata is updated.
    *
    * Added in Saleor 3.8.
    */
   | "ORDER_METADATA_UPDATED"
+  /**
+   * Payment has been made. The order may be partially or fully paid.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_PAID"
+  /**
+   * The order received a refund. The order may be partially or fully refunded.
+   *
+   * Added in Saleor 3.14.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  | "ORDER_REFUNDED"
   /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
   | "ORDER_UPDATED"
   /** A new page is created. */
@@ -25678,13 +26745,17 @@ export type IWebhookSampleEventTypeEnum =
   | "MENU_UPDATED"
   | "NOTIFY_USER"
   | "OBSERVABILITY"
+  | "ORDER_BULK_CREATED"
   | "ORDER_CANCELLED"
   | "ORDER_CONFIRMED"
   | "ORDER_CREATED"
   | "ORDER_EXPIRED"
   | "ORDER_FULFILLED"
   | "ORDER_FULLY_PAID"
+  | "ORDER_FULLY_REFUNDED"
   | "ORDER_METADATA_UPDATED"
+  | "ORDER_PAID"
+  | "ORDER_REFUNDED"
   | "ORDER_UPDATED"
   | "PAGE_CREATED"
   | "PAGE_DELETED"
@@ -26163,6 +27234,7 @@ export type IProductDetailsFragment = {
     __typename?: "ProductVariant";
     id: string;
     name: string;
+    quantityAvailable?: number | null;
     weight?: {
       __typename?: "Weight";
       unit: IWeightUnitsEnum;
@@ -26200,6 +27272,7 @@ export type IProductDetailsFragment = {
     __typename?: "ProductVariant";
     id: string;
     name: string;
+    quantityAvailable?: number | null;
     weight?: {
       __typename?: "Weight";
       unit: IWeightUnitsEnum;
@@ -26239,6 +27312,7 @@ export type IProductVariantFragment = {
   __typename?: "ProductVariant";
   id: string;
   name: string;
+  quantityAvailable?: number | null;
   weight?: {
     __typename?: "Weight";
     unit: IWeightUnitsEnum;
@@ -26513,6 +27587,7 @@ export type IProductQuery = {
       __typename?: "ProductVariant";
       id: string;
       name: string;
+      quantityAvailable?: number | null;
       weight?: {
         __typename?: "Weight";
         unit: IWeightUnitsEnum;
@@ -26550,6 +27625,7 @@ export type IProductQuery = {
       __typename?: "ProductVariant";
       id: string;
       name: string;
+      quantityAvailable?: number | null;
       weight?: {
         __typename?: "Weight";
         unit: IWeightUnitsEnum;
@@ -26853,6 +27929,7 @@ export const FragProductVariantFragmentDoc = `
     fragment ProductVariantFragment on ProductVariant {
   id
   name
+  quantityAvailable
   weight {
     unit
     value

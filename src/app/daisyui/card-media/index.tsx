@@ -28,7 +28,7 @@ const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(
 
     return (
       <figure ref={ref} className={classNames}>
-        <Image src={src} loader={loader} alt={alt} {...imgArgs} />
+        <Image src={src} loader={loader} alt={alt} {...imgArgs} priority />
       </figure>
     );
   }

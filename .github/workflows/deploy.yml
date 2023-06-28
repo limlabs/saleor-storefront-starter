@@ -12,7 +12,7 @@ jobs:
       - uses: amondnet/vercel-action@v20 #deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID}} #Required
           vercel-args: ${{ github.ref_name == 'main' && '--prod' || '--debug'}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
           vercel-project-name: saleor-storefront-starter

@@ -6,7 +6,7 @@ export const MobilePrimaryNav: FC = () => {
   return (
     <>
       <label htmlFor="drawerToggle" className="drawer-overlay"></label>
-      <ul className="menu p-4 w-80 bg-light-pink text-almost-black h-screen">
+      <ul className="menu p-4 w-80 bg-light-gray text-almost-black h-screen">
         {navLinks.map((item) => (
           <li key={item.name} className="mt-4">
             <NavLinkMobile {...item} />

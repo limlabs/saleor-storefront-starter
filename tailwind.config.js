@@ -3,6 +3,12 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      sm: "300px",
+      md: "600px",
+      lg: "1024px",
+      xl: "2600px",
+    },
     extend: {
       colors: {
         "light-green": "rgb(157, 255, 212)",

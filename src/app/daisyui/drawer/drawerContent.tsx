@@ -9,7 +9,7 @@ export const DrawerContent = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={clsx(
-        "drawer-content flex flex-col w-full h-full overflow-x-hidden relative z-20",
+        "drawer-content flex flex-col w-full h-full overflow-x-hidden relative z-0",
         {
           "h-screen": sidebarOpen,
           "overflow-y-hidden": sidebarOpen,

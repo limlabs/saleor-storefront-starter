@@ -10,6 +10,7 @@ import "./globals.css";
 import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
 import { NavbarMenu } from "./(components)/navbarMenu";
+import { CheckoutProvider } from "@/core/client/useCheckout";
 
 export const metadata = {
   title: "Headless Store",
@@ -36,6 +37,9 @@ export default async function RootLayout({
 
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body>
         <AppProvider
           value={{
@@ -47,7 +51,9 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <AppRoot>{children}</AppRoot>
+          <CheckoutProvider>
+            <AppRoot>{children}</AppRoot>
+          </CheckoutProvider>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />
       </body>

@@ -27234,6 +27234,7 @@ export type IProductDetailsFragment = {
     __typename?: "ProductVariant";
     id: string;
     name: string;
+    quantityAvailable?: number | null;
     weight?: {
       __typename?: "Weight";
       unit: IWeightUnitsEnum;
@@ -27271,6 +27272,7 @@ export type IProductDetailsFragment = {
     __typename?: "ProductVariant";
     id: string;
     name: string;
+    quantityAvailable?: number | null;
     weight?: {
       __typename?: "Weight";
       unit: IWeightUnitsEnum;
@@ -27310,6 +27312,7 @@ export type IProductVariantFragment = {
   __typename?: "ProductVariant";
   id: string;
   name: string;
+  quantityAvailable?: number | null;
   weight?: {
     __typename?: "Weight";
     unit: IWeightUnitsEnum;
@@ -27584,6 +27587,7 @@ export type IProductQuery = {
       __typename?: "ProductVariant";
       id: string;
       name: string;
+      quantityAvailable?: number | null;
       weight?: {
         __typename?: "Weight";
         unit: IWeightUnitsEnum;
@@ -27621,6 +27625,7 @@ export type IProductQuery = {
       __typename?: "ProductVariant";
       id: string;
       name: string;
+      quantityAvailable?: number | null;
       weight?: {
         __typename?: "Weight";
         unit: IWeightUnitsEnum;
@@ -27924,6 +27929,7 @@ export const FragProductVariantFragmentDoc = `
     fragment ProductVariantFragment on ProductVariant {
   id
   name
+  quantityAvailable
   weight {
     unit
     value

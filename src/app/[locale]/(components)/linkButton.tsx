@@ -13,7 +13,7 @@ export const LinkButton: FC<PropsWithChildren<LinkButtonProps>> = ({
   className="",
   ...props
 }) => {
-  const classNames = clsx("text-base-content/50", "flex", "items-center", {
+  const classNames = clsx("text-base-content/50", "flex", "items-center", "uppercase", {
     btn: !disabled,
     "btn-outline": !disabled,
     "cursor-not-allowed": disabled,

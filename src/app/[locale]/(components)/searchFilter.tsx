@@ -137,9 +137,10 @@ export const SearchFilter: TFC<
           />
         </div>
         <div className="form-control w-40">
-          <label className="label cursor-pointer flex justify-around ">
+          <label className="label cursor-pointer flex justify-around " htmlFor="filter">
             <span className="label-text">{t["is available"]}</span>
             <input
+              id="filter"
               type="checkbox"
               name="isAvailable"
               className="checkbox checkbox-xs checkbox-primary"

@@ -1,26 +1,27 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+"use client";
 
-interface DrawerProps {
-  id: string;
-  className?: string;
-  side?: ReactNode | undefined;
-}
+import clsx from "clsx";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { DrawerToggle } from "./drawerToggle";
 
-const Drawer = React.forwardRef<HTMLDivElement, PropsWithChildren<DrawerProps>>(
-  function Drawer({ id, children, side, className }, ref) {
-    return (
-      <div className="drawer" ref={ref}>
-        <input id={id} type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-            {children}
-        </div>
-        <div className="drawer-side">
-          <label htmlFor={id} className="drawer-overlay"></label>
-          {side}
-        </div>
+export const DrawerContext = createContext({
+  sidebarOpen: false,
+  setSidebarOpen: (sidebarOpen: boolean) => {},
+});
+
+export const DrawerContainer = ({ children }: { children: ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+    <DrawerContext.Provider value={{ sidebarOpen, setSidebarOpen }}>
+      <div className={clsx("drawer drawer-end")}>
+        <DrawerToggle />
+        {children}
       </div>
-    );
-  }
-);
+    </DrawerContext.Provider>
+  );
+};
 
-export default Drawer;
+export const useDrawer = () => {
+  return useContext(DrawerContext);
+};

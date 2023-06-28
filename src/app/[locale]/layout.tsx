@@ -4,7 +4,6 @@ import { localeConfig } from "@/locale-config";
 import { Channel, channelConfig } from "@/channel-config";
 import { RootLayoutHeader } from "./(components)/header";
 import AppRoot from "./(components)/root";
-import Drawer from "../daisyui/drawer";
 import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
@@ -48,16 +47,7 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <div className="z-0">
-            <AppRoot>
-              <Drawer id="category-menu" side={<NavbarMenu menu={menu} />}>
-                <div className="mx-auto my-6 w-full max-w-6xl ">
-                  <RootLayoutHeader />
-                  {children}
-                </div>
-              </Drawer>
-            </AppRoot>
-          </div>
+          <AppRoot>{children}</AppRoot>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />
       </body>

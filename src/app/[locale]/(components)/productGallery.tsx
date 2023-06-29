@@ -31,7 +31,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
   return (
     <Fragment>
       <SearchFilter filter={filter} t={searchFilterTranslations} />
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-16">
         {products.edges.map(({ node }) => {
           return (
             <li className="carousel-item justify-center m-2" key={node.slug}>
@@ -40,10 +40,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
                 initialSelectedVariantID={node.defaultVariant?.id}
                 product={node}
               >
-                <ProductCard
-                  product={node}                  
-                  animation="bounce"
-                />
+                <ProductCard product={node} animation="bounce" />
               </ProductSelectionProvider>
             </li>
           );

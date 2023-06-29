@@ -7,7 +7,7 @@ import logo from "./logo.svg";
 
 export const PrimaryNav: FC = () => {
   return (
-    <div className="w-full navbar bg-black ">
+    <div className="w-full navbar ">
       <div className="flex-1 px-2 mx-2">
         <Link
           href="/"

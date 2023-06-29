@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-// import { DiscordIcon } from "./discordIcon";
-// import { LinkedinIcon } from "./linkedinIcon";
 
 export default function Footer() {
   return (

@@ -1,4 +1,3 @@
-// import Logo from "../../../../public/logo-white.png";
 import Image from "next/image";
 import Link from "next/link";
 // import { DiscordIcon } from "./discordIcon";

@@ -23,10 +23,10 @@ export const PrimaryNav: FC = () => {
           />
         </Link>
       </div>
-      <div className="flex-none lg:hidden">
+      <div className="flex justify-center items-center lg:hidden">
         <DrawerIcon />
       </div>
-      <div className="flex-none hidden lg:block space-x-3">
+      <div className="flex justify-center item-center  lg:block space-x-3">
         <DesktopPrimaryNav />
       </div>
     </div>

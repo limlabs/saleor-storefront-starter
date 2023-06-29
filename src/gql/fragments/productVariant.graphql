@@ -1,6 +1,7 @@
 fragment ProductVariantFragment on ProductVariant {
   id
   name
+  quantityAvailable
   weight {
     unit
     value

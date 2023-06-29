@@ -26,10 +26,6 @@ export default function Footer() {
               <Link href={"/en-us/contact"}>Contact</Link>
             </li>
           </ul>
-          <div className="flex -md:col-span-6 justify-end items-center ml-4 gap-4">
-            {/* <DiscordIcon />
-            <LinkedinIcon /> */}
-          </div>
         </div>
         <div className="pt-8 -md:pt-4 flex w-full max-w-sm text-xs -md:text-sm">
           Copyright © {new Date().getFullYear()} Liminal&nbsp;Labs&nbsp;LLC.

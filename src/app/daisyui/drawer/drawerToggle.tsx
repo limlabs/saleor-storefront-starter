@@ -8,7 +8,7 @@ export const DrawerToggle = () => {
     <input
       id="drawerToggle"
       type="checkbox"
-      className="drawer-toggle"
+      className="drawer-toggle "
       onChange={() => setSidebarOpen(!sidebarOpen)}
       checked={sidebarOpen}
     />

@@ -7,19 +7,19 @@ import logo from "./logo.svg";
 
 export const PrimaryNav: FC = () => {
   return (
-    <div className="w-full navbar ">
+    <div className="w-full navbar p-4">
       <div className="flex-1 px-2 mx-2">
         <Link
           href="/"
-          className="cursor-pointer hover:scale-110 ease-in-out duration-200"
+          className="cursor-pointer hover:scale-105 ease-in-out duration-200"
         >
           <Image
             src={logo}
             alt="logomark"
             width={120}
-            height={20}
+            height={50}
             priority
-            className="mr-4 "
+            className="mr-4 w-auto h-auto"
           />
         </Link>
       </div>

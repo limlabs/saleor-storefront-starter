@@ -6,10 +6,12 @@ import { PrimaryNav } from "./(header)/primaryNav";
 import { MobilePrimaryNav } from "./(header)/navMobile";
 import Footer from "./footer";
 import { CheckoutProvider } from "@/core/client/useCheckout";
+import { DrawerToggle } from "@/app/daisyui/drawer/drawerToggle";
 
 export default function AppRoot({ children }: PropsWithChildren) {
   return (
     <DrawerContainer>
+      <DrawerToggle />
       <DrawerContent>
         <PrimaryNav />
         {children}

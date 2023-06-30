@@ -22,9 +22,14 @@ import { productCardTranslationKeys } from "@/app/translations/productCard";
 interface ProductCardProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
+  galleryCardClassName: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+  product,
+  animation,
+  galleryCardClassName = "",
+}) => {
   const { thumbnail, pricing, slug, rating } = product;
 
   const cardClasses = clsx("relative transition ease-in-out", {
@@ -47,7 +52,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
       rounded="md"
       bgBlend="darken"
       glass
-      className={cardClasses}
+      className={`${cardClasses} ${galleryCardClassName}`}
     >
       <ProductRating
         name={slug}

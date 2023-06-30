@@ -10,7 +10,8 @@ export default function Footer() {
           alt="liminal logo white"
           height={50}
           width={100}
-          className="-md:scale-75 -lg:scale-100 -md:-translate-x-[12.5%] -lg:translate-x-0 mb-6 -md:mb-0"
+          priority
+          className="-md:scale-75 -lg:scale-100 -md:-translate-x-[12.5%] -lg:translate-x-0 mb-6 -md:mb-0 w-auto h-auto"
         />
       </div>
       <div className="-md:col-span-1 flex flex-col pt-8 -lg:pt-0 items-end justify-end w-full max-w-[250px] text-lg -md:text-sm font-roboto font-extralight">

@@ -131,6 +131,7 @@ export const SearchFilter: TFC<
           </label>
           <TextInput
             bordered
+            aria-label="search"
             className="input-sm input-neutral"
             onChange={handleSearch}
             value={state.search}

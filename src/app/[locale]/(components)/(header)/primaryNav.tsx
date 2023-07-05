@@ -4,8 +4,23 @@ import { FC } from "react";
 import { DrawerIcon } from "./drawerIcon";
 import { DesktopPrimaryNav } from "./navDesktop";
 import logo from "./logo.svg";
+import { ILanguageCodeEnum } from "@/gql/sdk";
 
-export const PrimaryNav: FC = () => {
+interface MenuItem {
+  level: number;
+  name: string;
+  url: string | null;
+  page?: { slug: string };
+  category: any; // You can replace `any` with the appropriate type if available
+  children: MenuItem[];
+  translation: any; // You can replace `any` with the appropriate type if available
+}
+
+interface PrimaryNavMenuProps {
+  menuItems: MenuItem[];
+}
+
+export const PrimaryNav: FC<PrimaryNavMenuProps> = ({ menuItems }) => {
   return (
     <div className="w-full navbar p-4">
       <div className="flex-1 px-2 mx-2">
@@ -26,8 +41,8 @@ export const PrimaryNav: FC = () => {
       <div className="flex justify-center items-center lg:hidden">
         <DrawerIcon />
       </div>
-      <div className="flex justify-center item-center  lg:block space-x-3">
-        <DesktopPrimaryNav />
+      <div className="flex justify-center item-center lg:block space-x-3">
+        <DesktopPrimaryNav menuItems={menuItems} />
       </div>
     </div>
   );

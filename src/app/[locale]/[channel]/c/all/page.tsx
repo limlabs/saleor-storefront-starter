@@ -57,7 +57,6 @@ export default withTranslations<PageProps>(async function AllProductsPage({
     }));
   }
 
-  // const t = await new Promise(() => {});
   const t = await getTranslations();
 
   return (

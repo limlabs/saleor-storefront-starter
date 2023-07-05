@@ -1,15 +1,13 @@
-import { AppProvider } from "@/core/client/useApp";
 import { localeConfig } from "@/locale-config";
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
 import { Channel, channelConfig } from "@/channel-config";
-import { RootLayoutHeader } from "./(components)/header";
 import AppRoot from "./(components)/root";
 import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
 import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
-import { NavbarMenu } from "./(components)/navbarMenu";
+import { AppProvider } from "@/core/client/useApp";
 import { CheckoutProvider } from "@/core/client/useCheckout";
 
 export const metadata = {
@@ -29,11 +27,24 @@ export default async function RootLayout({
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
-  const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
+  // const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
   let channel: Channel = params.channel as Channel;
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
   }
+  console.log(languageCode);
+  const { menu } = await gqlClient.Menu({ slug: "header", languageCode });
+  interface MenuItem {
+    level: number;
+    name: string;
+    url?: string | null;
+    page?: { slug: string };
+    category?: any; // Replace `any` with the correct type if available
+    children?: MenuItem[];
+    translation?: any; // Replace `any` with the correct type if available
+  }
+  const menuItems: MenuItem[] = menu?.items || [];
+  console.log("items", menuItems);
 
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">
@@ -51,9 +62,9 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <CheckoutProvider>
-            <AppRoot>{children}</AppRoot>
-          </CheckoutProvider>
+          <AppRoot menuItems={menuItems}>
+            <CheckoutProvider>{children}</CheckoutProvider>
+          </AppRoot>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />
       </body>

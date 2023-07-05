@@ -5,14 +5,19 @@ const nextConfig = {
     serverActions: true,
   },
   env: {
-    SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/"
+    SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/",
   },
   async rewrites() {
     return [
       {
+        source: "/shop",
+        destination: "/en-us/default-channel/c/all",
+      },
+      {
         source: "/:locale",
         destination: "/:locale/default-channel",
       },
+
       {
         source: "/:locale/c/:slug",
         destination: "/:locale/default-channel/c/:slug",
@@ -24,14 +29,8 @@ const nextConfig = {
     ];
   },
 
-
   async redirects() {
     return [
-      // {
-      //   source: "/",
-      //   destination: "/en-us",
-      //   permanent: false,
-      // },
       {
         source: "/",
         destination: "/home",

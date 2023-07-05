@@ -3,19 +3,36 @@ import { FC } from "react";
 import { navLinks } from "./data";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
+import { getLanguageCode } from "@/core/server/locale";
 
-export const DesktopPrimaryNav: FC = () => {
+interface MenuItem {
+  level: number;
+  name: string;
+  url: string | null;
+  page?: { slug: string };
+  category: any; // You can replace `any` with the appropriate type if available
+  children: MenuItem[];
+  translation: any; // You can replace `any` with the appropriate type if available
+}
+
+interface DesktopPrimaryNavMenuProps {
+  menuItems: MenuItem[];
+}
+
+export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
+  menuItems,
+}) => {
   return (
     <ul className="hidden lg:flex justify-center items-center menu menu-horizontal space-x-3 z-50 pr-2 ">
       <li>
         <LocaleMenu />
       </li>
-      {navLinks.map((link) => (
-        <li key={link.path}>
+      {menuItems.map((link) => (
+        <li key={link.name} className="cursor-pointer">
           <Link
             className="text-white font-roboto font-bold text-md liminal-text"
             data-text={link.name}
-            href={link.path}
+            href={`/${link.page?.slug!}`}
           >
             {link.name}
           </Link>

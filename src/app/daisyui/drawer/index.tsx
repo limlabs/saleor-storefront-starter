@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { createContext, ReactNode, useContext, useState } from "react";
+import { DrawerToggle } from "./drawerToggle";
 
 export const DrawerContext = createContext({
   sidebarOpen: false,
@@ -13,6 +14,7 @@ export const DrawerContainer = ({ children }: { children: ReactNode }) => {
 
   return (
     <DrawerContext.Provider value={{ sidebarOpen, setSidebarOpen }}>
+      <DrawerToggle />
       <div className={clsx("drawer drawer-end")}>{children}</div>
     </DrawerContext.Provider>
   );

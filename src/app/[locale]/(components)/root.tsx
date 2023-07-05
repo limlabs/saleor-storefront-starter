@@ -1,19 +1,32 @@
 import { DrawerContainer } from "@/app/daisyui/drawer";
 import { DrawerContent } from "@/app/daisyui/drawer/drawerContent";
 import { DrawerSidebar } from "@/app/daisyui/drawer/drawerSidebar";
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { PrimaryNav } from "./(header)/primaryNav";
 import { MobilePrimaryNav } from "./(header)/navMobile";
 import Footer from "./footer";
-import { CheckoutProvider } from "@/core/client/useCheckout";
 import { DrawerToggle } from "@/app/daisyui/drawer/drawerToggle";
 
-export default function AppRoot({ children }: PropsWithChildren) {
+interface MenuItem {
+  level: number;
+  name: string;
+  url: string | null;
+  page?: { slug: string };
+  category: any; // You can replace `any` with the appropriate type if available
+  children: MenuItem[];
+  translation: any; // You can replace `any` with the appropriate type if available
+}
+
+interface AppRootMenuProps {
+  menuItems: MenuItem[];
+  children: ReactNode;
+}
+
+export default function AppRoot({ children, menuItems }: AppRootMenuProps) {
   return (
     <DrawerContainer>
-      <DrawerToggle />
       <DrawerContent>
-        <PrimaryNav />
+        <PrimaryNav menuItems={menuItems} />
         {children}
         <Footer />
       </DrawerContent>

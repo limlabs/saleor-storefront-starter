@@ -73,15 +73,6 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
     getTranslations(),
   ]);
 
-  // const productDetails = product?.variants;
-  // console.log(productDetails);
-  // if (productDetails) {
-  //   for (const variant of productDetails) {
-  //     console.log(variant.name);
-  //     console.log(variant.quantityAvailable);
-  //   }
-  // }
-
   if (!product) {
     return redirect("/404");
   }

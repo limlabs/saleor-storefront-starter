@@ -23,7 +23,7 @@ export default function AppRoot({ children, menuItems }: AppRootMenuProps) {
         <Footer />
       </DrawerContent>
       <DrawerSidebar>
-        <MobilePrimaryNav />
+        <MobilePrimaryNav menuItems={menuItems} />
       </DrawerSidebar>
     </DrawerContainer>
   );

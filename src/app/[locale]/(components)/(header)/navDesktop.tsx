@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { FC } from "react";
-import { navLinks } from "./data";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
-import { getLanguageCode } from "@/core/server/locale";
+import { useTranslations } from "@/core/server/useTranslations";
 import { MenuItem } from "../menuTypes";
 
 interface DesktopPrimaryNavMenuProps {
@@ -13,6 +12,8 @@ interface DesktopPrimaryNavMenuProps {
 export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
   menuItems,
 }) => {
+  const t = useTranslations();
+
   return (
     <ul className="hidden lg:flex justify-center items-center menu menu-horizontal space-x-3 z-50 pr-2 ">
       <li>
@@ -25,7 +26,8 @@ export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
             data-text={link.name}
             href={`/${link.page?.slug!}`}
           >
-            {link.name}
+            {/* {t(`header.${link.page?.slug!}`)} */}
+            {t(`header.${link.page?.slug!}`)}
           </Link>
         </li>
       ))}

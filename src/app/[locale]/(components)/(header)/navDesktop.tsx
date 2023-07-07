@@ -4,16 +4,7 @@ import { navLinks } from "./data";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
 import { getLanguageCode } from "@/core/server/locale";
-
-interface MenuItem {
-  level: number;
-  name: string;
-  url: string | null;
-  page?: { slug: string };
-  category: any; // You can replace `any` with the appropriate type if available
-  children: MenuItem[];
-  translation: any; // You can replace `any` with the appropriate type if available
-}
+import { MenuItem } from "../menuTypes";
 
 interface DesktopPrimaryNavMenuProps {
   menuItems: MenuItem[];

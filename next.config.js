@@ -10,10 +10,6 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/shop",
-        destination: "/en-us/default-channel/c/all",
-      },
-      {
         source: "/:locale",
         destination: "/:locale/default-channel",
       },
@@ -34,6 +30,11 @@ const nextConfig = {
       {
         source: "/",
         destination: "/home",
+        permanent: false,
+      },
+      {
+        source: "/shop",
+        destination: "/en-us/c/all",
         permanent: false,
       },
     ];

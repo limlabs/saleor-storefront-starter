@@ -9,6 +9,7 @@ import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
 import { AppProvider } from "@/core/client/useApp";
 import { CheckoutProvider } from "@/core/client/useCheckout";
+import { MenuItem } from "./(components)/menuTypes";
 
 export const metadata = {
   title: "Headless Store",
@@ -27,24 +28,13 @@ export default async function RootLayout({
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
-  // const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
   let channel: Channel = params.channel as Channel;
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
   }
-  console.log(languageCode);
   const { menu } = await gqlClient.Menu({ slug: "header", languageCode });
-  interface MenuItem {
-    level: number;
-    name: string;
-    url?: string | null;
-    page?: { slug: string };
-    category?: any; // Replace `any` with the correct type if available
-    children?: MenuItem[];
-    translation?: any; // Replace `any` with the correct type if available
-  }
-  const menuItems: MenuItem[] = menu?.items || [];
-  console.log("items", menuItems);
+
+  const menuItems = menu?.items || [];
 
   return (
     <html lang={params.locale} data-theme="liminalThemeBright">

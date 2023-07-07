@@ -5,16 +5,7 @@ import { DrawerIcon } from "./drawerIcon";
 import { DesktopPrimaryNav } from "./navDesktop";
 import logo from "./logo.svg";
 import { ILanguageCodeEnum } from "@/gql/sdk";
-
-interface MenuItem {
-  level: number;
-  name: string;
-  url: string | null;
-  page?: { slug: string };
-  category: any; // You can replace `any` with the appropriate type if available
-  children: MenuItem[];
-  translation: any; // You can replace `any` with the appropriate type if available
-}
+import { MenuItem } from "../menuTypes";
 
 interface PrimaryNavMenuProps {
   menuItems: MenuItem[];

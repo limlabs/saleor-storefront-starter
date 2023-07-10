@@ -1,7 +1,5 @@
 import { FC } from "react";
-import { navLinks } from "./data";
-import { NavLinkMobile } from "./navLinkMobile";
-import { MenuItem } from "../menuTypes";
+import { MenuItem } from "@/app/types";
 import Link from "next/link";
 
 interface MobilePrimaryNavProps {

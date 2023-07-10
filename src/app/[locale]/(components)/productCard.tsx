@@ -22,13 +22,13 @@ import { productCardTranslationKeys } from "@/app/translations/productCard";
 interface ProductCardProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
-  galleryCardClassName: string;
+  className: string;
 }
 
 export const ProductCard: FC<ProductCardProps> = ({
   product,
   animation,
-  galleryCardClassName = "",
+  className = "",
 }) => {
   const { thumbnail, pricing, slug, rating } = product;
 
@@ -52,7 +52,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       rounded="md"
       bgBlend="darken"
       glass
-      className={`${cardClasses} ${galleryCardClassName}`}
+      className={`${cardClasses} ${className}`}
     >
       <ProductRating
         name={slug}

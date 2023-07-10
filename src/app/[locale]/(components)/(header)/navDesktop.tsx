@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { FC } from "react";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
 import { useTranslations } from "@/core/server/useTranslations";
-import { MenuItem } from "../menuTypes";
-
+import { MenuItem } from "@/app/types";
+import Link from "next/link";
 interface DesktopPrimaryNavMenuProps {
   menuItems: MenuItem[];
 }
@@ -26,8 +25,7 @@ export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
             data-text={link.name}
             href={`/${link.page?.slug!}`}
           >
-            {/* {t(`header.${link.page?.slug!}`)} */}
-            {t(`header.${link.page?.slug!}`)}
+            {t(`header.${link.name.toLowerCase()}`)}
           </Link>
         </li>
       ))}

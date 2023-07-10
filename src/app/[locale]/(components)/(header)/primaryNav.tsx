@@ -1,12 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { FC } from "react";
 import { DrawerIcon } from "./drawerIcon";
 import { DesktopPrimaryNav } from "./navDesktop";
 import logo from "./logo.svg";
-import { ILanguageCodeEnum } from "@/gql/sdk";
-import { MenuItem } from "../menuTypes";
-
+import { MenuItem } from "@/app/types";
+import Link from "next/link";
 interface PrimaryNavMenuProps {
   menuItems: MenuItem[];
 }

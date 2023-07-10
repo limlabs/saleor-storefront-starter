@@ -1,8 +1,7 @@
 "use client";
-
+import { Link } from "../link";
 import { useDrawer } from "@/app/daisyui/drawer";
 import clsx from "clsx";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { Navlink } from "./data";

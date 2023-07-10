@@ -52,9 +52,11 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <AppRoot menuItems={menuItems}>
-            <CheckoutProvider>{children}</CheckoutProvider>
-          </AppRoot>
+          <div className="mx-auto my-6 w-full max-w-6xl ">
+            <AppRoot menuItems={menuItems}>
+              <CheckoutProvider>{children}</CheckoutProvider>
+            </AppRoot>
+          </div>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />
       </body>

@@ -18,17 +18,25 @@ export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
       <li>
         <LocaleMenu />
       </li>
-      {menuItems.map((link) => (
-        <li key={link.name} className="cursor-pointer">
-          <Link
-            className="text-white font-roboto font-bold text-md liminal-text"
-            data-text={link.name}
-            href={`/${link.page?.slug!}`}
-          >
-            {t(`header.${link.name.toLowerCase()}`)}
-          </Link>
-        </li>
-      ))}
+
+      <li className="cursor-pointer">
+        <Link
+          className="text-white font-roboto font-bold text-md liminal-text"
+          data-text={"shop"}
+          href={"shop"}
+        >
+          {t("header.shop")}
+        </Link>
+      </li>
+      <li className="cursor-pointer">
+        <Link
+          className="text-white font-roboto font-bold text-md liminal-text"
+          data-text={"home"}
+          href={"/"}
+        >
+          {t("header.home")}
+        </Link>
+      </li>
 
       <li>
         <CartIconWithCount />

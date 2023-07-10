@@ -1,12 +1,15 @@
 import { FC } from "react";
 import { MenuItem } from "@/app/types";
 import Link from "next/link";
+import { useTranslations } from "@/core/server/useTranslations";
 
 interface MobilePrimaryNavProps {
   menuItems: MenuItem[];
 }
 
 export const MobilePrimaryNav: FC<MobilePrimaryNavProps> = ({ menuItems }) => {
+  const t = useTranslations();
+
   return (
     <>
       <label htmlFor="drawerToggle" className="drawer-overlay"></label>
@@ -18,7 +21,7 @@ export const MobilePrimaryNav: FC<MobilePrimaryNavProps> = ({ menuItems }) => {
               data-text={link.name}
               href={`/${link.page?.slug!}`}
             >
-              {link.name}
+              {t(`header.${link.name.toLowerCase()}`)}
             </Link>
           </li>
         ))}

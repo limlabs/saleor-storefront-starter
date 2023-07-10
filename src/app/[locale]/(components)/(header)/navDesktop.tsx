@@ -2,15 +2,10 @@ import { FC } from "react";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
 import { useTranslations } from "@/core/server/useTranslations";
-import { MenuItem } from "@/app/types";
-import Link from "next/link";
-interface DesktopPrimaryNavMenuProps {
-  menuItems: MenuItem[];
-}
 
-export const DesktopPrimaryNav: FC<DesktopPrimaryNavMenuProps> = ({
-  menuItems,
-}) => {
+import Link from "next/link";
+
+export const DesktopPrimaryNav: FC = () => {
   const t = useTranslations();
 
   return (

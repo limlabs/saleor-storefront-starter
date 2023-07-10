@@ -3,13 +3,9 @@ import { FC } from "react";
 import { DrawerIcon } from "./drawerIcon";
 import { DesktopPrimaryNav } from "./navDesktop";
 import logo from "./logo.svg";
-import { MenuItem } from "@/app/types";
 import Link from "next/link";
-interface PrimaryNavMenuProps {
-  menuItems: MenuItem[];
-}
 
-export const PrimaryNav: FC<PrimaryNavMenuProps> = ({ menuItems }) => {
+export const PrimaryNav: FC = () => {
   return (
     <div className="w-full navbar p-4">
       <div className="flex-1 px-2 mx-2">
@@ -31,7 +27,7 @@ export const PrimaryNav: FC<PrimaryNavMenuProps> = ({ menuItems }) => {
         <DrawerIcon />
       </div>
       <div className="flex justify-center item-center lg:block space-x-3">
-        <DesktopPrimaryNav menuItems={menuItems} />
+        <DesktopPrimaryNav />
       </div>
     </div>
   );

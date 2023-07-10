@@ -6,24 +6,18 @@ import { PrimaryNav } from "./(header)/primaryNav";
 import { MobilePrimaryNav } from "./(header)/navMobile";
 import Footer from "./footer";
 import { DrawerToggle } from "@/app/daisyui/drawer/drawerToggle";
-import { MenuItem } from "./menuTypes";
 
-interface AppRootMenuProps {
-  menuItems: MenuItem[];
-  children: ReactNode;
-}
-
-export default function AppRoot({ children, menuItems }: AppRootMenuProps) {
+export default function AppRoot({ children }: PropsWithChildren) {
   return (
     <DrawerContainer>
       <DrawerToggle />
       <DrawerContent>
-        <PrimaryNav menuItems={menuItems} />
+        <PrimaryNav />
         {children}
         <Footer />
       </DrawerContent>
       <DrawerSidebar>
-        <MobilePrimaryNav menuItems={menuItems} />
+        <MobilePrimaryNav />
       </DrawerSidebar>
     </DrawerContainer>
   );

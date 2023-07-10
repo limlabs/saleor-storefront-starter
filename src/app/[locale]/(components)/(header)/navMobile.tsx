@@ -1,13 +1,9 @@
 import { FC } from "react";
-import { MenuItem } from "@/app/types";
+
 import Link from "next/link";
 import { useTranslations } from "@/core/server/useTranslations";
 
-interface MobilePrimaryNavProps {
-  menuItems: MenuItem[];
-}
-
-export const MobilePrimaryNav: FC<MobilePrimaryNavProps> = ({ menuItems }) => {
+export const MobilePrimaryNav: FC = () => {
   const t = useTranslations();
 
   return (

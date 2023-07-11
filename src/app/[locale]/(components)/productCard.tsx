@@ -69,6 +69,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
           width={300}
           height={300}
           className={cardMediaClasses}
+          priority
         />
       </Link>
       <Indicator

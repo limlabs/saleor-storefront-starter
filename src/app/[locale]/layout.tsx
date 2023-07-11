@@ -9,7 +9,6 @@ import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
 import { AppProvider } from "@/core/client/useApp";
 import { CheckoutProvider } from "@/core/client/useCheckout";
-import { MenuItem } from "./(components)/menuTypes";
 
 export const metadata = {
   title: "Headless Store",
@@ -53,7 +52,7 @@ export default async function RootLayout({
           }}
         >
           <div className="mx-auto my-6 w-full max-w-6xl ">
-            <AppRoot menuItems={menuItems}>
+            <AppRoot>
               <CheckoutProvider>{children}</CheckoutProvider>
             </AppRoot>
           </div>

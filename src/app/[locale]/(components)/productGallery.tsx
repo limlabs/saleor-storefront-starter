@@ -43,7 +43,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
                 <ProductCard
                   product={node}
                   animation="bounce"
-                  galleryCardClassName="w-full"
+                  className="w-full"
                 />
               </ProductSelectionProvider>
             </li>

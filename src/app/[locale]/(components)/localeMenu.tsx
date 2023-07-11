@@ -15,13 +15,13 @@ export const LocaleMenu: FC = () => {
     const { pathname, search } = window.location;
     if (params.locale) {
       const localePathname = pathname.replace(params.locale, target.value);
-      router.replace(localePathname+search);
+      router.replace(localePathname + search);
     }
   };
 
   return (
     <Select
-      className="select-primary select-sm"
+      className="select-primary select-md"
       defaultValue={params.locale}
       onChange={handleLocaleChange}
     >

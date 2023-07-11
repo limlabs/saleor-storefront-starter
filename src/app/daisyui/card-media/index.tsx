@@ -20,7 +20,7 @@ const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(
     ref
   ) {
     const classNames = clsx(
-      "rounded-t-md",
+      "rounded-t-md flex justify-center",
       {
         "bg-neutral": accentBg,
       },
@@ -29,7 +29,7 @@ const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(
 
     return (
       <figure ref={ref} className={classNames}>
-        <Image src={src} loader={loader} alt={alt} {...imgArgs} />
+        <Image src={src} loader={loader} alt={alt} {...imgArgs} priority />
       </figure>
     );
   }

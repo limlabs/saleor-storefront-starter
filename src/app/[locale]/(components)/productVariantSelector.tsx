@@ -28,16 +28,24 @@ const ProductVariantAttributeSelectorOption = ({
   if (!attribute) {
     return null;
   }
+  console.log("varrrr", variant.name);
+  console.log("varrrr", variant.quantityAvailable);
 
   const isSelected = selectedVariantID === variant.id;
 
   // Concatenate the values of the attribute into a string
   const text = values?.map((v) => v.translation?.name ?? v.name).join(", ");
+
+  const isDisabled = variant.quantityAvailable === 0;
+
   // Return a button that calls the onSelected callback with the text when clicked
   return (
     <button
       onClick={() => onSelected?.(values?.map((v) => v.id) ?? [])}
-      className={`w-full btn ${isSelected ? "btn-active" : "btn-outline"}`}
+      className={`w-full btn ${isSelected ? "btn-active" : "btn-outline"} ${
+        isDisabled ? "btn-disabled" : ""
+      }`}
+      disabled={isDisabled}
     >
       {text}
     </button>

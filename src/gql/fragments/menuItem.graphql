@@ -1,8 +1,18 @@
 fragment MenuItemFragment on MenuItem {
   level
+  name
+  url
+  page {
+    slug
+  }
   category {
     id
     name
+  }
+  children {
+    page {
+      slug
+    }
   }
   translation(languageCode: $languageCode) {
     name

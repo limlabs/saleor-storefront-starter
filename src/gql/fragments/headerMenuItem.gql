@@ -1,0 +1,12 @@
+fragment HeaderMenuItemFragment on MenuItem {
+  page {
+    slug
+  }
+  children {
+     {
+      page {
+        slug
+      }
+    }
+  }
+}

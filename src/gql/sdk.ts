@@ -27007,21 +27007,34 @@ export type IMenuFragment = {
   items?: Array<{
     __typename?: "MenuItem";
     level: number;
+    name: string;
+    url?: string | null;
     children?: Array<{
       __typename?: "MenuItem";
       level: number;
+      name: string;
+      url?: string | null;
       children?: Array<{
         __typename?: "MenuItem";
         level: number;
+        name: string;
+        url?: string | null;
+        page?: { __typename?: "Page"; slug: string } | null;
         category?: { __typename?: "Category"; id: string; name: string } | null;
+        children?: Array<{
+          __typename?: "MenuItem";
+          page?: { __typename?: "Page"; slug: string } | null;
+        }> | null;
         translation?: {
           __typename?: "MenuItemTranslation";
           name: string;
         } | null;
       }> | null;
+      page?: { __typename?: "Page"; slug: string } | null;
       category?: { __typename?: "Category"; id: string; name: string } | null;
       translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
     }> | null;
+    page?: { __typename?: "Page"; slug: string } | null;
     category?: { __typename?: "Category"; id: string; name: string } | null;
     translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
   }> | null;
@@ -27030,7 +27043,14 @@ export type IMenuFragment = {
 export type IMenuItemFragment = {
   __typename?: "MenuItem";
   level: number;
+  name: string;
+  url?: string | null;
+  page?: { __typename?: "Page"; slug: string } | null;
   category?: { __typename?: "Category"; id: string; name: string } | null;
+  children?: Array<{
+    __typename?: "MenuItem";
+    page?: { __typename?: "Page"; slug: string } | null;
+  }> | null;
   translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
 };
 
@@ -27442,28 +27462,41 @@ export type IMenuQuery = {
     items?: Array<{
       __typename?: "MenuItem";
       level: number;
+      name: string;
+      url?: string | null;
       children?: Array<{
         __typename?: "MenuItem";
         level: number;
+        name: string;
+        url?: string | null;
         children?: Array<{
           __typename?: "MenuItem";
           level: number;
+          name: string;
+          url?: string | null;
+          page?: { __typename?: "Page"; slug: string } | null;
           category?: {
             __typename?: "Category";
             id: string;
             name: string;
           } | null;
+          children?: Array<{
+            __typename?: "MenuItem";
+            page?: { __typename?: "Page"; slug: string } | null;
+          }> | null;
           translation?: {
             __typename?: "MenuItemTranslation";
             name: string;
           } | null;
         }> | null;
+        page?: { __typename?: "Page"; slug: string } | null;
         category?: { __typename?: "Category"; id: string; name: string } | null;
         translation?: {
           __typename?: "MenuItemTranslation";
           name: string;
         } | null;
       }> | null;
+      page?: { __typename?: "Page"; slug: string } | null;
       category?: { __typename?: "Category"; id: string; name: string } | null;
       translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
     }> | null;
@@ -27834,9 +27867,19 @@ export const FragGalleryProductFragmentDoc = `
 export const FragMenuItemFragmentDoc = `
     fragment MenuItemFragment on MenuItem {
   level
+  name
+  url
+  page {
+    slug
+  }
   category {
     id
     name
+  }
+  children {
+    page {
+      slug
+    }
   }
   translation(languageCode: $languageCode) {
     name

@@ -9,7 +9,7 @@ import { FC } from "react";
 
 const SingleImageSkeleton: FC = () => {
   return (
-    <div className="flex justify-center items-center lg:pr-8 lg:pt-2 mix-blend-overlay bg-slate-800 glass  h-[840px] w-[840px]">
+    <div className="flex justify-center items-center lg:pr-8 lg:pt-2 mix-blend-overlay bg-almost-black glass  h-[840px] w-[840px]">
       <div className=" mix-blend-overlay"></div>
     </div>
   );

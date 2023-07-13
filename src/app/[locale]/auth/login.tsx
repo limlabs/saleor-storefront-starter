@@ -2,6 +2,7 @@
 import Button from "@/app/daisyui/button";
 import TextInput from "@/app/daisyui/text-input";
 import { FormEvent, useState } from "react";
+import { FormInput } from "../(components)/formInput";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -15,23 +16,19 @@ export const Login = () => {
       <form onSubmit={handleSubmit}>
         <h1 className="font-bold text-xl text-black">LOGIN</h1>
         <section className="flex flex-col gap-4 text-black">
-          <div className="flex flex-col">
-            <label>Email</label>
-            <TextInput
-              className="bg-white border border-black"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label>Password</label>
-            <TextInput
-              className="bg-white border border-black"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          <FormInput
+            value={email}
+            id="loginEmail"
+            label="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <FormInput
+            value={password}
+            label="Password*"
+            id="loginPassword"
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+          />
         </section>
 
         <div className="mt-4">

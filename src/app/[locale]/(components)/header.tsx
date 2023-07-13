@@ -4,6 +4,7 @@ import { Link } from "./link";
 import { LocaleMenu } from "./localeMenu";
 import type { FC } from "react";
 import { CartIconWithCount } from "./cartIconWithCount";
+import { useDrawer } from "@/app/daisyui/drawer";
 
 export const RootLayoutHeader: FC = () => {
   const t = useTranslations();

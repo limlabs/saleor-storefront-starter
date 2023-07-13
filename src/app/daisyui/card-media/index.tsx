@@ -11,6 +11,7 @@ interface CardMediaProps {
   height?: number;
   fill?: boolean;
   className?: string;
+  priority: boolean;
 }
 
 const CardMedia = React.forwardRef<HTMLElement, CardMediaProps>(

@@ -16,6 +16,7 @@ export default function loading({}) {
         </h1>
         <div className=" bg-slate-700 rounded-md h-12"></div>
         <div className=" bg-slate-700 rounded-md h-12"></div>
+
       </section>
     </main>
   );

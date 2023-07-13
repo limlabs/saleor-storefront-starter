@@ -26,6 +26,7 @@ const SingleImage: FC<{ url?: string; alt?: string }> = ({ url, alt }) => {
         width={840}
         height={840}
         className="bg-neutral block"
+        priority
       />
     </div>
   );
@@ -51,6 +52,7 @@ export const ProductImageGrid: FC<ProductImageGridProps> = ({ media }) => {
           width={420}
           height={420}
           className="bg-white"
+          priority
         />
       ))}
     </div>

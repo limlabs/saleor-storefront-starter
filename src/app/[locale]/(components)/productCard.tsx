@@ -74,6 +74,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           width={300}
           height={300}
           className={cardMediaClasses}
+          priority
         />
       </Link>
       <Indicator

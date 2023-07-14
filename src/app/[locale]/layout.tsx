@@ -1,18 +1,18 @@
-import { localeConfig } from "@/locale-config";
+import { localeConfig } from '@/locale-config';
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
-import { Channel, channelConfig } from "@/channel-config";
-import AppRoot from "./(components)/root";
-import type { PropsWithChildren } from "react";
-import type { Locale } from "@/locale-config";
-import "./globals.css";
-import { gqlClient } from "@/gql";
-import { getLanguageCode } from "@/core/server/locale";
-import { AppProvider } from "@/core/client/useApp";
-import { CheckoutProvider } from "@/core/client/useCheckout";
+import { Channel, channelConfig } from '@/channel-config';
+import AppRoot from './(components)/root';
+import type { PropsWithChildren } from 'react';
+import type { Locale } from '@/locale-config';
+import './globals.css';
+import { gqlClient } from '@/gql';
+import { getLanguageCode } from '@/core/server/locale';
+import { AppProvider } from '@/core/client/useApp';
+import { CheckoutProvider } from '@/core/client/useCheckout';
 
 export const metadata = {
-  title: "Headless Store",
-  description: "Open source headless Storefront",
+  title: 'Saleor Storefront Starter',
+  description: 'an open-source storefront built using NextJS and Saleor',
 };
 
 interface RootLayoutProps {
@@ -31,7 +31,7 @@ export default async function RootLayout({
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
   }
-  const { menu } = await gqlClient.Menu({ slug: "header", languageCode });
+  const { menu } = await gqlClient.Menu({ slug: 'header', languageCode });
 
   const menuItems = menu?.items || [];
 

@@ -31,13 +31,15 @@ body:
 - id: tasks
   type: textarea
   attributes:
+    label
     placeholder: |
       - [ ] _List of items that will correspond to individual Pull Requests_
   validations:
     required: true
-- id: Acceptance Criteria
+- id: acceptanceCriteria
   type: textarea
   attributes:
+    label: Acceptance Criteria
     placeholder: |
       - _List of high-level system behaviors or conditions that need to be met for this epic to be considered finished_
   validations:
@@ -45,5 +47,6 @@ body:
 - id: relatedIssues
   type: textarea
   attributes:
+    label: Related Issues
     placeholder: |
       - _List of epics or tasks that are worth mentioning in the context of this issue_

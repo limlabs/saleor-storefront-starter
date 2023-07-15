@@ -13,6 +13,20 @@ import { CheckoutProvider } from '@/core/client/useCheckout';
 export const metadata = {
   title: 'Saleor Storefront Starter',
   description: 'an open-source storefront built using NextJS and Saleor',
+  og: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://saleor-storefront-starter.vercel.app',
+    site_name: 'Saleor Storefront Starter',
+    images: [
+      {
+        url: 'placeholder for placeholder component',
+        width: 512,
+        height: 512,
+        alt: 'Saleor Storefront',
+      },
+    ],
+  },
 };
 
 interface RootLayoutProps {

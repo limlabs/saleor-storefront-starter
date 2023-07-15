@@ -1,6 +1,6 @@
 name: Task
 title: "Task Name"
-description: "High-level user story or initiative that represents a significant piece of work"
+description: "Low-level unit of work, usually corresponding to a pull request"
 labels: Task
 body:
 - type: textarea

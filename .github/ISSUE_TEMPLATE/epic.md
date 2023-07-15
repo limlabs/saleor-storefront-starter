@@ -3,12 +3,10 @@ name: Epic
 about: High-level user story or initiative that represents a significant piece of
   work
 title: "[Epic]"
-labels: epic
+labels: Epic
 assignees: ''
 
 ---
-
-## Epic: [Epic Title]
 
 ### Description
 [Provide a brief overview of the epic and its goals. Include any relevant background information or context.]

@@ -31,9 +31,9 @@ body:
 - id: tasks
   type: textarea
   attributes:
-    label
+    label: Tasks
     placeholder: |
-      - [ ] _List of items that will correspond to individual Pull Requests_
+      - [ ] _List of issues that will correspond to individual Pull Requests_
   validations:
     required: true
 - id: acceptanceCriteria

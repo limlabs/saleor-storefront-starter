@@ -1,5 +1,6 @@
 name: Epic
 title: "[Epic]"
+about: "High-level user story or initiative that represents a significant piece of work"
 labels: Epic
 body:
 - type: input

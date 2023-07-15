@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Community Help
+    url: https://discord.com/channels/1087268228943855658/1129655542416146522
+    about: Ask and answer questions here!
+  - name: Discussion
+    url: https://discord.com/channels/1087268228943855658/1123018420158480435
+    about: Provide feedback, talk about new feature ideas, and interact with community members doing similar things

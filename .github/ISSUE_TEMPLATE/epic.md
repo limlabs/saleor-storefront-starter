@@ -1,7 +1,6 @@
 ---
 name: Epic
-about: High-level user story or initiative that represents a significant piece of
-  work
+about: High-level user story or initiative that represents a significant piece of work
 title: "[Epic]"
 labels: Epic
 assignees: ''

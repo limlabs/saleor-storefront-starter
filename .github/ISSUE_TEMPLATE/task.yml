@@ -7,7 +7,7 @@ body:
   id: description
   attributes:
     label: Description
-    description: "Provide a brief overview of the epic and its goals. Include any relevant background information or context."
+    description: "Provide a brief overview of the task and its goals. Include any relevant background information or context."
   validations:
     required: true
 - id: acceptanceCriteria
@@ -15,7 +15,7 @@ body:
   attributes:
     label: Acceptance Criteria
     placeholder: |
-      - _List of high-level system behaviors or conditions that need to be met for this epic to be considered finished_
+      - _List of detailed behaviors or conditions that must be met for this issue to be closed_
   validations:
     required: true
 - id: dependencies
@@ -23,7 +23,7 @@ body:
   attributes:
     label: Dependencies
     placeholder: |
-      - [ ] Link to issue required to be completed before this task be started
+      - [ ] Link to issue required to be completed before this issue can be started
 - id: relatedIssues
   type: textarea
   attributes:

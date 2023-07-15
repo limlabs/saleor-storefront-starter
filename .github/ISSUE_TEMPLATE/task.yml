@@ -10,12 +10,6 @@ body:
     description: "Provide a brief overview of the epic and its goals. Include any relevant background information or context."
   validations:
     required: true
-- id: dependencies
-  type: textarea
-  attributes:
-    label: Dependencies
-    placeholder: |
-      - [ ] Link to issue required to be completed before this task be started
 - id: acceptanceCriteria
   type: textarea
   attributes:
@@ -24,6 +18,12 @@ body:
       - _List of high-level system behaviors or conditions that need to be met for this epic to be considered finished_
   validations:
     required: true
+- id: dependencies
+  type: textarea
+  attributes:
+    label: Dependencies
+    placeholder: |
+      - [ ] Link to issue required to be completed before this task be started
 - id: relatedIssues
   type: textarea
   attributes:

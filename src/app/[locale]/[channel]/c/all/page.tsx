@@ -26,7 +26,7 @@ interface PageProps {
 }
 
 export async function generateMetadata(
-  { params, searchParams }: PageProps,
+  { params }: PageProps,
   parent: ResolvingMetadata
 ): Promise<ResolvedMetadata> {
   const translations = await getTranslations(params.locale);
@@ -36,15 +36,6 @@ export async function generateMetadata(
     ...parent,
     title: pageTitle,
     description: pageDescription,
-    openGraph: {
-      type: 'website',
-      title: pageTitle,
-      description: pageDescription,
-      locale: params.locale,
-      url: `/${params.locale}/${params.channel}/c/all`,
-      site_name: pageTitle,
-      images: [{}],
-    },
   };
 }
 

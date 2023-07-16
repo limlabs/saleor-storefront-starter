@@ -14,7 +14,7 @@ import { ResolvingMetadata, ResolvedMetadata } from 'next';
 
 interface RootLayoutProps {
   params: {
-    imageUrl: string;
+    imageUrl?: string;
     locale: Locale;
     channel: string;
   };
@@ -25,12 +25,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<ResolvedMetadata> {
   const translations = await getTranslations(params.locale);
-  // TODO: clear errors below
-  // error reads:
-  // Element implicitly has an 'any' type because expression of type '"metadata.siteTitle"' can't be used to index type '(path: string) => any'.
-  // Property 'metadata.siteTitle' does not exist on type '(path: string) => any'.ts(7053)
-  const siteTitle = translations['metadata.siteTitle'];
-  const siteDescription = translations['metadata.siteDescription'];
+  const siteTitle = translations('metadata.siteTitle');
+  const siteDescription = translations('metadata.siteDescription');
   return {
     ...parent,
     title: siteTitle,

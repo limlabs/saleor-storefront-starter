@@ -1,7 +1,7 @@
 name: Task
 title: "Task Name"
 description: "Low-level unit of work, usually corresponding to a pull request"
-labels: [task]
+labels: [Task]
 body:
 - type: textarea
   id: description

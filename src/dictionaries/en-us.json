@@ -32,5 +32,9 @@
   "metadata": {
     "siteTitle": "Saleor Storefront Starter",
     "siteDescription": "an open-source storefront built using NextJS and Saleor"
+  },
+  "allProducts": {
+    "pageTitle": "All Products",
+    "pageDescription": "a complete listing of the product catalog for this store"
   }
 }

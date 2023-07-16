@@ -28,5 +28,9 @@
     "prev": "Previous",
     "sale": "Sale",
     "rating": "Rating"
+  },
+  "metadata": {
+    "siteTitle": "Saleor Storefront Starter",
+    "siteDescription": "an open-source storefront built using NextJS and Saleor"
   }
 }

@@ -9,30 +9,44 @@ import { gqlClient } from '@/gql';
 import { getLanguageCode } from '@/core/server/locale';
 import { AppProvider } from '@/core/client/useApp';
 import { CheckoutProvider } from '@/core/client/useCheckout';
-
-export const metadata = {
-  title: 'Saleor Storefront Starter',
-  description: 'an open-source storefront built using NextJS and Saleor',
-  og: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://saleor-storefront-starter.vercel.app',
-    site_name: 'Saleor Storefront Starter',
-    images: [
-      {
-        url: 'placeholder for placeholder component',
-        width: 512,
-        height: 512,
-        alt: 'Saleor Storefront',
-      },
-    ],
-  },
-};
+import { getTranslations } from '@/core/server/getTranslations';
+import { ResolvingMetadata, ResolvedMetadata } from 'next';
 
 interface RootLayoutProps {
   params: {
+    imageUrl: string;
     locale: Locale;
     channel: string;
+  };
+}
+
+export async function generateMetadata(
+  { params }: RootLayoutProps,
+  parent: ResolvingMetadata
+): Promise<ResolvedMetadata> {
+  const translations = await getTranslations(params.locale);
+  // TODO: clear errors below
+  // error reads:
+  // Element implicitly has an 'any' type because expression of type '"metadata.siteTitle"' can't be used to index type '(path: string) => any'.
+  // Property 'metadata.siteTitle' does not exist on type '(path: string) => any'.ts(7053)
+  const siteTitle = translations['metadata.siteTitle'];
+  const siteDescription = translations['metadata.siteDescription'];
+  return {
+    ...parent,
+    title: siteTitle,
+    description: siteDescription,
+    openGraph: {
+      type: 'website',
+      title: siteTitle,
+      locale: params.locale,
+      url: `/${params.locale}`,
+      site_name: siteTitle,
+      images: [
+        {
+          url: params.imageUrl || '/app/(components)/placeholderImage.tsx',
+        },
+      ],
+    },
   };
 }
 

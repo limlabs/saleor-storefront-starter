@@ -32,10 +32,15 @@ export async function generateMetadata(
   const translations = await getTranslations(params.locale);
   const pageTitle = translations('allProducts.pageTitle');
   const pageDescription = translations('allProducts.pageDescription');
+  const parentMetadata = await parent;
   return {
-    ...parent,
+    ...parentMetadata,
     title: pageTitle,
     description: pageDescription,
+    openGraph: {
+      ...parentMetadata.openGraph,
+      url: `/${params.locale}/${params.channel}/c/all`,
+    },
   };
 }
 

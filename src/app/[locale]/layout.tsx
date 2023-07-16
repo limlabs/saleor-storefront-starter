@@ -14,7 +14,6 @@ import { ResolvingMetadata, ResolvedMetadata } from 'next';
 
 interface RootLayoutProps {
   params: {
-    imageUrl?: string;
     locale: Locale;
     channel: string;
   };
@@ -39,7 +38,7 @@ export async function generateMetadata(
       site_name: siteTitle,
       images: [
         {
-          url: params.imageUrl || '/app/(components)/placeholderImage.tsx',
+          url: '/placeholderImage.svg',
         },
       ],
     },

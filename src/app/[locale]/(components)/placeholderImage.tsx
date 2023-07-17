@@ -8,8 +8,8 @@ interface PlaceholderImageProps {
 export const PlaceholderImage: FC<PlaceholderImageProps> = ({ width = 181, height = 180 }) => {
   return (
     <svg
-      width={width || 181}
-      height={height || 180}
+      width={width}
+      height={height}
       viewBox="0 0 181 180"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

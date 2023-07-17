@@ -2,7 +2,7 @@
 import Button from "@/app/daisyui/button";
 import TextInput from "@/app/daisyui/text-input";
 import { FormEvent, useState } from "react";
-import { FormInput } from "../(components)/textField";
+import { TextField } from "../(components)/textField";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,13 +13,13 @@ export const Login = () => {
       <form>
         <h1 className="font-bold text-xl text-black">LOGIN</h1>
         <section className="flex flex-col gap-4 text-black">
-          <FormInput
+          <TextField
             value={email}
             id="loginEmail"
             label="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <FormInput
+          <TextField
             value={password}
             label="Password*"
             id="loginPassword"

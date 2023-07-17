@@ -15,7 +15,7 @@ const CURRENCY_MAP = {
 
 export const ProductPrice: FC<ProductPriceProps> = ({
   pricing,
-  textColor = "",
+  textColor = "accent",
 }) => {
   const { price, discountPrice, currency } = useMemo(() => {
     const { displayGrossPrices, discount, priceRange } = pricing ?? {};

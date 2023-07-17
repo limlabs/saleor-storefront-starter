@@ -15,7 +15,6 @@ export const NavLinkMobile: FC<Navlink> = ({ name, path }) => {
         "cursor-pointer uppercase rounded-none italic flex justify-center items-center py-3 text-[26px] font-bold border-r-2 border-l-2  font-mono",
         {
           "": currentPath === path,
-          "": currentPath !== path,
         }
       )}
       href={path}

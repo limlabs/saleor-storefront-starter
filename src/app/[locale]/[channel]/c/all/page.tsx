@@ -61,7 +61,7 @@ export default withTranslations<PageProps>(async function AllProductsPage({
 
   return (
     <main>
-      <h1 className="m-4 text-xl text-secondary-content">
+      <h1 className="m-4 text-xl ">
         <Breadcrumbs className="text-sm">
           <ul>
             <li className="text-secondary">{t("Gallery.shop")}</li>

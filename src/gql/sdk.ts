@@ -27375,29 +27375,6 @@ export type ITaxedMoneyFragment = {
   tax: { __typename?: "Money"; amount: number };
 };
 
-export type IAccountRegisterMutationVariables = Exact<{
-  input: IAccountRegisterInput;
-}>;
-
-export type IAccountRegisterMutation = {
-  __typename?: "Mutation";
-  accountRegister?: {
-    __typename?: "AccountRegister";
-    accountErrors: Array<{
-      __typename?: "AccountError";
-      field?: string | null;
-      message?: string | null;
-    }>;
-    user?: {
-      __typename?: "User";
-      id: string;
-      email: string;
-      firstName: string;
-      lastName: string;
-    } | null;
-  } | null;
-};
-
 export type ICheckoutCreateMutationVariables = Exact<{
   channel?: InputMaybe<Scalars["String"]>;
   variantID: Scalars["ID"];
@@ -28079,22 +28056,6 @@ export const FragProductDetailsFragmentDoc = `
     ${FragProductDetailsAttributeFragmentDoc}
 ${FragPricingFragmentDoc}
 ${FragProductVariantFragmentDoc}`;
-export const AccountRegisterDocument = `
-    mutation accountRegister($input: AccountRegisterInput!) {
-  accountRegister(input: $input) {
-    accountErrors {
-      field
-      message
-    }
-    user {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-}
-    `;
 export const CheckoutCreateDocument = `
     mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
   checkoutCreate(
@@ -28222,21 +28183,6 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
-    accountRegister(
-      variables: IAccountRegisterMutationVariables,
-      requestHeaders?: Dom.RequestInit["headers"]
-    ): Promise<IAccountRegisterMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<IAccountRegisterMutation>(
-            AccountRegisterDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        "accountRegister",
-        "mutation"
-      );
-    },
     checkoutCreate(
       variables: ICheckoutCreateMutationVariables,
       requestHeaders?: Dom.RequestInit["headers"]

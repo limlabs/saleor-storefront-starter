@@ -12,12 +12,10 @@ export const NavLinkMobile: FC<Navlink> = ({ name, path }) => {
   return (
     <Link
       className={clsx(
-        "cursor-pointer uppercase rounded-none italic flex justify-center items-center py-3 text-[26px] font-bold border-r-2 border-l-2 border-l-light-blue-main font-mono",
+        "cursor-pointer uppercase rounded-none italic flex justify-center items-center py-3 text-[26px] font-bold border-r-2 border-l-2  font-mono",
         {
-          "text-white bg-liminal-hot-pink border-r-[#FF9C9C]":
-            currentPath === path,
-          "text-dark-purp bg-[#FF9C9C] border-r-liminal-hot-pink":
-            currentPath !== path,
+          "": currentPath === path,
+          "": currentPath !== path,
         }
       )}
       href={path}

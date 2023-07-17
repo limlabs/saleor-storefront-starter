@@ -11,10 +11,10 @@ export const MobilePrimaryNav: FC = () => {
   return (
     <>
       <label htmlFor="drawerToggle" className="drawer-overlay"></label>
-      <ul className="menu p-4 w-80 bg-almost-black text-almost-black h-screen">
+      <ul className="menu p-4 w-80 bg-almost-black h-screen">
         <li className="cursor-pointer" onClick={() => setSidebarOpen(false)}>
           <Link
-            className="text-white font-roboto font-bold text-md liminal-text"
+            className="font-roboto font-bold text-md liminal-text"
             data-text={"shop"}
             href={"shop"}
           >
@@ -23,7 +23,7 @@ export const MobilePrimaryNav: FC = () => {
         </li>
         <li className="cursor-pointer" onClick={() => setSidebarOpen(false)}>
           <Link
-            className="text-white font-roboto font-bold text-md liminal-text"
+            className="font-roboto font-bold text-md liminal-text"
             data-text={"home"}
             href={"/"}
           >

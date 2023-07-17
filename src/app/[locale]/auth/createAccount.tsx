@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/app/daisyui/button";
 import { ErrorInfo, FormEvent, useState } from "react";
-import { FormInput } from "../(components)/formInput";
+import { TextField } from "../(components)/textField";
 import { IAccountRegister } from "@/gql/sdk";
 import { gqlClient } from "@/gql";
 
@@ -16,32 +16,32 @@ export const CreateAccount = () => {
     <div className="h-auto bg-slate-200 w-full flex flex-col items-center p-8">
       <h1 className="font-bold text-xl text-black">CREATE ACCOUNT</h1>
       <form className="flex flex-col gap-4 text-black">
-        <FormInput
+        <TextField
           value={firstName}
           label="First Name"
           id="firstName"
           onChange={(e) => setFirstName(e.target.value)}
         />
-        <FormInput
+        <TextField
           value={lastName}
           label="Last Name"
           id="lastName"
           onChange={(e) => setLastName(e.target.value)}
         />
-        <FormInput
+        <TextField
           value={email}
           id="registerEmail"
           label="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <FormInput
+        <TextField
           value={password}
           label="Password*"
           id="registerPassword"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
-        <FormInput
+        <TextField
           value={confirmPassword}
           label="Confirm Password*"
           id="confirmPassword"

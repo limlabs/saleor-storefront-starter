@@ -2,7 +2,7 @@
 import Button from "@/app/daisyui/button";
 import TextInput from "@/app/daisyui/text-input";
 import { FormEvent, useState } from "react";
-import { FormInput } from "../(components)/formInput";
+import { FormInput } from "../(components)/textField";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");

@@ -100,7 +100,7 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
           <div className="text-2xl text-accent mt-6 lg:mt-0 ">
             {product.category?.translation?.name ?? product.category?.name}
           </div>
-          <h1 className="text-4xl text-neutral my-2">
+          <h1 className="text-4xl  my-2">
             {product.translation?.name ?? product.name}
           </h1>
           {(product.rating ?? 0) > 0 && (
@@ -114,7 +114,7 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
           {(product.description ?? product.translation?.description ?? "")
             .length > 0 && (
             <ProductDescription
-              className="mt-5 text-neutral"
+              className="mt-5 "
               description={productDescription}
             />
           )}

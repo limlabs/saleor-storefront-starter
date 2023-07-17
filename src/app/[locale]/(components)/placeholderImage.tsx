@@ -1,4 +1,11 @@
-export const placeholderImage = (width: any, height: any) => {
+import { FC } from 'react';
+
+interface PlaceholderImageProps {
+  width?: number;
+  height?: number;
+}
+
+export const PlaceholderImage: FC<PlaceholderImageProps> = ({ width = 181, height = 180 }) => {
   return (
     <svg
       width={width || 181}

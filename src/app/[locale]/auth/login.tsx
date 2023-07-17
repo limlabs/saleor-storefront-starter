@@ -8,12 +8,9 @@ export const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
   return (
     <div className="h-auto bg-slate-200 w-full flex flex-col items-center p-8">
-      <form onSubmit={handleSubmit}>
+      <form>
         <h1 className="font-bold text-xl text-black">LOGIN</h1>
         <section className="flex flex-col gap-4 text-black">
           <FormInput

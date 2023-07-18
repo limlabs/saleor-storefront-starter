@@ -8,6 +8,7 @@ interface textFieldProps {
   type?: string;
   annotation?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  className: string;
 }
 
 export const TextField = ({
@@ -17,13 +18,14 @@ export const TextField = ({
   id,
   type = "",
   annotation = "",
+  className,
 }: textFieldProps) => {
   return (
     <div className="flex flex-col">
       <label htmlFor={id}>{label}</label>
       <TextInput
         id={id}
-        className=" border border-black"
+        className={className}
         type={type}
         value={value}
         onChange={onChange}

@@ -3,7 +3,7 @@ import { Login } from "./login";
 
 export default function Auth() {
   return (
-    <div className="bg-white h-auto lg:flex">
+    <div className=" h-auto lg:flex">
       <Login />
       <CreateAccount />
     </div>

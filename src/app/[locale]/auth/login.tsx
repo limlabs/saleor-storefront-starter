@@ -9,31 +9,31 @@ export const Login = () => {
   const [password, setPassword] = useState<string>("");
 
   return (
-    <div className="h-auto bg-slate-200 w-full flex flex-col items-center p-8">
-      <form>
-        <h1 className="font-bold text-xl text-black">LOGIN</h1>
-        <section className="flex flex-col gap-4 text-black">
-          <TextField
-            value={email}
-            id="loginEmail"
-            label="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            value={password}
-            label="Password*"
-            id="loginPassword"
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </section>
+    <div className="h-auto  w-full  flex flex-col items-center p-16 gap-12">
+      <div className="flex flex-col justify-start p-0 items-start gap-8 w-full">
+        <h1 className="font-bold text-3xl uppercase ">login</h1>
+      </div>
+      <form className="flex flex-col gap-8 w-full ">
+        <TextField
+          value={email}
+          id="loginEmail"
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          className=" border border-black w-full"
+        />
+        <TextField
+          value={password}
+          label="Password*"
+          id="loginPassword"
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          className=" border border-black w-full"
+        />
 
-        <div className="mt-4">
-          <Button>LOG IN</Button>
-        </div>
+        <Button variant="primary">LOG IN</Button>
       </form>
 
-      <h2 className="text-black">Forgot Password?</h2>
+      <h2 className="">Forgot Password?</h2>
     </div>
   );
 };

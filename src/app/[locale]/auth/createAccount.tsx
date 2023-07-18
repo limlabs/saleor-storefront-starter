@@ -16,7 +16,7 @@ export const CreateAccount = () => {
   const t = useTranslations();
 
   return (
-    <div className="p-10 bg-stone-950 flex-col justify-start items-start gap-2.5 inline-flex">
+    <div className=" w-1/2 p-10 bg-stone-950 flex-col justify-start items-start gap-2.5 inline-flex">
       <h1 className="text-stone-300 text-4xl font-bold uppercase">
         create an account
       </h1>

@@ -11,7 +11,7 @@ export const Login = () => {
   const t = useTranslations();
 
   return (
-    <div className="  p-10 flex-col justify-start items-start gap-6 inline-flex">
+    <div className="w-1/2  p-10 flex-col justify-start items-start gap-6 inline-flex">
       <h1 className="text-stone-300 text-4xl font-bold uppercase">login</h1>
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">
         <TextField

@@ -3,7 +3,7 @@ import { Login } from "./login";
 
 export default function Auth() {
   return (
-    <div className="w-full py-6 justify-start items-start gap-2.5 lg:flex">
+    <div className=" py-6 justify-start items-start gap-2.5 inline-flex">
       <Login />
       <CreateAccount />
     </div>

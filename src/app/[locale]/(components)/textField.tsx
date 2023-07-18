@@ -1,7 +1,7 @@
 import TextInput from "@/app/daisyui/text-input";
 import { ChangeEvent } from "react";
 
-interface textFieldProps {
+interface TextFieldProps {
   value: string;
   label: string;
   id: string;
@@ -19,7 +19,7 @@ export const TextField = ({
   type = "",
   annotation = "",
   className,
-}: textFieldProps) => {
+}: TextFieldProps) => {
   return (
     <div className="flex-col justify-start items-start gap-3 inline-flex w-full ">
       <label htmlFor={id}>{label}</label>

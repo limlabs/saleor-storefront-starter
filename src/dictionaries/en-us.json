@@ -11,9 +11,15 @@
     "shop": "Shop",
     "about": "About"
   },
+  "auth": {
+    "log in": "Log in",
+    "create account": "Create Account",
+    "forgot password": "Forgot Password?"
+  },
   "menu": {
     "categories": "Categories"
   },
+
   "component": {
     "add to cart": "Add to Cart",
     "add to cart confirmation": "Item added to cart successfully!",

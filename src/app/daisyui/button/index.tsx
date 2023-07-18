@@ -15,6 +15,7 @@ const Button = React.forwardRef<
     glass: glass === true,
     "btn-secondary": variant === "secondary",
     "btn-primary": variant === "primary",
+    "w-full": true,
   });
 
   return (

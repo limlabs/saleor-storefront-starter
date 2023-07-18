@@ -21,7 +21,7 @@ export const TextField = ({
   className,
 }: textFieldProps) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex-col justify-start items-start gap-3 inline-flex w-full ">
       <label htmlFor={id}>{label}</label>
       <TextInput
         id={id}

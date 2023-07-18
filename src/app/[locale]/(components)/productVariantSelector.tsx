@@ -76,7 +76,10 @@ const ProductVariantAttributeSelector = ({
   // Render a list of options for the attribute
   return (
     <div className="my-3">
-      <label htmlFor={`attribute-selector-${attribute.id}`} className="">
+      <label
+        htmlFor={`attribute-selector-${attribute.id}`}
+        className="text-secondary"
+      >
         {attribute.translation?.name ?? attribute.name}
       </label>
       <ul className={`mt-2 grid gap-2 grid-cols-3`}>

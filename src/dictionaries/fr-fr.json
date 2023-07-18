@@ -11,7 +11,8 @@
   "auth": {
     "log in": "Se connecter",
     "create account": "Créer un compte",
-    "forgot password": "Mot de passe oublié ?"
+    "forgot password": "Mot de passe oublié ?",
+    "sign up message": "Inscrivez-vous pour gérer vos adresses, commandes et retours."
   },
   "menu": {
     "categories": "Catégories"

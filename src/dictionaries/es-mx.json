@@ -14,7 +14,8 @@
   "auth": {
     "log in": "Iniciar sesión",
     "create account": "Crear cuenta",
-    "forgot password": "¿Olvidaste tu contraseña?"
+    "forgot password": "¿Olvidaste tu contraseña?",
+    "sign up message": "Regístrate para gestionar tus direcciones, pedidos y devoluciones."
   },
   "menu": {
     "categories": "Categorias"

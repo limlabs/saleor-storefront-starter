@@ -11,7 +11,7 @@ export const Login = () => {
   const t = useTranslations();
 
   return (
-    <div className="w-[635px]  p-10 flex-col justify-start items-start gap-6 inline-flex">
+    <div className="  p-10 flex-col justify-start items-start gap-6 inline-flex">
       <h1 className="text-stone-300 text-4xl font-bold uppercase">login</h1>
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">
         <TextField
@@ -33,7 +33,7 @@ export const Login = () => {
         <Button variant="primary"> {t("auth.log in")}</Button>
       </form>
 
-      <h2 className="">Forgot Password?</h2>
+      <h2>{t("auth.forgot password")}</h2>
     </div>
   );
 };

@@ -11,7 +11,8 @@
   "auth": {
     "log in": "Accedi",
     "create account": "Crea un account",
-    "forgot password": "Password dimenticata?"
+    "forgot password": "Password dimenticata?",
+    "sign up message": "Registrati per gestire i tuoi indirizzi, ordini e resi."
   },
   "menu": {
     "categories": "Categorie"

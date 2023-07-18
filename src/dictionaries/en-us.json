@@ -14,7 +14,8 @@
   "auth": {
     "log in": "Log in",
     "create account": "Create Account",
-    "forgot password": "Forgot Password?"
+    "forgot password": "Forgot Password?",
+    "sign up message": "Sign up for an account to manage your addresses, orders, and returns."
   },
   "menu": {
     "categories": "Categories"

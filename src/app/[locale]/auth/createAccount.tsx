@@ -1,9 +1,9 @@
 "use client";
 import Button from "@/app/daisyui/button";
-import { ErrorInfo, FormEvent, useState } from "react";
+import { useState } from "react";
 import { TextField } from "../(components)/textField";
-import { IAccountRegister } from "@/gql/sdk";
-import { gqlClient } from "@/gql";
+import { getTranslations } from "@/core/server/getTranslations";
+
 import { useTranslations } from "@/core/server/useTranslations";
 
 export const CreateAccount = () => {
@@ -21,7 +21,7 @@ export const CreateAccount = () => {
         create an account
       </h1>
       <p className=" h-5 text-stone-300 text-base font-semibold">
-        Sign up for an account to manage your addresses, orders, and returns.
+        {t("auth.sign up message")}
       </p>
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">
         <TextField

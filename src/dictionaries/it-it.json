@@ -10,9 +10,16 @@
   },
   "auth": {
     "log in": "Accedi",
-    "create account": "Crea un account",
+    "register": "Registrati",
+    "create account": "Creare un account",
+
     "forgot password": "Password dimenticata?",
-    "sign up message": "Registrati per gestire i tuoi indirizzi, ordini e resi."
+    "sign up message": "Registrati per gestire i tuoi indirizzi, ordini e resi.",
+    "email": "Email",
+    "password": "Password",
+    "confirm password": "Conferma password",
+    "first name": "Nome",
+    "last name": "Cognome"
   },
   "menu": {
     "categories": "Categorie"

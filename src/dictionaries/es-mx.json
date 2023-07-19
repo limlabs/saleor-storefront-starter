@@ -13,9 +13,16 @@
   },
   "auth": {
     "log in": "Iniciar sesión",
-    "create account": "Crear cuenta",
+    "register": "Registrarse",
+    "create account": "Crear una cuenta",
+
     "forgot password": "¿Olvidaste tu contraseña?",
-    "sign up message": "Regístrate para gestionar tus direcciones, pedidos y devoluciones."
+    "sign up message": "Regístrate para gestionar tus direcciones, pedidos y devoluciones.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm password": "Confirmar contraseña",
+    "first name": "Nombre",
+    "last name": "Apellido"
   },
   "menu": {
     "categories": "Categorias"

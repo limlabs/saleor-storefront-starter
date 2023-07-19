@@ -12,10 +12,16 @@
     "about": "About"
   },
   "auth": {
-    "log in": "Log in",
+    "log in": "Log In",
+    "register": "Register",
     "create account": "Create Account",
     "forgot password": "Forgot Password?",
-    "sign up message": "Sign up for an account to manage your addresses, orders, and returns."
+    "sign up message": "Sign up for an account to manage your addresses, orders, and returns.",
+    "email": "Email",
+    "password": "Password",
+    "confirm password": "Confirm Password",
+    "first name": "First Name",
+    "last name": "Last Name"
   },
   "menu": {
     "categories": "Categories"

@@ -1,9 +1,9 @@
 "use client";
 import Button from "@/app/daisyui/button";
-import TextInput from "@/app/daisyui/text-input";
 import { FormEvent, useState } from "react";
 import { TextField } from "../(components)/textField";
 import { useTranslations } from "@/core/server/useTranslations";
+import Link from "next/link";
 
 export const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -12,28 +12,28 @@ export const Login = () => {
 
   return (
     <div className="w-1/2  p-10 flex-col justify-start items-start gap-6 inline-flex">
-      <h1 className="text-stone-300 text-4xl font-bold uppercase">login</h1>
+      <h1 className="text-stone-300 text-4xl font-bold ">{t("auth.log in")}</h1>
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">
         <TextField
           value={email}
           id="loginEmail"
-          label="Email"
+          label={t("auth.email")}
           onChange={(e) => setEmail(e.target.value)}
           className="p-3 bg-stone-950 border border-neutral-800 justify-start items-start gap-6 inline-flex w-full"
         />
         <TextField
           value={password}
-          label="Password*"
+          label={t("auth.password")}
           id="loginPassword"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           className="p-3 bg-stone-950 border border-neutral-800 justify-start items-start gap-6 inline-flex w-full"
         />
 
-        <Button variant="primary"> {t("auth.log in")}</Button>
+        <Button variant="neutral"> {t("auth.log in")}</Button>
       </form>
 
-      <h2>{t("auth.forgot password")}</h2>
+      <Link href={"forgot-password"}>{t("auth.forgot password")}</Link>
     </div>
   );
 };

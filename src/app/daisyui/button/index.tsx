@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import clsx from "clsx";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "neutral";
   glass?: boolean;
   disabled?: boolean;
 }

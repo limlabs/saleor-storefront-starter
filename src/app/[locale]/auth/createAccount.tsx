@@ -17,8 +17,8 @@ export const CreateAccount = () => {
 
   return (
     <div className=" w-1/2 p-10 bg-stone-950 flex-col justify-start items-start gap-2.5 inline-flex">
-      <h1 className="text-stone-300 text-4xl font-bold uppercase">
-        create an account
+      <h1 className="text-stone-300 text-4xl font-bold ">
+        {t("auth.create account")}
       </h1>
       <p className=" h-5 text-stone-300 text-base font-semibold">
         {t("auth.sign up message")}
@@ -26,14 +26,14 @@ export const CreateAccount = () => {
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">
         <TextField
           value={firstName}
-          label="First Name"
+          label={t("auth.first name")}
           id="firstName"
           onChange={(e) => setFirstName(e.target.value)}
           className="flex-col justify-start items-start gap-3 inline-flex w-full"
         />
         <TextField
           value={lastName}
-          label="Last Name"
+          label={t("auth.last name")}
           id="lastName"
           onChange={(e) => setLastName(e.target.value)}
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
@@ -41,13 +41,13 @@ export const CreateAccount = () => {
         <TextField
           value={email}
           id="registerEmail"
-          label="Email"
+          label={t("auth.email")}
           onChange={(e) => setEmail(e.target.value)}
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
         />
         <TextField
           value={password}
-          label="Password*"
+          label={t("auth.password")}
           id="registerPassword"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
@@ -55,14 +55,14 @@ export const CreateAccount = () => {
         />
         <TextField
           value={confirmPassword}
-          label="Confirm Password*"
+          label={t("auth.confirm password")}
           id="confirmPassword"
           onChange={(e) => setConfirmPassword(e.target.value)}
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
         />
         <div className="w-full">
-          <Button variant="primary">{t("auth.create account")}</Button>
+          <Button variant="neutral">{t("auth.register")}</Button>
         </div>
       </form>
     </div>

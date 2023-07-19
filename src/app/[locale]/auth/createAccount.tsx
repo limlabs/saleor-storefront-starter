@@ -5,6 +5,7 @@ import { TextField } from "../(components)/textField";
 import { getTranslations } from "@/core/server/getTranslations";
 
 import { useTranslations } from "@/core/server/useTranslations";
+import RequiredLabel from "../(components)/requiredLabel";
 
 export const CreateAccount = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -41,13 +42,13 @@ export const CreateAccount = () => {
         <TextField
           value={email}
           id="registerEmail"
-          label={t("auth.email")}
+          label={<RequiredLabel label={t("auth.email")} />}
           onChange={(e) => setEmail(e.target.value)}
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
         />
         <TextField
           value={password}
-          label={t("auth.password")}
+          label={<RequiredLabel label={t("auth.password")} />}
           id="registerPassword"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
@@ -55,7 +56,7 @@ export const CreateAccount = () => {
         />
         <TextField
           value={confirmPassword}
-          label={t("auth.confirm password")}
+          label={<RequiredLabel label={t("auth.confirm password")} />}
           id="confirmPassword"
           onChange={(e) => setConfirmPassword(e.target.value)}
           type="password"

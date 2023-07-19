@@ -1,9 +1,9 @@
 import TextInput from "@/app/daisyui/text-input";
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 interface TextFieldProps {
   value: string;
-  label: string;
+  label: string | ReactNode;
   id: string;
   type?: string;
   annotation?: string;

@@ -16,3 +16,5 @@ jobs:
           vercel-args: ${{ github.ref_name == 'main' && '--prod' || '--debug'}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
           vercel-project-name: saleor-storefront-starter
+          alias-domains: |
+            saleor-storefront-starter-${BRANCH_NAME}.vercel.app

@@ -16,11 +16,11 @@ export const CreateAccount = () => {
   const t = useTranslations();
 
   return (
-    <div className=" w-1/2 p-10 bg-stone-950 flex-col justify-start items-start gap-2.5 inline-flex">
-      <h1 className="text-stone-300 text-4xl font-bold ">
+    <div className=" w-1/2 p-10 bg-base-300 flex-col justify-start items-start gap-2.5 inline-flex">
+      <h1 className="text-base-10 text-4xl font-bold ">
         {t("auth.create account")}
       </h1>
-      <p className=" h-5 text-stone-300 text-base font-semibold">
+      <p className=" h-5 text-base-10 text-base font-semibold">
         {t("auth.sign up message")}
       </p>
       <form className="flex-col justify-start items-start gap-10 inline-flex mt-10 w-full">

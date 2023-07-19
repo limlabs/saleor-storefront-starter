@@ -1,14 +1,15 @@
 import { getTranslations } from "@/core/server/getTranslations";
 import { CreateAccount } from "./createAccount";
-import { Login } from "./login";
 import { ResolvedMetadata, ResolvingMetadata } from "next";
 import { Locale } from "@/locale-config";
 import { Channel } from "@/channel-config";
-import { getLanguageCode, withTranslations } from "@/core/server/locale";
+import { withTranslations } from "@/core/server/locale";
+import Login from "./login";
 
 interface PageProps {
   params: {
     locale: Locale;
+    channel: Channel;
   };
 }
 
@@ -17,8 +18,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<ResolvedMetadata> {
   const translations = await getTranslations(params.locale);
-  const pageTitle = translations("auth.create account");
-
+  const pageTitle = translations("allProducts.pageTitle");
   const pageDescription = translations("allProducts.pageDescription");
   const parentMetadata = await parent;
   return {
@@ -31,10 +31,7 @@ export async function generateMetadata(
     },
   };
 }
-export default withTranslations<PageProps>(async function Auth({
-  params: { locale },
-}) {
-  const languageCode = getLanguageCode(locale);
+export default withTranslations<PageProps>(async function Auth({}) {
   return (
     <div className=" py-6 justify-start items-start gap-2.5 inline-flex">
       <Login />

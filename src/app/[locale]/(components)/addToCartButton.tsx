@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import { useCheckout } from "@/core/client/useCheckout";
-import { useProductSelection } from "@/core/client/useProductSelection";
-import { FC, ReactNode, useState } from "react";
-import { AddToCartConfirmation } from "./addToCartConfirmation";
-
+import { useCheckout } from '@/core/client/useCheckout';
+import { useProductSelection } from '@/core/client/useProductSelection';
+import { FC, ReactNode, startTransition, useState } from 'react';
+import { AddToCartConfirmation } from './addToCartConfirmation';
 interface AddToCartButtonProps {
   buttonText: ReactNode;
   confirmationTitleText: ReactNode;
@@ -30,7 +29,7 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
   };
 
   const onCloseHandler = () => {
-    console.log("modal close handler");
+    console.log('modal close handler');
     setConfirmationOpen(false);
   };
 

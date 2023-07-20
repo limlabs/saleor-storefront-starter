@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,16 +7,16 @@ import {
   useCallback,
   useContext,
   useState,
-} from "react";
+} from 'react';
 
-import { checkoutStorageKey } from "@/core/constants";
-import { gqlClient } from "@/gql";
+import { checkoutStorageKey } from '@/core/constants';
+import { gqlClient } from '@/gql';
 import {
   ICheckout,
   ICheckoutCreate,
   ICheckoutLinesAdd,
   Maybe,
-} from "@/gql/sdk";
+} from '@/gql/sdk';
 
 export interface CheckoutContextData {
   checkoutQuantity: number | undefined;
@@ -34,13 +34,13 @@ const CheckoutContext = createContext<CheckoutContextData>({
 });
 
 const getCookie = (name: string) => {
-  const cookieInitial = name + "=";
+  const cookieInitial = name + '=';
   const cookieSearch = document.cookie
-    .split("; ")
+    .split('; ')
     .filter(
       (cookie) => cookie.substring(0, cookieInitial.length) === cookieInitial
     );
-  if (cookieSearch.length === 0) return "";
+  if (cookieSearch.length === 0) return '';
   else
     return cookieSearch[0].substring(
       cookieInitial.length,
@@ -54,8 +54,9 @@ export const CheckoutProvider: FC<{
   const [checkoutQuantity, updateCheckoutQuantity] = useState<
     number | undefined
   >();
+
   const addItem = useCallback(async (variantID: string, quantity = 1) => {
-    const checkoutID = getCookie("CheckoutID");
+    const checkoutID = getCookie('CheckoutID');
 
     let checkout: Maybe<ICheckout> | null | undefined;
     if (checkoutID) {
@@ -65,7 +66,7 @@ export const CheckoutProvider: FC<{
         quantity,
       });
       checkout = resp?.checkoutLinesAdd?.checkout as Maybe<
-        ICheckoutLinesAdd["checkout"]
+        ICheckoutLinesAdd['checkout']
       >;
       if (checkout) {
         updateCheckoutQuantity(checkout.quantity);
@@ -78,14 +79,14 @@ export const CheckoutProvider: FC<{
       });
 
       checkout = resp?.checkoutCreate?.checkout as Maybe<
-        ICheckoutCreate["checkout"]
+        ICheckoutCreate['checkout']
       >;
       if (checkout) {
         document.cookie = [
           `${checkoutStorageKey}=${checkout.id}`,
-          "path=/",
+          'path=/',
           `expires=Fri, 31 Dec 9999 23:59:59 GMT`,
-        ].join("; ");
+        ].join('; ');
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New checkout created with ID ${checkout.id}`);
       }

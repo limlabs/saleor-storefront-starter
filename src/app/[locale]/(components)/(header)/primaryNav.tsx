@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { DrawerIcon } from "./drawerIcon";
 import { DesktopPrimaryNav } from "./navDesktop";
 import logo from "./logo.svg";

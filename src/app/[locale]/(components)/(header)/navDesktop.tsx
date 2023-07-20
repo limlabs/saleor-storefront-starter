@@ -1,11 +1,10 @@
-import { FC } from "react";
 import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
-import { useTranslations } from "@/core/server/useTranslations";
 
 import Link from "next/link";
+import { useTranslations } from "@/core/client/locale";
 
-export const DesktopPrimaryNav: FC = () => {
+export const DesktopPrimaryNav = () => {
   const t = useTranslations();
 
   return (
@@ -20,7 +19,7 @@ export const DesktopPrimaryNav: FC = () => {
           data-text={"shop"}
           href={"shop"}
         >
-          {t("header.shop")}
+          {t["header"]["shop"]}
         </Link>
       </li>
       <li className="cursor-pointer">
@@ -29,7 +28,7 @@ export const DesktopPrimaryNav: FC = () => {
           data-text={"home"}
           href={"/"}
         >
-          {t("header.home")}
+          {t["header"]["home"]}
         </Link>
       </li>
 

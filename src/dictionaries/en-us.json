@@ -11,7 +11,9 @@
     "shop": "Shop",
     "about": "About"
   },
-  "auth": {
+  "login": {
+    "pageTitle": "Log In",
+    "pageDescription": "Log in or sign up for a new account to to manage your addresses, orders, and returns.",
     "log in": "Log In",
     "register": "Register",
     "create account": "Create Account",

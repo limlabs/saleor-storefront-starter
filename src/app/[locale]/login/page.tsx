@@ -18,8 +18,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<ResolvedMetadata> {
   const translations = await getTranslations(params.locale);
-  const pageTitle = translations("allProducts.pageTitle");
-  const pageDescription = translations("allProducts.pageDescription");
+  const pageTitle = translations("login.pageTitle");
+  const pageDescription = translations("login.pageDescription");
   const parentMetadata = await parent;
   return {
     ...parentMetadata,
@@ -27,15 +27,19 @@ export async function generateMetadata(
     description: pageDescription,
     openGraph: {
       ...parentMetadata.openGraph,
-      url: `/${params.locale}/auth`,
+      url: `/${params.locale}/login`,
     },
   };
 }
 export default withTranslations<PageProps>(async function Auth({}) {
   return (
-    <div className=" py-6 justify-start items-start gap-2.5 inline-flex">
-      <Login />
-      <CreateAccount />
+    <div className=" py-6 justify-start items-start gap-2.5 flex flex-col md:flex-row">
+      <div className="w-full md:w-1/2 p-10">
+        <Login />
+      </div>
+      <div className="w-full md:w-1/2 p-10 bg-base-300">
+        <CreateAccount />
+      </div>
     </div>
   );
 });

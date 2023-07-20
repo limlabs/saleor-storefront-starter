@@ -2,12 +2,12 @@ import TextInput from "@/app/daisyui/text-input";
 import { ChangeEvent, ReactNode } from "react";
 
 interface TextFieldProps {
-  value: string;
+  value?: string;
   label: string | ReactNode;
   id: string;
   type?: string;
   annotation?: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   className: string;
 }
 

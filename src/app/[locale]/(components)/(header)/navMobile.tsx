@@ -1,18 +1,16 @@
-"use client";
 import { FC } from "react";
 import Link from "next/link";
 import { useTranslations } from "@/core/server/useTranslations";
-import { useDrawer } from "@/app/daisyui/drawer";
+import { NavItemMobile } from "./navItemMobile";
 
 export const MobilePrimaryNav: FC = () => {
   const t = useTranslations();
-  const { setSidebarOpen } = useDrawer();
 
   return (
     <>
       <label htmlFor="drawerToggle" className="drawer-overlay"></label>
       <ul className="menu p-4 w-80 bg-base-100 h-screen">
-        <li className="cursor-pointer" onClick={() => setSidebarOpen(false)}>
+        <NavItemMobile>
           <Link
             className="font-roboto font-bold text-md liminal-text"
             data-text={"shop"}
@@ -20,8 +18,8 @@ export const MobilePrimaryNav: FC = () => {
           >
             {t("header.shop")}
           </Link>
-        </li>
-        <li className="cursor-pointer" onClick={() => setSidebarOpen(false)}>
+        </NavItemMobile>
+        <NavItemMobile>
           <Link
             className="font-roboto font-bold text-md liminal-text"
             data-text={"home"}
@@ -29,7 +27,7 @@ export const MobilePrimaryNav: FC = () => {
           >
             {t("header.home")}
           </Link>
-        </li>
+        </NavItemMobile>
       </ul>
     </>
   );

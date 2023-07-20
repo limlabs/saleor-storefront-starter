@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface RequiredLabelProps {
-  label: string;
+  label: ReactNode;
 }
 
 const RequiredLabel = ({ label }: RequiredLabelProps) => (

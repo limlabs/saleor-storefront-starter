@@ -9,45 +9,42 @@ const LOCALE_REGEX = /^\/[a-z]{2}-[a-z]{2,}/;
 
 /**
  * TODO: negotiate fallback locale here
- * @param request 
- * @returns 
+ * @param request
+ * @returns
  */
 function getLocale(request: NextRequest) {
-    return defaultLocale;
+  return defaultLocale;
 }
 
 function isInvalidLocale(locale?: string) {
-    return (!locale || locales.every(loc => `/${loc}` !== locale));
+  return !locale || locales.every((loc) => `/${loc}` !== locale);
 }
 
 function findURLLocale(request: NextRequest) {
-    const { pathname } = request.nextUrl;
-    return pathname.match(LOCALE_REGEX)?.[0];
+  const { pathname } = request.nextUrl;
+  return pathname.match(LOCALE_REGEX)?.[0];
 }
 
 export function middleware(request: NextRequest) {
-    let locale = findURLLocale(request);
-
-    if (isInvalidLocale(locale)) {
-        const userLocale = getLocale(request);
-        const { pathname, search } = request.nextUrl;
-        const localeURL = `/${userLocale}/${pathname}`;
-
-        return NextResponse.redirect(
-            new URL(localeURL + search, request.url)
-        );
-    }
+  // let locale = findURLLocale(request);
+  // if (isInvalidLocale(locale)) {
+  //     const userLocale = getLocale(request);
+  //     const { pathname, search } = request.nextUrl;
+  //     const localeURL = `/${userLocale}/${pathname}`;
+  //     return NextResponse.redirect(
+  //         new URL(localeURL + search, request.url)
+  //     );
+  // }
 }
 
 export const config = {
-    // Skip all paths that should not be internationalized
-    /*
-    * Match all request paths except for the ones starting with:
-    * - api (API routes)
-    * - _next/static (static files)
-    * - _next/image (image optimization files)
-    * - favicon.ico (favicon file)
-    */
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)']
-
+  // Skip all paths that should not be internationalized
+  /*
+   * Match all request paths except for the ones starting with:
+   * - api (API routes)
+   * - _next/static (static files)
+   * - _next/image (image optimization files)
+   * - favicon.ico (favicon file)
+   */
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
 };

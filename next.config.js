@@ -34,11 +34,11 @@ const nextConfig = {
 
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "/home",
-        permanent: false,
-      },
+      // {
+      //   source: "/",
+      //   destination: "/home",
+      //   permanent: false,
+      // },
       {
         source: "/shop",
         destination: "/en-us/c/all",

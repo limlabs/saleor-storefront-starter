@@ -22,7 +22,7 @@ export default function Login() {
           className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
         />
       </form>
-      <Button variant="neutral"> {t("login.log in")}</Button>
+      <Button variant="primary"> {t("login.log in")}</Button>
       <Link href={"forgot-password"} className="underline block">
         {t("login.forgot password")}
       </Link>

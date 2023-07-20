@@ -44,7 +44,7 @@ export const CreateAccount = () => {
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
         />
         <div className="w-full">
-          <Button variant="neutral">{t("login.register")}</Button>
+          <Button variant="secondary">{t("login.register")}</Button>
         </div>
       </form>
     </div>

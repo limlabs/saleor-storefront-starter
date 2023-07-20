@@ -59,7 +59,7 @@ export default async function RootLayout({
   const menuItems = menu?.items || [];
 
   return (
-    <html lang={params.locale} data-theme="liminalThemeBright">
+    <html lang={params.locale} data-theme="dracula">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>

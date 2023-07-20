@@ -92,7 +92,7 @@ export const ProductCard: FC<ProductCardProps> = ({
           />
           <Link
             href={`/p/${slug}`}
-            className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
+            className="link link-primary no-underline  mt-4"
           >
             <CardTitle>
               <span className="truncate w-48" title={info.name ?? ""}>

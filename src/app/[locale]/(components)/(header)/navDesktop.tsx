@@ -16,7 +16,7 @@ export const DesktopPrimaryNav: FC = () => {
 
       <li className="cursor-pointer">
         <Link
-          className="text-white font-roboto font-bold text-md liminal-text"
+          className=" font-roboto font-bold text-md liminal-text"
           data-text={"shop"}
           href={"shop"}
         >
@@ -25,7 +25,7 @@ export const DesktopPrimaryNav: FC = () => {
       </li>
       <li className="cursor-pointer">
         <Link
-          className="text-white font-roboto font-bold text-md liminal-text"
+          className=" font-roboto font-bold text-md liminal-text"
           data-text={"home"}
           href={"/"}
         >

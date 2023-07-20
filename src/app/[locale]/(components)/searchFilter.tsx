@@ -89,7 +89,7 @@ export const SearchFilter: TFC<
     });
 
     return (
-      <div className="flex text-neutral">
+      <div className="flex ">
         <span>{t.filter}</span>
         <span className="flex flex-1 items-center">{badges}</span>
       </div>
@@ -137,7 +137,10 @@ export const SearchFilter: TFC<
           />
         </div>
         <div className="form-control w-40">
-          <label className="label cursor-pointer flex justify-around " htmlFor="filter">
+          <label
+            className="label cursor-pointer flex justify-around "
+            htmlFor="filter"
+          >
             <span className="label-text">{t["is available"]}</span>
             <input
               id="filter"

@@ -6,6 +6,7 @@ const nextConfig = {
   },
   env: {
     SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/",
+    BASE_URL: "http://localhost:3000/",
   },
   async rewrites() {
     return [

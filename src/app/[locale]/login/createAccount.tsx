@@ -22,17 +22,17 @@ export const CreateAccount = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!email) {
-      setEmailAnnotation("Please enter your email to create an account.");
+      setEmailAnnotation(t("login.email warning"));
     } else {
       setEmailAnnotation("");
     }
     if (!password) {
-      setPasswordAnnotation("Please enter a non-empty password");
+      setPasswordAnnotation(t("login.password warning"));
     } else {
       setPasswordAnnotation("");
     }
     if (password !== confirmPassword) {
-      setConfirmPasswordAnnotation("Passwords must match to continue.");
+      setConfirmPasswordAnnotation(t("login.confirm password warning"));
     } else {
       setConfirmPasswordAnnotation("");
     }

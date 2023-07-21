@@ -23,6 +23,9 @@
     "email": "Email",
     "password": "Password",
     "confirm password": "Confirm Password",
+    "email warning": "Please enter your email to create an account.",
+    "password warning": "Please enter a non-empty password.",
+    "confirm password warning": "Passwords must match to continue.",
     "first name": "First Name",
     "last name": "Last Name"
   },

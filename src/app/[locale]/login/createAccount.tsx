@@ -10,13 +10,16 @@ export const CreateAccount = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [annotation, setAnnotation] = useState<string>("");
   const t = useTranslations();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setAnnotation("Passwords must match.");
+    }
     try {
       const resp = await gqlClient.accountRegister({
         input: {
@@ -75,6 +78,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setPassword(e.target.value)}
+          annotation={annotation}
         />
         <TextField
           label={<RequiredLabel label={t("login.confirm password")} />}
@@ -83,6 +87,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setConfirmPassword(e.target.value)}
+          annotation={annotation}
         />
         <div className="w-full">
           <Button variant="secondary">{t("login.register")}</Button>

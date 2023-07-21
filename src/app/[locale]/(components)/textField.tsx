@@ -30,7 +30,7 @@ export const TextField = ({
         value={value}
         onChange={onChange}
       />
-      <p>{annotation}</p>
+      <p className="text-primary">{annotation}</p>
     </div>
   );
 };

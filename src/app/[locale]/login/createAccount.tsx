@@ -16,6 +16,7 @@ export const CreateAccount = () => {
     useState<string>("");
   const [passwordannotation, setPasswordAnnotation] = useState<string>("");
   const [emailannotation, setEmailAnnotation] = useState<string>("");
+  const [buttonText, setButtonText] = useState<string>("register");
   const t = useTranslations();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -48,6 +49,9 @@ export const CreateAccount = () => {
       });
 
       console.log("User registered:", resp);
+      if (resp.accountRegister?.accountErrors.length === 0) {
+        setButtonText("creating account");
+      }
     } catch (error: any) {
       console.error("Registration failed:", error.message);
     }
@@ -106,7 +110,7 @@ export const CreateAccount = () => {
           confirmPasswordAnnotation={confirmPasswordannotation}
         />
         <div className="w-full">
-          <Button variant="secondary">{t("login.register")}</Button>
+          <Button variant="secondary">{t(`login.${buttonText}`)}</Button>
         </div>
       </form>
     </div>

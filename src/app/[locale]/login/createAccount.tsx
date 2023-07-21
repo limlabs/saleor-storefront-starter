@@ -12,13 +12,28 @@ export const CreateAccount = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [annotation, setAnnotation] = useState<string>("");
+  const [confirmPasswordannotation, setConfirmPasswordAnnotation] =
+    useState<string>("");
+  const [passwordannotation, setPasswordAnnotation] = useState<string>("");
+  const [emailannotation, setEmailAnnotation] = useState<string>("");
   const t = useTranslations();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!email) {
+      setEmailAnnotation("Please enter your email to create an account.");
+    } else {
+      setEmailAnnotation("");
+    }
+    if (!password) {
+      setPasswordAnnotation("Please enter a non-empty password");
+    } else {
+      setPasswordAnnotation("");
+    }
     if (password !== confirmPassword) {
-      setAnnotation("Passwords must match.");
+      setConfirmPasswordAnnotation("Passwords must match to continue.");
+    } else {
+      setConfirmPasswordAnnotation("");
     }
     try {
       const resp = await gqlClient.accountRegister({
@@ -70,6 +85,7 @@ export const CreateAccount = () => {
           label={<RequiredLabel label={t("login.email")} />}
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setEmail(e.target.value)}
+          emailAnnotation={emailannotation}
         />
         <TextField
           label={<RequiredLabel label={t("login.password")} />}
@@ -78,7 +94,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setPassword(e.target.value)}
-          annotation={annotation}
+          passwordAnnotation={passwordannotation}
         />
         <TextField
           label={<RequiredLabel label={t("login.confirm password")} />}
@@ -87,7 +103,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setConfirmPassword(e.target.value)}
-          annotation={annotation}
+          confirmPasswordAnnotation={confirmPasswordannotation}
         />
         <div className="w-full">
           <Button variant="secondary">{t("login.register")}</Button>

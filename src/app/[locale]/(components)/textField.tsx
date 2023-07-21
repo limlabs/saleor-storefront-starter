@@ -6,7 +6,9 @@ interface TextFieldProps {
   label: string | ReactNode;
   id: string;
   type?: string;
-  annotation?: string;
+  emailAnnotation?: string;
+  passwordAnnotation?: string;
+  confirmPasswordAnnotation?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   className: string;
 }
@@ -17,7 +19,9 @@ export const TextField = ({
   label,
   id,
   type = "",
-  annotation = "",
+  emailAnnotation = "",
+  passwordAnnotation = "",
+  confirmPasswordAnnotation = "",
   className,
 }: TextFieldProps) => {
   return (
@@ -30,7 +34,9 @@ export const TextField = ({
         value={value}
         onChange={onChange}
       />
-      <p className="text-primary">{annotation}</p>
+      <p className="text-primary">{emailAnnotation}</p>
+      <p className="text-primary">{passwordAnnotation}</p>
+      <p className="text-primary">{confirmPasswordAnnotation}</p>
     </div>
   );
 };

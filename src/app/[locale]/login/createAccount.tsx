@@ -5,7 +5,6 @@ import { useTranslations } from "@/core/server/useTranslations";
 import RequiredLabel from "../(components)/requiredLabel";
 import { FormEvent, useState } from "react";
 import { gqlClient } from "@/gql";
-import { emit } from "process";
 
 export const CreateAccount = () => {
   const [firstName, setFirstName] = useState<string>("");

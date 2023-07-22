@@ -5,6 +5,7 @@ import { useTranslations } from "@/core/server/useTranslations";
 import RequiredLabel from "../(components)/requiredLabel";
 import { FormEvent, useState } from "react";
 import { gqlClient } from "@/gql";
+import { useRouter } from "next/navigation";
 
 export const CreateAccount = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -12,11 +13,10 @@ export const CreateAccount = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
   const [dirty, setDirty] = useState<boolean>(false);
-
   const [buttonText, setButtonText] = useState<string>("register");
   const t = useTranslations();
+  const router = useRouter();
 
   const emailError = Boolean(email)
     ? ""
@@ -45,8 +45,9 @@ export const CreateAccount = () => {
       });
 
       console.log("User registered:", resp);
-      if (resp.accountRegister?.accountErrors.length === 0) {
+      if (resp.accountRegister?.user?.isActive) {
         setButtonText("creating account");
+        router.push("/home");
       }
     } catch (error: any) {
       console.error("Registration failed:", error.message);

@@ -12,30 +12,27 @@ export const CreateAccount = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [confirmPasswordannotation, setConfirmPasswordAnnotation] =
-    useState<string>("");
-  const [passwordannotation, setPasswordAnnotation] = useState<string>("");
-  const [emailannotation, setEmailAnnotation] = useState<string>("");
+
+  const [dirty, setDirty] = useState<boolean>(false);
+
   const [buttonText, setButtonText] = useState<string>("register");
   const t = useTranslations();
 
+  const emailError = Boolean(email)
+    ? ""
+    : "Please enter your email to create an account.";
+  const passwordError = Boolean(email)
+    ? ""
+    : "Please enter a non-empty password.";
+  const confirmPasswordError = Boolean(password === confirmPassword)
+    ? ""
+    : "Passwords must match to continue.";
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email) {
-      setEmailAnnotation(t("login.email warning"));
-    } else {
-      setEmailAnnotation("");
-    }
-    if (!password) {
-      setPasswordAnnotation(t("login.password warning"));
-    } else {
-      setPasswordAnnotation("");
-    }
-    if (password !== confirmPassword) {
-      setConfirmPasswordAnnotation(t("login.confirm password warning"));
-    } else {
-      setConfirmPasswordAnnotation("");
-    }
+
+    setDirty(true);
+
     try {
       const resp = await gqlClient.accountRegister({
         input: {
@@ -44,7 +41,6 @@ export const CreateAccount = () => {
           firstName,
           lastName,
           channel: "default-channel",
-          redirectUrl: `${process.env.BASE_URL}/en-us/account-confirm`,
         },
       });
 
@@ -89,7 +85,7 @@ export const CreateAccount = () => {
           label={<RequiredLabel label={t("login.email")} />}
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setEmail(e.target.value)}
-          emailAnnotation={emailannotation}
+          annotation={dirty ? emailError : null}
         />
         <TextField
           label={<RequiredLabel label={t("login.password")} />}
@@ -98,7 +94,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setPassword(e.target.value)}
-          passwordAnnotation={passwordannotation}
+          annotation={dirty ? passwordError : null}
         />
         <TextField
           label={<RequiredLabel label={t("login.confirm password")} />}
@@ -107,7 +103,7 @@ export const CreateAccount = () => {
           type="password"
           className=" flex-col justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setConfirmPassword(e.target.value)}
-          confirmPasswordAnnotation={confirmPasswordannotation}
+          annotation={dirty ? confirmPasswordError : null}
         />
         <div className="w-full">
           <Button variant="secondary">{t(`login.${buttonText}`)}</Button>

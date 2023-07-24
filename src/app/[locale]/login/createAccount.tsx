@@ -15,6 +15,7 @@ export const CreateAccount = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [dirty, setDirty] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>("register");
+  const [registrationError, setRegistrationError] = useState<string>("");
   const t = useTranslations();
   const router = useRouter();
 
@@ -27,6 +28,14 @@ export const CreateAccount = () => {
   const confirmPasswordError = Boolean(password === confirmPassword)
     ? ""
     : "Passwords must match to continue.";
+
+  // const registrationError = (error: any ) => {
+  //   if (error) {
+  //     return "An error occurred when trying to create your account. Please try again, or come back later!"
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,9 +52,12 @@ export const CreateAccount = () => {
           channel: "default-channel",
         },
       });
-
       console.log("User registered:", resp);
-      if (resp.accountRegister?.user?.isActive) {
+      if (resp.accountRegister?.accountErrors.length !== 0) {
+        setRegistrationError(
+          "An error occurred when trying to create your account. Please try again, or come back later!"
+        );
+      } else if (resp.accountRegister?.user?.isActive) {
         setButtonText("creating account");
         router.push("/home");
       }
@@ -109,6 +121,7 @@ export const CreateAccount = () => {
         <div className="w-full">
           <Button variant="secondary">{t(`login.${buttonText}`)}</Button>
         </div>
+        <p>{registrationError}</p>
       </form>
     </div>
   );

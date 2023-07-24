@@ -29,40 +29,28 @@ export const CreateAccount = () => {
     ? ""
     : "Passwords must match to continue.";
 
-  // const registrationError = (error: any ) => {
-  //   if (error) {
-  //     return "An error occurred when trying to create your account. Please try again, or come back later!"
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setDirty(true);
 
-    try {
-      const resp = await gqlClient.accountRegister({
-        input: {
-          email,
-          password,
-          firstName,
-          lastName,
-          channel: "default-channel",
-        },
-      });
-      console.log("User registered:", resp);
-      if (resp.accountRegister?.accountErrors.length !== 0) {
-        setRegistrationError(
-          "An error occurred when trying to create your account. Please try again, or come back later!"
-        );
-      } else if (resp.accountRegister?.user?.isActive) {
-        setButtonText("creating account");
-        router.push("/home");
-      }
-    } catch (error: any) {
-      console.error("Registration failed:", error.message);
+    const resp = await gqlClient.accountRegister({
+      input: {
+        email,
+        password,
+        firstName,
+        lastName,
+        channel: "default-channel",
+      },
+    });
+    console.log("User registered:", resp);
+    if (resp.accountRegister?.accountErrors.length !== 0) {
+      setRegistrationError(
+        "An error occurred when trying to create your account. Please try again, or come back later!"
+      );
+    } else if (resp.accountRegister?.user?.isActive) {
+      setButtonText("creating account");
+      router.push("/home");
     }
   };
 

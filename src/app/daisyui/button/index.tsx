@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import clsx from "clsx";
 
 interface ButtonProps {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "neutral";
   glass?: boolean;
   disabled?: boolean;
 }
@@ -15,6 +15,7 @@ const Button = React.forwardRef<
     glass: glass === true,
     "btn-secondary": variant === "secondary",
     "btn-primary": variant === "primary",
+    "w-full": true,
   });
 
   return (

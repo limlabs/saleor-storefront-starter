@@ -3,7 +3,7 @@ import { Link } from "./link";
 
 export default function Footer() {
   return (
-    <footer className="w-90% -md:w-full mt-12 flex flex-col -md:flex-row items-start mx-auto -md:items-center p-12 bg-almost-black text-white justify-center -md:justify-between">
+    <footer className="w-90% -md:w-full mt-12 flex flex-col -md:flex-row items-start mx-auto -md:items-center p-12   justify-center -md:justify-between">
       <div className="-md:col-span-2">
         <Image
           src="/logo.svg"

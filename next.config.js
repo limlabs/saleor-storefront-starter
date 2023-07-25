@@ -18,6 +18,10 @@ const nextConfig = {
         destination: "/en-us/default-channel/c/all",
       },
       {
+        source: "/login",
+        destination: "/en-us/login",
+      },
+      {
         source: "/:locale/c/:slug",
         destination: "/:locale/default-channel/c/:slug",
       },

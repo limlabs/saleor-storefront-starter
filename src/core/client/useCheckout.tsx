@@ -18,6 +18,8 @@ import {
   Maybe,
 } from '@/gql/sdk';
 
+import { checkoutLinesAdd, checkoutCreate } from '../server/checkoutFunctions';
+
 export interface CheckoutContextData {
   checkoutQuantity: number | undefined;
   addItem(
@@ -54,33 +56,20 @@ export const CheckoutProvider: FC<{
   const [checkoutQuantity, updateCheckoutQuantity] = useState<
     number | undefined
   >();
-
   const addItem = useCallback(async (variantID: string, quantity = 1) => {
     const checkoutID = getCookie('CheckoutID');
+    ('use server');
 
     let checkout: Maybe<ICheckout> | null | undefined;
+
     if (checkoutID) {
-      const resp = await gqlClient.checkoutLinesAdd({
-        variantID,
-        checkoutID,
-        quantity,
-      });
-      checkout = resp?.checkoutLinesAdd?.checkout as Maybe<
-        ICheckoutLinesAdd['checkout']
-      >;
+      checkout = await checkoutLinesAdd(variantID, checkoutID, quantity);
       if (checkout) {
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New item added to checkout ${checkout.lines[0].id}.`);
       }
     } else {
-      const resp = await gqlClient.checkoutCreate({
-        variantID,
-        quantity,
-      });
-
-      checkout = resp?.checkoutCreate?.checkout as Maybe<
-        ICheckoutCreate['checkout']
-      >;
+      checkout = await checkoutCreate(variantID, quantity);
       if (checkout) {
         document.cookie = [
           `${checkoutStorageKey}=${checkout.id}`,

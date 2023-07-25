@@ -6,7 +6,8 @@ interface TextFieldProps {
   label: string | ReactNode;
   id: string;
   type?: string;
-  annotation?: string;
+  annotation?: string | null;
+
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   className: string;
 }
@@ -17,7 +18,7 @@ export const TextField = ({
   label,
   id,
   type = "",
-  annotation = "",
+  annotation,
   className,
 }: TextFieldProps) => {
   return (
@@ -30,7 +31,7 @@ export const TextField = ({
         value={value}
         onChange={onChange}
       />
-      <p>{annotation}</p>
+      <p className="text-primary">{annotation}</p>
     </div>
   );
 };

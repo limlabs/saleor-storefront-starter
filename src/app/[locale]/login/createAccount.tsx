@@ -43,7 +43,6 @@ export const CreateAccount = () => {
         channel: "default-channel",
       },
     });
-    console.log("User registered:", resp);
     if (resp.accountRegister?.accountErrors.length !== 0) {
       setRegistrationError(
         "An error occurred when trying to create your account. Please try again, or come back later!"

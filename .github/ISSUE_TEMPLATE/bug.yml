@@ -1,0 +1,22 @@
+name: Bug
+title: "Bug Name"
+description: "Unintentional behavior affecting the template or development process"
+labels: bug
+body:
+- type: textarea
+  id: description
+  attributes:
+    label: Description
+    description: "Provide a brief overview of the epic and its goals. Include any relevant background information or context."
+  validations:
+    required: true
+- id: stepsToReproduce
+  type: textarea
+  attributes:
+    label: Steps to Reproduce
+    placeholder: |
+      1. 
+      2. 
+      3.
+  validations:
+    required: true

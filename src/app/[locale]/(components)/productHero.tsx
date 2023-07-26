@@ -24,6 +24,7 @@ export function ProductHero({ product }: PageProps) {
           height={700}
           className="max-w-sm rounded-lg shadow-2xl"
           alt="product photo"
+          priority
         />
         <div>
           <h1 className="text-5xl font-bold">{info.name}</h1>

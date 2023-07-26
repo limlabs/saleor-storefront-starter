@@ -8,7 +8,7 @@ export default function Loading() {
   );
 
   return (
-    <main className="container blur-sm animate-pulse">
+    <main className="container blur-sm animate-pulse mx-auto">
       <h1 className="m-4 text-xl text-secondary-content">
         <div className="text-sm breadcrumbs">
           <ul>
@@ -17,7 +17,7 @@ export default function Loading() {
           </ul>
         </div>
       </h1>
-      <ul className="grid mt-20 w-full md:grid-cols-2 lg:grid-cols-4 lg:gap-2 md:gap-2">
+      <ul className="grid mt-20 w-full md:grid-cols-2 lg:grid-cols-4 lg:gap-2 md:gap-2 ">
         {itemSkeleton}
         {itemSkeleton}
         {itemSkeleton}

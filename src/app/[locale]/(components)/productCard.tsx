@@ -22,9 +22,14 @@ import { productCardTranslationKeys } from "@/app/translations/productCard";
 interface ProductCardProps {
   product: IGalleryProductFragment;
   animation?: "zoom" | "bounce";
+  className: string;
 }
 
-export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
+export const ProductCard: FC<ProductCardProps> = ({
+  product,
+  animation,
+  className = "",
+}) => {
   const { thumbnail, pricing, slug, rating } = product;
 
   const cardClasses = clsx("relative transition ease-in-out", {
@@ -47,7 +52,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
       rounded="md"
       bgBlend="darken"
       glass
-      className={cardClasses}
+      className={`${cardClasses} ${className}`}
     >
       <ProductRating
         name={slug}
@@ -69,6 +74,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
           width={300}
           height={300}
           className={cardMediaClasses}
+          priority
         />
       </Link>
       <Indicator
@@ -86,7 +92,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product, animation }) => {
           />
           <Link
             href={`/p/${slug}`}
-            className="link link-primary no-underline text-neutral hover:text-neutral mt-4"
+            className="link link-primary no-underline  mt-4"
           >
             <CardTitle>
               <span className="truncate w-48" title={info.name ?? ""}>

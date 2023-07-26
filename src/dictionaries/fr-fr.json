@@ -1,25 +1,38 @@
 {
-    "Gallery": {
-        "shop": "Boutique",
-        "all products": "Tous"
-    },
-    "header": {
-        "home": "Accueil",
-        "shop": "Boutique",
-        "about": "À propos"
-    },
-    "menu": {
-        "categories": "Catégories"
-    },
-    "component": {
-        "add to cart": "Ajouter au panier",
-        "filter": "Filtre",
-        "apply": "Appliquer",
-        "is available": "Disponible",
-        "next": "Suivant",
-        "search": "Rechercher",
-        "prev": "Précédent",
-        "price range": "Prix",
-        "sale": "En solde"
-    }
+  "Gallery": {
+    "shop": "Boutique",
+    "all products": "Tous"
+  },
+  "header": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "about": "À propos"
+  },
+  "auth": {
+    "log in": "Se connecter",
+    "register": "S'inscrire",
+    "create account": "Créer un compte",
+
+    "forgot password": "Mot de passe oublié ?",
+    "sign up message": "Inscrivez-vous pour gérer vos adresses, commandes et retours.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirm password": "Confirmer le mot de passe",
+    "first name": "Prénom",
+    "last name": "Nom de famille"
+  },
+  "menu": {
+    "categories": "Catégories"
+  },
+  "component": {
+    "add to cart": "Ajouter au panier",
+    "filter": "Filtre",
+    "apply": "Appliquer",
+    "is available": "Disponible",
+    "next": "Suivant",
+    "search": "Rechercher",
+    "prev": "Précédent",
+    "price range": "Prix",
+    "sale": "En solde"
+  }
 }

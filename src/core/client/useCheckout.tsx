@@ -4,6 +4,7 @@ import {
   createContext,
   FC,
   ReactNode,
+  useTransition,
   useCallback,
   useContext,
   useState,
@@ -14,13 +15,11 @@ import { ICheckout, Maybe } from '@/gql/sdk';
 
 import { checkoutLinesAdd, checkoutCreate } from '../server/checkoutFunctions';
 import { revalidateTag } from 'next/cache';
+import { useRouter } from 'next/navigation';
 
 export interface CheckoutContextData {
   checkoutQuantity: number | undefined;
-  addItem(
-    variantID: string,
-    quantity: number
-  ): Promise<Maybe<ICheckout> | undefined>;
+  addItem(variantID: string, quantity: number): Promise<unknown | undefined>;
 }
 
 const CheckoutContext = createContext<CheckoutContextData>({
@@ -51,18 +50,22 @@ export const CheckoutProvider: FC<{
   const [checkoutQuantity, updateCheckoutQuantity] = useState<
     number | undefined
   >();
+  let router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const addItem = useCallback(async (variantID: string, quantity = 1) => {
-    const checkoutID = getCookie('CheckoutID');
     ('use server');
-
-    let checkout: Maybe<ICheckout> | null | undefined;
+    const checkoutID = getCookie('CheckoutID');
+    let checkout;
 
     if (checkoutID) {
       checkout = await checkoutLinesAdd(variantID, checkoutID, quantity);
       if (checkout) {
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New item added to checkout ${checkout.lines[0].id}.`);
-        revalidateTag(checkoutID);
+
+        startTransition(() => {
+          router.refresh();
+        });
       }
     } else {
       checkout = await checkoutCreate(variantID, quantity);
@@ -74,7 +77,10 @@ export const CheckoutProvider: FC<{
         ].join('; ');
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New checkout created with ID ${checkout.id}`);
-        revalidateTag(checkout.id);
+
+        startTransition(() => {
+          router.refresh();
+        });
       }
     }
 

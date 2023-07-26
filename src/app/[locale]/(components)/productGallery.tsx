@@ -34,15 +34,16 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         {products.edges.map(({ node }) => {
           return (
-            <li className="carousel-item justify-center m-2" key={node.slug}>
+            <li className="carousel-item justify-center m-2 " key={node.slug}>
               <ProductSelectionProvider
                 initialQuantity={1}
                 initialSelectedVariantID={node.defaultVariant?.id}
                 product={node}
               >
                 <ProductCard
-                  product={node}                  
+                  product={node}
                   animation="bounce"
+                  className="w-full"
                 />
               </ProductSelectionProvider>
             </li>

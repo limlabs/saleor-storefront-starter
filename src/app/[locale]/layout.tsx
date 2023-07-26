@@ -1,21 +1,16 @@
-import { AppProvider } from "@/core/client/useApp";
 import { localeConfig } from "@/locale-config";
 //TODO: Discuss how to list valid channels. Will place the config in src/channel-config.ts for now
 import { Channel, channelConfig } from "@/channel-config";
-import { RootLayoutHeader } from "./(components)/header";
 import AppRoot from "./(components)/root";
-import Drawer from "../daisyui/drawer";
 import type { PropsWithChildren } from "react";
 import type { Locale } from "@/locale-config";
 import "./globals.css";
 import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
-import { NavbarMenu } from "./(components)/navbarMenu";
-
-export const metadata = {
-  title: "Headless Store",
-  description: "Open source headless Storefront",
-};
+import { AppProvider } from "@/core/client/useApp";
+import { CheckoutProvider } from "@/core/client/useCheckout";
+import { getTranslations } from "@/core/server/getTranslations";
+import { ResolvingMetadata, ResolvedMetadata } from "next";
 
 interface RootLayoutProps {
   params: {
@@ -24,19 +19,50 @@ interface RootLayoutProps {
   };
 }
 
+export async function generateMetadata(
+  { params }: RootLayoutProps,
+  parent: ResolvingMetadata
+): Promise<ResolvedMetadata> {
+  const translations = await getTranslations(params.locale);
+  const siteTitle = translations("metadata.siteTitle");
+  const siteDescription = translations("metadata.siteDescription");
+  return {
+    ...parent,
+    title: siteTitle,
+    description: siteDescription,
+    openGraph: {
+      type: "website",
+      title: siteTitle,
+      locale: params.locale,
+      url: `/${params.locale}`,
+      site_name: siteTitle,
+      images: [
+        {
+          url: "/placeholderImage.svg",
+        },
+      ],
+    },
+  };
+}
+
 export default async function RootLayout({
   children,
   params,
 }: PropsWithChildren<RootLayoutProps>) {
   const languageCode = getLanguageCode(params.locale);
-  const { menu } = await gqlClient.Menu({ slug: "navbar", languageCode });
   let channel: Channel = params.channel as Channel;
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
   }
+  const { menu } = await gqlClient.Menu({ slug: "header", languageCode });
+
+  const menuItems = menu?.items || [];
 
   return (
-    <html lang={params.locale} data-theme="liminalThemeBright">
+    <html lang={params.locale} data-theme="dracula">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body>
         <AppProvider
           value={{
@@ -48,15 +74,10 @@ export default async function RootLayout({
             channelConfig: channelConfig,
           }}
         >
-          <div className="z-0">
-            <AppRoot>
-              <Drawer id="category-menu" side={<NavbarMenu menu={menu} />}>
-                <div className="mx-auto my-6 w-full max-w-6xl ">
-                  <RootLayoutHeader />
-                  {children}
-                </div>
-              </Drawer>
-            </AppRoot>
+          <div className="mx-auto my-6 w-full max-w-6xl ">
+            <CheckoutProvider>
+              <AppRoot>{children}</AppRoot>
+            </CheckoutProvider>
           </div>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />

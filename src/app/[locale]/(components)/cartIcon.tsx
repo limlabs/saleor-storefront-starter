@@ -17,6 +17,7 @@ export const CartIcon: FC<CartIconProps> = ({ quantity }) => {
   return (
     <Link
       href="/cart"
+      aria-label="cart icon"
       channel=""
       className="flex flex-row align-middle text-secondary"
     >

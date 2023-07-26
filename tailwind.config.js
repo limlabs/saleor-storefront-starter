@@ -8,9 +8,11 @@ module.exports = {
         "light-green": "rgb(157, 255, 212)",
         "hot-pink": "rgb(255, 21, 236)",
         "light-blue-main": "rgb(5, 249, 249)",
-        "light-gray": "rgb(216, 218, 245)",
+        "light-gray": "rgb(240, 240, 240)",
         "forest-green": "rgb(0, 75, 80)",
         "almost-black": "rgb(0, 0, 19)",
+        "normal-gray": "rgb(89, 89, 89",
+        "shark-attack": "rgb(44, 53, 170",
       },
       boxShadow: {
         "vertical-sm": " 0px 3px 11px 0px rgba(255,191,244,0.4)",

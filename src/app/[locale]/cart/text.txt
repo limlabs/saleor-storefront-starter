@@ -1,0 +1,20 @@
+<div className=" bg-light-green h-auto flex flex-col rounded-md p-4">
+          <div className="text-black text-xsm underline font font-roboto pt-4 pb-3">
+            <Link href={props.productLink}>
+              {props.description}
+            </Link> 
+          </div>
+          
+          {props.size && <div className="text-black text-sm font font-roboto">Size: {props.size}</div>}
+          
+          {props.color && <div className="text-black text-sm font font-roboto">Color: {props.color}</div>}
+
+
+          <p className="text-black text-sm font font-roboto">
+            Quantity:
+          </p>
+
+          <QuanitityCounter/>
+
+          <div className="text-black text-sm font font-roboto pt-3">Price: ${props.price}</div>
+      </div>

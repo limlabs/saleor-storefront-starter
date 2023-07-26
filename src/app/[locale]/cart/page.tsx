@@ -68,7 +68,7 @@ const ProductGrid = () => {
 
 export default withTranslations<CartPageProps>((function CartPage() {
   return (
-    <main className="container mx-auto my-auto w-full h-full max-h-screen bg-white">
+    <main className="container mx-auto my-auto w-full h-full max-h-screen bg-white pl-20 pb-10">
       <CartHeadline />
       <ProductGrid />
     </main>

@@ -1,14 +1,7 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { gqlClient } from '@/gql';
-import {
-  ICheckout,
-  ICheckoutCreate,
-  ICheckoutLinesAdd,
-  Maybe,
-} from '@/gql/sdk';
-import { checkoutStorageKey } from '../constants';
+import { ICheckoutCreate, ICheckoutLinesAdd } from '@/gql/sdk';
 
 export const checkoutLinesAdd = async (
   variantID: string,

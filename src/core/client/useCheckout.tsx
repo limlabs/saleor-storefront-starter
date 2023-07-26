@@ -10,15 +10,10 @@ import {
 } from 'react';
 
 import { checkoutStorageKey } from '@/core/constants';
-import { gqlClient } from '@/gql';
-import {
-  ICheckout,
-  ICheckoutCreate,
-  ICheckoutLinesAdd,
-  Maybe,
-} from '@/gql/sdk';
+import { ICheckout, Maybe } from '@/gql/sdk';
 
 import { checkoutLinesAdd, checkoutCreate } from '../server/checkoutFunctions';
+import { revalidateTag } from 'next/cache';
 
 export interface CheckoutContextData {
   checkoutQuantity: number | undefined;
@@ -67,6 +62,7 @@ export const CheckoutProvider: FC<{
       if (checkout) {
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New item added to checkout ${checkout.lines[0].id}.`);
+        revalidateTag(checkoutID);
       }
     } else {
       checkout = await checkoutCreate(variantID, quantity);
@@ -78,6 +74,7 @@ export const CheckoutProvider: FC<{
         ].join('; ');
         updateCheckoutQuantity(checkout.quantity);
         console.log(`New checkout created with ID ${checkout.id}`);
+        revalidateTag(checkout.id);
       }
     }
 

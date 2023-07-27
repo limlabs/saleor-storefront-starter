@@ -6,12 +6,13 @@ import { useTranslations } from "@/core/server/useTranslations";
 import Link from "next/link";
 import { useState } from "react";
 import { loginSubmit } from "../(components)/serverSubmitHandlers";
-import { ITokenCreateMutation } from "@/gql/sdk";
 import { useRouter } from "next/navigation";
+import RequiredLabel from "../(components)/requiredLabel";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loginError, setLoginError] = useState<string>("");
   const t = useTranslations();
   const router = useRouter();
 
@@ -22,6 +23,11 @@ export default function Login() {
     const respPromise = loginSubmit(formData);
 
     respPromise.then((resp) => {
+      if (resp.tokenCreate?.errors.length !== 0) {
+        setLoginError(
+          "Unable to log you into your account. Please try again, or come back later!"
+        );
+      }
       if (resp.tokenCreate?.token) {
         router.push("/home");
       }
@@ -38,7 +44,7 @@ export default function Login() {
         <TextField
           id="loginEmail"
           name="email"
-          label={t("login.email")}
+          label={<RequiredLabel label={t("login.email")} />}
           className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -51,6 +57,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button variant="primary"> {t("login.log in")}</Button>
+        <p>{loginError}</p>
       </form>
       <Link href={"forgot-password"} className="underline block">
         {t("login.forgot password")}

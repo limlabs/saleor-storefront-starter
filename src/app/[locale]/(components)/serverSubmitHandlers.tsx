@@ -11,14 +11,18 @@ export const loginSubmit = async (data: FormData) => {
     email: email,
     password: password,
   });
-  // @ts-ignore
-  cookies().set({
-    name: "session",
-    value: resp.tokenCreate?.token,
-    httpOnly: true,
-    path: "/",
-    expires: new Date(Date.now() + twentyFourHoursInSeconds * 1000),
-  });
+
+  if (resp.tokenCreate?.token) {
+    // @ts-ignore
+
+    cookies().set({
+      name: "session",
+      value: resp.tokenCreate?.token,
+      httpOnly: true,
+      path: "/",
+      expires: new Date(Date.now() + twentyFourHoursInSeconds * 1000),
+    });
+  }
 
   return resp;
 };

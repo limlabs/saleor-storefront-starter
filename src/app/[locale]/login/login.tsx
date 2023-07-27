@@ -24,9 +24,7 @@ export default function Login() {
 
     respPromise.then((resp) => {
       if (resp.tokenCreate?.errors.length !== 0) {
-        setLoginError(
-          "Unable to log you into your account. Please try again, or come back later!"
-        );
+        setLoginError(t("login.login error"));
       }
       if (resp.tokenCreate?.token) {
         router.push("/home");
@@ -44,7 +42,7 @@ export default function Login() {
         <TextField
           id="loginEmail"
           name="email"
-          label={<RequiredLabel label={t("login.email")} />}
+          label={t("login.email")}
           className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
           onChange={(e) => setEmail(e.target.value)}
         />

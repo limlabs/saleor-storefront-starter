@@ -4,8 +4,7 @@ import Button from "@/app/daisyui/button";
 import { TextField } from "../(components)/textField";
 import { useTranslations } from "@/core/server/useTranslations";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import { gqlClient } from "@/gql";
+import { useState } from "react";
 import { loginSubmit } from "../(components)/serverSubmitHandlers";
 
 export default function Login() {
@@ -17,7 +16,7 @@ export default function Login() {
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    const resp = loginSubmit(formData);
+    loginSubmit(formData);
   };
 
   return (

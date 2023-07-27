@@ -6,7 +6,10 @@ import RequiredLabel from "../(components)/requiredLabel";
 import { FormEvent, useState } from "react";
 import { gqlClient } from "@/gql";
 import { useRouter } from "next/navigation";
-import { registerSubmit } from "../(components)/serverSubmitHandlers";
+import {
+  loginSubmit,
+  registerSubmit,
+} from "../(components)/serverSubmitHandlers";
 
 export const CreateAccount = () => {
   const [firstName, setFirstName] = useState<string>("");
@@ -48,8 +51,8 @@ export const CreateAccount = () => {
           "An error occurred when trying to create your account. Please try again, or come back later!"
         );
       } else if (resp.accountRegister?.user?.isActive) {
-        console.log(resp);
         setButtonText("creating account");
+        loginSubmit(formData);
         router.push("/home");
       }
     });

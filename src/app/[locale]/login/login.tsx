@@ -6,17 +6,26 @@ import { useTranslations } from "@/core/server/useTranslations";
 import Link from "next/link";
 import { useState } from "react";
 import { loginSubmit } from "../(components)/serverSubmitHandlers";
+import { ITokenCreateMutation } from "@/gql/sdk";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const t = useTranslations();
+  const router = useRouter();
 
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    loginSubmit(formData);
+    const respPromise = loginSubmit(formData);
+
+    respPromise.then((resp) => {
+      if (resp.tokenCreate?.token) {
+        router.push("/home");
+      }
+    });
   };
 
   return (

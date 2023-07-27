@@ -20,6 +20,5 @@ export const loginSubmit = async (data: FormData) => {
     expires: new Date(Date.now() + twentyFourHoursInSeconds * 1000),
   });
 
-  console.log("response", resp);
   return resp;
 };

@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import { useCheckout } from '@/core/client/useCheckout';
-import { useProductSelection } from '@/core/client/useProductSelection';
-import { FC, ReactNode, startTransition, useState } from 'react';
-import { AddToCartConfirmation } from './addToCartConfirmation';
+import { useProductSelection } from "@/core/client/useProductSelection";
+import { FC, ReactNode, useCallback, useState, useTransition } from "react";
+import { AddToCartConfirmation } from "./addToCartConfirmation";
+import { useRouter } from "next/navigation";
+import { addCheckoutItem } from "@/core/server/checkout";
 interface AddToCartButtonProps {
   buttonText: ReactNode;
   confirmationTitleText: ReactNode;
@@ -19,17 +20,28 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
 }) => {
   const { selectedVariantID, quantity } = useProductSelection();
   const [confirmationOpen, setConfirmationOpen] = useState(false);
-  const { addItem } = useCheckout();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null | undefined>(null);
 
-  const onClickHandler = () => {
-    if (!selectedVariantID) return;
+  const addToCart = useCallback(
+    (variantID: string, quantity: number) => {
+      if (!selectedVariantID) return;
+      startTransition(async () => {
+        const { success, error } = await addCheckoutItem(variantID, quantity);
+        if (!success) {
+          setError(error);
+          return;
+        }
 
-    addItem(selectedVariantID, quantity);
-    setConfirmationOpen(true);
-  };
+        setConfirmationOpen(true);
+        router.refresh();
+      });
+    },
+    [router, selectedVariantID]
+  );
 
   const onCloseHandler = () => {
-    console.log('modal close handler');
     setConfirmationOpen(false);
   };
 
@@ -37,11 +49,16 @@ export const AddToCartButton: FC<AddToCartButtonProps> = ({
     <>
       <button
         className="btn btn-primary"
-        onClick={onClickHandler}
-        disabled={!selectedVariantID || quantity < 1}
+        onClick={() => addToCart(selectedVariantID, quantity)}
+        disabled={!selectedVariantID || isPending || quantity < 1}
       >
         {buttonText}
       </button>
+      {error && (
+        <div className="alert alert-error w-full text-sm" role="alert">
+          {error}
+        </div>
+      )}
       {confirmationOpen && (
         <AddToCartConfirmation
           onClose={onCloseHandler}

@@ -21,6 +21,7 @@ export const LocaleMenu: FC = () => {
 
   return (
     <Select
+      aria-label="language selector"
       className="select-primary select-md"
       defaultValue={params.locale}
       onChange={handleLocaleChange}

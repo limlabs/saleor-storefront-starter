@@ -36,7 +36,7 @@ const Collapse = forwardRef<HTMLDivElement, PropsWithChildren<CollapseProps>>(
     const classNamesContent = clsx("collapse-content", classNameContent);
     return (
       <div className={classNames} ref={ref}>
-        <input type="checkbox" className="peer" />
+        <input type="checkbox" className="peer" aria-hidden />
         {title ? <div className={classNamesTitle}>{title}</div> : null}
         <div className={classNamesContent}>{children}</div>
       </div>

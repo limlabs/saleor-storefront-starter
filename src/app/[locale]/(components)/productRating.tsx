@@ -38,55 +38,55 @@ export const ProductRating: FC<ProductRatingProps> = ({
       <input
         type="radio"
         name={`rating-${name}`}
-        aria-label="one star"
+        aria-label="1 star"
         className="mask mask-star-2 mask-half-2"
       />
       <input
         type="radio"
-        aria-label="one and a half star"
+        aria-label="1.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
         type="radio"
-        aria-label="two star"
+        aria-label="2 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
         type="radio"
-        aria-label="two and half star"
+        aria-label="2.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
         type="radio"
-        aria-label="three star"
+        aria-label="3 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
         type="radio"
-        aria-label="three and half star"
+        aria-label="3.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
         defaultChecked
       />
       <input
         type="radio"
-        aria-label="four star"
+        aria-label="4 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
         type="radio"
-        aria-label="four and half star"
+        aria-label="4.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
         type="radio"
-        aria-label="five stars"
+        aria-label="5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />

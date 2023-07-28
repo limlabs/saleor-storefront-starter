@@ -9,7 +9,10 @@
   "header": {
     "home": "Inicio",
     "shop": "Compra",
-    "about": "Acerca De"
+    "about": "Acerca De",
+    "a11y": {
+      "cartIcon": "Icono del carrito de compras"
+    }
   },
   "auth": {
     "log in": "Iniciar sesión",

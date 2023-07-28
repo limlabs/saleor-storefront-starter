@@ -32,7 +32,7 @@ export const ProductRating: FC<ProductRatingProps> = ({
       <input
         type="radio"
         name={`rating-${name}`}
-        aria-label="half a start"
+        aria-label="0.5 stars"
         className="mask mask-star-2 mask-half-1"
       />
       <input

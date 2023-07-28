@@ -26,3 +26,21 @@ export const loginSubmit = async (data: FormData) => {
 
   return resp;
 };
+export const registerSubmit = async (data: FormData) => {
+  const firstName = data.get("firstName") as string;
+  const lastName = data.get("lastName") as string;
+  const email = data.get("email") as string;
+  const password = data.get("password") as string;
+
+  const resp = await gqlClient.accountRegister({
+    input: {
+      email,
+      password,
+      firstName,
+      lastName,
+      channel: "default-channel",
+    },
+  });
+
+  return resp;
+};

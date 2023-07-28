@@ -10,7 +10,8 @@
     "home": "Home",
     "shop": "Shop",
     "about": "About",
-    "log out": "Log Out"
+    "log out": "Log Out",
+    "account settings": "Account Settings"
   },
   "login": {
     "pageTitle": "Log In",

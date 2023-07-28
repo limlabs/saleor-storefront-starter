@@ -1,16 +1,18 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useTransition } from "react";
 import { logout } from "../serverSubmitHandlers";
+import { useTranslations } from "@/core/server/useTranslations";
 
 export const LogoutButton: FC = () => {
+  const t = useTranslations();
   const handleLogout = () => {
     logout();
   };
 
   return (
     <div className="cursor-pointer z-100" onClick={handleLogout}>
-      Log Out
+      {t("header.log out")}
     </div>
   );
 };

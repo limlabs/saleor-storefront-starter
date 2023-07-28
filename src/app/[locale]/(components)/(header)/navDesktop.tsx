@@ -10,7 +10,7 @@ export const DesktopPrimaryNav: FC = () => {
   const t = useTranslations();
 
   return (
-    <ul className="menu menu-horizontal px-1hidden lg:flex justify-center items-center menu menu-horizontal space-x-3 z-50 pr-2 ">
+    <ul className=" px-1hidden lg:flex justify-center items-center menu menu-horizontal space-x-3 z-50 pr-2 ">
       <li>
         <LocaleMenu />
       </li>
@@ -49,7 +49,7 @@ export const DesktopPrimaryNav: FC = () => {
           className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
         >
           <li>
-            <Link href="/account-settings">Account Settings</Link>
+            <Link href="/account-settings">{t("header.account settings")}</Link>
           </li>
           <li>
             <LogoutButton />

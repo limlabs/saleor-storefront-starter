@@ -44,3 +44,14 @@ export const registerSubmit = async (data: FormData) => {
 
   return resp;
 };
+
+export const logout = async () => {
+  // @ts-ignore
+
+  cookies().set({
+    name: "session",
+    value: "",
+    path: "/",
+    expires: new Date(Date.now()),
+  });
+};

@@ -9,7 +9,8 @@
   "header": {
     "home": "Home",
     "shop": "Shop",
-    "about": "About"
+    "about": "About",
+    "log out": "Log Out"
   },
   "login": {
     "pageTitle": "Log In",

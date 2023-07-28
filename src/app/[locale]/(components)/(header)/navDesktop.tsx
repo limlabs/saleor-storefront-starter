@@ -4,9 +4,16 @@ import { CartIconWithCount } from "../cartIconWithCount";
 import { useTranslations } from "@/core/server/useTranslations";
 
 import Link from "next/link";
+import { gqlClient } from "@/gql";
+import { logout } from "../serverSubmitHandlers";
+import { LogoutButton } from "./logout";
 
 export const DesktopPrimaryNav: FC = () => {
   const t = useTranslations();
+
+  const handleLogout = async () => {
+    logout();
+  };
 
   return (
     <ul className="hidden lg:flex justify-center items-center menu menu-horizontal space-x-3 z-50 pr-2 ">
@@ -35,6 +42,9 @@ export const DesktopPrimaryNav: FC = () => {
 
       <li>
         <CartIconWithCount />
+      </li>
+      <li>
+        <LogoutButton />
       </li>
     </ul>
   );

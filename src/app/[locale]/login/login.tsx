@@ -28,6 +28,7 @@ export default function Login() {
       }
       if (resp.tokenCreate?.token) {
         router.push("/home");
+        router.refresh();
       }
     });
   };

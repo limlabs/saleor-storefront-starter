@@ -1,13 +1,16 @@
 "use client";
 
-import { FC, useTransition } from "react";
+import { FC } from "react";
 import { logout } from "../serverSubmitHandlers";
 import { useTranslations } from "@/core/server/useTranslations";
-
+import { useRouter } from "next/navigation";
 export const LogoutButton: FC = () => {
+  const router = useRouter();
+
   const t = useTranslations();
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
+    router.refresh();
   };
 
   return (

@@ -11,7 +11,8 @@
     "shop": "Shop",
     "about": "About",
     "log out": "Log Out",
-    "account settings": "Account Settings"
+    "account settings": "Account Settings",
+    "log in": "Log In"
   },
   "login": {
     "pageTitle": "Log In",

@@ -73,15 +73,6 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
     getTranslations(),
   ]);
 
-  // const productDetails = product?.variants;
-  // console.log(productDetails);
-  // if (productDetails) {
-  //   for (const variant of productDetails) {
-  //     console.log(variant.name);
-  //     console.log(variant.quantityAvailable);
-  //   }
-  // }
-
   if (!product) {
     return redirect("/404");
   }
@@ -109,7 +100,7 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
           <div className="text-2xl text-accent mt-6 lg:mt-0 ">
             {product.category?.translation?.name ?? product.category?.name}
           </div>
-          <h1 className="text-4xl text-neutral my-2">
+          <h1 className="text-4xl  my-2">
             {product.translation?.name ?? product.name}
           </h1>
           {(product.rating ?? 0) > 0 && (
@@ -123,7 +114,7 @@ export default withTranslations<PageProps>(async function ProductDetailsPage({
           {(product.description ?? product.translation?.description ?? "")
             .length > 0 && (
             <ProductDescription
-              className="mt-5 text-neutral"
+              className="mt-5 "
               description={productDescription}
             />
           )}

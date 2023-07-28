@@ -1,0 +1,53 @@
+name: Epic
+title: "[Epic] Epic Title"
+description: "High-level user story or initiative that represents a significant piece of work"
+labels: Epic
+body:
+- type: input
+  id: name
+  attributes:
+    label: Epic Name
+    description: "Name to use for the initiative"
+  validations:
+    required: true
+- type: textarea
+  id: description
+  attributes:
+    label: Description
+    description: "Provide a brief overview of the epic and its goals. Include any relevant background information or context."
+  validations:
+    required: true
+- id: dependencies
+  type: textarea
+  attributes:
+    label: Dependencies
+    placeholder: |
+      - [ ] Link to issue required to be completed before this epic can be started
+- id: links
+  type: textarea
+  attributes:
+    label: Links
+    placeholder: |
+      - _links to any relevant mocks, documentation, technical designs, etc._
+- id: tasks
+  type: textarea
+  attributes:
+    label: Tasks
+    placeholder: |
+      - [ ] _List of issues that will correspond to individual Pull Requests_
+  validations:
+    required: true
+- id: acceptanceCriteria
+  type: textarea
+  attributes:
+    label: Acceptance Criteria
+    placeholder: |
+      - _List of high-level system behaviors or conditions that need to be met for this epic to be considered finished_
+  validations:
+    required: true
+- id: relatedIssues
+  type: textarea
+  attributes:
+    label: Related Issues
+    placeholder: |
+      - _List of epics or tasks that are worth mentioning in the context of this issue_

@@ -11,9 +11,28 @@
     "shop": "Shop",
     "about": "About"
   },
+  "login": {
+    "pageTitle": "Log In",
+    "pageDescription": "Log in or sign up for a new account to to manage your addresses, orders, and returns.",
+    "log in": "Log In",
+    "register": "Register",
+    "creating account": "Creating Account...",
+    "create account": "Create Account",
+    "forgot password": "Forgot Password?",
+    "sign up message": "Sign up for an account to manage your addresses, orders, and returns.",
+    "email": "Email",
+    "password": "Password",
+    "confirm password": "Confirm Password",
+    "email warning": "Please enter your email to create an account.",
+    "password warning": "Please enter a non-empty password.",
+    "confirm password warning": "Passwords must match to continue.",
+    "first name": "First Name",
+    "last name": "Last Name"
+  },
   "menu": {
     "categories": "Categories"
   },
+
   "component": {
     "add to cart": "Add to Cart",
     "add to cart confirmation": "Item added to cart successfully!",
@@ -28,5 +47,13 @@
     "prev": "Previous",
     "sale": "Sale",
     "rating": "Rating"
+  },
+  "metadata": {
+    "siteTitle": "Saleor Storefront Starter",
+    "siteDescription": "an open-source storefront built using NextJS and Saleor"
+  },
+  "allProducts": {
+    "pageTitle": "All Products",
+    "pageDescription": "a complete listing of the product catalog for this store"
   }
 }

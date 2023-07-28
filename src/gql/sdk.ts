@@ -27007,21 +27007,34 @@ export type IMenuFragment = {
   items?: Array<{
     __typename?: "MenuItem";
     level: number;
+    name: string;
+    url?: string | null;
     children?: Array<{
       __typename?: "MenuItem";
       level: number;
+      name: string;
+      url?: string | null;
       children?: Array<{
         __typename?: "MenuItem";
         level: number;
+        name: string;
+        url?: string | null;
+        page?: { __typename?: "Page"; slug: string } | null;
         category?: { __typename?: "Category"; id: string; name: string } | null;
+        children?: Array<{
+          __typename?: "MenuItem";
+          page?: { __typename?: "Page"; slug: string } | null;
+        }> | null;
         translation?: {
           __typename?: "MenuItemTranslation";
           name: string;
         } | null;
       }> | null;
+      page?: { __typename?: "Page"; slug: string } | null;
       category?: { __typename?: "Category"; id: string; name: string } | null;
       translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
     }> | null;
+    page?: { __typename?: "Page"; slug: string } | null;
     category?: { __typename?: "Category"; id: string; name: string } | null;
     translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
   }> | null;
@@ -27030,7 +27043,14 @@ export type IMenuFragment = {
 export type IMenuItemFragment = {
   __typename?: "MenuItem";
   level: number;
+  name: string;
+  url?: string | null;
+  page?: { __typename?: "Page"; slug: string } | null;
   category?: { __typename?: "Category"; id: string; name: string } | null;
+  children?: Array<{
+    __typename?: "MenuItem";
+    page?: { __typename?: "Page"; slug: string } | null;
+  }> | null;
   translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
 };
 
@@ -27355,6 +27375,30 @@ export type ITaxedMoneyFragment = {
   tax: { __typename?: "Money"; amount: number };
 };
 
+export type IAccountRegisterMutationVariables = Exact<{
+  input: IAccountRegisterInput;
+}>;
+
+export type IAccountRegisterMutation = {
+  __typename?: "Mutation";
+  accountRegister?: {
+    __typename?: "AccountRegister";
+    accountErrors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+    user?: {
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      isActive: boolean;
+    } | null;
+  } | null;
+};
+
 export type ICheckoutCreateMutationVariables = Exact<{
   channel?: InputMaybe<Scalars["String"]>;
   variantID: Scalars["ID"];
@@ -27442,28 +27486,41 @@ export type IMenuQuery = {
     items?: Array<{
       __typename?: "MenuItem";
       level: number;
+      name: string;
+      url?: string | null;
       children?: Array<{
         __typename?: "MenuItem";
         level: number;
+        name: string;
+        url?: string | null;
         children?: Array<{
           __typename?: "MenuItem";
           level: number;
+          name: string;
+          url?: string | null;
+          page?: { __typename?: "Page"; slug: string } | null;
           category?: {
             __typename?: "Category";
             id: string;
             name: string;
           } | null;
+          children?: Array<{
+            __typename?: "MenuItem";
+            page?: { __typename?: "Page"; slug: string } | null;
+          }> | null;
           translation?: {
             __typename?: "MenuItemTranslation";
             name: string;
           } | null;
         }> | null;
+        page?: { __typename?: "Page"; slug: string } | null;
         category?: { __typename?: "Category"; id: string; name: string } | null;
         translation?: {
           __typename?: "MenuItemTranslation";
           name: string;
         } | null;
       }> | null;
+      page?: { __typename?: "Page"; slug: string } | null;
       category?: { __typename?: "Category"; id: string; name: string } | null;
       translation?: { __typename?: "MenuItemTranslation"; name: string } | null;
     }> | null;
@@ -27834,9 +27891,19 @@ export const FragGalleryProductFragmentDoc = `
 export const FragMenuItemFragmentDoc = `
     fragment MenuItemFragment on MenuItem {
   level
+  name
+  url
+  page {
+    slug
+  }
   category {
     id
     name
+  }
+  children {
+    page {
+      slug
+    }
   }
   translation(languageCode: $languageCode) {
     name
@@ -28013,6 +28080,23 @@ export const FragProductDetailsFragmentDoc = `
     ${FragProductDetailsAttributeFragmentDoc}
 ${FragPricingFragmentDoc}
 ${FragProductVariantFragmentDoc}`;
+export const AccountRegisterDocument = `
+    mutation accountRegister($input: AccountRegisterInput!) {
+  accountRegister(input: $input) {
+    accountErrors {
+      field
+      message
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+      isActive
+    }
+  }
+}
+    `;
 export const CheckoutCreateDocument = `
     mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
   checkoutCreate(
@@ -28140,6 +28224,21 @@ export function getSdk(
   withWrapper: SdkFunctionWrapper = defaultWrapper
 ) {
   return {
+    accountRegister(
+      variables: IAccountRegisterMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<IAccountRegisterMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<IAccountRegisterMutation>(
+            AccountRegisterDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "accountRegister",
+        "mutation"
+      );
+    },
     checkoutCreate(
       variables: ICheckoutCreateMutationVariables,
       requestHeaders?: Dom.RequestInit["headers"]

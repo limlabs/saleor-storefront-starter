@@ -144,7 +144,7 @@ fragment GalleryProductFragment on Product {
 
 The *$languageCode* value is required to be an all-caps ISO format language code (e.g. EN_US). Although there is no standard for defining the *locale* value in the [localeConfig](#supported-languages), we have adopted a \<language>-\<country-code> format (e.g. en-us). A helper function was defined to translate this format to the required Saleor API standard.
 
-*src/core/server/locale.ts
+*src/core/server/locale.ts*
 ```ts
 function getLanguageCode(locale: Locale): ILanguageCodeEnum
 ```

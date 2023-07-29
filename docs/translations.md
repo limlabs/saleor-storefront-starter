@@ -142,6 +142,13 @@ fragment GalleryProductFragment on Product {
 }
 ```
 
+The *$languageCode* value is required to be an all-caps ISO format language code (e.g. EN_US). Although there is no standard for defining the *locale* value in the [localeConfig](#supported-languages), we have adopted a \<language>-\<country-code> format (e.g. en-us). A helper function was defined to translate this format to the required Saleor API standard.
+
+*src/core/server/locale.ts
+```ts
+function getLanguageCode(locale: Locale): ILanguageCodeEnum
+```
+
 The product data is defined in the *Saleor Dashboard* with a base language which will be the values returned by the *name* and *description* properties of **Product**. If the product has translation values for the requested locale, then those will be part of the *translation* property of the returned data. This make it possible to use a default fallback language in case translations are not available, but as-is, will require some complex logic and condition to identify existing translations for each property. 
 
 A proposed solution to this problem is to make use of hooks that will create a new Saleor entity object that will prefer to use the translation values if available, and fallback to the default value if translations are not available. There are experimental implementations using this approach for the **Product** and **Menu** entities.

@@ -7,7 +7,7 @@ interface TextFieldProps {
   id: string;
   type?: string;
   annotation?: string | null;
-
+  name?: string | null;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   className: string;
 }
@@ -20,6 +20,7 @@ export const TextField = ({
   type = "",
   annotation,
   className,
+  name,
 }: TextFieldProps) => {
   return (
     <div className="flex-col justify-start items-start gap-3 inline-flex w-full ">

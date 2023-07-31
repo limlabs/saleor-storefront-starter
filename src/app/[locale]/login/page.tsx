@@ -5,6 +5,8 @@ import { Locale } from "@/locale-config";
 import { Channel } from "@/channel-config";
 import { withTranslations } from "@/core/server/locale";
 import Login from "./login";
+import { gqlClient } from "@/gql";
+import { FormEvent } from "react";
 
 interface PageProps {
   params: {
@@ -21,6 +23,7 @@ export async function generateMetadata(
   const pageTitle = translations("login.pageTitle");
   const pageDescription = translations("login.pageDescription");
   const parentMetadata = await parent;
+
   return {
     ...parentMetadata,
     title: pageTitle,

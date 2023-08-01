@@ -13,7 +13,7 @@ interface CartIconProps {
 
 
 export const CartIcon: FC<CartIconProps> = ({ quantity, a11y }) => {
- const currentQuantity = quantity;
+  const currentQuantity = quantity;
 
 
   return (

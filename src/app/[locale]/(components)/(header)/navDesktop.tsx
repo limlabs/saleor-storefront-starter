@@ -3,7 +3,7 @@ import { LocaleMenu } from "../localeMenu";
 import { CartIconWithCount } from "../cartIconWithCount";
 import { useTranslations } from "@/core/server/useTranslations";
 
-import Link from "next/link";
+import { Link } from "../link";
 
 export const DesktopPrimaryNav: FC = () => {
   const t = useTranslations();
@@ -18,7 +18,7 @@ export const DesktopPrimaryNav: FC = () => {
         <Link
           className=" font-roboto font-bold text-md liminal-text"
           data-text={"shop"}
-          href={"shop"}
+          href={"/c/all"}
         >
           {t("header.shop")}
         </Link>

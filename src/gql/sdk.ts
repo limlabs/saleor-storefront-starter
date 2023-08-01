@@ -27442,6 +27442,25 @@ export type ICheckoutLinesAddMutation = {
   } | null;
 };
 
+export type ITokenCreateMutationVariables = Exact<{
+  email: Scalars["String"];
+  password: Scalars["String"];
+}>;
+
+export type ITokenCreateMutation = {
+  __typename?: "Mutation";
+  tokenCreate?: {
+    __typename?: "CreateToken";
+    token?: string | null;
+    refreshToken?: string | null;
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+    }>;
+  } | null;
+};
+
 export type ICheckoutQuantityQueryVariables = Exact<{
   id?: InputMaybe<Scalars["ID"]>;
 }>;
@@ -28138,6 +28157,18 @@ export const CheckoutLinesAddDocument = `
   }
 }
     `;
+export const TokenCreateDocument = `
+    mutation tokenCreate($email: String!, $password: String!) {
+  tokenCreate(email: $email, password: $password) {
+    token
+    refreshToken
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
 export const CheckoutQuantityDocument = `
     query CheckoutQuantity($id: ID) {
   checkout(id: $id) {
@@ -28266,6 +28297,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "checkoutLinesAdd",
+        "mutation"
+      );
+    },
+    tokenCreate(
+      variables: ITokenCreateMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ITokenCreateMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ITokenCreateMutation>(TokenCreateDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "tokenCreate",
         "mutation"
       );
     },

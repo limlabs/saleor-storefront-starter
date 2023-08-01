@@ -1,7 +1,6 @@
 "use client";
 
 import { Link } from "@/app/[locale]/(components)/link";
-import { useCheckout } from "@/core/client/useCheckout";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "@/core/server/useTranslations";
 import Indicator from "@/app/daisyui/indicator";
@@ -12,9 +11,11 @@ interface CartIconProps {
   a11y?: {cartIcon: string};
 }
 
+
 export const CartIcon: FC<CartIconProps> = ({ quantity, a11y }) => {
   const { checkoutQuantity } = useCheckout();
   const currentQuantity = checkoutQuantity ?? quantity;
+
 
   return (
     <Link

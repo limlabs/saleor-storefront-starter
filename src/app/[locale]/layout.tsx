@@ -8,7 +8,6 @@ import "./globals.css";
 import { gqlClient } from "@/gql";
 import { getLanguageCode } from "@/core/server/locale";
 import { AppProvider } from "@/core/client/useApp";
-import { CheckoutProvider } from "@/core/client/useCheckout";
 import { getTranslations } from "@/core/server/getTranslations";
 import { ResolvingMetadata, ResolvedMetadata } from "next";
 
@@ -49,14 +48,10 @@ export default async function RootLayout({
   children,
   params,
 }: PropsWithChildren<RootLayoutProps>) {
-  const languageCode = getLanguageCode(params.locale);
   let channel: Channel = params.channel as Channel;
   if (!channel || !channelConfig.list.includes(channel)) {
     channel = channelConfig.defaultChannel;
   }
-  const { menu } = await gqlClient.Menu({ slug: "header", languageCode });
-
-  const menuItems = menu?.items || [];
 
   return (
     <html lang={params.locale} data-theme="dracula">
@@ -75,9 +70,7 @@ export default async function RootLayout({
           }}
         >
           <div className="mx-auto my-6 w-full max-w-6xl ">
-            <CheckoutProvider>
-              <AppRoot>{children}</AppRoot>
-            </CheckoutProvider>
+            <AppRoot>{children}</AppRoot>
           </div>
         </AppProvider>
         <div id="modal-root" className="absolute top-0 z-10 overflow-hidden" />

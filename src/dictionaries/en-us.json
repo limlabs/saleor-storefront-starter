@@ -9,7 +9,10 @@
   "header": {
     "home": "Home",
     "shop": "Shop",
-    "about": "About"
+    "about": "About",
+    "log out": "Log Out",
+    "account settings": "Account Settings",
+    "log in": "Log In"
   },
   "login": {
     "pageTitle": "Log In",

@@ -27461,6 +27461,23 @@ export type ITokenCreateMutation = {
   } | null;
 };
 
+export type ITokensDeactivateAllMutationVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ITokensDeactivateAllMutation = {
+  __typename?: "Mutation";
+  tokensDeactivateAll?: {
+    __typename?: "DeactivateAllUserTokens";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      message?: string | null;
+      code: IAccountErrorCode;
+    }>;
+  } | null;
+};
+
 export type ICheckoutQuantityQueryVariables = Exact<{
   id?: InputMaybe<Scalars["ID"]>;
 }>;
@@ -28169,6 +28186,17 @@ export const TokenCreateDocument = `
   }
 }
     `;
+export const TokensDeactivateAllDocument = `
+    mutation tokensDeactivateAll {
+  tokensDeactivateAll {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+    `;
 export const CheckoutQuantityDocument = `
     query CheckoutQuantity($id: ID) {
   checkout(id: $id) {
@@ -28311,6 +28339,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         "tokenCreate",
+        "mutation"
+      );
+    },
+    tokensDeactivateAll(
+      variables?: ITokensDeactivateAllMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ITokensDeactivateAllMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ITokensDeactivateAllMutation>(
+            TokensDeactivateAllDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "tokensDeactivateAll",
         "mutation"
       );
     },

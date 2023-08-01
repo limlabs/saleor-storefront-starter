@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { loginSubmit } from "../(components)/serverSubmitHandlers";
 import { useRouter } from "next/navigation";
-import RequiredLabel from "../(components)/requiredLabel";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -28,6 +27,7 @@ export default function Login() {
       }
       if (resp.tokenCreate?.token) {
         router.push("/home");
+        router.refresh();
       }
     });
   };

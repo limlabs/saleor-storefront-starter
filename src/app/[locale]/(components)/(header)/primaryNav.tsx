@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const PrimaryNav: FC = () => {
   return (
-    <div className="w-full navbar p-4">
+    <div className="w-full navbar pl-4 ">
       <div className="flex-1 px-2 mx-2">
         <Link
           href="/"

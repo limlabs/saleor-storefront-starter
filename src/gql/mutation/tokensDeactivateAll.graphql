@@ -1,0 +1,9 @@
+mutation tokensDeactivateAll {
+  tokensDeactivateAll {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}

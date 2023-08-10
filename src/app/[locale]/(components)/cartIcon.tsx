@@ -2,7 +2,6 @@
 
 import { Link } from "@/app/[locale]/(components)/link";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
-import { useTranslations } from "@/core/server/useTranslations";
 import Indicator from "@/app/daisyui/indicator";
 import type { FC } from "react";
 

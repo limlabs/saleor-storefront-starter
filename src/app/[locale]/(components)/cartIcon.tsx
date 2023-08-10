@@ -7,15 +7,18 @@ import type { FC } from "react";
 
 interface CartIconProps {
   quantity?: number;
+  a11y?: {cartIcon: string};
 }
 
-export const CartIcon: FC<CartIconProps> = ({ quantity }) => {
+
+export const CartIcon: FC<CartIconProps> = ({ quantity, a11y }) => {
   const currentQuantity = quantity;
+
 
   return (
     <Link
       href="/cart"
-      aria-label="cart icon"
+      aria-label={a11y?.cartIcon}
       channel=""
       className="flex flex-row align-middle text-secondary"
     >

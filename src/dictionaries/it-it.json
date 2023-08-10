@@ -6,7 +6,10 @@
   "header": {
     "home": "Inizio",
     "shop": "Negozio",
-    "about": "A proposito"
+    "about": "A proposito",
+    "a11y": {
+      "cartIcon": "icona del carrello"
+    }
   },
   "auth": {
     "log in": "Accedi",

@@ -9,7 +9,10 @@
   "header": {
     "home": "Home",
     "shop": "Shop",
-    "about": "About"
+    "about": "About",
+    "a11y": {
+      "cartIcon": "Shopping Cart Icon"
+    }
   },
   "login": {
     "pageTitle": "Log In",
@@ -27,7 +30,8 @@
     "password warning": "Please enter a non-empty password.",
     "confirm password warning": "Passwords must match to continue.",
     "first name": "First Name",
-    "last name": "Last Name"
+    "last name": "Last Name",
+    "login error": "Unable to log you into your account. Please try again, or come back later!"
   },
   "menu": {
     "categories": "Categories"

@@ -46,7 +46,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:items-start md:justify-between">
+    <div className="flex flex-col justify-between md:flex-row md:items-start">
       <div className="w-full md:max-w-3/4">
         <div className="grid grid-cols-1 gap-12 justify-center">
           {products.map((product, index) => (
@@ -59,7 +59,7 @@ const ProductGrid = () => {
         </div>
       </div>
     
-      <div className="w-full md:max-w-1/4 ">
+      <div className="w-full md:max-w-1/4 justify-center">
         <OrderSummary totalPrice={totalPrice.toFixed(2)} />
       </div>
     </div>
@@ -68,9 +68,10 @@ const ProductGrid = () => {
 
 export default withTranslations<CartPageProps>((function CartPage() {
   return (
-    <main className="container mx-auto my-auto w-full h-full max-h-screen bg-white pl-20 pb-10">
+    <main className="container mx-auto my-auto pb-10 px-8 md:pl-4 md:pb-4">
       <CartHeadline />
       <ProductGrid />
     </main>
   );
 }));
+

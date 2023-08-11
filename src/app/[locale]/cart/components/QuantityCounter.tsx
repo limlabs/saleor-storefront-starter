@@ -4,7 +4,9 @@ const QuanitityCounter: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
 
   const DecreaseQuantity = () => {
-    setQuantity(quantity - 1);
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+    }
   };
 
   const IncreaseQuantity = () => {
@@ -13,11 +15,11 @@ const QuanitityCounter: React.FC = () => {
 
   return (
     <div className="flex items-center pt-3">
-      <button className="px-2 py-1 rounded-l text-black bg-gray-400" onClick={DecreaseQuantity}>
+      <button className="px-2 py-1 border border-primary" onClick={DecreaseQuantity}>
         -
       </button>
-      <span className="px-2 text-black">{quantity}</span>
-      <button className="px-2 py-1 rounded-r text-black bg-gray-400" onClick={IncreaseQuantity}>
+      <span className="px-2">{quantity}</span>
+      <button className="px-2 py-1 border border-primary" onClick={IncreaseQuantity}>
         +
       </button>
     </div>

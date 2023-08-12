@@ -61,7 +61,7 @@ export const ProductGallery: FC<ProductGalleryProps> = ({
             },
           }}
           disabled={!hasPreviousPage}
-          className="btn-neutral"
+          className="btn-primary uppercase"
         >
           <ChevronLeftIcon className="w-6 h-6" /> {t.prev}
         </LinkButton>

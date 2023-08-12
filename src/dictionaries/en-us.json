@@ -36,7 +36,9 @@
   "menu": {
     "categories": "Categories"
   },
-
+  "cart": {
+    "headline": "Welcome to the cart page"
+  },
   "component": {
     "add to cart": "Add to Cart",
     "add to cart confirmation": "Item added to cart successfully!",

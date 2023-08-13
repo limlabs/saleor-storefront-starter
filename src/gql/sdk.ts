@@ -27399,10 +27399,38 @@ export type IAccountRegisterMutation = {
   } | null;
 };
 
+export type ICheckoutCompleteMutationVariables = Exact<{
+  checkoutId: Scalars["ID"];
+}>;
+
+export type ICheckoutCompleteMutation = {
+  __typename?: "Mutation";
+  checkoutComplete?: {
+    __typename?: "CheckoutComplete";
+    order?: {
+      __typename?: "Order";
+      id: string;
+      errors: Array<{
+        __typename?: "OrderError";
+        field?: string | null;
+        message?: string | null;
+        code: IOrderErrorCode;
+      }>;
+    } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+    }>;
+  } | null;
+};
+
 export type ICheckoutCreateMutationVariables = Exact<{
   channel?: InputMaybe<Scalars["String"]>;
   variantID: Scalars["ID"];
   quantity: Scalars["Int"];
+  email?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type ICheckoutCreateMutation = {
@@ -27442,6 +27470,82 @@ export type ICheckoutLinesAddMutation = {
   } | null;
 };
 
+export type ICheckoutTotalQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type ICheckoutTotalQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    totalPrice: {
+      __typename?: "TaxedMoney";
+      gross: { __typename?: "Money"; amount: number };
+    };
+  } | null;
+};
+
+export type IGetOrderByIdQueryVariables = Exact<{
+  orderId: Scalars["ID"];
+}>;
+
+export type IGetOrderByIdQuery = {
+  __typename?: "Query";
+  order?: {
+    __typename?: "Order";
+    id: string;
+    number: string;
+    statusDisplay: string;
+    lines: Array<{
+      __typename?: "OrderLine";
+      id: string;
+      productName: string;
+      quantity: number;
+      quantityFulfilled: number;
+      thumbnail?: { __typename?: "Image"; url: string } | null;
+      unitPrice: {
+        __typename?: "TaxedMoney";
+        gross: { __typename?: "Money"; amount: number; currency: string };
+      };
+    }>;
+    total: {
+      __typename?: "TaxedMoney";
+      tax: { __typename?: "Money"; amount: number; currency: string };
+      gross: { __typename?: "Money"; amount: number; currency: string };
+    };
+    totalCharged: { __typename?: "Money"; amount: number; currency: string };
+  } | null;
+};
+
+export type IPaymentGatewayInitializeMutationVariables = Exact<{
+  checkoutId: Scalars["ID"];
+  amount: Scalars["PositiveDecimal"];
+}>;
+
+export type IPaymentGatewayInitializeMutation = {
+  __typename?: "Mutation";
+  paymentGatewayInitialize?: {
+    __typename?: "PaymentGatewayInitialize";
+    gatewayConfigs?: Array<{
+      __typename?: "PaymentGatewayConfig";
+      id: string;
+      data?: Record<string, any> | null;
+      errors?: Array<{
+        __typename?: "PaymentGatewayConfigError";
+        field?: string | null;
+        message?: string | null;
+        code: IPaymentGatewayConfigErrorCode;
+      }> | null;
+    }> | null;
+    errors: Array<{
+      __typename?: "PaymentGatewayInitializeError";
+      field?: string | null;
+      message?: string | null;
+      code: IPaymentGatewayInitializeErrorCode;
+    }>;
+  } | null;
+};
+
 export type ITokenCreateMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
@@ -27457,6 +27561,49 @@ export type ITokenCreateMutation = {
       __typename?: "AccountError";
       field?: string | null;
       message?: string | null;
+    }>;
+  } | null;
+};
+
+export type ITransactionInitializeMutationVariables = Exact<{
+  checkoutId: Scalars["ID"];
+  data?: InputMaybe<Scalars["JSON"]>;
+}>;
+
+export type ITransactionInitializeMutation = {
+  __typename?: "Mutation";
+  transactionInitialize?: {
+    __typename?: "TransactionInitialize";
+    data?: Record<string, any> | null;
+    transaction?: { __typename?: "TransactionItem"; id: string } | null;
+    transactionEvent?: { __typename?: "TransactionEvent"; id: string } | null;
+    errors: Array<{
+      __typename?: "TransactionInitializeError";
+      field?: string | null;
+      message?: string | null;
+      code: ITransactionInitializeErrorCode;
+    }>;
+  } | null;
+};
+
+export type ICheckoutAvailablePaymentGatewaysQueryVariables = Exact<{
+  checkoutID: Scalars["ID"];
+}>;
+
+export type ICheckoutAvailablePaymentGatewaysQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    availablePaymentGateways: Array<{
+      __typename?: "PaymentGateway";
+      id: string;
+      name: string;
+      currencies: Array<string>;
+      config: Array<{
+        __typename?: "GatewayConfigLine";
+        field: string;
+        value?: string | null;
+      }>;
     }>;
   } | null;
 };
@@ -28116,10 +28263,29 @@ export const AccountRegisterDocument = `
   }
 }
     `;
+export const CheckoutCompleteDocument = `
+    mutation CheckoutComplete($checkoutId: ID!) {
+  checkoutComplete(id: $checkoutId) {
+    order {
+      id
+      errors {
+        field
+        message
+        code
+      }
+    }
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+    `;
 export const CheckoutCreateDocument = `
-    mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
+    mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!, $email: String) {
   checkoutCreate(
-    input: {channel: $channel, lines: [{variantId: $variantID, quantity: $quantity}]}
+    input: {email: $email, channel: $channel, lines: [{variantId: $variantID, quantity: $quantity}], shippingAddress: {firstName: "Austin", lastName: "Montoya", streetAddress1: "123 Cool St.", city: "Orlando", countryArea: "FL", country: US, postalCode: "32814"}}
   ) {
     errors {
       message
@@ -28157,6 +28323,79 @@ export const CheckoutLinesAddDocument = `
   }
 }
     `;
+export const CheckoutTotalDocument = `
+    query CheckoutTotal($id: ID!) {
+  checkout(id: $id) {
+    totalPrice {
+      gross {
+        amount
+      }
+    }
+  }
+}
+    `;
+export const GetOrderByIdDocument = `
+    query GetOrderById($orderId: ID!) {
+  order(id: $orderId) {
+    id
+    number
+    statusDisplay
+    lines {
+      id
+      productName
+      quantity
+      quantityFulfilled
+      thumbnail(size: 256) {
+        url
+      }
+      unitPrice {
+        gross {
+          amount
+          currency
+        }
+      }
+    }
+    total {
+      tax {
+        amount
+        currency
+      }
+      gross {
+        amount
+        currency
+      }
+    }
+    totalCharged {
+      amount
+      currency
+    }
+  }
+}
+    `;
+export const PaymentGatewayInitializeDocument = `
+    mutation PaymentGatewayInitialize($checkoutId: ID!, $amount: PositiveDecimal!) {
+  paymentGatewayInitialize(
+    id: $checkoutId
+    amount: $amount
+    paymentGateways: [{id: "app.saleor.stripe"}]
+  ) {
+    gatewayConfigs {
+      id
+      data
+      errors {
+        field
+        message
+        code
+      }
+    }
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+    `;
 export const TokenCreateDocument = `
     mutation tokenCreate($email: String!, $password: String!) {
   tokenCreate(email: $email, password: $password) {
@@ -28165,6 +28404,42 @@ export const TokenCreateDocument = `
     errors {
       field
       message
+    }
+  }
+}
+    `;
+export const TransactionInitializeDocument = `
+    mutation TransactionInitialize($checkoutId: ID!, $data: JSON) {
+  transactionInitialize(
+    id: $checkoutId
+    paymentGateway: {id: "app.saleor.stripe", data: $data}
+  ) {
+    transaction {
+      id
+    }
+    transactionEvent {
+      id
+    }
+    data
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+    `;
+export const CheckoutAvailablePaymentGatewaysDocument = `
+    query CheckoutAvailablePaymentGateways($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    availablePaymentGateways {
+      id
+      name
+      config {
+        field
+        value
+      }
+      currencies
     }
   }
 }
@@ -28270,6 +28545,21 @@ export function getSdk(
         "mutation"
       );
     },
+    CheckoutComplete(
+      variables: ICheckoutCompleteMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutCompleteMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutCompleteMutation>(
+            CheckoutCompleteDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutComplete",
+        "mutation"
+      );
+    },
     checkoutCreate(
       variables: ICheckoutCreateMutationVariables,
       requestHeaders?: Dom.RequestInit["headers"]
@@ -28300,6 +28590,50 @@ export function getSdk(
         "mutation"
       );
     },
+    CheckoutTotal(
+      variables: ICheckoutTotalQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutTotalQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutTotalQuery>(
+            CheckoutTotalDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutTotal",
+        "query"
+      );
+    },
+    GetOrderById(
+      variables: IGetOrderByIdQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<IGetOrderByIdQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<IGetOrderByIdQuery>(GetOrderByIdDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "GetOrderById",
+        "query"
+      );
+    },
+    PaymentGatewayInitialize(
+      variables: IPaymentGatewayInitializeMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<IPaymentGatewayInitializeMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<IPaymentGatewayInitializeMutation>(
+            PaymentGatewayInitializeDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "PaymentGatewayInitialize",
+        "mutation"
+      );
+    },
     tokenCreate(
       variables: ITokenCreateMutationVariables,
       requestHeaders?: Dom.RequestInit["headers"]
@@ -28312,6 +28646,36 @@ export function getSdk(
           }),
         "tokenCreate",
         "mutation"
+      );
+    },
+    TransactionInitialize(
+      variables: ITransactionInitializeMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ITransactionInitializeMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ITransactionInitializeMutation>(
+            TransactionInitializeDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "TransactionInitialize",
+        "mutation"
+      );
+    },
+    CheckoutAvailablePaymentGateways(
+      variables: ICheckoutAvailablePaymentGatewaysQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutAvailablePaymentGatewaysQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutAvailablePaymentGatewaysQuery>(
+            CheckoutAvailablePaymentGatewaysDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutAvailablePaymentGateways",
+        "query"
       );
     },
     CheckoutQuantity(

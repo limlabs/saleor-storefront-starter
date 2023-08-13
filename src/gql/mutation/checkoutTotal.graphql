@@ -1,0 +1,9 @@
+query CheckoutTotal($id: ID!) {
+  checkout(id: $id) {
+    totalPrice {
+      gross {
+        amount
+      }
+    }
+  }
+}

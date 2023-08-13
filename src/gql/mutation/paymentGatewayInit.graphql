@@ -1,0 +1,22 @@
+mutation PaymentGatewayInitialize($checkoutId: ID!, $amount: PositiveDecimal!) {
+  paymentGatewayInitialize(
+    id: $checkoutId
+    amount: $amount
+    paymentGateways: [{ id: "app.saleor.stripe" }]
+  ) {
+    gatewayConfigs {
+      id
+      data
+      errors {
+        field
+        message
+        code
+      }
+    }
+    errors {
+      field
+      message
+      code
+    }
+  }
+}

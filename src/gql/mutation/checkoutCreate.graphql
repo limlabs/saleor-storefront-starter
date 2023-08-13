@@ -1,8 +1,23 @@
-mutation checkoutCreate($channel: String = "default-channel", $variantID: ID!, $quantity: Int!) {
+mutation checkoutCreate(
+  $channel: String = "default-channel"
+  $variantID: ID!
+  $quantity: Int!
+  $email: String
+) {
   checkoutCreate(
     input: {
+      email: $email
       channel: $channel
       lines: [{ variantId: $variantID, quantity: $quantity }]
+      shippingAddress: {
+        firstName: "Austin"
+        lastName: "Montoya"
+        streetAddress1: "123 Cool St."
+        city: "Orlando"
+        countryArea: "FL"
+        country: US
+        postalCode: "32814"
+      }
     }
   ) {
     errors {

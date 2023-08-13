@@ -1,0 +1,13 @@
+query CheckoutAvailablePaymentGateways($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    availablePaymentGateways {
+      id
+      name
+      config {
+        field
+        value
+      }
+      currencies
+    }
+  }
+}

@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@stripe/react-stripe-js": "^2.1.2",
+    "@stripe/stripe-js": "^2.0.0",
     "@types/node": "20.2.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -25,6 +27,7 @@
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "stripe": "^12.18.0",
     "typescript": "5.0.4"
   },
   "devDependencies": {

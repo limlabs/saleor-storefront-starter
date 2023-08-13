@@ -100,6 +100,7 @@ export const addCheckoutItem = async (
   if (!getCheckoutID()) {
     operation = "created";
     result = await checkoutCreate(variantID, quantity);
+    checkoutID = result.checkoutID as string;
   } else {
     result = await checkoutLinesAdd(variantID, checkoutID, quantity);
   }

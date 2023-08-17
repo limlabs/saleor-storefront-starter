@@ -6,7 +6,10 @@
   "header": {
     "home": "Accueil",
     "shop": "Boutique",
-    "about": "À propos"
+    "about": "À propos",
+    "a11y": {
+      "cartIcon": "l'icône de chariot"
+    }
   },
   "auth": {
     "log in": "Se connecter",

@@ -1,23 +1,24 @@
 "use client";
 
 import { Link } from "@/app/[locale]/(components)/link";
-import { useCheckout } from "@/core/client/useCheckout";
 import { ShoppingCartIcon } from "@heroicons/react/24/solid";
 import Indicator from "@/app/daisyui/indicator";
 import type { FC } from "react";
 
 interface CartIconProps {
   quantity?: number;
+  a11y?: {cartIcon: string};
 }
 
-export const CartIcon: FC<CartIconProps> = ({ quantity }) => {
-  const { checkoutQuantity } = useCheckout();
-  const currentQuantity = checkoutQuantity ?? quantity;
+
+export const CartIcon: FC<CartIconProps> = ({ quantity, a11y }) => {
+  const currentQuantity = quantity;
+
 
   return (
     <Link
       href="/cart"
-      aria-label="cart icon"
+      aria-label={a11y?.cartIcon}
       channel=""
       className="flex flex-row align-middle text-secondary"
     >

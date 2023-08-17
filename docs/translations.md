@@ -262,7 +262,7 @@ A custom **Link** component has been defined in */src/[locale]/(components)/link
 
 
 ## Notes
-- The Salero API entity translation bundling hooks/functions could use some standardization and simplification. 
+- The Saleor API entity translation bundling hooks/functions could use some standardization and simplification. 
     - It may be untenable to maintain as it requires each storefront to customize them 
     - There are many entities that each will require their own hook
 - Using a special type for client-side components and having to define lists of keys may not be optimal and too problematic for components that require very few values to be passed. I couldn't find a simple and clean solution to this. 

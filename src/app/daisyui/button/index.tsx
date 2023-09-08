@@ -1,21 +1,25 @@
-import React, { PropsWithChildren } from "react";
-import clsx from "clsx";
+import React, { PropsWithChildren } from 'react';
+import clsx from 'clsx';
 
 interface ButtonProps {
-  variant?: "primary" | "secondary" | "neutral";
+  variant?: 'primary' | 'secondary' | 'neutral';
   glass?: boolean;
   disabled?: boolean;
+  type?: 'submit' | 'button' | 'reset';
 }
 
 const Button = React.forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
->(function Button({ children, variant, glass, disabled }, ref) {
-  const classNames = clsx("btn", {
+>(function Button(
+  { children, variant, glass, disabled, type = 'button' },
+  ref
+) {
+  const classNames = clsx('btn', {
     glass: glass === true,
-    "btn-secondary": variant === "secondary",
-    "btn-primary": variant === "primary",
-    "w-full": true,
+    'btn-secondary': variant === 'secondary',
+    'btn-primary': variant === 'primary',
+    'w-full': true,
   });
 
   return (

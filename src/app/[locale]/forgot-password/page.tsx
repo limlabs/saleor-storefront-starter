@@ -1,16 +1,12 @@
 'use client';
 
-import { getTranslations } from '@/core/server/getTranslations';
-import { ResolvedMetadata, ResolvingMetadata } from 'next';
 import { Locale } from '@/locale-config';
 import { Channel } from '@/channel-config';
 import { useTranslations } from '@/core/server/useTranslations';
 import { useState } from 'react';
-import { loginSubmit } from '../(components)/serverSubmitHandlers';
-import { useRouter } from 'next/navigation';
+import { requestPasswordReset } from '../(components)/serverSubmitHandlers';
 import { TextField } from '../(components)/textField';
 import Button from '@/app/daisyui/button';
-import Link from 'next/link';
 
 interface PageProps {
   params: {
@@ -21,16 +17,36 @@ interface PageProps {
 
 export default function ResetPassword() {
   const [email, setEmail] = useState<string>('');
-  const [emailError, setEmailError] = useState<string>('');
+  const [dirty, setDirty] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const t = useTranslations();
-  const router = useRouter();
+
+  const handleEmailUpdated = (e: any) => {
+    setDirty(true);
+    setEmail(e.target.value);
+  };
+
+  let emailError = '';
+  if (dirty && !email) {
+    emailError = 'Please enter your email to continue.';
+  } else if (dirty && /\S+@\S+\.\S+/.test(email) === false) {
+    emailError = 'Please provide a valid email address.';
+  }
 
   const handleSubmit = () => {
-    // TODO: implement email submit logic
-    // we want to send an email to the user with a link to reset their password
-    // link will have token
-    // handled by reset-password.tsx?
+    const formData = new FormData();
+    formData.append('email', email);
+    const respPromise = requestPasswordReset(formData);
+
+    respPromise.then((resp) => {
+      requestPasswordReset(formData);
+      setIsSubmitted(true);
+    });
   };
+
+  if (isSubmitted) {
+    return <div>Check your inbox</div>;
+  }
 
   return (
     <div className="py-7 justify-start items-start gap-2.5 inline-flex">
@@ -47,12 +63,20 @@ export default function ResetPassword() {
             <TextField
               id="loginEmail"
               name="email"
+              type="email"
               label={t('login.email')}
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailUpdated}
+              value={email}
             />
-            <Button variant="primary">SUBMIT</Button>
             <p>{emailError}</p>
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={Boolean(emailError || !dirty)}
+            >
+              SUBMIT
+            </Button>
           </form>
         </div>
       </div>

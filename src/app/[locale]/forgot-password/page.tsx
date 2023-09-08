@@ -15,7 +15,7 @@ interface PageProps {
   };
 }
 
-export default function ResetPassword() {
+export default function RequestPasswordReset() {
   const [email, setEmail] = useState<string>('');
   const [dirty, setDirty] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);

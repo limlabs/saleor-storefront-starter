@@ -26,6 +26,7 @@ export const loginSubmit = async (data: FormData) => {
 
   return resp;
 };
+
 export const registerSubmit = async (data: FormData) => {
   const firstName = data.get('firstName') as string;
   const lastName = data.get('lastName') as string;
@@ -45,8 +46,6 @@ export const registerSubmit = async (data: FormData) => {
   return resp;
 };
 
-// TODO: write function that calls the graphql mutation named "requestPasswordReset"
-
 export const requestPasswordReset = async (data: FormData) => {
   const email = data.get('email') as string;
   const redirectUrl = 'http://localhost:3000/reset-password';
@@ -57,4 +56,14 @@ export const requestPasswordReset = async (data: FormData) => {
   return resp;
 };
 
-// export const setPassword;
+export const setPassword = async (data: FormData) => {
+  const token = data.get('token') as string;
+  const email = data.get('email') as string;
+  const password = data.get('password') as string;
+  const resp = await gqlClient.setPassword({
+    token: token,
+    email: email,
+    password: password,
+  });
+  return resp;
+};

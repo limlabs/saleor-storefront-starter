@@ -29745,6 +29745,24 @@ export type IRequestPasswordResetMutation = {
   } | null;
 };
 
+export type ISetPasswordMutationVariables = Exact<{
+  token: Scalars["String"];
+  email: Scalars["String"];
+  password: Scalars["String"];
+}>;
+
+export type ISetPasswordMutation = {
+  __typename?: "Mutation";
+  setPassword?: {
+    __typename?: "SetPassword";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      code: IAccountErrorCode;
+    }>;
+  } | null;
+};
+
 export type ITokenCreateMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
@@ -30474,6 +30492,16 @@ export const RequestPasswordResetDocument = `
   }
 }
     `;
+export const SetPasswordDocument = `
+    mutation setPassword($token: String!, $email: String!, $password: String!) {
+  setPassword(token: $token, email: $email, password: $password) {
+    errors {
+      field
+      code
+    }
+  }
+}
+    `;
 export const TokenCreateDocument = `
     mutation tokenCreate($email: String!, $password: String!) {
   tokenCreate(email: $email, password: $password) {
@@ -30629,6 +30657,20 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "requestPasswordReset",
+        "mutation"
+      );
+    },
+    setPassword(
+      variables: ISetPasswordMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ISetPasswordMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ISetPasswordMutation>(SetPasswordDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "setPassword",
         "mutation"
       );
     },

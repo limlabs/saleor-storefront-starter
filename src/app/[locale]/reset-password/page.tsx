@@ -8,26 +8,50 @@ import Button from '@/app/daisyui/button';
 import { TextField } from '../(components)/textField';
 import { useTranslations } from '@/core/server/useTranslations';
 import { useState } from 'react';
+import { setPassword } from '../(components)/serverSubmitHandlers';
+import { useSearchParams } from 'next/navigation';
 
 // TODO: write function that calls the graphql mutation named "setPassword"
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<string>('');
   const [dirty, setDirty] = useState<boolean>(false);
+  const searchParams = useSearchParams();
 
   const handleSubmit = () => {
     const formData = new FormData();
+
+    const email = searchParams.get('email');
+    const token = searchParams.get('token');
+
     formData.append('password', newPassword);
+    formData.append('email', email as string);
+    formData.append('token', token as string);
     const respPromise = setPassword(formData);
 
     respPromise.then((resp) => {
-      setPassword(formData);
-
-      // setIsSubmitted(true);
+      setIsSubmitted(true);
     });
   };
+
+  if (isSubmitted) {
+    return (
+      <div className="w-[598px] h-[221px] pb-20 flex-col justify-start items-start gap-6 inline-flex">
+        <div className="text-black text-4xl font-bold uppercase">
+          Password Reset Successfully.
+        </div>
+        <div className="w-[486px] text-black text-base font-semibold">
+          You can now log in using your new password.
+        </div>
+        <div className="w-[486px] text-black text-base font-semibold underline">
+          <a href="/login">Go to Login</a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-7 justify-start items-start gap-2.5 inline-flex">
@@ -56,8 +80,14 @@ export default function ResetPassword() {
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={(e) => setNewPassword(e.target.value)}
             />
-            <Button variant="primary">SUBMIT</Button>
             <p>{passwordError}</p>
+            <Button
+              type="submit"
+              variant="primary"
+              //   disabled={Boolean(passwordError || !dirty)}
+            >
+              SUBMIT
+            </Button>
           </form>
         </div>
       </div>

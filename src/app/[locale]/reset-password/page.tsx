@@ -7,7 +7,7 @@
 import Button from '@/app/daisyui/button';
 import { TextField } from '../(components)/textField';
 import { useTranslations } from '@/core/server/useTranslations';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { setPassword } from '../(components)/serverSubmitHandlers';
 import { useSearchParams } from 'next/navigation';
 
@@ -37,17 +37,30 @@ export default function ResetPassword() {
     });
   };
 
+  useEffect(() => {
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Passwords do not match.');
+      setIsSubmitted(false);
+      return;
+    }
+    setPasswordError('');
+  }, [newPassword, confirmPassword]);
+
   if (isSubmitted) {
     return (
-      <div className="w-[598px] h-[221px] pb-20 flex-col justify-start items-start gap-6 inline-flex">
-        <div className="text-black text-4xl font-bold uppercase">
-          Password Reset Successfully.
-        </div>
-        <div className="w-[486px] text-black text-base font-semibold">
-          You can now log in using your new password.
-        </div>
-        <div className="w-[486px] text-black text-base font-semibold underline">
-          <a href="/login">Go to Login</a>
+      <div className="py-7 justify-start items-start gap-2.5 inline-flex">
+        <div className="w-full md:w-1/2 p-10">
+          <div className="flex flex-col justify-start items-start w-full gap-6">
+            <h1 className="text-base-10 text-4xl font-bold ">
+              Password Reset Successfully.
+            </h1>
+            <h3>
+              You can now log in using your new password.
+            </h3>
+            <div className="w-[486px] text-white text-base font-semibold underline">
+              <a href="/login">Go to Login</a>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -78,13 +91,13 @@ export default function ResetPassword() {
               name="password"
               type="password"
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <p>{passwordError}</p>
             <Button
               type="submit"
               variant="primary"
-              //   disabled={Boolean(passwordError || !dirty)}
+                disabled={Boolean(passwordError || newPassword === '' || confirmPassword === '')}
             >
               SUBMIT
             </Button>

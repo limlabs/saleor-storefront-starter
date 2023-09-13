@@ -37,9 +37,16 @@ export default function ResetPassword() {
     });
   };
 
+  // TODO: re-enable submit button and add message "Unable to reset password. Please try again later." if mutation fails
+
   useEffect(() => {
     if (newPassword !== confirmPassword) {
       setPasswordError('Passwords do not match.');
+      setIsSubmitted(false);
+      return;
+    }
+    if (newPassword.length < 8) {
+      setPasswordError('Password must be at least 8 characters long.');
       setIsSubmitted(false);
       return;
     }

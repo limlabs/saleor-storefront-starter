@@ -77,6 +77,7 @@ export default function RequestPasswordReset() {
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={handleEmailUpdated}
               value={email}
+              required
             />
             <p>{emailError}</p>
             <Button

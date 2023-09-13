@@ -45,7 +45,16 @@ export default function RequestPasswordReset() {
   };
 
   if (isSubmitted) {
-    return <div>Check your inbox</div>;
+    return <div className="py-7 justify-start items-start gap-2.5 inline-flex">
+      <div className="w-full md:w-1/2 p-10">
+        <div className="flex flex-col justify-start items-start w-full gap-6">
+          <h1 className="text-base-10 text-4xl font-bold ">
+            Check your inbox
+          </h1>
+          <h3>An email with instructions on how to create a new password has been sent to your address. Check your spam folder if you don&apos;t see anything in the next few minutes.</h3>
+        </div>
+      </div>
+    </div>
   }
 
   return (

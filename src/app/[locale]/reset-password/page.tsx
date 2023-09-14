@@ -1,7 +1,3 @@
-// in here, we'll have 2 input fields (enter new password, confirm new password) and a submit button
-// clicking submit calls the server function that calls the graphql mutation named "setPassword"
-// the mutation takes in the token and the new password and returns a token and a user
-
 'use client';
 
 import Button from '@/app/daisyui/button';
@@ -11,14 +7,12 @@ import { useEffect, useState } from 'react';
 import { setPassword } from '../(components)/serverSubmitHandlers';
 import { useSearchParams } from 'next/navigation';
 
-// TODO: write function that calls the graphql mutation named "setPassword"
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<string>('');
-  const [dirty, setDirty] = useState<boolean>(false);
   const searchParams = useSearchParams();
 
   const handleSubmit = () => {
@@ -36,8 +30,6 @@ export default function ResetPassword() {
       setIsSubmitted(true);
     });
   };
-
-  // TODO: re-enable submit button and add message "Unable to reset password. Please try again later." if mutation fails
 
   useEffect(() => {
     if (newPassword !== confirmPassword) {
@@ -89,6 +81,7 @@ export default function ResetPassword() {
               name="email"
               label="New Password*"
               type="password"
+              required
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={(e) => setNewPassword(e.target.value)}
             />
@@ -97,6 +90,7 @@ export default function ResetPassword() {
               id="confirmPassword"
               name="password"
               type="password"
+              required
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -104,7 +98,7 @@ export default function ResetPassword() {
             <Button
               type="submit"
               variant="primary"
-                disabled={Boolean(passwordError || newPassword === '' || confirmPassword === '')}
+              disabled={Boolean(passwordError || newPassword === '' || confirmPassword === '')}
             >
               SUBMIT
             </Button>

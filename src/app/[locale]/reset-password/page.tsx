@@ -81,7 +81,6 @@ export default function ResetPassword() {
               name="email"
               label="New Password*"
               type="password"
-              required
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={(e) => setNewPassword(e.target.value)}
             />
@@ -90,7 +89,6 @@ export default function ResetPassword() {
               id="confirmPassword"
               name="password"
               type="password"
-              required
               className="p-3 bg-base-300 border border-neutral-800 justify-start items-start gap-3 inline-flex w-full"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />

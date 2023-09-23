@@ -48,6 +48,7 @@ export const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <Card
+    aria-selected="false"
       shadow="xl"
       rounded="md"
       bgBlend="darken"

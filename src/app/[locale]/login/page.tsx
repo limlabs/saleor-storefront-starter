@@ -30,6 +30,7 @@ export async function generateMetadata(
     description: pageDescription,
     openGraph: {
       ...parentMetadata.openGraph,
+      title: pageTitle,
       url: `/${params.locale}/login`,
     },
   };

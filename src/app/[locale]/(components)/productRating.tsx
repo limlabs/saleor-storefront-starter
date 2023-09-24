@@ -27,45 +27,52 @@ export const ProductRating: FC<ProductRatingProps> = ({
     className
   );
   return (
-    <div className={classNames}>
+    <div className={classNames} >
       {/* <input type="radio" className="rating-hidden" /> */}
       <input
-        type="radio"
+        tabIndex={-1}
+        type="radio"      
         name={`rating-${name}`}
         aria-label="0.5 stars"
         className="mask mask-star-2 mask-half-1"
       />
       <input
+        tabIndex={-1}
         type="radio"
         name={`rating-${name}`}
         aria-label="1 star"
         className="mask mask-star-2 mask-half-2"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="1.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="2 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="2.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="3 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="3.5 stars"
         name={`rating-${name}`}
@@ -73,18 +80,21 @@ export const ProductRating: FC<ProductRatingProps> = ({
         defaultChecked
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="4 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-2"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="4.5 stars"
         name={`rating-${name}`}
         className="mask mask-star-2 mask-half-1"
       />
       <input
+        tabIndex={-1}
         type="radio"
         aria-label="5 stars"
         name={`rating-${name}`}

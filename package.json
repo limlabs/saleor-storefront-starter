@@ -19,7 +19,7 @@
     "encoding": "^0.1.13",
     "eslint": "8.40.0",
     "eslint-config-next": "^13.5.2",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-request": "^5.1.0",
     "graphql-tag": "^2.12.6",
     "next": "^13.5.2",

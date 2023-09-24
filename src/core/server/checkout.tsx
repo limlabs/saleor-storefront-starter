@@ -109,7 +109,6 @@ export const addCheckoutItem = async (
     logError(operation, checkoutID, variantID, quantity, result.error ?? "");
     return result;
   } else {
-    //@ts-expect-error
     cookies().set({
       name: checkoutStorageKey,
       value: checkoutID,

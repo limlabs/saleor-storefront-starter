@@ -35,7 +35,7 @@
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.1.7",
-    "postcss": "^8.4.23",
+    "postcss": "^8.4.30",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.2"
   }

@@ -1,4 +1,4 @@
-mutation CheckoutUpdateAddress(
+mutation CheckoutUpdateDeliveryInfo(
   $checkoutID: ID!
   $firstName: String!
   $lastName: String!
@@ -11,6 +11,7 @@ mutation CheckoutUpdateAddress(
   $postalCode: String!
   $phone: String
   $email: String!
+  $deliveryMethodId: ID!
 ) {
   checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
     checkout {
@@ -50,6 +51,22 @@ mutation CheckoutUpdateAddress(
       variants
       lines
       addressType
+    }
+  }
+  checkoutDeliveryMethodUpdate(
+    id: $checkoutID
+    deliveryMethodId: $deliveryMethodId
+  ) {
+    checkout {
+      id
+      updatedAt
+    }
+    errors {
+      field
+      message
+      code
+      variants
+      lines
     }
   }
 }

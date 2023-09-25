@@ -4,8 +4,18 @@ import { gqlClient } from "@/gql";
 import { getCheckoutID } from "@/core/server/checkout";
 import { RedirectType, redirect } from "next/navigation";
 import { CheckoutUrlParams } from "../../types";
+import { getLanguageCode } from "@/core/server/locale";
 
-const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
+const CheckoutDeliveryPage = async ({
+  params,
+}: {
+  params: CheckoutUrlParams;
+}) => {
+  const shippingMethods = await gqlClient.CheckoutAvailableShippingMethods({
+    checkoutID: getCheckoutID(),
+    languageCode: getLanguageCode(params.locale),
+  });
+
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
@@ -17,10 +27,11 @@ const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
     const city = formData.get("city") as string;
     const state = formData.get("state") as string;
     const zip = formData.get("zip") as string;
+    const deliveryMethodId = formData.get("shippingMethodId") as string;
 
     const checkoutID = getCheckoutID();
     try {
-      const resp = await gqlClient.CheckoutUpdateAddress({
+      const req = {
         checkoutID,
         firstName,
         lastName,
@@ -29,21 +40,30 @@ const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
         email,
         city,
         countryArea: state,
-        country: "US",
+        country: "US" as any,
         postalCode: zip,
-      });
+        deliveryMethodId,
+      };
+
+      console.log(req);
+      const resp = await gqlClient.CheckoutUpdateDeliveryInfo(req);
+      console.log(JSON.stringify(resp, null, 2));
 
       if (resp.checkoutEmailUpdate?.errors?.length) {
-        console.error(resp.checkoutEmailUpdate.errors);
         return {
           error: "Failed to update email address.",
         };
       }
 
       if (resp.checkoutShippingAddressUpdate?.errors?.length) {
-        console.error(resp.checkoutShippingAddressUpdate.errors);
         return {
           error: "Failed to update shipping address.",
+        };
+      }
+
+      if (resp.checkoutDeliveryMethodUpdate?.errors?.length) {
+        return {
+          error: "Failed to update delivery method.",
         };
       }
     } catch (e) {
@@ -85,7 +105,9 @@ const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
         />
       </fieldset>
       <fieldset className="flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 lg:px-0 gap-4">
-        <h2 className="w-full text-left text-xl lg:text-2xl">Shipping</h2>
+        <h2 className="w-full text-left text-xl lg:text-2xl">
+          Delivery Address
+        </h2>
         <TextInput
           className="w-full bg-base-300"
           placeholder="Street Address 1"
@@ -121,18 +143,24 @@ const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
           Shipping Method
         </h2>
         <div className="flex flex-col items-start justify-start w-full">
-          <label className="flex items-center justify-start gap-2">
-            <input
-              type="radio"
-              name="shipping_method"
-              value="standard"
-              className="w-5 h-5"
-              required
-              checked
-              readOnly
-            />
-            <span className="text-lg">Standard</span>
-          </label>
+          {shippingMethods.checkout?.shippingMethods.map((shippingMethod) => (
+            <label
+              className="flex items-center justify-start gap-2"
+              key={shippingMethod.id}
+            >
+              <input
+                type="radio"
+                name="shippingMethodId"
+                value={shippingMethod.id}
+                className="w-5 h-5"
+                required
+              />
+              <span className="text-lg">
+                {shippingMethod.name} - $
+                {shippingMethod.price.amount.toFixed(2)}
+              </span>
+            </label>
+          ))}
         </div>
       </fieldset>
       <div className="flex flex-col gap-4 justify-between items-center w-full max-w-md mx-auto px-4 lg:px-0">
@@ -142,4 +170,4 @@ const DeliveryPage = async ({ params }: { params: CheckoutUrlParams }) => {
   );
 };
 
-export default DeliveryPage;
+export default CheckoutDeliveryPage;

@@ -1,0 +1,22 @@
+query CheckoutAvailableShippingMethods(
+  $checkoutID: ID!
+  $languageCode: LanguageCodeEnum!
+) {
+  checkout(id: $checkoutID) {
+    shippingMethods {
+      id
+      name
+      description
+      translation(languageCode: $languageCode) {
+        name
+        description
+      }
+      minimumDeliveryDays
+      maximumDeliveryDays
+      price {
+        currency
+        amount
+      }
+    }
+  }
+}

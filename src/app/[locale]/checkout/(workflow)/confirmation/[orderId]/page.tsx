@@ -4,12 +4,16 @@ import Link from "next/link";
 import { gqlClient } from "@/gql";
 import { formatMoney } from "@/core/currency";
 
-export default async function CartSuccessPage({ params }: { params: { orderId: string } }) {
+export default async function CheckoutConfirmationPage({
+  params,
+}: {
+  params: { orderId: string };
+}) {
   if (!params.orderId) {
     redirect("/");
   }
 
-  const { order } = await gqlClient.GetOrderById({ orderId: params.orderId })
+  const { order } = await gqlClient.GetOrderById({ orderId: params.orderId });
 
   if (!order) {
     notFound();
@@ -36,12 +40,24 @@ export default async function CartSuccessPage({ params }: { params: { orderId: s
           {order.lines.map((line) => (
             <tr key={line.id} className="border-t">
               <td>
-                {line.thumbnail?.url && <Image src={line.thumbnail?.url} alt="" width={64} height={64} />}
+                {line.thumbnail?.url && (
+                  <Image
+                    src={line.thumbnail?.url}
+                    alt=""
+                    width={64}
+                    height={64}
+                  />
+                )}
               </td>
               <td className="border-r px-4 py-2">{line.productName}</td>
-              <td className="border-r px-4 py-2 text-center">{line.quantity}</td>
+              <td className="border-r px-4 py-2 text-center">
+                {line.quantity}
+              </td>
               <td className="px-4 py-2">
-                {formatMoney(line.unitPrice.gross.amount, line.unitPrice.gross.currency)}
+                {formatMoney(
+                  line.unitPrice.gross.amount,
+                  line.unitPrice.gross.currency
+                )}
               </td>
             </tr>
           ))}
@@ -52,9 +68,14 @@ export default async function CartSuccessPage({ params }: { params: { orderId: s
               Total
             </td>
             <td className="px-4 py-2">
-              {formatMoney(order.total.gross.amount, order.total.gross.currency)}{" "}
+              {formatMoney(
+                order.total.gross.amount,
+                order.total.gross.currency
+              )}{" "}
               <span className="font-normal italic">
-                (including {formatMoney(order.total.tax.amount, order.total.tax.currency)} tax)
+                (including{" "}
+                {formatMoney(order.total.tax.amount, order.total.tax.currency)}{" "}
+                tax)
               </span>
             </td>
           </tr>
@@ -63,7 +84,10 @@ export default async function CartSuccessPage({ params }: { params: { orderId: s
               Paid
             </td>
             <td className="px-4 py-2">
-              {formatMoney(order.totalCharged.amount, order.totalCharged.currency)}
+              {formatMoney(
+                order.totalCharged.amount,
+                order.totalCharged.currency
+              )}
             </td>
           </tr>
         </tfoot>

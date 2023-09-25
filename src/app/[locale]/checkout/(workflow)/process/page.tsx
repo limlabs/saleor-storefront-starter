@@ -3,22 +3,21 @@ import { redirect } from "next/navigation";
 import { gqlClient } from "@/gql";
 import { getCheckoutID } from "@/core/server/checkout";
 import { stripeAppId } from "@/core/constants";
-import { get } from "http";
 import { getLocaleContext } from "@/core/server/locale";
 
-interface CartPaymentPageProps {
+interface CheckoutProcessPageProps {
   searchParams: {
     payment_intent: string;
     payment_intent_client_secret: string;
   };
 }
 
-export default async function CartPaymentPage({
+export default async function CheckoutProcessPage({
   searchParams: {
     payment_intent: paymentIntentId,
     payment_intent_client_secret: paymentIntentClientSecret,
   },
-}: CartPaymentPageProps) {
+}: CheckoutProcessPageProps) {
   const checkoutId = getCheckoutID();
   const language = getLocaleContext().get("language");
   const checkoutAmount = (await gqlClient.CheckoutTotal({ id: checkoutId }))

@@ -29771,6 +29771,71 @@ export type ICheckoutTotalQuery = {
   } | null;
 };
 
+export type ICheckoutUpdateDeliveryInfoMutationVariables = Exact<{
+  checkoutID: Scalars["ID"];
+  firstName: Scalars["String"];
+  lastName: Scalars["String"];
+  streetAddress1: Scalars["String"];
+  streetAddress2?: InputMaybe<Scalars["String"]>;
+  city: Scalars["String"];
+  cityArea?: InputMaybe<Scalars["String"]>;
+  countryArea?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<ICountryCode>;
+  postalCode: Scalars["String"];
+  phone?: InputMaybe<Scalars["String"]>;
+  email: Scalars["String"];
+  deliveryMethodId: Scalars["ID"];
+}>;
+
+export type ICheckoutUpdateDeliveryInfoMutation = {
+  __typename?: "Mutation";
+  checkoutEmailUpdate?: {
+    __typename?: "CheckoutEmailUpdate";
+    checkout?: { __typename?: "Checkout"; id: string } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+      lines?: Array<string> | null;
+      variants?: Array<string> | null;
+    }>;
+  } | null;
+  checkoutShippingAddressUpdate?: {
+    __typename?: "CheckoutShippingAddressUpdate";
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      updatedAt: string;
+    } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+      variants?: Array<string> | null;
+      lines?: Array<string> | null;
+      addressType?: IAddressTypeEnum | null;
+    }>;
+  } | null;
+  checkoutDeliveryMethodUpdate?: {
+    __typename?: "CheckoutDeliveryMethodUpdate";
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      updatedAt: string;
+    } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+      variants?: Array<string> | null;
+      lines?: Array<string> | null;
+    }>;
+  } | null;
+};
+
 export type IGetOrderByIdQueryVariables = Exact<{
   orderId: Scalars["ID"];
 }>;
@@ -29872,54 +29937,6 @@ export type ITransactionInitializeMutation = {
   } | null;
 };
 
-export type ICheckoutUpdateAddressMutationVariables = Exact<{
-  checkoutID: Scalars["ID"];
-  firstName: Scalars["String"];
-  lastName: Scalars["String"];
-  streetAddress1: Scalars["String"];
-  streetAddress2?: InputMaybe<Scalars["String"]>;
-  city: Scalars["String"];
-  cityArea?: InputMaybe<Scalars["String"]>;
-  countryArea?: InputMaybe<Scalars["String"]>;
-  country?: InputMaybe<ICountryCode>;
-  postalCode: Scalars["String"];
-  phone?: InputMaybe<Scalars["String"]>;
-  email: Scalars["String"];
-}>;
-
-export type ICheckoutUpdateAddressMutation = {
-  __typename?: "Mutation";
-  checkoutEmailUpdate?: {
-    __typename?: "CheckoutEmailUpdate";
-    checkout?: { __typename?: "Checkout"; id: string } | null;
-    errors: Array<{
-      __typename?: "CheckoutError";
-      field?: string | null;
-      message?: string | null;
-      code: ICheckoutErrorCode;
-      lines?: Array<string> | null;
-      variants?: Array<string> | null;
-    }>;
-  } | null;
-  checkoutShippingAddressUpdate?: {
-    __typename?: "CheckoutShippingAddressUpdate";
-    checkout?: {
-      __typename?: "Checkout";
-      id: string;
-      updatedAt: string;
-    } | null;
-    errors: Array<{
-      __typename?: "CheckoutError";
-      field?: string | null;
-      message?: string | null;
-      code: ICheckoutErrorCode;
-      variants?: Array<string> | null;
-      lines?: Array<string> | null;
-      addressType?: IAddressTypeEnum | null;
-    }>;
-  } | null;
-};
-
 export type ICheckoutAvailablePaymentGatewaysQueryVariables = Exact<{
   checkoutID: Scalars["ID"];
 }>;
@@ -29938,6 +29955,32 @@ export type ICheckoutAvailablePaymentGatewaysQuery = {
         field: string;
         value?: string | null;
       }>;
+    }>;
+  } | null;
+};
+
+export type ICheckoutAvailableShippingMethodsQueryVariables = Exact<{
+  checkoutID: Scalars["ID"];
+  languageCode: ILanguageCodeEnum;
+}>;
+
+export type ICheckoutAvailableShippingMethodsQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    shippingMethods: Array<{
+      __typename?: "ShippingMethod";
+      id: string;
+      name: string;
+      description?: JSONString | null;
+      minimumDeliveryDays?: number | null;
+      maximumDeliveryDays?: number | null;
+      translation?: {
+        __typename?: "ShippingMethodTranslation";
+        name: string;
+        description?: JSONString | null;
+      } | null;
+      price: { __typename?: "Money"; currency: string; amount: number };
     }>;
   } | null;
 };
@@ -30668,6 +30711,55 @@ export const CheckoutTotalDocument = `
   }
 }
     `;
+export const CheckoutUpdateDeliveryInfoDocument = `
+    mutation CheckoutUpdateDeliveryInfo($checkoutID: ID!, $firstName: String!, $lastName: String!, $streetAddress1: String!, $streetAddress2: String, $city: String!, $cityArea: String, $countryArea: String, $country: CountryCode, $postalCode: String!, $phone: String, $email: String!, $deliveryMethodId: ID!) {
+  checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
+    checkout {
+      id
+    }
+    errors {
+      field
+      message
+      code
+      lines
+      variants
+    }
+  }
+  checkoutShippingAddressUpdate(
+    checkoutId: $checkoutID
+    shippingAddress: {firstName: $firstName, lastName: $lastName, streetAddress1: $streetAddress1, streetAddress2: $streetAddress2, city: $city, cityArea: $cityArea, countryArea: $countryArea, country: $country, postalCode: $postalCode, phone: $phone}
+  ) {
+    checkout {
+      id
+      updatedAt
+    }
+    errors {
+      field
+      message
+      code
+      variants
+      lines
+      addressType
+    }
+  }
+  checkoutDeliveryMethodUpdate(
+    id: $checkoutID
+    deliveryMethodId: $deliveryMethodId
+  ) {
+    checkout {
+      id
+      updatedAt
+    }
+    errors {
+      field
+      message
+      code
+      variants
+      lines
+    }
+  }
+}
+    `;
 export const GetOrderByIdDocument = `
     query GetOrderById($orderId: ID!) {
   order(id: $orderId) {
@@ -30763,39 +30855,6 @@ export const TransactionInitializeDocument = `
   }
 }
     `;
-export const CheckoutUpdateAddressDocument = `
-    mutation CheckoutUpdateAddress($checkoutID: ID!, $firstName: String!, $lastName: String!, $streetAddress1: String!, $streetAddress2: String, $city: String!, $cityArea: String, $countryArea: String, $country: CountryCode, $postalCode: String!, $phone: String, $email: String!) {
-  checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
-    checkout {
-      id
-    }
-    errors {
-      field
-      message
-      code
-      lines
-      variants
-    }
-  }
-  checkoutShippingAddressUpdate(
-    checkoutId: $checkoutID
-    shippingAddress: {firstName: $firstName, lastName: $lastName, streetAddress1: $streetAddress1, streetAddress2: $streetAddress2, city: $city, cityArea: $cityArea, countryArea: $countryArea, country: $country, postalCode: $postalCode, phone: $phone}
-  ) {
-    checkout {
-      id
-      updatedAt
-    }
-    errors {
-      field
-      message
-      code
-      variants
-      lines
-      addressType
-    }
-  }
-}
-    `;
 export const CheckoutAvailablePaymentGatewaysDocument = `
     query CheckoutAvailablePaymentGateways($checkoutID: ID!) {
   checkout(id: $checkoutID) {
@@ -30807,6 +30866,27 @@ export const CheckoutAvailablePaymentGatewaysDocument = `
         value
       }
       currencies
+    }
+  }
+}
+    `;
+export const CheckoutAvailableShippingMethodsDocument = `
+    query CheckoutAvailableShippingMethods($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
+  checkout(id: $checkoutID) {
+    shippingMethods {
+      id
+      name
+      description
+      translation(languageCode: $languageCode) {
+        name
+        description
+      }
+      minimumDeliveryDays
+      maximumDeliveryDays
+      price {
+        currency
+        amount
+      }
     }
   }
 }
@@ -30972,6 +31052,21 @@ export function getSdk(
         "query"
       );
     },
+    CheckoutUpdateDeliveryInfo(
+      variables: ICheckoutUpdateDeliveryInfoMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutUpdateDeliveryInfoMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutUpdateDeliveryInfoMutation>(
+            CheckoutUpdateDeliveryInfoDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutUpdateDeliveryInfo",
+        "mutation"
+      );
+    },
     GetOrderById(
       variables: IGetOrderByIdQueryVariables,
       requestHeaders?: Dom.RequestInit["headers"]
@@ -31030,21 +31125,6 @@ export function getSdk(
         "mutation"
       );
     },
-    CheckoutUpdateAddress(
-      variables: ICheckoutUpdateAddressMutationVariables,
-      requestHeaders?: Dom.RequestInit["headers"]
-    ): Promise<ICheckoutUpdateAddressMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ICheckoutUpdateAddressMutation>(
-            CheckoutUpdateAddressDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        "CheckoutUpdateAddress",
-        "mutation"
-      );
-    },
     CheckoutAvailablePaymentGateways(
       variables: ICheckoutAvailablePaymentGatewaysQueryVariables,
       requestHeaders?: Dom.RequestInit["headers"]
@@ -31057,6 +31137,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "CheckoutAvailablePaymentGateways",
+        "query"
+      );
+    },
+    CheckoutAvailableShippingMethods(
+      variables: ICheckoutAvailableShippingMethodsQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutAvailableShippingMethodsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutAvailableShippingMethodsQuery>(
+            CheckoutAvailableShippingMethodsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutAvailableShippingMethods",
         "query"
       );
     },

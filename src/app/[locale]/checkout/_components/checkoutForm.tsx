@@ -2,7 +2,11 @@
 /* eslint-disable */
 // @ts-nocheck
 import { useState } from "react";
-import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
 
 export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
   const stripe = useStripe();
@@ -51,9 +55,14 @@ export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
   return (
     <div className="stripe">
       <form className="payment-form" onSubmit={handleSubmit}>
-        <PaymentElement className="payment-element" options={paymentElementOptions} />
+        <PaymentElement
+          className="payment-element"
+          options={paymentElementOptions}
+        />
         <button disabled={isLoading || !stripe || !elements} id="submit">
-          <span className="button-text">{isLoading ? <div className="spinner" /> : "Pay now"}</span>
+          <span className="button-text">
+            {isLoading ? <div className="spinner" /> : "Pay now"}
+          </span>
         </button>
         {/* Show any error or success messages */}
         {message && <div className="payment-message">{message}</div>}

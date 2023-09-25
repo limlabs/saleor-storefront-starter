@@ -2,12 +2,10 @@ import { getCheckoutID } from "@/core/server/checkout";
 import { redirect } from "next/navigation";
 import { stripeAppId } from "@/core/constants";
 import { gqlClient } from "@/gql";
-import { getLocaleContext } from "@/core/server/locale";
 import { StripeComponent } from "../../_components/stripeComponent";
 
-export default async function CartPage() {
+export default async function CheckoutPaymentPage() {
   const checkoutID = await getCheckoutID();
-  const language = getLocaleContext().get("language");
 
   if (!checkoutID) {
     redirect("/404");
@@ -60,21 +58,10 @@ export default async function CartPage() {
   }
 
   return (
-    <div>
-      <p>Use the following card details to test payments:</p>
-      <dl className="mb-4 grid w-fit grid-cols-[1fr,2fr] gap-x-2">
-        <dt className="font-bold">Card number</dt>
-        <dd>4242 4242 4242 4242</dd>
-        <dt className="font-bold">Expiry date</dt>
-        <dd>Any future date (eg. 03/30)</dd>
-        <dt className="font-bold">CVC</dt>
-        <dd>Any 3 digits (eg. 737)</dd>
-      </dl>
-      <StripeComponent
-        clientSecret={stripeData.paymentIntent.client_secret}
-        publishableKey={stripeData.publishableKey}
-        returnUrl="http://localhost:3000/checkout/payment"
-      />
-    </div>
+    <StripeComponent
+      clientSecret={stripeData.paymentIntent.client_secret}
+      publishableKey={stripeData.publishableKey}
+      returnUrl="http://localhost:3000/checkout/process"
+    />
   );
 }

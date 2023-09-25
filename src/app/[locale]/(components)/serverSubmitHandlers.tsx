@@ -48,7 +48,10 @@ export const registerSubmit = async (data: FormData) => {
 
 export const requestPasswordReset = async (data: FormData) => {
   const email = data.get('email') as string;
-  const redirectUrl = 'http://localhost:3000/reset-password';
+
+  const domain = window.location.origin;
+  const redirectUrl = `${domain}/reset-password`;
+  
   const resp = await gqlClient.requestPasswordReset({
     email: email,
     redirectUrl: redirectUrl,

@@ -29872,6 +29872,54 @@ export type ITransactionInitializeMutation = {
   } | null;
 };
 
+export type ICheckoutUpdateAddressMutationVariables = Exact<{
+  checkoutID: Scalars["ID"];
+  firstName: Scalars["String"];
+  lastName: Scalars["String"];
+  streetAddress1: Scalars["String"];
+  streetAddress2?: InputMaybe<Scalars["String"]>;
+  city: Scalars["String"];
+  cityArea?: InputMaybe<Scalars["String"]>;
+  countryArea?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<ICountryCode>;
+  postalCode: Scalars["String"];
+  phone?: InputMaybe<Scalars["String"]>;
+  email: Scalars["String"];
+}>;
+
+export type ICheckoutUpdateAddressMutation = {
+  __typename?: "Mutation";
+  checkoutEmailUpdate?: {
+    __typename?: "CheckoutEmailUpdate";
+    checkout?: { __typename?: "Checkout"; id: string } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+      lines?: Array<string> | null;
+      variants?: Array<string> | null;
+    }>;
+  } | null;
+  checkoutShippingAddressUpdate?: {
+    __typename?: "CheckoutShippingAddressUpdate";
+    checkout?: {
+      __typename?: "Checkout";
+      id: string;
+      updatedAt: string;
+    } | null;
+    errors: Array<{
+      __typename?: "CheckoutError";
+      field?: string | null;
+      message?: string | null;
+      code: ICheckoutErrorCode;
+      variants?: Array<string> | null;
+      lines?: Array<string> | null;
+      addressType?: IAddressTypeEnum | null;
+    }>;
+  } | null;
+};
+
 export type ICheckoutAvailablePaymentGatewaysQueryVariables = Exact<{
   checkoutID: Scalars["ID"];
 }>;
@@ -30715,6 +30763,39 @@ export const TransactionInitializeDocument = `
   }
 }
     `;
+export const CheckoutUpdateAddressDocument = `
+    mutation CheckoutUpdateAddress($checkoutID: ID!, $firstName: String!, $lastName: String!, $streetAddress1: String!, $streetAddress2: String, $city: String!, $cityArea: String, $countryArea: String, $country: CountryCode, $postalCode: String!, $phone: String, $email: String!) {
+  checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
+    checkout {
+      id
+    }
+    errors {
+      field
+      message
+      code
+      lines
+      variants
+    }
+  }
+  checkoutShippingAddressUpdate(
+    checkoutId: $checkoutID
+    shippingAddress: {firstName: $firstName, lastName: $lastName, streetAddress1: $streetAddress1, streetAddress2: $streetAddress2, city: $city, cityArea: $cityArea, countryArea: $countryArea, country: $country, postalCode: $postalCode, phone: $phone}
+  ) {
+    checkout {
+      id
+      updatedAt
+    }
+    errors {
+      field
+      message
+      code
+      variants
+      lines
+      addressType
+    }
+  }
+}
+    `;
 export const CheckoutAvailablePaymentGatewaysDocument = `
     query CheckoutAvailablePaymentGateways($checkoutID: ID!) {
   checkout(id: $checkoutID) {
@@ -30946,6 +31027,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "TransactionInitialize",
+        "mutation"
+      );
+    },
+    CheckoutUpdateAddress(
+      variables: ICheckoutUpdateAddressMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutUpdateAddressMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutUpdateAddressMutation>(
+            CheckoutUpdateAddressDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutUpdateAddress",
         "mutation"
       );
     },

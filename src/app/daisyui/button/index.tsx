@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, PropsWithChildren } from "react";
+import React, { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import clsx from "clsx";
 
-type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "neutral";
   glass?: boolean;
   disabled?: boolean;

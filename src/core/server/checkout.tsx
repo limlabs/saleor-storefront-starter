@@ -41,11 +41,10 @@ export const checkoutLinesAdd = async (
   };
 };
 
-export const checkoutCreate = async (variantID: string, quantity: number, email: string | undefined) => {
-  const response = await gqlClient.CheckoutCreate({
+export const checkoutCreate = async (variantID: string, quantity: number) => {
+  const response = await gqlClient.checkoutCreate({
     variantID,
     quantity,
-    email
   });
 
   if (!response.checkoutCreate?.checkout) {
@@ -100,7 +99,7 @@ export const addCheckoutItem = async (
 
   if (!getCheckoutID()) {
     operation = "created";
-    result = await checkoutCreate(variantID, quantity, 'austin@liminal.sh');
+    result = await checkoutCreate(variantID, quantity);
     checkoutID = result.checkoutID as string;
   } else {
     result = await checkoutLinesAdd(variantID, checkoutID, quantity);

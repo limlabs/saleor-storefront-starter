@@ -1,0 +1,55 @@
+mutation CheckoutUpdateAddress(
+  $checkoutID: ID!
+  $firstName: String!
+  $lastName: String!
+  $streetAddress1: String!
+  $streetAddress2: String
+  $city: String!
+  $cityArea: String
+  $countryArea: String
+  $country: CountryCode
+  $postalCode: String!
+  $phone: String
+  $email: String!
+) {
+  checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
+    checkout {
+      id
+    }
+    errors {
+      field
+      message
+      code
+      lines
+      variants
+    }
+  }
+  checkoutShippingAddressUpdate(
+    checkoutId: $checkoutID
+    shippingAddress: {
+      firstName: $firstName
+      lastName: $lastName
+      streetAddress1: $streetAddress1
+      streetAddress2: $streetAddress2
+      city: $city
+      cityArea: $cityArea
+      countryArea: $countryArea
+      country: $country
+      postalCode: $postalCode
+      phone: $phone
+    }
+  ) {
+    checkout {
+      id
+      updatedAt
+    }
+    errors {
+      field
+      message
+      code
+      variants
+      lines
+      addressType
+    }
+  }
+}

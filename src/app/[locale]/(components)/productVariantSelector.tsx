@@ -28,8 +28,6 @@ const ProductVariantAttributeSelectorOption = ({
   if (!attribute) {
     return null;
   }
-  console.log("varrrr", variant.name);
-  console.log("varrrr", variant.quantityAvailable);
 
   const isSelected = selectedVariantID === variant.id;
 

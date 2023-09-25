@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { stripeAppId } from "@/core/constants";
 import { gqlClient } from "@/gql";
 import { getLocaleContext } from "@/core/server/locale";
-import { StripeComponent } from "../_components/stripeComponent";
+import { StripeComponent } from "../../_components/stripeComponent";
 
 export default async function CartPage() {
   const checkoutID = await getCheckoutID();
@@ -58,8 +58,6 @@ export default async function CartPage() {
       </div>
     );
   }
-
-  const returnUrl = `http://localhost:3000/${language}/checkout/payment`;
 
   return (
     <div>

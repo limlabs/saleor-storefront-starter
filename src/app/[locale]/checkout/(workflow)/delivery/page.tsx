@@ -5,6 +5,8 @@ import { getCheckoutID } from "@/core/server/checkout";
 import { RedirectType, redirect } from "next/navigation";
 import { CheckoutUrlParams } from "../../types";
 import { getLanguageCode } from "@/core/server/locale";
+import { AddressFormFields } from "../../_components/addressFormFields";
+import { ContactFormFields } from "../../_components/contactFormFields";
 
 const CheckoutDeliveryPage = async ({
   params,
@@ -78,67 +80,13 @@ const CheckoutDeliveryPage = async ({
 
   return (
     <form
-      className="delivery-form flex flex-col gap-10 items-center text-left w-full max-w-md mx-auto mt-3"
+      className="delivery-form flex flex-col gap-10 items-center text-left w-full max-w-md mx-auto px-4 md:px-0 mt-3"
       action={handleSubmit}
     >
       <h1 className="w-full text-3xl">Delivery Info</h1>
-      <fieldset className="flex flex-col items-center justify-center w-full px-4 lg:px-0 gap-4">
-        <h2 className="w-full text-left text-xl lg:text-2xl">Contact</h2>
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="First Name"
-          name="firstName"
-          required
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="Last Name"
-          name="lastName"
-          required
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="Email"
-          name="email"
-          type="email"
-          required
-        />
-      </fieldset>
-      <fieldset className="flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 lg:px-0 gap-4">
-        <h2 className="w-full text-left text-xl lg:text-2xl">
-          Delivery Address
-        </h2>
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="Street Address 1"
-          name="streetAddress1"
-          required
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="Street Address 2"
-          name="streetAddress1"
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="City"
-          name="city"
-          required
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="State"
-          name="state"
-          required
-        />
-        <TextInput
-          className="w-full bg-base-300"
-          placeholder="Zip Code"
-          name="zip"
-          required
-        />
-      </fieldset>
-      <fieldset className="flex flex-col items-center justify-center w-full max-w-md mx-auto px-4 lg:px-0 gap-4">
+      <ContactFormFields />
+      <AddressFormFields title="Shipping Address" />
+      <fieldset className="flex flex-col items-center justify-center w-full gap-4">
         <h2 className="w-full text-left text-xl lg:text-2xl">
           Shipping Method
         </h2>

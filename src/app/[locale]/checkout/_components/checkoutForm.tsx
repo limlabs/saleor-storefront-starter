@@ -7,6 +7,8 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import Button from "@/app/daisyui/button";
+import { AddressFormFields } from "./addressFormFields";
 
 export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
   const stripe = useStripe();
@@ -53,17 +55,26 @@ export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
   };
 
   return (
-    <div className="stripe">
-      <form className="payment-form" onSubmit={handleSubmit}>
+    <div className="stripe w-full max-w-sm mx-auto px-4 sm:px-0">
+      <h1 className="text-2xl font-bold mb-4">Payment Info</h1>
+      <form
+        className="payment-form flex flex-col gap-12"
+        onSubmit={handleSubmit}
+      >
         <PaymentElement
           className="payment-element"
           options={paymentElementOptions}
         />
-        <button disabled={isLoading || !stripe || !elements} id="submit">
+        <AddressFormFields title="Billing Address" />
+        <Button
+          variant="primary"
+          disabled={isLoading || !stripe || !elements}
+          id="submit"
+        >
           <span className="button-text">
             {isLoading ? <div className="spinner" /> : "Pay now"}
           </span>
-        </button>
+        </Button>
         {/* Show any error or success messages */}
         {message && <div className="payment-message">{message}</div>}
       </form>

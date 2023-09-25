@@ -1,4 +1,3 @@
-
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { gqlClient } from "@/gql";
@@ -11,31 +10,35 @@ interface CartPaymentPageProps {
   searchParams: {
     payment_intent: string;
     payment_intent_client_secret: string;
-  }
+  };
 }
 
 export default async function CartPaymentPage({
   searchParams: {
     payment_intent: paymentIntentId,
     payment_intent_client_secret: paymentIntentClientSecret,
-  }
+  },
 }: CartPaymentPageProps) {
   const checkoutId = getCheckoutID();
-  const language = getLocaleContext().get('language');
-  const checkoutAmount = (await gqlClient.CheckoutTotal({ id: checkoutId })).checkout?.totalPrice.gross.amount;
+  const language = getLocaleContext().get("language");
+  const checkoutAmount = (await gqlClient.CheckoutTotal({ id: checkoutId }))
+    .checkout?.totalPrice.gross.amount;
   const paymentGateway = await gqlClient.PaymentGatewayInitialize({
     checkoutId,
-    amount: checkoutAmount
-  })
+    amount: checkoutAmount,
+  });
 
-  const stripeData = paymentGateway.paymentGatewayInitialize?.gatewayConfigs?.find(
-    (gateway) => gateway.id === stripeAppId,
-  )?.data as undefined | { publishableKey: string };
+  const stripeData =
+    paymentGateway.paymentGatewayInitialize?.gatewayConfigs?.find(
+      (gateway) => gateway.id === stripeAppId
+    )?.data as undefined | { publishableKey: string };
 
   if (
     !stripeData?.publishableKey ||
     paymentGateway.paymentGatewayInitialize?.errors.length ||
-    paymentGateway.paymentGatewayInitialize?.gatewayConfigs?.some((gateway) => gateway.errors?.length)
+    paymentGateway.paymentGatewayInitialize?.gatewayConfigs?.some(
+      (gateway) => gateway.errors?.length
+    )
   ) {
     return (
       <div className="text-red-500">
@@ -45,15 +48,19 @@ export default async function CartPaymentPage({
     );
   }
 
-  const stripe = new Stripe(stripeData.publishableKey, { apiVersion: "2022-11-15" });
+  const stripe = new Stripe(stripeData.publishableKey, {
+    apiVersion: "2022-11-15",
+  });
 
   const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId, {
-    client_secret: paymentIntentClientSecret
+    client_secret: paymentIntentClientSecret,
   });
 
   if (paymentIntent.status === "processing") {
     // @todo refresh
-    return <p>Payment processing. We&apos;ll update you when payment is received.</p>;
+    return (
+      <p>Payment processing. We&apos;ll update you when payment is received.</p>
+    );
   }
   if (paymentIntent.status === "requires_payment_method") {
     redirect(`/${language}/cart`);

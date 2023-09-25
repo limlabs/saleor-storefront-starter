@@ -1,16 +1,16 @@
-import React, { PropsWithChildren } from "react";
+import React, { HTMLAttributes, PropsWithChildren } from "react";
 import clsx from "clsx";
 
-interface ButtonProps {
+type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "neutral";
   glass?: boolean;
   disabled?: boolean;
-}
+};
 
 const Button = React.forwardRef<
   HTMLButtonElement,
   PropsWithChildren<ButtonProps>
->(function Button({ children, variant, glass, disabled }, ref) {
+>(function Button({ children, variant, glass, disabled, ...props }, ref) {
   const classNames = clsx("btn", {
     glass: glass === true,
     "btn-secondary": variant === "secondary",
@@ -19,7 +19,7 @@ const Button = React.forwardRef<
   });
 
   return (
-    <button disabled={disabled} className={classNames} ref={ref}>
+    <button {...props} className={classNames} ref={ref}>
       {children}
     </button>
   );

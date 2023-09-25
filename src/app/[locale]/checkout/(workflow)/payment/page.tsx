@@ -1,33 +1,33 @@
-
-
 import { getCheckoutID } from "@/core/server/checkout";
 import { redirect } from "next/navigation";
 import { stripeAppId } from "@/core/constants";
 import { gqlClient } from "@/gql";
 import { getLocaleContext } from "@/core/server/locale";
-import { StripeComponent } from "./_components/stripeComponent";
+import { StripeComponent } from "../_components/stripeComponent";
 
 export default async function CartPage() {
   const checkoutID = await getCheckoutID();
-  const language = getLocaleContext().get('language');
+  const language = getLocaleContext().get("language");
 
   if (!checkoutID) {
-    redirect('/404')
+    redirect("/404");
   }
 
   const paymentGateways = await gqlClient.CheckoutAvailablePaymentGateways({
     checkoutID: checkoutID,
-  })
+  });
 
-  const isStripeAppInstalled = paymentGateways.checkout?.availablePaymentGateways.some(
-    (gateway) => gateway.id === stripeAppId,
-  );
+  const isStripeAppInstalled =
+    paymentGateways.checkout?.availablePaymentGateways.some(
+      (gateway) => gateway.id === stripeAppId
+    );
 
   if (!isStripeAppInstalled) {
     return (
       <div className="text-red-500">
         Stripe App was not installed in this Saleor Cloud instance. Go to{" "}
-        <a href="https://stripe.saleor.app/">stripe.saleor.app</a> and follow the instructions.
+        <a href="https://stripe.saleor.app/">stripe.saleor.app</a> and follow
+        the instructions.
       </div>
     );
   }
@@ -38,17 +38,17 @@ export default async function CartPage() {
       automatic_payment_methods: {
         enabled: true,
       },
-    }
-  })
+    },
+  });
 
   const stripeData = transaction.transactionInitialize?.data as
     | undefined
     | {
-      paymentIntent: {
-        client_secret: string;
+        paymentIntent: {
+          client_secret: string;
+        };
+        publishableKey: string;
       };
-      publishableKey: string;
-    };
 
   if (transaction.transactionInitialize?.errors.length || !stripeData) {
     return (
@@ -59,7 +59,7 @@ export default async function CartPage() {
     );
   }
 
-  const returnUrl = `http://localhost:3000/${language}/checkout/payment`
+  const returnUrl = `http://localhost:3000/${language}/checkout/payment`;
 
   return (
     <div>

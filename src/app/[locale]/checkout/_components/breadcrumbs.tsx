@@ -10,7 +10,7 @@ export const CheckoutBreadcrumbs: FC = () => {
   const { locale } = useParams<CheckoutUrlParams>();
 
   const linkStyles = (path: string) => {
-    const baseStyles = "text-lg lg:text-xl mt-0.5";
+    const baseStyles = "text-sm md:text-xl mt-0.5";
     const active = "font-bold";
     const inactive = "text-disabled opacity-35";
 
@@ -18,14 +18,14 @@ export const CheckoutBreadcrumbs: FC = () => {
   };
 
   return (
-    <section className="justify-between items-start w-full max-w-sm ml-0 self-center flex flex-row gap-5 flex-wrap pl-px pr-5 py-1.5 max-md:justify-center lg:mt-10">
+    <section className="justify-between items-start w-full max-w-md ml-0 self-center flex flex-row gap-5 flex-wrap pl-px py-1.5 max-md:justify-center mt-4 lg:mt-10">
       <Link
         href={`/${locale}/checkout/delivery`}
         className={linkStyles("/checkout/delivery")}
       >
         Delivery
       </Link>
-      <span className="font-normal opacity-35 text-xl self-center text-center min-w-[9px] mt-px">
+      <span className="font-normal opacity-35 text-sm md:text-xl self-center text-center min-w-[9px] mt-px">
         /
       </span>
       <Link
@@ -34,14 +34,14 @@ export const CheckoutBreadcrumbs: FC = () => {
       >
         Payment
       </Link>
-      <span className="font-normal opacity-35 text-xl self-center text-center min-w-[9px] mt-px">
+      <span className="font-normal opacity-35 text-sm md:text-xl self-center text-center min-w-[9px] mt-px">
         /
       </span>
       <Link
-        href={`/${locale}/checkout/review`}
-        className={linkStyles("/checkout/review")}
+        href={`/${locale}/checkout/confirmation`}
+        className={linkStyles("/checkout/confirmation")}
       >
-        Review
+        Confirmation
       </Link>
     </section>
   );

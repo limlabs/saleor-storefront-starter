@@ -16043,6 +16043,8 @@ export type IOrderLine = INode &
     translatedProductName: Scalars["String"];
     /** Variant name in the customer's language */
     translatedVariantName: Scalars["String"];
+    /** Price of the order line without discounts. */
+    undiscountedTotalPrice: ITaxedMoney;
     /** Price of the single item in the order line without applied an order line discount. */
     undiscountedUnitPrice: ITaxedMoney;
     /** The discount applied to the single order line. */
@@ -29728,6 +29730,41 @@ export type ICheckoutLinesAddMutation = {
   } | null;
 };
 
+export type IRequestPasswordResetMutationVariables = Exact<{
+  email: Scalars["String"];
+  redirectUrl: Scalars["String"];
+}>;
+
+export type IRequestPasswordResetMutation = {
+  __typename?: "Mutation";
+  requestPasswordReset?: {
+    __typename?: "RequestPasswordReset";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      code: IAccountErrorCode;
+    }>;
+  } | null;
+};
+
+export type ISetPasswordMutationVariables = Exact<{
+  token: Scalars["String"];
+  email: Scalars["String"];
+  password: Scalars["String"];
+}>;
+
+export type ISetPasswordMutation = {
+  __typename?: "Mutation";
+  setPassword?: {
+    __typename?: "SetPassword";
+    errors: Array<{
+      __typename?: "AccountError";
+      field?: string | null;
+      code: IAccountErrorCode;
+    }>;
+  } | null;
+};
+
 export type ITokenCreateMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
@@ -30443,6 +30480,30 @@ export const CheckoutLinesAddDocument = `
   }
 }
     `;
+export const RequestPasswordResetDocument = `
+    mutation requestPasswordReset($email: String!, $redirectUrl: String!) {
+  requestPasswordReset(
+    email: $email
+    redirectUrl: $redirectUrl
+    channel: "default-channel"
+  ) {
+    errors {
+      field
+      code
+    }
+  }
+}
+    `;
+export const SetPasswordDocument = `
+    mutation setPassword($token: String!, $email: String!, $password: String!) {
+  setPassword(token: $token, email: $email, password: $password) {
+    errors {
+      field
+      code
+    }
+  }
+}
+    `;
 export const TokenCreateDocument = `
     mutation tokenCreate($email: String!, $password: String!) {
   tokenCreate(email: $email, password: $password) {
@@ -30583,6 +30644,35 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "checkoutLinesAdd",
+        "mutation"
+      );
+    },
+    requestPasswordReset(
+      variables: IRequestPasswordResetMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<IRequestPasswordResetMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<IRequestPasswordResetMutation>(
+            RequestPasswordResetDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "requestPasswordReset",
+        "mutation"
+      );
+    },
+    setPassword(
+      variables: ISetPasswordMutationVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ISetPasswordMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ISetPasswordMutation>(SetPasswordDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        "setPassword",
         "mutation"
       );
     },

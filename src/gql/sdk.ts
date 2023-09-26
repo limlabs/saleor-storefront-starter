@@ -16043,6 +16043,8 @@ export type IOrderLine = INode &
     translatedProductName: Scalars["String"];
     /** Variant name in the customer's language */
     translatedVariantName: Scalars["String"];
+    /** Price of the order line without discounts. */
+    undiscountedTotalPrice: ITaxedMoney;
     /** Price of the single item in the order line without applied an order line discount. */
     undiscountedUnitPrice: ITaxedMoney;
     /** The discount applied to the single order line. */

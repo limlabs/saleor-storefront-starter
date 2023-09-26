@@ -28,7 +28,9 @@
     "confirm password": "Confirm Password",
     "email warning": "Please enter your email to create an account.",
     "password warning": "Please enter a non-empty password.",
+    "password length warning": "Password must be at least 8 characters long.",
     "confirm password warning": "Passwords must match to continue.",
+    "check inbox": "Check your inbox.",
     "first name": "First Name",
     "last name": "Last Name",
     "login error": "Unable to log you into your account. Please try again, or come back later!"

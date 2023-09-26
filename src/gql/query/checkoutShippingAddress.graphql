@@ -1,0 +1,17 @@
+query CheckoutShippingAddress($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    shippingAddress {
+      firstName
+      lastName
+      streetAddress1
+      streetAddress2
+      city
+      cityArea
+      country {
+        country
+      }
+      countryArea
+      postalCode
+    }
+  }
+}

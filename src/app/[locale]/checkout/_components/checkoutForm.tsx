@@ -1,7 +1,7 @@
 // Copied from https://stripe.com/docs/payments/quickstart
 /* eslint-disable */
 // @ts-nocheck
-import { useState } from "react";
+import { use, useState } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -9,10 +9,23 @@ import {
 } from "@stripe/react-stripe-js";
 import Button from "@/app/daisyui/button";
 import { AddressFormFields } from "./addressFormFields";
+import clsx from "clsx";
+import AddressCard, { AddressCardAddress } from "./addressCard";
 
-export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
+export default function CheckoutForm({
+  returnUrl,
+  shippingAddress,
+}: {
+  returnUrl: string;
+  shippingAddress: AddressCardAddress;
+}) {
+  const [useShippingAddress, setUseShippingAddress] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
+
+  const handleUseShippingAddressChange = (value: boolean) => {
+    setUseShippingAddress(value);
+  };
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,14 +78,55 @@ export default function CheckoutForm({ returnUrl }: { returnUrl: string }) {
           className="payment-element"
           options={paymentElementOptions}
         />
-        <AddressFormFields title="Billing Address" />
+
+        <fieldset className="form-control">
+          <h2 className="w-full text-left text-xl lg:text-2xl font-bold mb-6">
+            Billing Address
+          </h2>
+          <label
+            className="label pl-0 cursor-pointer"
+            htmlFor="useShippingAddress_true"
+          >
+            <span className="label-text text-lg">Same as Shipping Address</span>
+            <input
+              type="checkbox"
+              className={clsx(
+                "checkbox",
+                useShippingAddress && "checkbox-primary"
+              )}
+              name="useShippingAddress"
+              id="useShippingAddress_true"
+              checked={useShippingAddress && "checked"}
+              onChange={() => handleUseShippingAddressChange(true)}
+            />
+          </label>
+          {useShippingAddress && <AddressCard address={shippingAddress} />}
+          <label
+            className="label pl-0 cursor-pointer"
+            htmlFor="useShippingAddress_false"
+          >
+            <span className="label-text text-lg">New Address</span>
+            <input
+              type="checkbox"
+              checked={!useShippingAddress && "checked"}
+              className={clsx(
+                "checkbox",
+                !useShippingAddress && "checkbox-primary"
+              )}
+              id="useShippingAddress_false"
+              onChange={() => handleUseShippingAddressChange(false)}
+            />
+          </label>
+        </fieldset>
+
+        {!useShippingAddress && <AddressFormFields />}
         <Button
           variant="primary"
           disabled={isLoading || !stripe || !elements}
           id="submit"
         >
           <span className="button-text">
-            {isLoading ? <div className="spinner" /> : "Pay now"}
+            {isLoading ? "Submitting Payment" : "Pay now"}
           </span>
         </Button>
         {/* Show any error or success messages */}

@@ -3,9 +3,10 @@ import { redirect } from "next/navigation";
 import { stripeAppId } from "@/core/constants";
 import { gqlClient } from "@/gql";
 import { StripeComponent } from "../../_components/stripeComponent";
+import { AddressCardAddress } from "../../_components/addressCard";
 
 export default async function CheckoutPaymentPage() {
-  const checkoutID = await getCheckoutID();
+  const checkoutID = getCheckoutID();
 
   if (!checkoutID) {
     redirect("/404");
@@ -57,11 +58,29 @@ export default async function CheckoutPaymentPage() {
     );
   }
 
+  const shippingAddressRes = await gqlClient.CheckoutShippingAddress({
+    checkoutID: checkoutID,
+  });
+
+  const address = shippingAddressRes.checkout?.shippingAddress;
+
+  const shippingAddress: AddressCardAddress = {
+    firstName: address?.firstName || "",
+    lastName: address?.lastName || "",
+    streetAddress1: address?.streetAddress1 || "",
+    streetAddress2: address?.streetAddress2 || "",
+    city: address?.city || "",
+    country: address?.country.country || "",
+    postalCode: address?.postalCode || "",
+    countryArea: address?.countryArea || "",
+  };
+
   return (
     <StripeComponent
       clientSecret={stripeData.paymentIntent.client_secret}
       publishableKey={stripeData.publishableKey}
       returnUrl="http://localhost:3000/checkout/process"
+      shippingAddress={shippingAddress}
     />
   );
 }

@@ -29994,6 +29994,29 @@ export type ICheckoutQuantityQuery = {
   checkout?: { __typename?: "Checkout"; quantity: number } | null;
 };
 
+export type ICheckoutShippingAddressQueryVariables = Exact<{
+  checkoutID: Scalars["ID"];
+}>;
+
+export type ICheckoutShippingAddressQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    shippingAddress?: {
+      __typename?: "Address";
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      city: string;
+      cityArea: string;
+      countryArea: string;
+      postalCode: string;
+      country: { __typename?: "CountryDisplay"; country: string };
+    } | null;
+  } | null;
+};
+
 export type ICollectionsQueryVariables = Exact<{
   channel?: InputMaybe<Scalars["String"]>;
   first: Scalars["Int"];
@@ -30898,6 +30921,25 @@ export const CheckoutQuantityDocument = `
   }
 }
     ${FragCheckoutQuantityFragmentDoc}`;
+export const CheckoutShippingAddressDocument = `
+    query CheckoutShippingAddress($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    shippingAddress {
+      firstName
+      lastName
+      streetAddress1
+      streetAddress2
+      city
+      cityArea
+      country {
+        country
+      }
+      countryArea
+      postalCode
+    }
+  }
+}
+    `;
 export const CollectionsDocument = `
     query Collections($channel: String = "default-channel", $first: Int!) {
   collections(channel: $channel, first: $first) {
@@ -31167,6 +31209,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "CheckoutQuantity",
+        "query"
+      );
+    },
+    CheckoutShippingAddress(
+      variables: ICheckoutShippingAddressQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutShippingAddressQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutShippingAddressQuery>(
+            CheckoutShippingAddressDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutShippingAddress",
         "query"
       );
     },

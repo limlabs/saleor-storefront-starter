@@ -2566,6 +2566,7 @@ export type IAttributeValueDeleted = IEvent & {
 export type IAttributeValueFilterInput = {
   ids?: InputMaybe<Array<Scalars["ID"]>>;
   search?: InputMaybe<Scalars["String"]>;
+  slugs?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type IAttributeValueInput = {
@@ -3478,6 +3479,16 @@ export type IChannel = INode &
      */
     orderSettings: IOrderSettings;
     /**
+     * Channel-specific payment settings.
+     *
+     * Added in Saleor 3.16.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_CHANNELS, HANDLE_PAYMENTS.
+     */
+    paymentSettings: IPaymentSettings;
+    /**
      * List of private metadata items. Requires staff permissions to access.
      *
      * Added in Saleor 3.15.
@@ -3616,6 +3627,14 @@ export type IChannelCreateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<IOrderSettingsInput>;
+  /**
+   * The channel payment settings
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  paymentSettings?: InputMaybe<IPaymentSettingsInput>;
   /**
    * Channel private metadata.
    *
@@ -3801,7 +3820,9 @@ export type IChannelStatusChanged = IEvent & {
  * Update a channel.
  *
  * Requires one of the following permissions: MANAGE_CHANNELS.
- * Requires one of the following permissions when updating only `orderSettings` field: MANAGE_CHANNELS, MANAGE_ORDERS.Requires one of the following permissions when updating only `checkoutSettings` field: MANAGE_CHANNELS, MANAGE_CHECKOUTS.
+ * Requires one of the following permissions when updating only `orderSettings` field: `MANAGE_CHANNELS`, `MANAGE_ORDERS`.
+ * Requires one of the following permissions when updating only `checkoutSettings` field: `MANAGE_CHANNELS`, `MANAGE_CHECKOUTS`.
+ * Requires one of the following permissions when updating only `paymentSettings` field: `MANAGE_CHANNELS`, `HANDLE_PAYMENTS`.
  *
  * Triggers the following webhook events:
  * - CHANNEL_UPDATED (async): A channel was updated.
@@ -3854,6 +3875,14 @@ export type IChannelUpdateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<IOrderSettingsInput>;
+  /**
+   * The channel payment settings
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  paymentSettings?: InputMaybe<IPaymentSettingsInput>;
   /**
    * Channel private metadata.
    *
@@ -4118,7 +4147,7 @@ export type ICheckout = INode &
      * Added in Saleor 3.13.
      */
     updatedAt: Scalars["DateTime"];
-    /** The user assigned to the checkout. */
+    /** The user assigned to the checkout. Requires one of the following permissions: MANAGE_USERS, HANDLE_PAYMENTS, OWNER. */
     user?: Maybe<IUser>;
     /** The code of voucher assigned to the checkout. */
     voucherCode?: Maybe<Scalars["String"]>;
@@ -7102,6 +7131,7 @@ export type IExportFileSortingInput = {
  *
  * Triggers the following webhook events:
  * - NOTIFY_USER (async): A notification for the exported file.
+ * - GIFT_CARD_EXPORT_COMPLETED (async): A notification for the exported file.
  */
 export type IExportGiftCards = {
   __typename?: "ExportGiftCards";
@@ -7139,6 +7169,7 @@ export type IExportInfoInput = {
  *
  * Triggers the following webhook events:
  * - NOTIFY_USER (async): A notification for the exported file.
+ * - PRODUCT_EXPORT_COMPLETED (async): A notification for the exported file.
  */
 export type IExportProducts = {
   __typename?: "ExportProducts";
@@ -7380,6 +7411,9 @@ export type IFulfillmentPrivateMetafieldsArgs = {
  * Added in Saleor 3.1.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_APPROVED (async): Fulfillment is approved.
  */
 export type IFulfillmentApprove = {
   __typename?: "FulfillmentApprove";
@@ -7405,6 +7439,12 @@ export type IFulfillmentApproved = IEvent & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /**
+   * If true, send a notification to the customer.
+   *
+   * Added in Saleor 3.16.
+   */
+  notifyCustomer: Scalars["Boolean"];
   /** The order the fulfillment belongs to. */
   order?: Maybe<IOrder>;
   /** The application receiving the webhook. */
@@ -7468,6 +7508,12 @@ export type IFulfillmentCreated = IEvent & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /**
+   * If true, the app should send a notification to the customer.
+   *
+   * Added in Saleor 3.16.
+   */
+  notifyCustomer: Scalars["Boolean"];
   /** The order the fulfillment belongs to. */
   order?: Maybe<IOrder>;
   /** The application receiving the webhook. */
@@ -7552,9 +7598,33 @@ export type IFulfillmentStatus =
   | "WAITING_FOR_APPROVAL";
 
 /**
+ * Event sent when the tracking number is updated.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IFulfillmentTrackingNumberUpdated = IEvent & {
+  __typename?: "FulfillmentTrackingNumberUpdated";
+  /** The fulfillment the event relates to. */
+  fulfillment?: Maybe<IFulfillment>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The order the fulfillment belongs to. */
+  order?: Maybe<IOrder>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
  * Updates a fulfillment for an order.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Fulfillment tracking number is updated.
  */
 export type IFulfillmentUpdateTracking = {
   __typename?: "FulfillmentUpdateTracking";
@@ -7601,7 +7671,11 @@ export type IGiftCard = INode &
      * Added in Saleor 3.1.
      */
     boughtInChannel?: Maybe<Scalars["String"]>;
-    /** Gift card code. Can be fetched by a staff member with MANAGE_GIFT_CARD when gift card wasn't yet used and by the gift card owner. */
+    /**
+     * Gift card code. It can be fetched both by a staff member with 'MANAGE_GIFT_CARD' when gift card hasn't been used yet or a user who bought or issued the gift card.
+     *
+     * Requires one of the following permissions: MANAGE_GIFT_CARD, OWNER.
+     */
     code: Scalars["String"];
     created: Scalars["DateTime"];
     /**
@@ -8115,6 +8189,25 @@ export type IGiftCardEventsEnum =
   | "TAGS_UPDATED"
   | "UPDATED"
   | "USED_IN_ORDER";
+
+/**
+ * Event sent when gift card export is completed.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IGiftCardExportCompleted = IEvent & {
+  __typename?: "GiftCardExportCompleted";
+  /** The export file for gift cards. */
+  export?: Maybe<IExportFile>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
 
 export type IGiftCardFilterInput = {
   code?: InputMaybe<Scalars["String"]>;
@@ -10921,7 +11014,9 @@ export type IMutation = {
    * Update a channel.
    *
    * Requires one of the following permissions: MANAGE_CHANNELS.
-   * Requires one of the following permissions when updating only `orderSettings` field: MANAGE_CHANNELS, MANAGE_ORDERS.Requires one of the following permissions when updating only `checkoutSettings` field: MANAGE_CHANNELS, MANAGE_CHECKOUTS.
+   * Requires one of the following permissions when updating only `orderSettings` field: `MANAGE_CHANNELS`, `MANAGE_ORDERS`.
+   * Requires one of the following permissions when updating only `checkoutSettings` field: `MANAGE_CHANNELS`, `MANAGE_CHECKOUTS`.
+   * Requires one of the following permissions when updating only `paymentSettings` field: `MANAGE_CHANNELS`, `HANDLE_PAYMENTS`.
    *
    * Triggers the following webhook events:
    * - CHANNEL_UPDATED (async): A channel was updated.
@@ -11287,6 +11382,7 @@ export type IMutation = {
    *
    * Triggers the following webhook events:
    * - NOTIFY_USER (async): A notification for the exported file.
+   * - GIFT_CARD_EXPORT_COMPLETED (async): A notification for the exported file.
    */
   exportGiftCards?: Maybe<IExportGiftCards>;
   /**
@@ -11296,6 +11392,7 @@ export type IMutation = {
    *
    * Triggers the following webhook events:
    * - NOTIFY_USER (async): A notification for the exported file.
+   * - PRODUCT_EXPORT_COMPLETED (async): A notification for the exported file.
    */
   exportProducts?: Maybe<IExportProducts>;
   /** Prepare external authentication URL for user by custom plugin. */
@@ -11306,6 +11403,9 @@ export type IMutation = {
    * Trigger sending a notification with the notify plugin method. Serializes nodes provided as ids parameter and includes this data in the notification payload.
    *
    * Added in Saleor 3.1.
+   * @deprecated
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0.
    */
   externalNotificationTrigger?: Maybe<IExternalNotificationTrigger>;
   /** Obtain external access tokens for user by custom plugin. */
@@ -11657,6 +11757,12 @@ export type IMutation = {
    * Creates new fulfillments for an order.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_CREATED (async): A new fulfillment is created.
+   * - ORDER_FULFILLED (async): Order is fulfilled.
+   * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Sent when fulfillment tracking number is updated.
+   * - FULFILLMENT_APPROVED (async): A fulfillment is approved.
    */
   orderFulfill?: Maybe<IOrderFulfill>;
   /**
@@ -11665,6 +11771,9 @@ export type IMutation = {
    * Added in Saleor 3.1.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_APPROVED (async): Fulfillment is approved.
    */
   orderFulfillmentApprove?: Maybe<IFulfillmentApprove>;
   /**
@@ -11689,6 +11798,9 @@ export type IMutation = {
    * Updates a fulfillment for an order.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Fulfillment tracking number is updated.
    */
   orderFulfillmentUpdateTracking?: Maybe<IFulfillmentUpdateTracking>;
   /**
@@ -11906,8 +12018,47 @@ export type IMutation = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   paymentGatewayInitialize?: Maybe<IPaymentGatewayInitialize>;
+  /**
+   * Initializes payment gateway for tokenizing payment method session.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to initialize payment gateway for tokenization.
+   */
+  paymentGatewayInitializeTokenization?: Maybe<IPaymentGatewayInitializeTokenization>;
   /** Initializes payment process when it is required by gateway. */
   paymentInitialize?: Maybe<IPaymentInitialize>;
+  /**
+   * Tokenize payment method.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to tokenize payment method.
+   */
+  paymentMethodInitializeTokenization?: Maybe<IPaymentMethodInitializeTokenization>;
+  /**
+   * Tokenize payment method.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION (sync): The customer continues payment method tokenization.
+   */
+  paymentMethodProcessTokenization?: Maybe<IPaymentMethodProcessTokenization>;
   /**
    * Refunds the captured payment amount.
    *
@@ -12485,6 +12636,19 @@ export type IMutation = {
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
   stockBulkUpdate?: Maybe<IStockBulkUpdate>;
+  /**
+   * Request to delete a stored payment method on payment provider side.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - STORED_PAYMENT_METHOD_DELETE_REQUESTED (sync): The customer requested to delete a payment method.
+   */
+  storedPaymentMethodRequestDelete?: Maybe<IStoredPaymentMethodRequestDelete>;
   /**
    * Create a tax class.
    *
@@ -13687,10 +13851,29 @@ export type IMutationPaymentGatewayInitializeArgs = {
   paymentGateways?: InputMaybe<Array<IPaymentGatewayToInitialize>>;
 };
 
+export type IMutationPaymentGatewayInitializeTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
+};
+
 export type IMutationPaymentInitializeArgs = {
   channel?: InputMaybe<Scalars["String"]>;
   gateway: Scalars["String"];
   paymentData?: InputMaybe<Scalars["JSONString"]>;
+};
+
+export type IMutationPaymentMethodInitializeTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
+  paymentFlowToSupport: ITokenizedPaymentFlowEnum;
+};
+
+export type IMutationPaymentMethodProcessTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
 };
 
 export type IMutationPaymentRefundArgs = {
@@ -14084,6 +14267,11 @@ export type IMutationStockBulkUpdateArgs = {
   stocks: Array<IStockBulkUpdateInput>;
 };
 
+export type IMutationStoredPaymentMethodRequestDeleteArgs = {
+  channel: Scalars["String"];
+  id: Scalars["ID"];
+};
+
 export type IMutationTaxClassCreateArgs = {
   input: ITaxClassCreateInput;
 };
@@ -14151,11 +14339,13 @@ export type IMutationTransactionEventReportArgs = {
 export type IMutationTransactionInitializeArgs = {
   action?: InputMaybe<ITransactionFlowStrategyEnum>;
   amount?: InputMaybe<Scalars["PositiveDecimal"]>;
+  customerIpAddress?: InputMaybe<Scalars["String"]>;
   id: Scalars["ID"];
   paymentGateway: IPaymentGatewayToInitialize;
 };
 
 export type IMutationTransactionProcessArgs = {
+  customerIpAddress?: InputMaybe<Scalars["String"]>;
   data?: InputMaybe<Scalars["JSON"]>;
   id: Scalars["ID"];
 };
@@ -14193,7 +14383,8 @@ export type IMutationUpdatePrivateMetadataArgs = {
 };
 
 export type IMutationUpdateWarehouseArgs = {
-  id: Scalars["ID"];
+  externalReference?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   input: IWarehouseUpdateInput;
 };
 
@@ -14645,7 +14836,7 @@ export type IOrder = INode &
     /** Undiscounted total amount of the order. */
     undiscountedTotal: ITaxedMoney;
     updatedAt: Scalars["DateTime"];
-    /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
+    /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER. */
     user?: Maybe<IUser>;
     /** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
     userEmail?: Maybe<Scalars["String"]>;
@@ -15583,6 +15774,12 @@ export type IOrderFilterShippingMethods = IEvent & {
  * Creates new fulfillments for an order.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_CREATED (async): A new fulfillment is created.
+ * - ORDER_FULFILLED (async): Order is fulfilled.
+ * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Sent when fulfillment tracking number is updated.
+ * - FULFILLMENT_APPROVED (async): A fulfillment is approved.
  */
 export type IOrderFulfill = {
   __typename?: "OrderFulfill";
@@ -16043,6 +16240,8 @@ export type IOrderLine = INode &
     translatedProductName: Scalars["String"];
     /** Variant name in the customer's language */
     translatedVariantName: Scalars["String"];
+    /** Price of the order line without discounts. */
+    undiscountedTotalPrice: ITaxedMoney;
     /** Price of the single item in the order line without applied an order line discount. */
     undiscountedUnitPrice: ITaxedMoney;
     /** The discount applied to the single order line. */
@@ -16430,7 +16629,7 @@ export type IOrderSettings = {
    *
    * Added in Saleor 3.13.
    *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.This preview feature field will be removed in Saleor 3.17. Use `PaymentSettings.defaultTransactionFlowStrategy` instead.
    */
   defaultTransactionFlowStrategy: ITransactionFlowStrategyEnum;
   /**
@@ -16476,7 +16675,7 @@ export type IOrderSettingsErrorCode = "INVALID";
 
 export type IOrderSettingsInput = {
   /**
-   * Determine if it is possible to place unpdaid order by calling `checkoutComplete` mutation.
+   * Determine if it is possible to place unpaid order by calling `checkoutComplete` mutation.
    *
    * Added in Saleor 3.15.
    *
@@ -16493,6 +16692,8 @@ export type IOrderSettingsInput = {
    * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * DEPRECATED: this preview feature field will be removed in Saleor 3.17. Use `PaymentSettingsInput.defaultTransactionFlowStrategy` instead.
    */
   defaultTransactionFlowStrategy?: InputMaybe<ITransactionFlowStrategyEnum>;
   /**
@@ -17839,7 +18040,7 @@ export type IPaymentGatewayInitializeSession = IEvent & {
   __typename?: "PaymentGatewayInitializeSession";
   /** Amount requested for initializing the payment gateway. */
   amount?: Maybe<Scalars["PositiveDecimal"]>;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -17849,6 +18050,84 @@ export type IPaymentGatewayInitializeSession = IEvent & {
   recipient?: Maybe<IApp>;
   /** Checkout or order */
   sourceObject: IOrderOrCheckout;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Initializes payment gateway for tokenizing payment method session.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to initialize payment gateway for tokenization.
+ */
+export type IPaymentGatewayInitializeTokenization = {
+  __typename?: "PaymentGatewayInitializeTokenization";
+  /** A data returned by payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentGatewayInitializeTokenizationError>;
+  /** A status of the payment gateway initialization. */
+  result: IPaymentGatewayInitializeTokenizationResult;
+};
+
+export type IPaymentGatewayInitializeTokenizationError = {
+  __typename?: "PaymentGatewayInitializeTokenizationError";
+  /** The error code. */
+  code: IPaymentGatewayInitializeTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentGatewayInitializeTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Result of initialize payment gateway for tokenization of payment method.
+ *
+ *     The result of initialize payment gateway for tokenization of payment method.
+ *     SUCCESSFULLY_INITIALIZED - The payment gateway was successfully initialized.
+ *     FAILED_TO_INITIALIZE - The payment gateway was not initialized.
+ *     FAILED_TO_DELIVER - The request to initialize payment gateway was not delivered.
+ *
+ */
+export type IPaymentGatewayInitializeTokenizationResult =
+  | "FAILED_TO_DELIVER"
+  | "FAILED_TO_INITIALIZE"
+  | "SUCCESSFULLY_INITIALIZED";
+
+/**
+ * Event sent to initialize a new session in payment gateway to store the payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentGatewayInitializeTokenizationSession = IEvent & {
+  __typename?: "PaymentGatewayInitializeTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
@@ -17924,6 +18203,170 @@ export type IPaymentListGateways = IEvent & {
 };
 
 /**
+ * Tokenize payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to tokenize payment method.
+ */
+export type IPaymentMethodInitializeTokenization = {
+  __typename?: "PaymentMethodInitializeTokenization";
+  /** A data returned by the payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentMethodInitializeTokenizationError>;
+  /** The identifier of the payment method. */
+  id?: Maybe<Scalars["String"]>;
+  /** A status of the payment method tokenization. */
+  result: IPaymentMethodTokenizationResult;
+};
+
+export type IPaymentMethodInitializeTokenizationError = {
+  __typename?: "PaymentMethodInitializeTokenizationError";
+  /** The error code. */
+  code: IPaymentMethodInitializeTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentMethodInitializeTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Event sent when user requests a tokenization of payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentMethodInitializeTokenizationSession = IEvent & {
+  __typename?: "PaymentMethodInitializeTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The payment flow that the tokenized payment method should support. */
+  paymentFlowToSupport: ITokenizedPaymentFlowEnum;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Tokenize payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION (sync): The customer continues payment method tokenization.
+ */
+export type IPaymentMethodProcessTokenization = {
+  __typename?: "PaymentMethodProcessTokenization";
+  /** A data returned by the payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentMethodProcessTokenizationError>;
+  /** The identifier of the payment method. */
+  id?: Maybe<Scalars["String"]>;
+  /** A status of the payment method tokenization. */
+  result: IPaymentMethodTokenizationResult;
+};
+
+export type IPaymentMethodProcessTokenizationError = {
+  __typename?: "PaymentMethodProcessTokenizationError";
+  /** The error code. */
+  code: IPaymentMethodProcessTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentMethodProcessTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Event sent when user continues a tokenization of payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentMethodProcessTokenizationSession = IEvent & {
+  __typename?: "PaymentMethodProcessTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** The ID returned by app from `PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION` webhook. */
+  id: Scalars["String"];
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+export type IPaymentMethodRequestDeleteError = {
+  __typename?: "PaymentMethodRequestDeleteError";
+  /** The error code. */
+  code: IStoredPaymentMethodRequestDeleteErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Result of tokenization of payment method.
+ *
+ *     SUCCESSFULLY_TOKENIZED - The payment method was successfully tokenized.
+ *     ADDITIONAL_ACTION_REQUIRED - The additional action is required to tokenize payment
+ *     method.
+ *     PENDING - The payment method is pending tokenization.
+ *     FAILED_TO_TOKENIZE - The payment method was not tokenized.
+ *     FAILED_TO_DELIVER - The request to tokenize payment method was not delivered.
+ *
+ */
+export type IPaymentMethodTokenizationResult =
+  | "ADDITIONAL_ACTION_REQUIRED"
+  | "FAILED_TO_DELIVER"
+  | "FAILED_TO_TOKENIZE"
+  | "PENDING"
+  | "SUCCESSFULLY_TOKENIZED";
+
+/**
  * Process payment.
  *
  * Added in Saleor 3.6.
@@ -17973,6 +18416,30 @@ export type IPaymentRefundEvent = IEvent & {
   recipient?: Maybe<IApp>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
+};
+
+/** Represents the channel-specific payment settings. */
+export type IPaymentSettings = {
+  __typename?: "PaymentSettings";
+  /**
+   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  defaultTransactionFlowStrategy: ITransactionFlowStrategyEnum;
+};
+
+export type IPaymentSettingsInput = {
+  /**
+   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  defaultTransactionFlowStrategy?: InputMaybe<ITransactionFlowStrategyEnum>;
 };
 
 /** Represents a payment source stored for user in payment gateway, such as credit card. */
@@ -19242,6 +19709,25 @@ export type IProductErrorCode =
   | "UNIQUE"
   | "UNSUPPORTED_MEDIA_PROVIDER"
   | "VARIANT_NO_DIGITAL_CONTENT";
+
+/**
+ * Event sent when product export is completed.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IProductExportCompleted = IEvent & {
+  __typename?: "ProductExportCompleted";
+  /** The export file for products. */
+  export?: Maybe<IExportFile>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
 
 export type IProductFieldEnum =
   | "CATEGORY"
@@ -24793,6 +25279,73 @@ export type IStoredPaymentMethod = {
 };
 
 /**
+ * Event sent when user requests to delete a payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IStoredPaymentMethodDeleteRequested = IEvent & {
+  __typename?: "StoredPaymentMethodDeleteRequested";
+  /** Channel related to the requested delete action. */
+  channel: IChannel;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The ID of the payment method that should be deleted by the payment gateway. */
+  paymentMethodId: Scalars["String"];
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user for which the app should proceed with payment method delete request. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Request to delete a stored payment method on payment provider side.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - STORED_PAYMENT_METHOD_DELETE_REQUESTED (sync): The customer requested to delete a payment method.
+ */
+export type IStoredPaymentMethodRequestDelete = {
+  __typename?: "StoredPaymentMethodRequestDelete";
+  errors: Array<IPaymentMethodRequestDeleteError>;
+  /** The result of deleting a stored payment method. */
+  result: IStoredPaymentMethodRequestDeleteResult;
+};
+
+/** An enumeration. */
+export type IStoredPaymentMethodRequestDeleteErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Result of deleting a stored payment method.
+ *
+ *     This enum is used to determine the result of deleting a stored payment method.
+ *     SUCCESSFULLY_DELETED - The stored payment method was successfully deleted.
+ *     FAILED_TO_DELETE - The stored payment method was not deleted.
+ *     FAILED_TO_DELIVER - The request to delete the stored payment method was not
+ *     delivered.
+ *
+ */
+export type IStoredPaymentMethodRequestDeleteResult =
+  | "FAILED_TO_DELETE"
+  | "FAILED_TO_DELIVER"
+  | "SUCCESSFULLY_DELETED";
+
+/**
  * Define the filtering options for string fields.
  *
  * Added in Saleor 3.11.
@@ -25556,6 +26109,12 @@ export type ITransactionAction = {
   actionType: ITransactionActionEnum;
   /** Transaction request amount. Null when action type is VOID. */
   amount?: Maybe<Scalars["PositiveDecimal"]>;
+  /**
+   * Currency code.
+   *
+   * Added in Saleor 3.16.
+   */
+  currency: Scalars["String"];
 };
 
 /**
@@ -25894,7 +26453,13 @@ export type ITransactionInitializeSession = IEvent & {
   __typename?: "TransactionInitializeSession";
   /** Action to proceed for the transaction */
   action: ITransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /**
+   * The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+   *
+   * Added in Saleor 3.16.
+   */
+  customerIpAddress?: Maybe<Scalars["String"]>;
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -26171,7 +26736,13 @@ export type ITransactionProcessSession = IEvent & {
   __typename?: "TransactionProcessSession";
   /** Action to proceed for the transaction */
   action: ITransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /**
+   * The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+   *
+   * Added in Saleor 3.16.
+   */
+  customerIpAddress?: Maybe<Scalars["String"]>;
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -27792,6 +28363,7 @@ export type IWarehouseFilterInput = {
   clickAndCollectOption?: InputMaybe<IWarehouseClickAndCollectOptionEnum>;
   ids?: InputMaybe<Array<Scalars["ID"]>>;
   isPrivate?: InputMaybe<Scalars["Boolean"]>;
+  metadata?: InputMaybe<Array<IMetadataFilter>>;
   search?: InputMaybe<Scalars["String"]>;
   slugs?: InputMaybe<Array<Scalars["String"]>>;
 };
@@ -28238,10 +28810,17 @@ export type IWebhookEventTypeAsyncEnum =
    * Added in Saleor 3.8.
    */
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   /** A new gift card created. */
   | "GIFT_CARD_CREATED"
   /** A gift card is deleted. */
   | "GIFT_CARD_DELETED"
+  /**
+   * A gift card export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "GIFT_CARD_EXPORT_COMPLETED"
   /**
    * A gift card metadata is updated.
    *
@@ -28278,7 +28857,11 @@ export type IWebhookEventTypeAsyncEnum =
   | "MENU_ITEM_UPDATED"
   /** A menu is updated. */
   | "MENU_UPDATED"
-  /** User notification triggered. */
+  /**
+   * User notification triggered.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0. See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/docs/next/upgrade-guides/notify-user-deprecation
+   */
   | "NOTIFY_USER"
   /** An observability event is created. */
   | "OBSERVABILITY"
@@ -28356,6 +28939,12 @@ export type IWebhookEventTypeAsyncEnum =
   | "PRODUCT_CREATED"
   /** A product is deleted. */
   | "PRODUCT_DELETED"
+  /**
+   * A product export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "PRODUCT_EXPORT_COMPLETED"
   /**
    * A new product media is created.
    *
@@ -28606,10 +29195,17 @@ export type IWebhookEventTypeEnum =
    * Added in Saleor 3.8.
    */
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   /** A new gift card created. */
   | "GIFT_CARD_CREATED"
   /** A gift card is deleted. */
   | "GIFT_CARD_DELETED"
+  /**
+   * A gift card export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "GIFT_CARD_EXPORT_COMPLETED"
   /**
    * A gift card metadata is updated.
    *
@@ -28647,7 +29243,11 @@ export type IWebhookEventTypeEnum =
   | "MENU_ITEM_UPDATED"
   /** A menu is updated. */
   | "MENU_UPDATED"
-  /** User notification triggered. */
+  /**
+   * User notification triggered.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0. See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/docs/next/upgrade-guides/notify-user-deprecation
+   */
   | "NOTIFY_USER"
   /** An observability event is created. */
   | "OBSERVABILITY"
@@ -28730,8 +29330,11 @@ export type IWebhookEventTypeEnum =
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
   | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
+  | "PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
+  | "PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION"
+  | "PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION"
   /** Process payment. */
   | "PAYMENT_PROCESS"
   /** Refund payment. */
@@ -28748,6 +29351,12 @@ export type IWebhookEventTypeEnum =
   | "PRODUCT_CREATED"
   /** A product is deleted. */
   | "PRODUCT_DELETED"
+  /**
+   * A product export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "PRODUCT_EXPORT_COMPLETED"
   /**
    * A new product media is created.
    *
@@ -28834,6 +29443,7 @@ export type IWebhookEventTypeEnum =
   | "STAFF_SET_PASSWORD_REQUESTED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
+  | "STORED_PAYMENT_METHOD_DELETE_REQUESTED"
   /**
    * A thumbnail is created.
    *
@@ -28927,8 +29537,11 @@ export type IWebhookEventTypeSyncEnum =
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
   | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
+  | "PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
+  | "PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION"
+  | "PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION"
   /** Process payment. */
   | "PAYMENT_PROCESS"
   /** Refund payment. */
@@ -28937,6 +29550,7 @@ export type IWebhookEventTypeSyncEnum =
   | "PAYMENT_VOID"
   /** Fetch external shipping methods for checkout. */
   | "SHIPPING_LIST_METHODS_FOR_CHECKOUT"
+  | "STORED_PAYMENT_METHOD_DELETE_REQUESTED"
   /**
    * Event called when cancel has been requested for transaction.
    *
@@ -29013,8 +29627,10 @@ export type IWebhookSampleEventTypeEnum =
   | "FULFILLMENT_CANCELED"
   | "FULFILLMENT_CREATED"
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   | "GIFT_CARD_CREATED"
   | "GIFT_CARD_DELETED"
+  | "GIFT_CARD_EXPORT_COMPLETED"
   | "GIFT_CARD_METADATA_UPDATED"
   | "GIFT_CARD_SENT"
   | "GIFT_CARD_STATUS_CHANGED"
@@ -29053,6 +29669,7 @@ export type IWebhookSampleEventTypeEnum =
   | "PERMISSION_GROUP_UPDATED"
   | "PRODUCT_CREATED"
   | "PRODUCT_DELETED"
+  | "PRODUCT_EXPORT_COMPLETED"
   | "PRODUCT_MEDIA_CREATED"
   | "PRODUCT_MEDIA_DELETED"
   | "PRODUCT_MEDIA_UPDATED"

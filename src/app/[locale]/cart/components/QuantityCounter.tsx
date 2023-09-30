@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 
 const QuanitityCounter: React.FC = () => {
@@ -15,11 +16,17 @@ const QuanitityCounter: React.FC = () => {
 
   return (
     <div className="flex items-center pt-3">
-      <button className="px-2 py-1 border border-primary" onClick={DecreaseQuantity}>
+      <button
+        className="px-2 py-1 border border-primary"
+        onClick={DecreaseQuantity}
+      >
         -
       </button>
       <span className="px-2">{quantity}</span>
-      <button className="px-2 py-1 border border-primary" onClick={IncreaseQuantity}>
+      <button
+        className="px-2 py-1 border border-primary"
+        onClick={IncreaseQuantity}
+      >
         +
       </button>
     </div>

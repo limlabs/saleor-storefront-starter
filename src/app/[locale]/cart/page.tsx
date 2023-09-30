@@ -1,9 +1,9 @@
-import { withTranslations } from "@/core/server/locale";
+import { getLanguageCode, withTranslations } from "@/core/server/locale";
 import type { Locale } from "@/locale-config";
 import CartHeadline from "./components/CartHeadline";
-import appleJuice from "./apple-juice.webp";
-import shoeBalance from "./shoe-balance.webp";
 import { CartProductGrid } from "./components/CartProductGrid";
+import { gqlClient } from "@/gql";
+import { getCheckoutID } from "@/core/server/checkout";
 
 interface CartPageProps {
   params: {
@@ -12,28 +12,22 @@ interface CartPageProps {
   };
 }
 
-export default withTranslations<CartPageProps>(function CartPage() {
+export default withTranslations<CartPageProps>(async function CartPage({
+  params: { locale },
+}) {
+  const { checkout } = await gqlClient.CheckoutCurrentCart({
+    checkoutId: getCheckoutID(),
+    languageCode: getLanguageCode(locale),
+  });
+
+  if (!checkout) {
+    return <div>Your cart is empty.</div>;
+  }
+
   return (
     <main className="container mx-auto my-auto pb-10 px-8 md:pl-4 md:pb-4">
       <CartHeadline />
-      <CartProductGrid
-        items={[
-          {
-            description: "Product 1",
-            price: "10.00",
-            quantity: 1,
-            productImage: shoeBalance,
-            productLink: "/",
-          },
-          {
-            description: "Product 2",
-            price: "20.00",
-            quantity: 1,
-            productImage: appleJuice,
-            productLink: "/",
-          },
-        ]}
-      />
+      <CartProductGrid checkout={checkout} />
     </main>
   );
 });

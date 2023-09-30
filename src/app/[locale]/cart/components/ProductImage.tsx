@@ -1,15 +1,16 @@
 import React from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface ProductImageProps {
-  productImage: StaticImageData;
+  src: string;
+  alt: string;
 }
 
-const ProductImage: React.FC<ProductImageProps> = ({ productImage }) => {
+const ProductImage: React.FC<ProductImageProps> = ({ src, alt }) => {
   return (
     <div className="col-span-1 bg-neutral h-auto flex  flex-col rounded-md p-4">
       <div className="flex items-center">
-        <Image src={productImage} alt="Product Image" width={200} height={200} />
+        <Image src={src} alt={alt} width={200} height={200} />
       </div>
     </div>
   );

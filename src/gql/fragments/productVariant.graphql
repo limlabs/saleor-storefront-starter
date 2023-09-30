@@ -9,6 +9,7 @@ fragment ProductVariantFragment on ProductVariant {
   media {
     url
     alt
+
     type
   }
   attributes {

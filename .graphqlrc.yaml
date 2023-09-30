@@ -1,0 +1,2 @@
+schema: "https://liminal-labs.saleor.cloud/graphql/"
+documents: "src/**/*.graphql"

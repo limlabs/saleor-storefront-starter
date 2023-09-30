@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import ProductImage from "./ProductImage";
@@ -8,9 +8,11 @@ import QuantityCounter from "./QuantityCounter";
 import trashCan from "../trashcan.svg";
 
 export interface CartItemProps {
-  productImage: StaticImageData;
-  productLink: string;
-  description: string;
+  productImage: {
+    src: string;
+    alt: string;
+  };
+  productLink: ReactNode;
   price: string;
   quantity: number;
   size?: string;
@@ -19,12 +21,10 @@ export interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = (props) => {
-  const totalPrice = (parseFloat(props.price) * props.quantity).toFixed(2);
-
   return (
     <div className="h-auto bg-neutral flex justify-between p-4">
       <div>
-        <ProductImage productImage={props.productImage} />
+        <ProductImage {...props.productImage} />
         <div className="cursor-pointer flex flex-row text-sm underline font-roboto mt-auto">
           <Image
             src={trashCan}
@@ -39,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = (props) => {
 
       <div className=" bg-neutral h-auto flex flex-col w-1/2 p-4">
         <div className="text-primary text-xsm underline font font-roboto pt-4 pb-3">
-          <Link href={props.productLink}>{props.description}</Link>
+          {props.productLink}
         </div>
 
         {props.size && (

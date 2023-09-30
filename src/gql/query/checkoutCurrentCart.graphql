@@ -1,0 +1,39 @@
+query CheckoutCurrentCart($checkoutId: ID!, $languageCode: LanguageCodeEnum!) {
+  checkout(id: $checkoutId) {
+    id
+    totalPrice {
+      currency
+      net {
+        amount
+      }
+    }
+    discountName
+    discount {
+      currency
+      amount
+    }
+    voucherCode
+    lines {
+      id
+      quantity
+      totalPrice {
+        currency
+        net {
+          amount
+        }
+      }
+      unitPrice {
+        currency
+        net {
+          amount
+        }
+      }
+      variant {
+        product {
+          slug
+        }
+        ...ProductVariantFragment
+      }
+    }
+  }
+}

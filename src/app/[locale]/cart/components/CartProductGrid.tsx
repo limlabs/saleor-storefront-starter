@@ -38,7 +38,9 @@ export const CartProductGrid = ({ checkout }: CartProductGridProps) => {
 
       <div className="w-full md:max-w-1/4 justify-center">
         <OrderSummary
-          totalPrice={`$${checkout.totalPrice.net.amount.toFixed(2)}`}
+          subtotal={checkout.subtotalPrice.net.amount}
+          discountAmount={checkout.discount?.amount}
+          totalAmount={checkout.totalPrice.net.amount}
         />
       </div>
     </div>

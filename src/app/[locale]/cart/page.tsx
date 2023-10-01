@@ -4,6 +4,7 @@ import CartHeadline from "./components/CartHeadline";
 import { CartProductGrid } from "./components/CartProductGrid";
 import { gqlClient } from "@/gql";
 import { getCheckoutID } from "@/core/server/checkout";
+import { CartEmpty } from "./components/CartEmpty";
 
 interface CartPageProps {
   params: {
@@ -15,13 +16,18 @@ interface CartPageProps {
 export default withTranslations<CartPageProps>(async function CartPage({
   params: { locale },
 }) {
+  const checkoutId = getCheckoutID();
+  if (!checkoutId) {
+    return <CartEmpty />;
+  }
+
   const { checkout } = await gqlClient.CheckoutCurrentCart({
-    checkoutId: getCheckoutID(),
+    checkoutId,
     languageCode: getLanguageCode(locale),
   });
 
   if (!checkout) {
-    return <div>Your cart is empty.</div>;
+    return <CartEmpty />;
   }
 
   return (

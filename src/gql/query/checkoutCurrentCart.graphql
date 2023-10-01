@@ -1,11 +1,8 @@
 query CheckoutCurrentCart($checkoutId: ID!, $languageCode: LanguageCodeEnum!) {
   checkout(id: $checkoutId) {
     id
-    totalPrice {
-      currency
-      net {
-        amount
-      }
+    subtotalPrice {
+      ...NetPrice
     }
     discountName
     discount {
@@ -13,26 +10,23 @@ query CheckoutCurrentCart($checkoutId: ID!, $languageCode: LanguageCodeEnum!) {
       amount
     }
     voucherCode
+    totalPrice {
+      ...NetPrice
+    }
     lines {
       id
       quantity
       totalPrice {
-        currency
-        net {
-          amount
-        }
+        ...NetPrice
       }
       unitPrice {
-        currency
-        net {
-          amount
-        }
+        ...NetPrice
       }
       variant {
+        ...ProductVariantFragment
         product {
           slug
         }
-        ...ProductVariantFragment
       }
     }
   }

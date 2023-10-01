@@ -1,0 +1,6 @@
+fragment NetPrice on TaxedMoney {
+  net {
+    amount
+    currency
+  }
+}

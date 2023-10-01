@@ -29959,6 +29959,11 @@ export type IMenuItemFragment = {
 
 export type IMoneyFragment = { __typename?: "Money"; amount: number };
 
+export type INetPriceFragment = {
+  __typename?: "TaxedMoney";
+  net: { __typename?: "Money"; amount: number; currency: string };
+};
+
 export type IPdProductFragment = {
   __typename?: "Product";
   id: string;
@@ -30614,29 +30619,30 @@ export type ICheckoutCurrentCartQuery = {
     id: string;
     discountName?: string | null;
     voucherCode?: string | null;
-    totalPrice: {
+    subtotalPrice: {
       __typename?: "TaxedMoney";
-      currency: string;
-      net: { __typename?: "Money"; amount: number };
+      net: { __typename?: "Money"; amount: number; currency: string };
     };
     discount?: {
       __typename?: "Money";
       currency: string;
       amount: number;
     } | null;
+    totalPrice: {
+      __typename?: "TaxedMoney";
+      net: { __typename?: "Money"; amount: number; currency: string };
+    };
     lines: Array<{
       __typename?: "CheckoutLine";
       id: string;
       quantity: number;
       totalPrice: {
         __typename?: "TaxedMoney";
-        currency: string;
-        net: { __typename?: "Money"; amount: number };
+        net: { __typename?: "Money"; amount: number; currency: string };
       };
       unitPrice: {
         __typename?: "TaxedMoney";
-        currency: string;
-        net: { __typename?: "Money"; amount: number };
+        net: { __typename?: "Money"; amount: number; currency: string };
       };
       variant: {
         __typename?: "ProductVariant";
@@ -31186,6 +31192,14 @@ export const FragMenuFragmentDoc = `
   }
 }
     ${FragMenuItemFragmentDoc}`;
+export const FragNetPriceFragmentDoc = `
+    fragment NetPrice on TaxedMoney {
+  net {
+    amount
+    currency
+  }
+}
+    `;
 export const FragPdProductFragmentDoc = `
     fragment PDProductFragment on Product {
   id
@@ -31614,11 +31628,8 @@ export const CheckoutCurrentCartDocument = `
     query CheckoutCurrentCart($checkoutId: ID!, $languageCode: LanguageCodeEnum!) {
   checkout(id: $checkoutId) {
     id
-    totalPrice {
-      currency
-      net {
-        amount
-      }
+    subtotalPrice {
+      ...NetPrice
     }
     discountName
     discount {
@@ -31626,31 +31637,29 @@ export const CheckoutCurrentCartDocument = `
       amount
     }
     voucherCode
+    totalPrice {
+      ...NetPrice
+    }
     lines {
       id
       quantity
       totalPrice {
-        currency
-        net {
-          amount
-        }
+        ...NetPrice
       }
       unitPrice {
-        currency
-        net {
-          amount
-        }
+        ...NetPrice
       }
       variant {
+        ...ProductVariantFragment
         product {
           slug
         }
-        ...ProductVariantFragment
       }
     }
   }
 }
-    ${FragProductVariantFragmentDoc}`;
+    ${FragNetPriceFragmentDoc}
+${FragProductVariantFragmentDoc}`;
 export const CheckoutQuantityDocument = `
     query CheckoutQuantity($id: ID) {
   checkout(id: $id) {

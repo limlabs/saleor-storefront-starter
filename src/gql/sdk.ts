@@ -29964,6 +29964,27 @@ export type INetPriceFragment = {
   net: { __typename?: "Money"; amount: number; currency: string };
 };
 
+export type IOrderSummaryFragment = {
+  __typename?: "Checkout";
+  id: string;
+  voucherCode?: string | null;
+  discountName?: string | null;
+  translatedDiscountName?: string | null;
+  subtotalPrice: {
+    __typename?: "TaxedMoney";
+    net: { __typename?: "Money"; amount: number; currency: string };
+  };
+  shippingPrice: {
+    __typename?: "TaxedMoney";
+    net: { __typename?: "Money"; amount: number; currency: string };
+  };
+  totalPrice: {
+    __typename?: "TaxedMoney";
+    net: { __typename?: "Money"; amount: number; currency: string };
+  };
+  discount?: { __typename?: "Money"; currency: string; amount: number } | null;
+};
+
 export type IPdProductFragment = {
   __typename?: "Product";
   id: string;
@@ -30581,32 +30602,6 @@ export type ICheckoutAvailablePaymentGatewaysQuery = {
   } | null;
 };
 
-export type ICheckoutAvailableShippingMethodsQueryVariables = Exact<{
-  checkoutID: Scalars["ID"];
-  languageCode: ILanguageCodeEnum;
-}>;
-
-export type ICheckoutAvailableShippingMethodsQuery = {
-  __typename?: "Query";
-  checkout?: {
-    __typename?: "Checkout";
-    shippingMethods: Array<{
-      __typename?: "ShippingMethod";
-      id: string;
-      name: string;
-      description?: JSONString | null;
-      minimumDeliveryDays?: number | null;
-      maximumDeliveryDays?: number | null;
-      translation?: {
-        __typename?: "ShippingMethodTranslation";
-        name: string;
-        description?: JSONString | null;
-      } | null;
-      price: { __typename?: "Money"; currency: string; amount: number };
-    }>;
-  } | null;
-};
-
 export type ICheckoutCurrentCartQueryVariables = Exact<{
   checkoutId: Scalars["ID"];
   languageCode: ILanguageCodeEnum;
@@ -30616,22 +30611,6 @@ export type ICheckoutCurrentCartQuery = {
   __typename?: "Query";
   checkout?: {
     __typename?: "Checkout";
-    id: string;
-    discountName?: string | null;
-    voucherCode?: string | null;
-    subtotalPrice: {
-      __typename?: "TaxedMoney";
-      net: { __typename?: "Money"; amount: number; currency: string };
-    };
-    discount?: {
-      __typename?: "Money";
-      currency: string;
-      amount: number;
-    } | null;
-    totalPrice: {
-      __typename?: "TaxedMoney";
-      net: { __typename?: "Money"; amount: number; currency: string };
-    };
     lines: Array<{
       __typename?: "CheckoutLine";
       id: string;
@@ -30684,6 +30663,79 @@ export type ICheckoutCurrentCartQuery = {
         }>;
       };
     }>;
+  } | null;
+};
+
+export type ICheckoutDeliveryInfoQueryVariables = Exact<{
+  checkoutID: Scalars["ID"];
+  languageCode: ILanguageCodeEnum;
+}>;
+
+export type ICheckoutDeliveryInfoQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    isShippingRequired: boolean;
+    shippingAddress?: {
+      __typename?: "Address";
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      city: string;
+      cityArea: string;
+      countryArea: string;
+      phone?: string | null;
+      postalCode: string;
+      country: { __typename?: "CountryDisplay"; code: string; country: string };
+    } | null;
+    shippingMethods: Array<{
+      __typename?: "ShippingMethod";
+      active: boolean;
+      id: string;
+      name: string;
+      description?: JSONString | null;
+      minimumDeliveryDays?: number | null;
+      maximumDeliveryDays?: number | null;
+      translation?: {
+        __typename?: "ShippingMethodTranslation";
+        name: string;
+        description?: JSONString | null;
+      } | null;
+      price: { __typename?: "Money"; currency: string; amount: number };
+    }>;
+  } | null;
+};
+
+export type ICheckoutOrderSummaryQueryVariables = Exact<{
+  checkoutID: Scalars["ID"];
+}>;
+
+export type ICheckoutOrderSummaryQuery = {
+  __typename?: "Query";
+  checkout?: {
+    __typename?: "Checkout";
+    id: string;
+    voucherCode?: string | null;
+    discountName?: string | null;
+    translatedDiscountName?: string | null;
+    subtotalPrice: {
+      __typename?: "TaxedMoney";
+      net: { __typename?: "Money"; amount: number; currency: string };
+    };
+    shippingPrice: {
+      __typename?: "TaxedMoney";
+      net: { __typename?: "Money"; amount: number; currency: string };
+    };
+    totalPrice: {
+      __typename?: "TaxedMoney";
+      net: { __typename?: "Money"; amount: number; currency: string };
+    };
+    discount?: {
+      __typename?: "Money";
+      currency: string;
+      amount: number;
+    } | null;
   } | null;
 };
 
@@ -31200,6 +31252,27 @@ export const FragNetPriceFragmentDoc = `
   }
 }
     `;
+export const FragOrderSummaryFragmentDoc = `
+    fragment OrderSummary on Checkout {
+  id
+  subtotalPrice {
+    ...NetPrice
+  }
+  shippingPrice {
+    ...NetPrice
+  }
+  voucherCode
+  totalPrice {
+    ...NetPrice
+  }
+  discountName
+  translatedDiscountName
+  discount {
+    currency
+    amount
+  }
+}
+    ${FragNetPriceFragmentDoc}`;
 export const FragPdProductFragmentDoc = `
     fragment PDProductFragment on Product {
   id
@@ -31603,43 +31676,9 @@ export const CheckoutAvailablePaymentGatewaysDocument = `
   }
 }
     `;
-export const CheckoutAvailableShippingMethodsDocument = `
-    query CheckoutAvailableShippingMethods($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
-  checkout(id: $checkoutID) {
-    shippingMethods {
-      id
-      name
-      description
-      translation(languageCode: $languageCode) {
-        name
-        description
-      }
-      minimumDeliveryDays
-      maximumDeliveryDays
-      price {
-        currency
-        amount
-      }
-    }
-  }
-}
-    `;
 export const CheckoutCurrentCartDocument = `
     query CheckoutCurrentCart($checkoutId: ID!, $languageCode: LanguageCodeEnum!) {
   checkout(id: $checkoutId) {
-    id
-    subtotalPrice {
-      ...NetPrice
-    }
-    discountName
-    discount {
-      currency
-      amount
-    }
-    voucherCode
-    totalPrice {
-      ...NetPrice
-    }
     lines {
       id
       quantity
@@ -31660,6 +31699,51 @@ export const CheckoutCurrentCartDocument = `
 }
     ${FragNetPriceFragmentDoc}
 ${FragProductVariantFragmentDoc}`;
+export const CheckoutDeliveryInfoDocument = `
+    query CheckoutDeliveryInfo($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
+  checkout(id: $checkoutID) {
+    shippingAddress {
+      firstName
+      lastName
+      streetAddress1
+      streetAddress2
+      city
+      cityArea
+      country {
+        code
+        country
+      }
+      countryArea
+      phone
+      postalCode
+    }
+    isShippingRequired
+    shippingMethods {
+      active
+      id
+      name
+      description
+      translation(languageCode: $languageCode) {
+        name
+        description
+      }
+      minimumDeliveryDays
+      maximumDeliveryDays
+      price {
+        currency
+        amount
+      }
+    }
+  }
+}
+    `;
+export const CheckoutOrderSummaryDocument = `
+    query CheckoutOrderSummary($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    ...OrderSummary
+  }
+}
+    ${FragOrderSummaryFragmentDoc}`;
 export const CheckoutQuantityDocument = `
     query CheckoutQuantity($id: ID) {
   checkout(id: $id) {
@@ -31928,21 +32012,6 @@ export function getSdk(
         "query"
       );
     },
-    CheckoutAvailableShippingMethods(
-      variables: ICheckoutAvailableShippingMethodsQueryVariables,
-      requestHeaders?: Dom.RequestInit["headers"]
-    ): Promise<ICheckoutAvailableShippingMethodsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<ICheckoutAvailableShippingMethodsQuery>(
-            CheckoutAvailableShippingMethodsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders }
-          ),
-        "CheckoutAvailableShippingMethods",
-        "query"
-      );
-    },
     CheckoutCurrentCart(
       variables: ICheckoutCurrentCartQueryVariables,
       requestHeaders?: Dom.RequestInit["headers"]
@@ -31955,6 +32024,36 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders }
           ),
         "CheckoutCurrentCart",
+        "query"
+      );
+    },
+    CheckoutDeliveryInfo(
+      variables: ICheckoutDeliveryInfoQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutDeliveryInfoQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutDeliveryInfoQuery>(
+            CheckoutDeliveryInfoDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutDeliveryInfo",
+        "query"
+      );
+    },
+    CheckoutOrderSummary(
+      variables: ICheckoutOrderSummaryQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"]
+    ): Promise<ICheckoutOrderSummaryQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ICheckoutOrderSummaryQuery>(
+            CheckoutOrderSummaryDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders }
+          ),
+        "CheckoutOrderSummary",
         "query"
       );
     },

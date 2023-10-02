@@ -1,5 +1,3 @@
-import TextInput from "@/app/daisyui/text-input";
-import { SubmitButton } from "../../_components/submitButton";
 import { gqlClient } from "@/gql";
 import { getCheckoutID } from "@/core/server/checkout";
 import { RedirectType, redirect } from "next/navigation";
@@ -7,16 +5,28 @@ import { CheckoutUrlParams } from "../../types";
 import { getLanguageCode } from "@/core/server/locale";
 import { AddressFormFields } from "../../_components/addressFormFields";
 import { ContactFormFields } from "../../_components/contactFormFields";
+import { OrderSummary } from "@/app/[locale]/(components)/OrderSummary";
+import { SubmitButton } from "../../_components/submitButton";
+import { ShippingMethods } from "../../_components/shippingMethods";
 
 const CheckoutDeliveryPage = async ({
   params,
 }: {
   params: CheckoutUrlParams;
 }) => {
-  const shippingMethods = await gqlClient.CheckoutAvailableShippingMethods({
-    checkoutID: getCheckoutID(),
+  const checkoutID = getCheckoutID();
+  if (!checkoutID) {
+    redirect(`/${params.locale}/cart`, RedirectType.push);
+  }
+
+  const { checkout } = await gqlClient.CheckoutDeliveryInfo({
+    checkoutID,
     languageCode: getLanguageCode(params.locale),
   });
+
+  if (!checkout) {
+    redirect(`/${params.locale}/cart`, RedirectType.push);
+  }
 
   const handleSubmit = async (formData: FormData) => {
     "use server";
@@ -80,39 +90,20 @@ const CheckoutDeliveryPage = async ({
 
   return (
     <form
-      className="delivery-form flex flex-col gap-10 items-center text-left w-full max-w-md mx-auto px-4 md:px-0 mt-3"
+      className="delivery-form grid grid-cols-2 gap-5 text-left w-full max-w-screen-xl mx-auto px-4 md:px-0 mt-3"
       action={handleSubmit}
     >
-      <h1 className="w-full text-3xl">Delivery Info</h1>
-      <ContactFormFields />
-      <AddressFormFields title="Shipping Address" />
-      <fieldset className="flex flex-col items-center justify-center w-full gap-4">
-        <h2 className="w-full text-left text-xl lg:text-2xl">
-          Shipping Method
-        </h2>
-        <div className="flex flex-col items-start justify-start w-full">
-          {shippingMethods.checkout?.shippingMethods.map((shippingMethod) => (
-            <label
-              className="flex items-center justify-start gap-2"
-              key={shippingMethod.id}
-            >
-              <input
-                type="radio"
-                name="shippingMethodId"
-                value={shippingMethod.id}
-                className="w-5 h-5"
-                required
-              />
-              <span className="text-lg">
-                {shippingMethod.name} - $
-                {shippingMethod.price.amount.toFixed(2)}
-              </span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <div className="flex flex-col gap-4 justify-between items-center w-full max-w-md mx-auto px-4 lg:px-0">
-        <SubmitButton variant="primary">Continue to Payment</SubmitButton>
+      <div className="col-span-2 md:col-span-1 flex flex-col gap-10">
+        <h1 className="w-full text-3xl">Delivery Info</h1>
+        <ContactFormFields />
+        <AddressFormFields title="Shipping Address" />
+        <ShippingMethods shippingMethods={checkout.shippingMethods} />
+      </div>
+      <div className="col-span-2 md:col-span-1">
+        <OrderSummary
+          includeShipping
+          actions={<SubmitButton variant="primary">Payment Info</SubmitButton>}
+        />
       </div>
     </form>
   );

@@ -44,6 +44,11 @@ const nextConfig = {
         destination: "/en-us/c/all",
         permanent: false,
       },
+      {
+        source: "/:locale/checkout",
+        destination: "/:locale/checkout/delivery",
+        permanent: false,
+      },
     ];
   },
   images: {

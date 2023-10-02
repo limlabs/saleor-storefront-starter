@@ -5,6 +5,8 @@ import { CartProductGrid } from "./components/CartProductGrid";
 import { gqlClient } from "@/gql";
 import { getCheckoutID } from "@/core/server/checkout";
 import { CartEmpty } from "./components/CartEmpty";
+import { OrderSummary } from "../../(components)/OrderSummary";
+import { Link } from "../../(components)/link";
 
 interface CartPageProps {
   params: {
@@ -33,7 +35,26 @@ export default withTranslations<CartPageProps>(async function CartPage({
   return (
     <main className="container mx-auto my-auto pb-10 px-8 md:pl-4 md:pb-4">
       <CartHeadline />
-      <CartProductGrid checkout={checkout} />
+      <div className="flex flex-col justify-between md:flex-row md:items-start">
+        <div className="w-full md:max-w-3/4">
+          <CartProductGrid checkout={checkout} />
+        </div>
+        <div className="w-full md:max-w-1/4 justify-end">
+          <OrderSummary
+            locale={locale}
+            actions={
+              <Link
+                className="btn btn-primary bg-primary hover:bg-primary-focus font-bold py-2 px-4"
+                href="/checkout/delivery"
+                channel=""
+                locale={locale}
+              >
+                Checkout
+              </Link>
+            }
+          />
+        </div>
+      </div>
     </main>
   );
 });

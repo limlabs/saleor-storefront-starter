@@ -1,0 +1,36 @@
+query CheckoutDeliveryInfo($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
+  checkout(id: $checkoutID) {
+    shippingAddress {
+      firstName
+      lastName
+      streetAddress1
+      streetAddress2
+      city
+      cityArea
+      country {
+        code
+        country
+      }
+      countryArea
+      phone
+      postalCode
+    }
+    isShippingRequired
+    shippingMethods {
+      active
+      id
+      name
+      description
+      translation(languageCode: $languageCode) {
+        name
+        description
+      }
+      minimumDeliveryDays
+      maximumDeliveryDays
+      price {
+        currency
+        amount
+      }
+    }
+  }
+}

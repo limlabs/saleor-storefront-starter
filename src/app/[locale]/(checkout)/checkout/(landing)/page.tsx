@@ -2,8 +2,9 @@ import React, { FC } from "react";
 
 import Button from "@/app/daisyui/button";
 import { CheckoutUrlParams } from "../types";
-import { Link } from "../../(components)/link";
+import { Link } from "../../../(components)/link";
 import { NextPage } from "next";
+import { OrderSummary } from "../../../(components)/OrderSummary";
 
 const MemberCheckout: FC<CheckoutUrlParams> = ({ locale }) => {
   return (
@@ -29,7 +30,7 @@ const GuestCheckout: FC<CheckoutUrlParams> = ({ locale }) => {
         className="w-full font-semibold uppercase text-center px-5 py-5 rounded-3xl"
         variant="secondary"
       >
-        <Link href="/checkout/shipping" locale={locale}>
+        <Link href="/checkout/delivery" locale={locale}>
           Guest Checkout
         </Link>
       </Button>
@@ -42,19 +43,24 @@ const CheckoutLandingPage: NextPage<{ params: CheckoutUrlParams }> = ({
 }: {
   params: CheckoutUrlParams;
 }) => (
-  <section className="w-full max-w-screen-lg flex flex-col items-center ">
-    <header className="flex flex-col items-start mt-24 pt-7 px-5">
-      <h1 className="self-center text-center font-normal text-2xl sm:text-3xl">
-        How would you like to check out?
-      </h1>
-    </header>
-    <section className="grid grid-cols-1 sm:grid-cols-9 items-center mt-20">
-      <MemberCheckout {...params} />
-      <div className="h-full hidden sm:flex col-span-1 justify-center">
-        <div className="bg-accent w-px h-full"></div>{" "}
-      </div>
-      <GuestCheckout {...params} />
-    </section>
+  <section className="w-full max-w-screen-lg grid grid-cols-2 space-x-10 items-center ">
+    <div className="col-span-2 md:col-span-1">
+      <header className="flex flex-col items-start mt-24 pt-7 px-5">
+        <h1 className="self-center text-center font-normal text-2xl sm:text-3xl">
+          How would you like to check out?
+        </h1>
+      </header>
+      <section className="grid grid-cols-1 sm:grid-cols-9 items-center mt-20">
+        <MemberCheckout {...params} />
+        <div className="h-full hidden sm:flex col-span-1 justify-center">
+          <div className="bg-accent w-px h-full"></div>{" "}
+        </div>
+        <GuestCheckout {...params} />
+      </section>
+    </div>
+    <div className="col-span-2 md:col-span-1">
+      <OrderSummary locale={params.locale} />
+    </div>
   </section>
 );
 

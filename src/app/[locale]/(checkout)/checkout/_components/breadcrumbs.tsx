@@ -18,7 +18,7 @@ export const CheckoutBreadcrumbs: FC = () => {
   };
 
   return (
-    <section className="justify-between items-start w-full max-w-md ml-0 self-center flex flex-row gap-5 flex-wrap pl-px py-1.5 max-md:justify-center mt-4 lg:mt-10">
+    <section className="justify-between items-start w-full max-w-md ml-0 self-center flex flex-row gap-5 flex-wrap pl-px py-1.5 max-md:justify-center mt-4 lg:my-10">
       <Link
         href={`/${locale}/checkout/delivery`}
         className={linkStyles("/checkout/delivery")}

@@ -1,0 +1,19 @@
+fragment OrderSummary on Checkout {
+  id
+  subtotalPrice {
+    ...NetPrice
+  }
+  shippingPrice {
+    ...NetPrice
+  }
+  voucherCode
+  totalPrice {
+    ...NetPrice
+  }
+  discountName
+  translatedDiscountName
+  discount {
+    currency
+    amount
+  }
+}

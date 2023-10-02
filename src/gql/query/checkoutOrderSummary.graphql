@@ -1,0 +1,5 @@
+query CheckoutOrderSummary($checkoutID: ID!) {
+  checkout(id: $checkoutID) {
+    ...OrderSummary
+  }
+}

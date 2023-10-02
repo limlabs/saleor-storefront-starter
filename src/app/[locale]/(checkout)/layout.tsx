@@ -23,7 +23,7 @@ export default async function CheckoutLayout({
 
   return (
     <OrderSummaryProvider initialOrderSummary={response.checkout}>
-      {children}
+      <div className="px-4 xl:px-0">{children}</div>
     </OrderSummaryProvider>
   );
 }

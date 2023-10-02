@@ -35,11 +35,11 @@ export default withTranslations<CartPageProps>(async function CartPage({
   return (
     <main className="container mx-auto my-auto pb-10 px-8 md:pl-4 md:pb-4">
       <CartHeadline />
-      <div className="flex flex-col justify-between md:flex-row md:items-start">
-        <div className="w-full md:max-w-3/4">
+      <div className="grid grid-cols-2">
+        <div className="col-span-2 lg:col-span-1">
           <CartProductGrid checkout={checkout} />
         </div>
-        <div className="w-full md:max-w-1/4 justify-end">
+        <div className="col-span-2 lg:col-span-1">
           <OrderSummary
             locale={locale}
             actions={

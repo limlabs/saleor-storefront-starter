@@ -69,7 +69,7 @@ export default function CheckoutForm({
   };
 
   return (
-    <form className="grid grid-cols-2 px-4 xl:px-0">
+    <form className="grid grid-cols-2">
       <div className="col-span-2 md:col-span-1">
         <div className="stripe w-full px-4 sm:px-0">
           <h1 className="text-2xl font-bold mb-4">Payment Info</h1>

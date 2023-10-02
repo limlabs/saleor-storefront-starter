@@ -30417,7 +30417,7 @@ export type ICheckoutTotalQuery = {
 export type ICheckoutUpdateDeliveryInfoMutationVariables = Exact<{
   checkoutID: Scalars["ID"];
   firstName: Scalars["String"];
-  lastName: Scalars["String"];
+  lastName?: InputMaybe<Scalars["String"]>;
   streetAddress1: Scalars["String"];
   streetAddress2?: InputMaybe<Scalars["String"]>;
   city: Scalars["String"];
@@ -30675,6 +30675,7 @@ export type ICheckoutDeliveryInfoQuery = {
   __typename?: "Query";
   checkout?: {
     __typename?: "Checkout";
+    email?: string | null;
     isShippingRequired: boolean;
     shippingAddress?: {
       __typename?: "Address";
@@ -31518,7 +31519,7 @@ export const CheckoutTotalDocument = `
 }
     `;
 export const CheckoutUpdateDeliveryInfoDocument = `
-    mutation CheckoutUpdateDeliveryInfo($checkoutID: ID!, $firstName: String!, $lastName: String!, $streetAddress1: String!, $streetAddress2: String, $city: String!, $cityArea: String, $countryArea: String, $country: CountryCode, $postalCode: String!, $phone: String, $email: String!, $deliveryMethodId: ID!) {
+    mutation CheckoutUpdateDeliveryInfo($checkoutID: ID!, $firstName: String!, $lastName: String, $streetAddress1: String!, $streetAddress2: String, $city: String!, $cityArea: String, $countryArea: String, $country: CountryCode, $postalCode: String!, $phone: String, $email: String!, $deliveryMethodId: ID!) {
   checkoutEmailUpdate(checkoutId: $checkoutID, email: $email) {
     checkout {
       id
@@ -31702,6 +31703,7 @@ ${FragProductVariantFragmentDoc}`;
 export const CheckoutDeliveryInfoDocument = `
     query CheckoutDeliveryInfo($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
   checkout(id: $checkoutID) {
+    email
     shippingAddress {
       firstName
       lastName

@@ -2,9 +2,24 @@ import { cache } from "react";
 import { ILanguageCodeEnum } from "@/gql/sdk";
 import { Locale, localeConfig } from "@/locale-config";
 import { Context } from "vm";
+import { cookies } from "next/headers";
 
-export const getLanguageCode = (locale: Locale) => {
-  return locale.toUpperCase().replace("-", "_") as ILanguageCodeEnum;
+export const getLanguageCode = (locale?: Locale) => {
+  let parsedLocale = locale;
+
+  if (!parsedLocale) {
+    const rawLocale = cookies().get("STOREFRONT_LOCALE");
+    if (
+      typeof rawLocale?.value === "string" &&
+      localeConfig.locales[rawLocale.value as Locale]
+    ) {
+      parsedLocale = rawLocale.value as Locale;
+    } else {
+      parsedLocale = localeConfig.defaultLocale;
+    }
+  }
+
+  return parsedLocale.toUpperCase().replace("-", "_") as ILanguageCodeEnum;
 };
 
 /**

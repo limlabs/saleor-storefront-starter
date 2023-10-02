@@ -4,7 +4,6 @@ import { stripeAppId } from "@/core/constants";
 import { gqlClient } from "@/gql";
 import { StripeComponent } from "../../_components/stripeComponent";
 import { AddressCardAddress } from "../../_components/addressCard";
-import { OrderSummary } from "@/app/[locale]/(components)/OrderSummary";
 
 export default async function CheckoutPaymentPage() {
   const checkoutID = getCheckoutID();

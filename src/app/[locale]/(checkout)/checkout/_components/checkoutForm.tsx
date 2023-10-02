@@ -1,7 +1,7 @@
 // Copied from https://stripe.com/docs/payments/quickstart
 /* eslint-disable */
 // @ts-nocheck
-import { use, useState } from "react";
+import { useState } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -82,49 +82,63 @@ export default function CheckoutForm({
               options={paymentElementOptions}
             />
 
-            <fieldset className="form-control">
-              <h2 className="w-full text-left text-xl lg:text-2xl font-bold mb-6">
+            <fieldset className="form-control flex flex-col gap-4">
+              <h2 className="w-full text-left text-xl lg:text-2xl font-bold">
                 Billing Address
               </h2>
-              <label
-                className="label pl-0 cursor-pointer"
-                htmlFor="useShippingAddress_true"
-              >
-                <span className="label-text text-lg">
-                  Same as Shipping Address
-                </span>
-                <input
-                  type="checkbox"
-                  className={clsx(
-                    "checkbox",
-                    useShippingAddress && "checkbox-primary"
-                  )}
-                  name="useShippingAddress"
-                  id="useShippingAddress_true"
-                  checked={useShippingAddress && "checked"}
-                  onChange={() => handleUseShippingAddressChange(true)}
-                />
-              </label>
-              {useShippingAddress && <AddressCard address={shippingAddress} />}
-              <label
-                className="label pl-0 cursor-pointer"
-                htmlFor="useShippingAddress_false"
-              >
-                <span className="label-text text-lg">New Address</span>
-                <input
-                  type="checkbox"
-                  checked={!useShippingAddress && "checked"}
-                  className={clsx(
-                    "checkbox",
-                    !useShippingAddress && "checkbox-primary"
-                  )}
-                  id="useShippingAddress_false"
-                  onChange={() => handleUseShippingAddressChange(false)}
-                />
-              </label>
+              <div className="cursor-pointer ring-1 ring-neutral ring-inset p-4 rounded-md">
+                <label
+                  className="label  cursor-pointer  justify-start gap-4"
+                  htmlFor="useShippingAddress_true"
+                >
+                  <input
+                    type="checkbox"
+                    className={clsx(
+                      "checkbox",
+                      useShippingAddress && "checkbox-secondary"
+                    )}
+                    name="useShippingAddress"
+                    id="useShippingAddress_true"
+                    checked={useShippingAddress && "checked"}
+                    onChange={() => handleUseShippingAddressChange(true)}
+                  />
+                  <span className="label-text text-lg">
+                    Same as Shipping Address
+                  </span>
+                </label>
+                {useShippingAddress && (
+                  <div className="ml-12">
+                    <AddressCard address={shippingAddress} />
+                  </div>
+                )}
+              </div>
+              <div className="cursor-pointer ring-1 ring-neutral ring-inset p-4 rounded-md">
+                <label
+                  className="label cursor-pointer  justify-start gap-4"
+                  htmlFor="useShippingAddress_false"
+                >
+                  <input
+                    type="checkbox"
+                    checked={!useShippingAddress && "checked"}
+                    className={clsx(
+                      "checkbox",
+                      !useShippingAddress && "checkbox-secondary"
+                    )}
+                    id="useShippingAddress_false"
+                    onChange={() => handleUseShippingAddressChange(false)}
+                  />
+                  <span className="label-text text-lg">New Address</span>
+                </label>
+                {!useShippingAddress && (
+                  <div className="mt-4">
+                    <AddressFormFields
+                      labels={{ firstName: "Cardholder Name" }}
+                      deliveryInfo={{}}
+                    />
+                  </div>
+                )}
+              </div>
             </fieldset>
-
-            {!useShippingAddress && <AddressFormFields />}
 
             {/* Show any error or success messages */}
             {message && <div className="payment-message">{message}</div>}
@@ -137,11 +151,12 @@ export default function CheckoutForm({
           actions={
             <Button
               variant="primary"
+              className="w-full"
               disabled={isLoading || !stripe || !elements}
               id="submit"
             >
               <span className="button-text">
-                {isLoading ? "Submitting Payment" : "Pay now"}
+                {isLoading ? "Submitting Payment" : "Place Order"}
               </span>
             </Button>
           }

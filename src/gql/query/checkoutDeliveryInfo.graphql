@@ -1,5 +1,6 @@
 query CheckoutDeliveryInfo($checkoutID: ID!, $languageCode: LanguageCodeEnum!) {
   checkout(id: $checkoutID) {
+    email
     shippingAddress {
       firstName
       lastName

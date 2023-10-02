@@ -19,8 +19,8 @@ export const OrderSummary = ({
   const { subtotal, shippingAmount, discountAmount, total } = useOrderSummary();
 
   return (
-    <div className="w-full flex flex-col items-end">
-      <div className="p-4 w-full lg:max-w-sm rounded-md bg-neutral h-auto inline-flex flex-wrap justify-center items-center mt-12 md:pt-2 md:pb-2 md:pr-2 md:pl-2 md:mt-0">
+    <div className="w-full flex flex-col items-center md:items-end sticky top-4">
+      <div className=" p-4 w-full lg:max-w-sm rounded-md bg-neutral inline-flex flex-wrap justify-center items-center mt-12 md:pt-2 md:pb-2 md:pr-2 md:pl-2 md:mt-0">
         <div className="text-center font-roboto md:p-4">
           <h2 className="text-lg text-left font-bold">Order Summary</h2>
           <div className="flex justify-between pt-4">

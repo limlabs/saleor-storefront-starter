@@ -2,7 +2,7 @@ import { FC } from "react";
 
 export interface AddressCardAddress {
   firstName: string;
-  lastName: string;
+  lastName?: string;
   streetAddress1: string;
   streetAddress2?: string | null;
   city: string;
@@ -18,7 +18,7 @@ interface AddressCardProps {
 
 const AddressCard: FC<AddressCardProps> = ({ address }) => {
   return (
-    <div className="py-6 max-w-sm">
+    <div className="py-6 max-w-sm text-neutral-content">
       <p className="mb-2">
         {address.firstName} {address.lastName}
       </p>

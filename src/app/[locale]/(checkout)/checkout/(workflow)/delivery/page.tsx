@@ -90,16 +90,16 @@ const CheckoutDeliveryPage = async ({
 
   return (
     <form
-      className="delivery-form grid grid-cols-2 gap-5 text-left w-full max-w-screen-xl mx-auto px-4 md:px-0 mt-3"
+      className="delivery-form grid grid-cols-2 gap-5 text-left w-full max-w-screen-xl mx-auto px-4 md:px-0 mt-3  sticky top-0"
       action={handleSubmit}
     >
       <div className="col-span-2 md:col-span-1 flex flex-col gap-10">
         <h1 className="w-full text-3xl">Delivery Info</h1>
-        <ContactFormFields />
-        <AddressFormFields title="Shipping Address" />
+        <ContactFormFields contactInfo={checkout} />
+        <AddressFormFields title="Shipping Address" deliveryInfo={checkout} />
         <ShippingMethods shippingMethods={checkout.shippingMethods} />
       </div>
-      <div className="col-span-2 md:col-span-1">
+      <div className="col-span-2 md:col-span-1 ">
         <OrderSummary
           includeShipping
           actions={<SubmitButton variant="primary">Payment Info</SubmitButton>}

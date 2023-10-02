@@ -1,7 +1,7 @@
 mutation CheckoutUpdateDeliveryInfo(
   $checkoutID: ID!
   $firstName: String!
-  $lastName: String!
+  $lastName: String
   $streetAddress1: String!
   $streetAddress2: String
   $city: String!

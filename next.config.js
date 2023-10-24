@@ -4,7 +4,7 @@ const nextConfig = {
     serverActions: true,
   },
   env: {
-    SALEOR_ENDPOINT: "https://liminal-labs.saleor.cloud/graphql/",
+    SALEOR_ENDPOINT: "https://liminal.saleor.cloud/graphql/",
     BASE_URL: "http://localhost:3000/",
   },
   async rewrites() {
@@ -50,13 +50,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "liminal-labs.saleor.cloud",
+        hostname: "liminal.saleor.cloud",
         port: "",
         pathname: "/media/**",
       },
       {
         protocol: "https",
-        hostname: "liminal-labs.saleor.cloud",
+        hostname: "liminal.saleor.cloud",
         port: "",
         pathname: "/thumbnail/**",
       },

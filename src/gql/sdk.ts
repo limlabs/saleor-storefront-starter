@@ -2184,6 +2184,7 @@ export type IAttributeSortingInput = {
   field: IAttributeSortField;
 };
 
+/** Represents attribute's original translatable fields and related translations. */
 export type IAttributeTranslatableContent = INode & {
   __typename?: "AttributeTranslatableContent";
   /**
@@ -2199,6 +2200,7 @@ export type IAttributeTranslatableContent = INode & {
   translation?: Maybe<IAttributeTranslation>;
 };
 
+/** Represents attribute's original translatable fields and related translations. */
 export type IAttributeTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -2223,6 +2225,7 @@ export type IAttributeTranslateErrorCode =
   | "NOT_FOUND"
   | "REQUIRED";
 
+/** Represents attribute translations. */
 export type IAttributeTranslation = INode & {
   __typename?: "AttributeTranslation";
   /** The ID of the attribute translation. */
@@ -2566,6 +2569,7 @@ export type IAttributeValueDeleted = IEvent & {
 export type IAttributeValueFilterInput = {
   ids?: InputMaybe<Array<Scalars["ID"]>>;
   search?: InputMaybe<Scalars["String"]>;
+  slugs?: InputMaybe<Array<Scalars["String"]>>;
 };
 
 export type IAttributeValueInput = {
@@ -2643,6 +2647,7 @@ export type IAttributeValueSelectableTypeInput = {
   value?: InputMaybe<Scalars["String"]>;
 };
 
+/** Represents attribute value's original translatable fields and related translations. */
 export type IAttributeValueTranslatableContent = INode & {
   __typename?: "AttributeValueTranslatableContent";
   /**
@@ -2672,6 +2677,7 @@ export type IAttributeValueTranslatableContent = INode & {
   translation?: Maybe<IAttributeValueTranslation>;
 };
 
+/** Represents attribute value's original translatable fields and related translations. */
 export type IAttributeValueTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -2696,6 +2702,7 @@ export type IAttributeValueTranslateErrorCode =
   | "NOT_FOUND"
   | "REQUIRED";
 
+/** Represents attribute value translations. */
 export type IAttributeValueTranslation = INode & {
   __typename?: "AttributeValueTranslation";
   /** The ID of the attribute value translation. */
@@ -2982,6 +2989,21 @@ export type ICatalogueInput = {
   variants?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
+export type ICataloguePredicateInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<ICataloguePredicateInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<ICataloguePredicateInput>>;
+  /** Defines the category conditions to be met. */
+  categoryPredicate?: InputMaybe<ICategoryWhereInput>;
+  /** Defines the collection conditions to be met. */
+  collectionPredicate?: InputMaybe<ICollectionWhereInput>;
+  /** Defines the product conditions to be met. */
+  productPredicate?: InputMaybe<IProductWhereInput>;
+  /** Defines the product variant conditions to be met. */
+  variantPredicate?: InputMaybe<IProductVariantWhereInput>;
+};
+
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
 export type ICategory = INode &
   IObjectWithMetadata & {
@@ -3055,6 +3077,12 @@ export type ICategory = INode &
     slug: Scalars["String"];
     /** Returns translated category fields for the given language code. */
     translation?: Maybe<ICategoryTranslation>;
+    /**
+     * The date and time when the category was last updated.
+     *
+     * Added in Saleor 3.17.
+     */
+    updatedAt: Scalars["DateTime"];
   };
 
 /** Represents a single category of products. Categories allow to organize products in a tree-hierarchies which can be used for navigation in the storefront. */
@@ -3216,6 +3244,12 @@ export type ICategoryFilterInput = {
   metadata?: InputMaybe<Array<IMetadataFilter>>;
   search?: InputMaybe<Scalars["String"]>;
   slugs?: InputMaybe<Array<Scalars["String"]>>;
+  /**
+   * Filter by when was the most recent update.
+   *
+   * Added in Saleor 3.17.
+   */
+  updatedAt?: InputMaybe<IDateTimeRangeInput>;
 };
 
 export type ICategoryInput = {
@@ -3270,6 +3304,7 @@ export type ICategorySortingInput = {
   field: ICategorySortField;
 };
 
+/** Represents category original translatable fields and related translations. */
 export type ICategoryTranslatableContent = INode & {
   __typename?: "CategoryTranslatableContent";
   /**
@@ -3302,6 +3337,7 @@ export type ICategoryTranslatableContent = INode & {
   translation?: Maybe<ICategoryTranslation>;
 };
 
+/** Represents category original translatable fields and related translations. */
 export type ICategoryTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -3319,6 +3355,7 @@ export type ICategoryTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/** Represents category translations. */
 export type ICategoryTranslation = INode & {
   __typename?: "CategoryTranslation";
   /**
@@ -3478,6 +3515,16 @@ export type IChannel = INode &
      */
     orderSettings: IOrderSettings;
     /**
+     * Channel-specific payment settings.
+     *
+     * Added in Saleor 3.16.
+     *
+     * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+     *
+     * Requires one of the following permissions: MANAGE_CHANNELS, HANDLE_PAYMENTS.
+     */
+    paymentSettings: IPaymentSettings;
+    /**
      * List of private metadata items. Requires staff permissions to access.
      *
      * Added in Saleor 3.15.
@@ -3616,6 +3663,14 @@ export type IChannelCreateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<IOrderSettingsInput>;
+  /**
+   * The channel payment settings
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  paymentSettings?: InputMaybe<IPaymentSettingsInput>;
   /**
    * Channel private metadata.
    *
@@ -3801,7 +3856,9 @@ export type IChannelStatusChanged = IEvent & {
  * Update a channel.
  *
  * Requires one of the following permissions: MANAGE_CHANNELS.
- * Requires one of the following permissions when updating only `orderSettings` field: MANAGE_CHANNELS, MANAGE_ORDERS.Requires one of the following permissions when updating only `checkoutSettings` field: MANAGE_CHANNELS, MANAGE_CHECKOUTS.
+ * Requires one of the following permissions when updating only `orderSettings` field: `MANAGE_CHANNELS`, `MANAGE_ORDERS`.
+ * Requires one of the following permissions when updating only `checkoutSettings` field: `MANAGE_CHANNELS`, `MANAGE_CHECKOUTS`.
+ * Requires one of the following permissions when updating only `paymentSettings` field: `MANAGE_CHANNELS`, `HANDLE_PAYMENTS`.
  *
  * Triggers the following webhook events:
  * - CHANNEL_UPDATED (async): A channel was updated.
@@ -3854,6 +3911,14 @@ export type IChannelUpdateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<IOrderSettingsInput>;
+  /**
+   * The channel payment settings
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  paymentSettings?: InputMaybe<IPaymentSettingsInput>;
   /**
    * Channel private metadata.
    *
@@ -4118,7 +4183,7 @@ export type ICheckout = INode &
      * Added in Saleor 3.13.
      */
     updatedAt: Scalars["DateTime"];
-    /** The user assigned to the checkout. */
+    /** The user assigned to the checkout. Requires one of the following permissions: MANAGE_USERS, HANDLE_PAYMENTS, OWNER. */
     user?: Maybe<IUser>;
     /** The code of voucher assigned to the checkout. */
     voucherCode?: Maybe<Scalars["String"]>;
@@ -5514,6 +5579,7 @@ export type ICollectionSortingInput = {
   field: ICollectionSortField;
 };
 
+/** Represents collection's original translatable fields and related translations. */
 export type ICollectionTranslatableContent = INode & {
   __typename?: "CollectionTranslatableContent";
   /**
@@ -5546,6 +5612,7 @@ export type ICollectionTranslatableContent = INode & {
   translation?: Maybe<ICollectionTranslation>;
 };
 
+/** Represents collection's original translatable fields and related translations. */
 export type ICollectionTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -5563,6 +5630,7 @@ export type ICollectionTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/** Represents collection translations. */
 export type ICollectionTranslation = INode & {
   __typename?: "CollectionTranslation";
   /**
@@ -6311,6 +6379,22 @@ export type IDateRangeInput = {
   gte?: InputMaybe<Scalars["Date"]>;
   /** End date. */
   lte?: InputMaybe<Scalars["Date"]>;
+};
+
+/**
+ * Define the filtering options for date time fields.
+ *
+ * Added in Saleor 3.11.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IDateTimeFilterInput = {
+  /** The value equal to. */
+  eq?: InputMaybe<Scalars["DateTime"]>;
+  /** The value included in. */
+  oneOf?: InputMaybe<Array<Scalars["DateTime"]>>;
+  /** The value in range. */
+  range?: InputMaybe<IDateTimeRangeInput>;
 };
 
 export type IDateTimeRangeInput = {
@@ -7102,6 +7186,7 @@ export type IExportFileSortingInput = {
  *
  * Triggers the following webhook events:
  * - NOTIFY_USER (async): A notification for the exported file.
+ * - GIFT_CARD_EXPORT_COMPLETED (async): A notification for the exported file.
  */
 export type IExportGiftCards = {
   __typename?: "ExportGiftCards";
@@ -7139,6 +7224,7 @@ export type IExportInfoInput = {
  *
  * Triggers the following webhook events:
  * - NOTIFY_USER (async): A notification for the exported file.
+ * - PRODUCT_EXPORT_COMPLETED (async): A notification for the exported file.
  */
 export type IExportProducts = {
   __typename?: "ExportProducts";
@@ -7380,6 +7466,9 @@ export type IFulfillmentPrivateMetafieldsArgs = {
  * Added in Saleor 3.1.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_APPROVED (async): Fulfillment is approved.
  */
 export type IFulfillmentApprove = {
   __typename?: "FulfillmentApprove";
@@ -7405,6 +7494,12 @@ export type IFulfillmentApproved = IEvent & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /**
+   * If true, send a notification to the customer.
+   *
+   * Added in Saleor 3.16.
+   */
+  notifyCustomer: Scalars["Boolean"];
   /** The order the fulfillment belongs to. */
   order?: Maybe<IOrder>;
   /** The application receiving the webhook. */
@@ -7468,6 +7563,12 @@ export type IFulfillmentCreated = IEvent & {
   issuedAt?: Maybe<Scalars["DateTime"]>;
   /** The user or application that triggered the event. */
   issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /**
+   * If true, the app should send a notification to the customer.
+   *
+   * Added in Saleor 3.16.
+   */
+  notifyCustomer: Scalars["Boolean"];
   /** The order the fulfillment belongs to. */
   order?: Maybe<IOrder>;
   /** The application receiving the webhook. */
@@ -7552,9 +7653,33 @@ export type IFulfillmentStatus =
   | "WAITING_FOR_APPROVAL";
 
 /**
+ * Event sent when the tracking number is updated.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IFulfillmentTrackingNumberUpdated = IEvent & {
+  __typename?: "FulfillmentTrackingNumberUpdated";
+  /** The fulfillment the event relates to. */
+  fulfillment?: Maybe<IFulfillment>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The order the fulfillment belongs to. */
+  order?: Maybe<IOrder>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
  * Updates a fulfillment for an order.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Fulfillment tracking number is updated.
  */
 export type IFulfillmentUpdateTracking = {
   __typename?: "FulfillmentUpdateTracking";
@@ -7601,7 +7726,11 @@ export type IGiftCard = INode &
      * Added in Saleor 3.1.
      */
     boughtInChannel?: Maybe<Scalars["String"]>;
-    /** Gift card code. Can be fetched by a staff member with MANAGE_GIFT_CARD when gift card wasn't yet used and by the gift card owner. */
+    /**
+     * Gift card code. It can be fetched both by a staff member with 'MANAGE_GIFT_CARD' when gift card hasn't been used yet or a user who bought or issued the gift card.
+     *
+     * Requires one of the following permissions: MANAGE_GIFT_CARD, OWNER.
+     */
     code: Scalars["String"];
     created: Scalars["DateTime"];
     /**
@@ -8116,6 +8245,25 @@ export type IGiftCardEventsEnum =
   | "UPDATED"
   | "USED_IN_ORDER";
 
+/**
+ * Event sent when gift card export is completed.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IGiftCardExportCompleted = IEvent & {
+  __typename?: "GiftCardExportCompleted";
+  /** The export file for gift cards. */
+  export?: Maybe<IExportFile>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
 export type IGiftCardFilterInput = {
   code?: InputMaybe<Scalars["String"]>;
   createdByEmail?: InputMaybe<Scalars["String"]>;
@@ -8485,7 +8633,10 @@ export type IInvoice = IJob &
     __typename?: "Invoice";
     /** Date and time at which invoice was created. */
     createdAt: Scalars["DateTime"];
-    /** URL to view an invoice. */
+    /**
+     * URL to view an invoice.
+     * @deprecated This field will be removed in Saleor 4.0. Use `url` field.This field will be removed in 4.0
+     */
     externalUrl?: Maybe<Scalars["String"]>;
     /** The ID of the object. */
     id: Scalars["ID"];
@@ -8535,7 +8686,7 @@ export type IInvoice = IJob &
     status: IJobStatusEnum;
     /** Date and time at which invoice was updated. */
     updatedAt: Scalars["DateTime"];
-    /** URL to download an invoice. */
+    /** URL to view/download an invoice. This can be an internal URL if the Invoicing Plugin was used or an external URL if it has been provided. */
     url?: Maybe<Scalars["String"]>;
   };
 
@@ -10283,6 +10434,7 @@ export type IMenuItemSortingInput = {
   field: IMenuItemsSortField;
 };
 
+/** Represents menu item's original translatable fields and related translations. */
 export type IMenuItemTranslatableContent = INode & {
   __typename?: "MenuItemTranslatableContent";
   /** The ID of the menu item translatable content. */
@@ -10298,6 +10450,7 @@ export type IMenuItemTranslatableContent = INode & {
   translation?: Maybe<IMenuItemTranslation>;
 };
 
+/** Represents menu item's original translatable fields and related translations. */
 export type IMenuItemTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -10315,6 +10468,7 @@ export type IMenuItemTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/** Represents menu item translations. */
 export type IMenuItemTranslation = INode & {
   __typename?: "MenuItemTranslation";
   /** The ID of the menu item translation. */
@@ -10921,7 +11075,9 @@ export type IMutation = {
    * Update a channel.
    *
    * Requires one of the following permissions: MANAGE_CHANNELS.
-   * Requires one of the following permissions when updating only `orderSettings` field: MANAGE_CHANNELS, MANAGE_ORDERS.Requires one of the following permissions when updating only `checkoutSettings` field: MANAGE_CHANNELS, MANAGE_CHECKOUTS.
+   * Requires one of the following permissions when updating only `orderSettings` field: `MANAGE_CHANNELS`, `MANAGE_ORDERS`.
+   * Requires one of the following permissions when updating only `checkoutSettings` field: `MANAGE_CHANNELS`, `MANAGE_CHECKOUTS`.
+   * Requires one of the following permissions when updating only `paymentSettings` field: `MANAGE_CHANNELS`, `HANDLE_PAYMENTS`.
    *
    * Triggers the following webhook events:
    * - CHANNEL_UPDATED (async): A channel was updated.
@@ -11287,6 +11443,7 @@ export type IMutation = {
    *
    * Triggers the following webhook events:
    * - NOTIFY_USER (async): A notification for the exported file.
+   * - GIFT_CARD_EXPORT_COMPLETED (async): A notification for the exported file.
    */
   exportGiftCards?: Maybe<IExportGiftCards>;
   /**
@@ -11296,6 +11453,7 @@ export type IMutation = {
    *
    * Triggers the following webhook events:
    * - NOTIFY_USER (async): A notification for the exported file.
+   * - PRODUCT_EXPORT_COMPLETED (async): A notification for the exported file.
    */
   exportProducts?: Maybe<IExportProducts>;
   /** Prepare external authentication URL for user by custom plugin. */
@@ -11306,6 +11464,9 @@ export type IMutation = {
    * Trigger sending a notification with the notify plugin method. Serializes nodes provided as ids parameter and includes this data in the notification payload.
    *
    * Added in Saleor 3.1.
+   * @deprecated
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0.
    */
   externalNotificationTrigger?: Maybe<IExternalNotificationTrigger>;
   /** Obtain external access tokens for user by custom plugin. */
@@ -11657,6 +11818,12 @@ export type IMutation = {
    * Creates new fulfillments for an order.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_CREATED (async): A new fulfillment is created.
+   * - ORDER_FULFILLED (async): Order is fulfilled.
+   * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Sent when fulfillment tracking number is updated.
+   * - FULFILLMENT_APPROVED (async): A fulfillment is approved.
    */
   orderFulfill?: Maybe<IOrderFulfill>;
   /**
@@ -11665,6 +11832,9 @@ export type IMutation = {
    * Added in Saleor 3.1.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_APPROVED (async): Fulfillment is approved.
    */
   orderFulfillmentApprove?: Maybe<IFulfillmentApprove>;
   /**
@@ -11689,6 +11859,9 @@ export type IMutation = {
    * Updates a fulfillment for an order.
    *
    * Requires one of the following permissions: MANAGE_ORDERS.
+   *
+   * Triggers the following webhook events:
+   * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Fulfillment tracking number is updated.
    */
   orderFulfillmentUpdateTracking?: Maybe<IFulfillmentUpdateTracking>;
   /**
@@ -11906,8 +12079,47 @@ export type IMutation = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
   paymentGatewayInitialize?: Maybe<IPaymentGatewayInitialize>;
+  /**
+   * Initializes payment gateway for tokenizing payment method session.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to initialize payment gateway for tokenization.
+   */
+  paymentGatewayInitializeTokenization?: Maybe<IPaymentGatewayInitializeTokenization>;
   /** Initializes payment process when it is required by gateway. */
   paymentInitialize?: Maybe<IPaymentInitialize>;
+  /**
+   * Tokenize payment method.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to tokenize payment method.
+   */
+  paymentMethodInitializeTokenization?: Maybe<IPaymentMethodInitializeTokenization>;
+  /**
+   * Tokenize payment method.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION (sync): The customer continues payment method tokenization.
+   */
+  paymentMethodProcessTokenization?: Maybe<IPaymentMethodProcessTokenization>;
   /**
    * Refunds the captured payment amount.
    *
@@ -12210,6 +12422,116 @@ export type IMutation = {
    */
   productVariantUpdate?: Maybe<IProductVariantUpdate>;
   /**
+   * Deletes promotions.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_DELETED (async): A promotion was deleted.
+   */
+  promotionBulkDelete?: Maybe<IPromotionBulkDelete>;
+  /**
+   * Creates a new promotion.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_CREATED (async): A promotion was created.
+   * - PROMOTION_STARTED (async): Optionally called if promotion was started.
+   */
+  promotionCreate?: Maybe<IPromotionCreate>;
+  /**
+   * Deletes a promotion.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_DELETED (async): A promotion was deleted.
+   */
+  promotionDelete?: Maybe<IPromotionDelete>;
+  /**
+   * Creates a new promotion rule.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_RULE_CREATED (async): A promotion rule was created.
+   */
+  promotionRuleCreate?: Maybe<IPromotionRuleCreate>;
+  /**
+   * Deletes a promotion rule.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_RULE_DELETED (async): A promotion rule was deleted.
+   */
+  promotionRuleDelete?: Maybe<IPromotionRuleDelete>;
+  /**
+   * Creates/updates translations for a promotion rule.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+   */
+  promotionRuleTranslate?: Maybe<IPromotionRuleTranslate>;
+  /**
+   * Updates an existing promotion rule.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_RULE_UPDATED (async): A promotion rule was updated.
+   */
+  promotionRuleUpdate?: Maybe<IPromotionRuleUpdate>;
+  /**
+   * Creates/updates translations for a promotion.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+   */
+  promotionTranslate?: Maybe<IPromotionTranslate>;
+  /**
+   * Updates an existing promotion.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   *
+   * Triggers the following webhook events:
+   * - PROMOTION_UPDATED (async): A promotion was updated.
+   * - PROMOTION_STARTED (async): Optionally called if promotion was started.
+   * - PROMOTION_ENDED (async): Optionally called if promotion was ended.
+   */
+  promotionUpdate?: Maybe<IPromotionUpdate>;
+  /**
    * Request email change of the logged in user.
    *
    * Requires one of the following permissions: AUTHENTICATED_USER.
@@ -12238,7 +12560,9 @@ export type IMutation = {
    */
   saleBulkDelete?: Maybe<ISaleBulkDelete>;
   /**
-   * Adds products, categories, collections to a voucher.
+   * Adds products, categories, collections to a sale.
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleCreate` mutation instead.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
@@ -12249,6 +12573,8 @@ export type IMutation = {
   /**
    * Removes products, categories, collections from a sale.
    *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleUpdate` or `promotionRuleDelete` mutations instead.
+   *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
    * Triggers the following webhook events:
@@ -12258,11 +12584,15 @@ export type IMutation = {
   /**
    * Manage sale's availability in channels.
    *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleCreate` or `promotionRuleUpdate` mutations instead.
+   *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    */
   saleChannelListingUpdate?: Maybe<ISaleChannelListingUpdate>;
   /**
    * Creates a new sale.
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionCreate` mutation instead.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
@@ -12273,6 +12603,8 @@ export type IMutation = {
   /**
    * Deletes a sale.
    *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionDelete` mutation instead.
+   *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
    * Triggers the following webhook events:
@@ -12282,11 +12614,15 @@ export type IMutation = {
   /**
    * Creates/updates translations for a sale.
    *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `PromotionTranslate` mutation instead.
+   *
    * Requires one of the following permissions: MANAGE_TRANSLATIONS.
    */
   saleTranslate?: Maybe<ISaleTranslate>;
   /**
    * Updates a sale.
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionUpdate` mutation instead.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
    *
@@ -12392,7 +12728,12 @@ export type IMutation = {
   /**
    * Updates site domain of the shop.
    *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `PUBLIC_URL` environment variable instead.
+   *
    * Requires one of the following permissions: MANAGE_SETTINGS.
+   * @deprecated
+   *
+   * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `PUBLIC_URL` environment variable instead.
    */
   shopDomainUpdate?: Maybe<IShopDomainUpdate>;
   /**
@@ -12485,6 +12826,19 @@ export type IMutation = {
    * Requires one of the following permissions: MANAGE_PRODUCTS.
    */
   stockBulkUpdate?: Maybe<IStockBulkUpdate>;
+  /**
+   * Request to delete a stored payment method on payment provider side.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_USER.
+   *
+   * Triggers the following webhook events:
+   * - STORED_PAYMENT_METHOD_DELETE_REQUESTED (sync): The customer requested to delete a payment method.
+   */
+  storedPaymentMethodRequestDelete?: Maybe<IStoredPaymentMethodRequestDelete>;
   /**
    * Create a tax class.
    *
@@ -13687,10 +14041,29 @@ export type IMutationPaymentGatewayInitializeArgs = {
   paymentGateways?: InputMaybe<Array<IPaymentGatewayToInitialize>>;
 };
 
+export type IMutationPaymentGatewayInitializeTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
+};
+
 export type IMutationPaymentInitializeArgs = {
   channel?: InputMaybe<Scalars["String"]>;
   gateway: Scalars["String"];
   paymentData?: InputMaybe<Scalars["JSONString"]>;
+};
+
+export type IMutationPaymentMethodInitializeTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
+  paymentFlowToSupport: ITokenizedPaymentFlowEnum;
+};
+
+export type IMutationPaymentMethodProcessTokenizationArgs = {
+  channel: Scalars["String"];
+  data?: InputMaybe<Scalars["JSON"]>;
+  id: Scalars["String"];
 };
 
 export type IMutationPaymentRefundArgs = {
@@ -13915,6 +14288,48 @@ export type IMutationProductVariantUpdateArgs = {
   sku?: InputMaybe<Scalars["String"]>;
 };
 
+export type IMutationPromotionBulkDeleteArgs = {
+  ids: Array<Scalars["ID"]>;
+};
+
+export type IMutationPromotionCreateArgs = {
+  input: IPromotionCreateInput;
+};
+
+export type IMutationPromotionDeleteArgs = {
+  id: Scalars["ID"];
+};
+
+export type IMutationPromotionRuleCreateArgs = {
+  input: IPromotionRuleCreateInput;
+};
+
+export type IMutationPromotionRuleDeleteArgs = {
+  id: Scalars["ID"];
+};
+
+export type IMutationPromotionRuleTranslateArgs = {
+  id: Scalars["ID"];
+  input: IPromotionRuleTranslationInput;
+  languageCode: ILanguageCodeEnum;
+};
+
+export type IMutationPromotionRuleUpdateArgs = {
+  id: Scalars["ID"];
+  input: IPromotionRuleUpdateInput;
+};
+
+export type IMutationPromotionTranslateArgs = {
+  id: Scalars["ID"];
+  input: IPromotionTranslationInput;
+  languageCode: ILanguageCodeEnum;
+};
+
+export type IMutationPromotionUpdateArgs = {
+  id: Scalars["ID"];
+  input: IPromotionUpdateInput;
+};
+
 export type IMutationRequestEmailChangeArgs = {
   channel?: InputMaybe<Scalars["String"]>;
   newEmail: Scalars["String"];
@@ -14084,6 +14499,11 @@ export type IMutationStockBulkUpdateArgs = {
   stocks: Array<IStockBulkUpdateInput>;
 };
 
+export type IMutationStoredPaymentMethodRequestDeleteArgs = {
+  channel: Scalars["String"];
+  id: Scalars["ID"];
+};
+
 export type IMutationTaxClassCreateArgs = {
   input: ITaxClassCreateInput;
 };
@@ -14151,11 +14571,13 @@ export type IMutationTransactionEventReportArgs = {
 export type IMutationTransactionInitializeArgs = {
   action?: InputMaybe<ITransactionFlowStrategyEnum>;
   amount?: InputMaybe<Scalars["PositiveDecimal"]>;
+  customerIpAddress?: InputMaybe<Scalars["String"]>;
   id: Scalars["ID"];
   paymentGateway: IPaymentGatewayToInitialize;
 };
 
 export type IMutationTransactionProcessArgs = {
+  customerIpAddress?: InputMaybe<Scalars["String"]>;
   data?: InputMaybe<Scalars["JSON"]>;
   id: Scalars["ID"];
 };
@@ -14193,7 +14615,8 @@ export type IMutationUpdatePrivateMetadataArgs = {
 };
 
 export type IMutationUpdateWarehouseArgs = {
-  id: Scalars["ID"];
+  externalReference?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
   input: IWarehouseUpdateInput;
 };
 
@@ -14645,7 +15068,7 @@ export type IOrder = INode &
     /** Undiscounted total amount of the order. */
     undiscountedTotal: ITaxedMoney;
     updatedAt: Scalars["DateTime"];
-    /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER. */
+    /** User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, HANDLE_PAYMENTS, OWNER. */
     user?: Maybe<IUser>;
     /** Email address of the customer. The full data can be access for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_ORDERS, OWNER. */
     userEmail?: Maybe<Scalars["String"]>;
@@ -15265,7 +15688,7 @@ export type IOrderDiscountDelete = {
 };
 
 /** An enumeration. */
-export type IOrderDiscountType = "MANUAL" | "SALE" | "VOUCHER";
+export type IOrderDiscountType = "MANUAL" | "PROMOTION" | "SALE" | "VOUCHER";
 
 /**
  * Update discount for the order.
@@ -15325,6 +15748,7 @@ export type IOrderErrorCode =
   | "INSUFFICIENT_STOCK"
   | "INVALID"
   | "INVALID_QUANTITY"
+  | "INVALID_VOUCHER"
   | "NOT_AVAILABLE_IN_CHANNEL"
   | "NOT_EDITABLE"
   | "NOT_FOUND"
@@ -15583,6 +16007,12 @@ export type IOrderFilterShippingMethods = IEvent & {
  * Creates new fulfillments for an order.
  *
  * Requires one of the following permissions: MANAGE_ORDERS.
+ *
+ * Triggers the following webhook events:
+ * - FULFILLMENT_CREATED (async): A new fulfillment is created.
+ * - ORDER_FULFILLED (async): Order is fulfilled.
+ * - FULFILLMENT_TRACKING_NUMBER_UPDATED (async): Sent when fulfillment tracking number is updated.
+ * - FULFILLMENT_APPROVED (async): A fulfillment is approved.
  */
 export type IOrderFulfill = {
   __typename?: "OrderFulfill";
@@ -16010,6 +16440,12 @@ export type IOrderLine = INode &
      */
     quantityToFulfill: Scalars["Int"];
     /**
+     * Denormalized sale ID, set when order line is created for a product variant that is on sale.
+     *
+     * Added in Saleor 3.14.
+     */
+    saleId?: Maybe<Scalars["ID"]>;
+    /**
      * Denormalized tax class of the product in this order line.
      *
      * Added in Saleor 3.9.
@@ -16043,6 +16479,8 @@ export type IOrderLine = INode &
     translatedProductName: Scalars["String"];
     /** Variant name in the customer's language */
     translatedVariantName: Scalars["String"];
+    /** Price of the order line without discounts. */
+    undiscountedTotalPrice: ITaxedMoney;
     /** Price of the single item in the order line without applied an order line discount. */
     undiscountedUnitPrice: ITaxedMoney;
     /** The discount applied to the single order line. */
@@ -16057,6 +16495,12 @@ export type IOrderLine = INode &
     /** A purchased product variant. Note: this field may be null if the variant has been removed from stock at all. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
     variant?: Maybe<IProductVariant>;
     variantName: Scalars["String"];
+    /**
+     * Voucher code that was used for this order line.
+     *
+     * Added in Saleor 3.14.
+     */
+    voucherCode?: Maybe<Scalars["String"]>;
   };
 
 /** Represents order line of particular order. */
@@ -16430,7 +16874,7 @@ export type IOrderSettings = {
    *
    * Added in Saleor 3.13.
    *
-   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.This preview feature field will be removed in Saleor 3.17. Use `PaymentSettings.defaultTransactionFlowStrategy` instead.
    */
   defaultTransactionFlowStrategy: ITransactionFlowStrategyEnum;
   /**
@@ -16476,7 +16920,7 @@ export type IOrderSettingsErrorCode = "INVALID";
 
 export type IOrderSettingsInput = {
   /**
-   * Determine if it is possible to place unpdaid order by calling `checkoutComplete` mutation.
+   * Determine if it is possible to place unpaid order by calling `checkoutComplete` mutation.
    *
    * Added in Saleor 3.15.
    *
@@ -16493,6 +16937,8 @@ export type IOrderSettingsInput = {
    * Added in Saleor 3.13.
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * DEPRECATED: this preview feature field will be removed in Saleor 3.17. Use `PaymentSettingsInput.defaultTransactionFlowStrategy` instead.
    */
   defaultTransactionFlowStrategy?: InputMaybe<ITransactionFlowStrategyEnum>;
   /**
@@ -17081,6 +17527,7 @@ export type IPageSortingInput = {
   field: IPageSortField;
 };
 
+/** Represents page's original translatable fields and related translations. */
 export type IPageTranslatableContent = INode & {
   __typename?: "PageTranslatableContent";
   /** List of page content attribute values that can be translated. */
@@ -17115,6 +17562,7 @@ export type IPageTranslatableContent = INode & {
   translation?: Maybe<IPageTranslation>;
 };
 
+/** Represents page's original translatable fields and related translations. */
 export type IPageTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -17132,6 +17580,7 @@ export type IPageTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/** Represents page translations. */
 export type IPageTranslation = INode & {
   __typename?: "PageTranslation";
   /**
@@ -17548,6 +17997,12 @@ export type IPayment = INode &
     modified: Scalars["DateTime"];
     /** Order associated with a payment. */
     order?: Maybe<IOrder>;
+    /**
+     * Informs whether this is a partial payment.
+     *
+     * Added in Saleor 3.14.
+     */
+    partial: Scalars["Boolean"];
     /** Type of method used for payment. */
     paymentMethodType: Scalars["String"];
     /** List of private metadata items. Requires staff permissions to access. */
@@ -17566,6 +18021,12 @@ export type IPayment = INode &
      * Added in Saleor 3.3.
      */
     privateMetafields?: Maybe<Scalars["Metadata"]>;
+    /**
+     * PSP reference of the payment.
+     *
+     * Added in Saleor 3.14.
+     */
+    pspReference?: Maybe<Scalars["String"]>;
     /** Unique token associated with a payment. */
     token: Scalars["String"];
     /** Total amount of the payment. */
@@ -17839,7 +18300,7 @@ export type IPaymentGatewayInitializeSession = IEvent & {
   __typename?: "PaymentGatewayInitializeSession";
   /** Amount requested for initializing the payment gateway. */
   amount?: Maybe<Scalars["PositiveDecimal"]>;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -17849,6 +18310,84 @@ export type IPaymentGatewayInitializeSession = IEvent & {
   recipient?: Maybe<IApp>;
   /** Checkout or order */
   sourceObject: IOrderOrCheckout;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Initializes payment gateway for tokenizing payment method session.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to initialize payment gateway for tokenization.
+ */
+export type IPaymentGatewayInitializeTokenization = {
+  __typename?: "PaymentGatewayInitializeTokenization";
+  /** A data returned by payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentGatewayInitializeTokenizationError>;
+  /** A status of the payment gateway initialization. */
+  result: IPaymentGatewayInitializeTokenizationResult;
+};
+
+export type IPaymentGatewayInitializeTokenizationError = {
+  __typename?: "PaymentGatewayInitializeTokenizationError";
+  /** The error code. */
+  code: IPaymentGatewayInitializeTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentGatewayInitializeTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Result of initialize payment gateway for tokenization of payment method.
+ *
+ *     The result of initialize payment gateway for tokenization of payment method.
+ *     SUCCESSFULLY_INITIALIZED - The payment gateway was successfully initialized.
+ *     FAILED_TO_INITIALIZE - The payment gateway was not initialized.
+ *     FAILED_TO_DELIVER - The request to initialize payment gateway was not delivered.
+ *
+ */
+export type IPaymentGatewayInitializeTokenizationResult =
+  | "FAILED_TO_DELIVER"
+  | "FAILED_TO_INITIALIZE"
+  | "SUCCESSFULLY_INITIALIZED";
+
+/**
+ * Event sent to initialize a new session in payment gateway to store the payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentGatewayInitializeTokenizationSession = IEvent & {
+  __typename?: "PaymentGatewayInitializeTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
 };
@@ -17924,6 +18463,170 @@ export type IPaymentListGateways = IEvent & {
 };
 
 /**
+ * Tokenize payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION (sync): The customer requested to tokenize payment method.
+ */
+export type IPaymentMethodInitializeTokenization = {
+  __typename?: "PaymentMethodInitializeTokenization";
+  /** A data returned by the payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentMethodInitializeTokenizationError>;
+  /** The identifier of the payment method. */
+  id?: Maybe<Scalars["String"]>;
+  /** A status of the payment method tokenization. */
+  result: IPaymentMethodTokenizationResult;
+};
+
+export type IPaymentMethodInitializeTokenizationError = {
+  __typename?: "PaymentMethodInitializeTokenizationError";
+  /** The error code. */
+  code: IPaymentMethodInitializeTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentMethodInitializeTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Event sent when user requests a tokenization of payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentMethodInitializeTokenizationSession = IEvent & {
+  __typename?: "PaymentMethodInitializeTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The payment flow that the tokenized payment method should support. */
+  paymentFlowToSupport: ITokenizedPaymentFlowEnum;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Tokenize payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION (sync): The customer continues payment method tokenization.
+ */
+export type IPaymentMethodProcessTokenization = {
+  __typename?: "PaymentMethodProcessTokenization";
+  /** A data returned by the payment app. */
+  data?: Maybe<Scalars["JSON"]>;
+  errors: Array<IPaymentMethodProcessTokenizationError>;
+  /** The identifier of the payment method. */
+  id?: Maybe<Scalars["String"]>;
+  /** A status of the payment method tokenization. */
+  result: IPaymentMethodTokenizationResult;
+};
+
+export type IPaymentMethodProcessTokenizationError = {
+  __typename?: "PaymentMethodProcessTokenizationError";
+  /** The error code. */
+  code: IPaymentMethodProcessTokenizationErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPaymentMethodProcessTokenizationErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Event sent when user continues a tokenization of payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPaymentMethodProcessTokenizationSession = IEvent & {
+  __typename?: "PaymentMethodProcessTokenizationSession";
+  /** Channel related to the requested action. */
+  channel: IChannel;
+  /** Payment gateway data in JSON format, received from storefront. */
+  data?: Maybe<Scalars["JSON"]>;
+  /** The ID returned by app from `PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION` webhook. */
+  id: Scalars["String"];
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user related to the requested action. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+export type IPaymentMethodRequestDeleteError = {
+  __typename?: "PaymentMethodRequestDeleteError";
+  /** The error code. */
+  code: IStoredPaymentMethodRequestDeleteErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Result of tokenization of payment method.
+ *
+ *     SUCCESSFULLY_TOKENIZED - The payment method was successfully tokenized.
+ *     ADDITIONAL_ACTION_REQUIRED - The additional action is required to tokenize payment
+ *     method.
+ *     PENDING - The payment method is pending tokenization.
+ *     FAILED_TO_TOKENIZE - The payment method was not tokenized.
+ *     FAILED_TO_DELIVER - The request to tokenize payment method was not delivered.
+ *
+ */
+export type IPaymentMethodTokenizationResult =
+  | "ADDITIONAL_ACTION_REQUIRED"
+  | "FAILED_TO_DELIVER"
+  | "FAILED_TO_TOKENIZE"
+  | "PENDING"
+  | "SUCCESSFULLY_TOKENIZED";
+
+/**
  * Process payment.
  *
  * Added in Saleor 3.6.
@@ -17973,6 +18676,30 @@ export type IPaymentRefundEvent = IEvent & {
   recipient?: Maybe<IApp>;
   /** Saleor version that triggered the event. */
   version?: Maybe<Scalars["String"]>;
+};
+
+/** Represents the channel-specific payment settings. */
+export type IPaymentSettings = {
+  __typename?: "PaymentSettings";
+  /**
+   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  defaultTransactionFlowStrategy: ITransactionFlowStrategyEnum;
+};
+
+export type IPaymentSettingsInput = {
+  /**
+   * Determine the transaction flow strategy to be used. Include the selected option in the payload sent to the payment app, as a requested action for the transaction.
+   *
+   * Added in Saleor 3.16.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  defaultTransactionFlowStrategy?: InputMaybe<ITransactionFlowStrategyEnum>;
 };
 
 /** Represents a payment source stored for user in payment gateway, such as credit card. */
@@ -19243,6 +19970,25 @@ export type IProductErrorCode =
   | "UNSUPPORTED_MEDIA_PROVIDER"
   | "VARIANT_NO_DIGITAL_CONTENT";
 
+/**
+ * Event sent when product export is completed.
+ *
+ * Added in Saleor 3.16.
+ */
+export type IProductExportCompleted = IEvent & {
+  __typename?: "ProductExportCompleted";
+  /** The export file for products. */
+  export?: Maybe<IExportFile>;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
 export type IProductFieldEnum =
   | "CATEGORY"
   | "CHARGE_TAXES"
@@ -19777,6 +20523,7 @@ export type IProductStockFilterInput = {
   warehouseIds?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
+/** Represents product's original translatable fields and related translations. */
 export type IProductTranslatableContent = INode & {
   __typename?: "ProductTranslatableContent";
   /** List of product attribute values that can be translated. */
@@ -19811,6 +20558,7 @@ export type IProductTranslatableContent = INode & {
   translation?: Maybe<IProductTranslation>;
 };
 
+/** Represents product's original translatable fields and related translations. */
 export type IProductTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -19835,6 +20583,7 @@ export type IProductTranslateErrorCode =
   | "NOT_FOUND"
   | "REQUIRED";
 
+/** Represents product translations. */
 export type IProductTranslation = INode & {
   __typename?: "ProductTranslation";
   /**
@@ -21132,6 +21881,7 @@ export type IProductVariantStocksUpdateInput = {
   update?: InputMaybe<Array<IStockUpdateInput>>;
 };
 
+/** Represents product variant's original translatable fields and related translations. */
 export type IProductVariantTranslatableContent = INode & {
   __typename?: "ProductVariantTranslatableContent";
   /** List of product variant attribute values that can be translated. */
@@ -21149,6 +21899,7 @@ export type IProductVariantTranslatableContent = INode & {
   translation?: Maybe<IProductVariantTranslation>;
 };
 
+/** Represents product variant's original translatable fields and related translations. */
 export type IProductVariantTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -21173,6 +21924,7 @@ export type IProductVariantTranslateErrorCode =
   | "NOT_FOUND"
   | "REQUIRED";
 
+/** Represents product variant translations. */
 export type IProductVariantTranslation = INode & {
   __typename?: "ProductVariantTranslation";
   /** The ID of the product variant translation. */
@@ -21277,7 +22029,1057 @@ export type IProductWhereInput = {
   /** Filter by stock of the product variant. */
   stocks?: InputMaybe<IProductStockFilterInput>;
   /** Filter by when was the most recent update. */
-  updatedAt?: InputMaybe<IDateTimeRangeInput>;
+  updatedAt?: InputMaybe<IDateTimeFilterInput>;
+};
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotion = INode &
+  IObjectWithMetadata & {
+    __typename?: "Promotion";
+    /** Date time of promotion creation. */
+    createdAt: Scalars["DateTime"];
+    /** Description of the promotion. */
+    description?: Maybe<Scalars["JSON"]>;
+    /** End date of the promotion. */
+    endDate?: Maybe<Scalars["DateTime"]>;
+    /** The list of events associated with the promotion. */
+    events?: Maybe<Array<IPromotionEvent>>;
+    id: Scalars["ID"];
+    /** List of public metadata items. Can be accessed without permissions. */
+    metadata: Array<IMetadataItem>;
+    /**
+     * A single key from public metadata.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     */
+    metafield?: Maybe<Scalars["String"]>;
+    /**
+     * Public metadata. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     */
+    metafields?: Maybe<Scalars["Metadata"]>;
+    /** Name of the promotion. */
+    name: Scalars["String"];
+    /** List of private metadata items. Requires staff permissions to access. */
+    privateMetadata: Array<IMetadataItem>;
+    /**
+     * A single key from private metadata. Requires staff permissions to access.
+     *
+     * Tip: Use GraphQL aliases to fetch multiple keys.
+     *
+     * Added in Saleor 3.3.
+     */
+    privateMetafield?: Maybe<Scalars["String"]>;
+    /**
+     * Private metadata. Requires staff permissions to access. Use `keys` to control which fields you want to include. The default is to include everything.
+     *
+     * Added in Saleor 3.3.
+     */
+    privateMetafields?: Maybe<Scalars["Metadata"]>;
+    /** The list of promotion rules. */
+    rules?: Maybe<Array<IPromotionRule>>;
+    /** Start date of the promotion. */
+    startDate: Scalars["DateTime"];
+    /** Returns translated promotion fields for the given language code. */
+    translation?: Maybe<IPromotionTranslation>;
+    /** Date time of last update of promotion. */
+    updatedAt: Scalars["DateTime"];
+  };
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionMetafieldArgs = {
+  key: Scalars["String"];
+};
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionMetafieldsArgs = {
+  keys?: InputMaybe<Array<Scalars["String"]>>;
+};
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionPrivateMetafieldArgs = {
+  key: Scalars["String"];
+};
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionPrivateMetafieldsArgs = {
+  keys?: InputMaybe<Array<Scalars["String"]>>;
+};
+
+/**
+ * Represents the promotion that allow creating discounts based on given conditions, and is visible to all the customers.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionTranslationArgs = {
+  languageCode: ILanguageCodeEnum;
+};
+
+/**
+ * Deletes promotions.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_DELETED (async): A promotion was deleted.
+ */
+export type IPromotionBulkDelete = {
+  __typename?: "PromotionBulkDelete";
+  /** Returns how many objects were affected. */
+  count: Scalars["Int"];
+  errors: Array<IDiscountError>;
+};
+
+export type IPromotionCountableConnection = {
+  __typename?: "PromotionCountableConnection";
+  edges: Array<IPromotionCountableEdge>;
+  /** Pagination data for this connection. */
+  pageInfo: IPageInfo;
+  /** A total count of items in the collection. */
+  totalCount?: Maybe<Scalars["Int"]>;
+};
+
+export type IPromotionCountableEdge = {
+  __typename?: "PromotionCountableEdge";
+  /** A cursor for use in pagination. */
+  cursor: Scalars["String"];
+  /** The item at the end of the edge. */
+  node: IPromotion;
+};
+
+/**
+ * Creates a new promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_CREATED (async): A promotion was created.
+ * - PROMOTION_STARTED (async): Optionally called if promotion was started.
+ */
+export type IPromotionCreate = {
+  __typename?: "PromotionCreate";
+  errors: Array<IPromotionCreateError>;
+  promotion?: Maybe<IPromotion>;
+};
+
+export type IPromotionCreateError = {
+  __typename?: "PromotionCreateError";
+  /** The error code. */
+  code: IPromotionCreateErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** Index of an input list item that caused the error. */
+  index?: Maybe<Scalars["Int"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionCreateErrorCode =
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "INVALID_PRECISION"
+  | "MULTIPLE_CURRENCIES_NOT_ALLOWED"
+  | "NOT_FOUND"
+  | "REQUIRED";
+
+export type IPromotionCreateInput = {
+  /** Promotion description. */
+  description?: InputMaybe<Scalars["JSON"]>;
+  /** The end date of the promotion in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars["DateTime"]>;
+  /** Promotion name. */
+  name: Scalars["String"];
+  /** List of promotion rules. */
+  rules?: InputMaybe<Array<IPromotionRuleInput>>;
+  /** The start date of the promotion in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars["DateTime"]>;
+};
+
+/**
+ * Event sent when new promotion is created.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionCreated = IEvent & {
+  __typename?: "PromotionCreated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion the event relates to. */
+  promotion?: Maybe<IPromotion>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion created event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionCreatedEvent = INode &
+  IPromotionEventInterface & {
+    __typename?: "PromotionCreatedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+/**
+ * Deletes a promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_DELETED (async): A promotion was deleted.
+ */
+export type IPromotionDelete = {
+  __typename?: "PromotionDelete";
+  errors: Array<IPromotionDeleteError>;
+  promotion?: Maybe<IPromotion>;
+};
+
+export type IPromotionDeleteError = {
+  __typename?: "PromotionDeleteError";
+  /** The error code. */
+  code: IPromotionDeleteErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionDeleteErrorCode = "GRAPHQL_ERROR" | "NOT_FOUND";
+
+/**
+ * Event sent when promotion is deleted.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionDeleted = IEvent & {
+  __typename?: "PromotionDeleted";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion the event relates to. */
+  promotion?: Maybe<IPromotion>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * The event informs about the end of the promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionEnded = IEvent & {
+  __typename?: "PromotionEnded";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion the event relates to. */
+  promotion?: Maybe<IPromotion>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion ended event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionEndedEvent = INode &
+  IPromotionEventInterface & {
+    __typename?: "PromotionEndedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+export type IPromotionEvent =
+  | IPromotionCreatedEvent
+  | IPromotionEndedEvent
+  | IPromotionRuleCreatedEvent
+  | IPromotionRuleDeletedEvent
+  | IPromotionRuleUpdatedEvent
+  | IPromotionStartedEvent
+  | IPromotionUpdatedEvent;
+
+export type IPromotionEventInterface = {
+  /**
+   * User or App that created the promotion event.
+   *
+   * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+   */
+  createdBy?: Maybe<IUserOrApp>;
+  /** Date when event happened. */
+  date: Scalars["DateTime"];
+  id: Scalars["ID"];
+  /** Promotion event type. */
+  type: IPromotionEventsEnum;
+};
+
+/** An enumeration. */
+export type IPromotionEventsEnum =
+  | "PROMOTION_CREATED"
+  | "PROMOTION_ENDED"
+  | "PROMOTION_STARTED"
+  | "PROMOTION_UPDATED"
+  | "RULE_CREATED"
+  | "RULE_DELETED"
+  | "RULE_UPDATED";
+
+/**
+ * Represents the promotion rule that specifies the conditions that must be met to apply the promotion discount.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRule = INode & {
+  __typename?: "PromotionRule";
+  /** The catalogue predicate that must be met to apply the rule reward. */
+  cataloguePredicate?: Maybe<Scalars["JSON"]>;
+  /**
+   * List of channels where the rule applies.
+   *
+   * Requires one of the following permissions: AUTHENTICATED_APP, AUTHENTICATED_STAFF_USER.
+   */
+  channels?: Maybe<Array<IChannel>>;
+  /** Description of the promotion rule. */
+  description?: Maybe<Scalars["JSON"]>;
+  id: Scalars["ID"];
+  /** Name of the promotion rule. */
+  name?: Maybe<Scalars["String"]>;
+  /** Promotion to which the rule belongs. */
+  promotion?: Maybe<IPromotion>;
+  /** The reward value of the promotion rule. Defines the discount value applied when the rule conditions are met. */
+  rewardValue?: Maybe<Scalars["PositiveDecimal"]>;
+  /** The type of reward value of the promotion rule. */
+  rewardValueType?: Maybe<IRewardValueTypeEnum>;
+  /** Returns translated promotion rule fields for the given language code. */
+  translation?: Maybe<IPromotionRuleTranslation>;
+};
+
+/**
+ * Represents the promotion rule that specifies the conditions that must be met to apply the promotion discount.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleTranslationArgs = {
+  languageCode: ILanguageCodeEnum;
+};
+
+/**
+ * Creates a new promotion rule.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_RULE_CREATED (async): A promotion rule was created.
+ */
+export type IPromotionRuleCreate = {
+  __typename?: "PromotionRuleCreate";
+  errors: Array<IPromotionRuleCreateError>;
+  promotionRule?: Maybe<IPromotionRule>;
+};
+
+export type IPromotionRuleCreateError = {
+  __typename?: "PromotionRuleCreateError";
+  /** The error code. */
+  code: IPromotionRuleCreateErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionRuleCreateErrorCode =
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "INVALID_PRECISION"
+  | "MULTIPLE_CURRENCIES_NOT_ALLOWED"
+  | "NOT_FOUND"
+  | "REQUIRED";
+
+export type IPromotionRuleCreateInput = {
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<ICataloguePredicateInput>;
+  /** List of channel ids to which the rule should apply to. */
+  channels?: InputMaybe<Array<Scalars["ID"]>>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars["JSON"]>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars["String"]>;
+  /** The ID of the promotion that rule belongs to. */
+  promotion: Scalars["ID"];
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars["PositiveDecimal"]>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<IRewardValueTypeEnum>;
+};
+
+/**
+ * Event sent when new promotion rule is created.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleCreated = IEvent & {
+  __typename?: "PromotionRuleCreated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion rule the event relates to. */
+  promotionRule?: Maybe<IPromotionRule>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion rule created event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleCreatedEvent = INode &
+  IPromotionEventInterface &
+  IPromotionRuleEventInterface & {
+    __typename?: "PromotionRuleCreatedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** The rule ID associated with the promotion event. */
+    ruleId?: Maybe<Scalars["String"]>;
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+/**
+ * Deletes a promotion rule.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_RULE_DELETED (async): A promotion rule was deleted.
+ */
+export type IPromotionRuleDelete = {
+  __typename?: "PromotionRuleDelete";
+  errors: Array<IPromotionRuleDeleteError>;
+  promotionRule?: Maybe<IPromotionRule>;
+};
+
+export type IPromotionRuleDeleteError = {
+  __typename?: "PromotionRuleDeleteError";
+  /** The error code. */
+  code: IPromotionRuleDeleteErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionRuleDeleteErrorCode = "GRAPHQL_ERROR" | "NOT_FOUND";
+
+/**
+ * Event sent when new promotion rule is deleted.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleDeleted = IEvent & {
+  __typename?: "PromotionRuleDeleted";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion rule the event relates to. */
+  promotionRule?: Maybe<IPromotionRule>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion rule created event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleDeletedEvent = INode &
+  IPromotionEventInterface &
+  IPromotionRuleEventInterface & {
+    __typename?: "PromotionRuleDeletedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** The rule ID associated with the promotion event. */
+    ruleId?: Maybe<Scalars["String"]>;
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+/**
+ * History log of the promotion event related to rule.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleEventInterface = {
+  /** The rule ID associated with the promotion event. */
+  ruleId?: Maybe<Scalars["String"]>;
+};
+
+export type IPromotionRuleInput = {
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<ICataloguePredicateInput>;
+  /** List of channel ids to which the rule should apply to. */
+  channels?: InputMaybe<Array<Scalars["ID"]>>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars["JSON"]>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars["String"]>;
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars["PositiveDecimal"]>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<IRewardValueTypeEnum>;
+};
+
+/**
+ * Represents promotion rule's original translatable fields and related translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionRuleTranslatableContent = INode & {
+  __typename?: "PromotionRuleTranslatableContent";
+  /**
+   * Description of the promotion rule.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: Maybe<Scalars["JSONString"]>;
+  /** ID of the promotion rule translatable content. */
+  id: Scalars["ID"];
+  /** Name of the promotion rule. */
+  name?: Maybe<Scalars["String"]>;
+  /** Returns translated promotion rule fields for the given language code. */
+  translation?: Maybe<IPromotionRuleTranslation>;
+};
+
+/**
+ * Represents promotion rule's original translatable fields and related translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionRuleTranslatableContentTranslationArgs = {
+  languageCode: ILanguageCodeEnum;
+};
+
+/**
+ * Creates/updates translations for a promotion rule.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+ */
+export type IPromotionRuleTranslate = {
+  __typename?: "PromotionRuleTranslate";
+  errors: Array<ITranslationError>;
+  promotionRule?: Maybe<IPromotionRule>;
+};
+
+/**
+ * Represents promotion rule translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionRuleTranslation = INode & {
+  __typename?: "PromotionRuleTranslation";
+  /**
+   * Translated description of the promotion rule.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: Maybe<Scalars["JSONString"]>;
+  /** ID of the promotion rule translation. */
+  id: Scalars["ID"];
+  /** Translation language. */
+  language: ILanguageDisplay;
+  /** Translated name of the promotion rule. */
+  name?: Maybe<Scalars["String"]>;
+};
+
+export type IPromotionRuleTranslationInput = {
+  /**
+   * Translated promotion description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars["JSON"]>;
+  name?: InputMaybe<Scalars["String"]>;
+};
+
+/**
+ * Updates an existing promotion rule.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_RULE_UPDATED (async): A promotion rule was updated.
+ */
+export type IPromotionRuleUpdate = {
+  __typename?: "PromotionRuleUpdate";
+  errors: Array<IPromotionRuleUpdateError>;
+  promotionRule?: Maybe<IPromotionRule>;
+};
+
+export type IPromotionRuleUpdateError = {
+  __typename?: "PromotionRuleUpdateError";
+  /** List of channel IDs which causes the error. */
+  channels?: Maybe<Array<Scalars["ID"]>>;
+  /** The error code. */
+  code: IPromotionRuleUpdateErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionRuleUpdateErrorCode =
+  | "DUPLICATED_INPUT_ITEM"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "INVALID_PRECISION"
+  | "MISSING_CHANNELS"
+  | "MULTIPLE_CURRENCIES_NOT_ALLOWED"
+  | "NOT_FOUND";
+
+export type IPromotionRuleUpdateInput = {
+  /** List of channel ids to remove. */
+  addChannels?: InputMaybe<Array<Scalars["ID"]>>;
+  /** Defines the conditions on the catalogue level that must be met for the reward to be applied. */
+  cataloguePredicate?: InputMaybe<ICataloguePredicateInput>;
+  /** Promotion rule description. */
+  description?: InputMaybe<Scalars["JSON"]>;
+  /** Promotion rule name. */
+  name?: InputMaybe<Scalars["String"]>;
+  /** List of channel ids to remove. */
+  removeChannels?: InputMaybe<Array<Scalars["ID"]>>;
+  /** Defines the discount value. Required when catalogue predicate is provided. */
+  rewardValue?: InputMaybe<Scalars["PositiveDecimal"]>;
+  /** Defines the promotion rule reward value type. Must be provided together with reward value. */
+  rewardValueType?: InputMaybe<IRewardValueTypeEnum>;
+};
+
+/**
+ * Event sent when new promotion rule is updated.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleUpdated = IEvent & {
+  __typename?: "PromotionRuleUpdated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion rule the event relates to. */
+  promotionRule?: Maybe<IPromotionRule>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion rule created event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionRuleUpdatedEvent = INode &
+  IPromotionEventInterface &
+  IPromotionRuleEventInterface & {
+    __typename?: "PromotionRuleUpdatedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** The rule ID associated with the promotion event. */
+    ruleId?: Maybe<Scalars["String"]>;
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+export type IPromotionSortField =
+  /** Sort promotions by created at. */
+  | "CREATED_AT"
+  /** Sort promotions by end date. */
+  | "END_DATE"
+  /** Sort promotions by name. */
+  | "NAME"
+  /** Sort promotions by start date. */
+  | "START_DATE";
+
+export type IPromotionSortingInput = {
+  /** Specifies the direction in which to sort promotions. */
+  direction: IOrderDirection;
+  /** Sort promotions by the selected field. */
+  field: IPromotionSortField;
+};
+
+/**
+ * The event informs about the start of the promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionStarted = IEvent & {
+  __typename?: "PromotionStarted";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion the event relates to. */
+  promotion?: Maybe<IPromotion>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion started event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionStartedEvent = INode &
+  IPromotionEventInterface & {
+    __typename?: "PromotionStartedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+/**
+ * Represents promotion's original translatable fields and related translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionTranslatableContent = INode & {
+  __typename?: "PromotionTranslatableContent";
+  /**
+   * Description of the promotion.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: Maybe<Scalars["JSONString"]>;
+  /** ID of the promotion translatable content. */
+  id: Scalars["ID"];
+  /** Name of the promotion. */
+  name: Scalars["String"];
+  /** Returns translated promotion fields for the given language code. */
+  translation?: Maybe<IPromotionTranslation>;
+};
+
+/**
+ * Represents promotion's original translatable fields and related translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionTranslatableContentTranslationArgs = {
+  languageCode: ILanguageCodeEnum;
+};
+
+/**
+ * Creates/updates translations for a promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Requires one of the following permissions: MANAGE_TRANSLATIONS.
+ */
+export type IPromotionTranslate = {
+  __typename?: "PromotionTranslate";
+  errors: Array<ITranslationError>;
+  promotion?: Maybe<IPromotion>;
+};
+
+/**
+ * Represents promotion translations.
+ *
+ * Added in Saleor 3.17.
+ */
+export type IPromotionTranslation = INode & {
+  __typename?: "PromotionTranslation";
+  /**
+   * Translated description of the promotion.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: Maybe<Scalars["JSONString"]>;
+  /** ID of the promotion translation. */
+  id: Scalars["ID"];
+  /** Translation language. */
+  language: ILanguageDisplay;
+  /** Translated name of the promotion. */
+  name?: Maybe<Scalars["String"]>;
+};
+
+export type IPromotionTranslationInput = {
+  /**
+   * Translated promotion description.
+   *
+   * Rich text format. For reference see https://editorjs.io/
+   */
+  description?: InputMaybe<Scalars["JSON"]>;
+  name?: InputMaybe<Scalars["String"]>;
+};
+
+/**
+ * Updates an existing promotion.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: MANAGE_DISCOUNTS.
+ *
+ * Triggers the following webhook events:
+ * - PROMOTION_UPDATED (async): A promotion was updated.
+ * - PROMOTION_STARTED (async): Optionally called if promotion was started.
+ * - PROMOTION_ENDED (async): Optionally called if promotion was ended.
+ */
+export type IPromotionUpdate = {
+  __typename?: "PromotionUpdate";
+  errors: Array<IPromotionUpdateError>;
+  promotion?: Maybe<IPromotion>;
+};
+
+export type IPromotionUpdateError = {
+  __typename?: "PromotionUpdateError";
+  /** The error code. */
+  code: IPromotionUpdateErrorCode;
+  /** Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field. */
+  field?: Maybe<Scalars["String"]>;
+  /** The error message. */
+  message?: Maybe<Scalars["String"]>;
+};
+
+/** An enumeration. */
+export type IPromotionUpdateErrorCode =
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND"
+  | "REQUIRED";
+
+export type IPromotionUpdateInput = {
+  /** Promotion description. */
+  description?: InputMaybe<Scalars["JSON"]>;
+  /** The end date of the promotion in ISO 8601 format. */
+  endDate?: InputMaybe<Scalars["DateTime"]>;
+  /** Promotion name. */
+  name?: InputMaybe<Scalars["String"]>;
+  /** The start date of the promotion in ISO 8601 format. */
+  startDate?: InputMaybe<Scalars["DateTime"]>;
+};
+
+/**
+ * Event sent when promotion is updated.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionUpdated = IEvent & {
+  __typename?: "PromotionUpdated";
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The promotion the event relates to. */
+  promotion?: Maybe<IPromotion>;
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * History log of the promotion updated event.
+ *
+ * Added in Saleor 3.17.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IPromotionUpdatedEvent = INode &
+  IPromotionEventInterface & {
+    __typename?: "PromotionUpdatedEvent";
+    /**
+     * User or App that created the promotion event.
+     *
+     * Requires one of the following permissions: MANAGE_STAFF, MANAGE_APPS, OWNER.
+     */
+    createdBy?: Maybe<IUserOrApp>;
+    /** Date when event happened. */
+    date: Scalars["DateTime"];
+    id: Scalars["ID"];
+    /** Promotion event type. */
+    type: IPromotionEventsEnum;
+  };
+
+export type IPromotionWhereInput = {
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<IPromotionWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<IPromotionWhereInput>>;
+  /** Filter promotions by end date. */
+  endDate?: InputMaybe<IDateTimeFilterInput>;
+  ids?: InputMaybe<Array<Scalars["ID"]>>;
+  isOldSale?: InputMaybe<Scalars["Boolean"]>;
+  metadata?: InputMaybe<Array<IMetadataFilter>>;
+  /** Filter by promotion name. */
+  name?: InputMaybe<IStringFilterInput>;
+  /** Filter promotions by start date. */
+  startDate?: InputMaybe<IDateTimeFilterInput>;
 };
 
 export type IPublishableChannelListingInput = {
@@ -21552,6 +23354,26 @@ export type IQuery = {
   /** List of the shop's products. Requires one of the following permissions to include the unpublished items: MANAGE_ORDERS, MANAGE_DISCOUNTS, MANAGE_PRODUCTS. */
   products?: Maybe<IProductCountableConnection>;
   /**
+   * Look up a promotion by ID.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   */
+  promotion?: Maybe<IPromotion>;
+  /**
+   * List of the promotions.
+   *
+   * Added in Saleor 3.17.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   *
+   * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   */
+  promotions?: Maybe<IPromotionCountableConnection>;
+  /**
    * List of top selling products.
    *
    * Requires one of the following permissions: MANAGE_PRODUCTS.
@@ -21561,12 +23383,14 @@ export type IQuery = {
    * Look up a sale by ID.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   * @deprecated This field will be removed in Saleor 4.0. Use the `promotion` query instead.
    */
   sale?: Maybe<ISale>;
   /**
    * List of the shop's sales.
    *
    * Requires one of the following permissions: MANAGE_DISCOUNTS.
+   * @deprecated This field will be removed in Saleor 4.0. Use the `promotions` query instead.
    */
   sales?: Maybe<ISaleCountableConnection>;
   /**
@@ -22073,6 +23897,19 @@ export type IQueryProductsArgs = {
   where?: InputMaybe<IProductWhereInput>;
 };
 
+export type IQueryPromotionArgs = {
+  id: Scalars["ID"];
+};
+
+export type IQueryPromotionsArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  before?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Int"]>;
+  last?: InputMaybe<Scalars["Int"]>;
+  sortBy?: InputMaybe<IPromotionSortingInput>;
+  where?: InputMaybe<IPromotionWhereInput>;
+};
+
 export type IQueryReportProductSalesArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
@@ -22286,7 +24123,14 @@ export type IRequestPasswordReset = {
   errors: Array<IAccountError>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/** An enumeration. */
+export type IRewardValueTypeEnum = "FIXED" | "PERCENTAGE";
+
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISale = INode &
   IObjectWithMetadata & {
     __typename?: "Sale";
@@ -22372,7 +24216,11 @@ export type ISale = INode &
     variants?: Maybe<IProductVariantCountableConnection>;
   };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleCategoriesArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
@@ -22380,7 +24228,11 @@ export type ISaleCategoriesArgs = {
   last?: InputMaybe<Scalars["Int"]>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleCollectionsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
@@ -22388,27 +24240,47 @@ export type ISaleCollectionsArgs = {
   last?: InputMaybe<Scalars["Int"]>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleMetafieldArgs = {
   key: Scalars["String"];
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars["String"]>>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISalePrivateMetafieldArgs = {
   key: Scalars["String"];
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISalePrivateMetafieldsArgs = {
   keys?: InputMaybe<Array<Scalars["String"]>>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleProductsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
@@ -22416,12 +24288,20 @@ export type ISaleProductsArgs = {
   last?: InputMaybe<Scalars["Int"]>;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
 
-/** Sales allow creating discounts for categories, collections or products and are visible to all the customers. */
+/**
+ * Sales allow creating discounts for categories, collections or products and are visible to all the customers.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `Promotion` type instead.
+ */
 export type ISaleVariantsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   before?: InputMaybe<Scalars["String"]>;
@@ -22430,7 +24310,9 @@ export type ISaleVariantsArgs = {
 };
 
 /**
- * Adds products, categories, collections to a voucher.
+ * Adds products, categories, collections to a sale.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleCreate` mutation instead.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -22463,7 +24345,11 @@ export type ISaleBulkDelete = {
   errors: Array<IDiscountError>;
 };
 
-/** Represents sale channel listing. */
+/**
+ * Represents sale channel listing.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `PromotionRule` type instead.
+ */
 export type ISaleChannelListing = INode & {
   __typename?: "SaleChannelListing";
   /** The channel in which the sale is available. */
@@ -22492,6 +24378,8 @@ export type ISaleChannelListingInput = {
 
 /**
  * Manage sale's availability in channels.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleCreate` or `promotionRuleUpdate` mutations instead.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  */
@@ -22524,6 +24412,8 @@ export type ISaleCountableEdge = {
 /**
  * Creates a new sale.
  *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionCreate` mutation instead.
+ *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
  * Triggers the following webhook events:
@@ -22541,6 +24431,8 @@ export type ISaleCreate = {
  * Event sent when new sale is created.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionCreated` event instead.
  */
 export type ISaleCreated = IEvent & {
   __typename?: "SaleCreated";
@@ -22560,6 +24452,8 @@ export type ISaleCreated = IEvent & {
  * Event sent when new sale is created.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionCreated` event instead.
  */
 export type ISaleCreatedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -22567,6 +24461,8 @@ export type ISaleCreatedSaleArgs = {
 
 /**
  * Deletes a sale.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionDelete` mutation instead.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -22585,6 +24481,8 @@ export type ISaleDelete = {
  * Event sent when sale is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionDeleted` event instead.
  */
 export type ISaleDeleted = IEvent & {
   __typename?: "SaleDeleted";
@@ -22604,6 +24502,8 @@ export type ISaleDeleted = IEvent & {
  * Event sent when sale is deleted.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionDeleted` event instead.
  */
 export type ISaleDeletedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -22640,6 +24540,8 @@ export type ISaleInput = {
 
 /**
  * Removes products, categories, collections from a sale.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionRuleUpdate` or `promotionRuleDelete` mutations instead.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -22692,6 +24594,8 @@ export type ISaleSortingInput = {
  * The event informs about the start or end of the sale.
  *
  * Added in Saleor 3.5.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionStarted` and `PromotionEnded` events instead.
  */
 export type ISaleToggle = IEvent & {
   __typename?: "SaleToggle";
@@ -22715,11 +24619,18 @@ export type ISaleToggle = IEvent & {
  * The event informs about the start or end of the sale.
  *
  * Added in Saleor 3.5.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionStarted` and `PromotionEnded` events instead.
  */
 export type ISaleToggleSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
 };
 
+/**
+ * Represents sale's original translatable fields and related translations.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `PromotionTranslatableContent` instead.
+ */
 export type ISaleTranslatableContent = INode & {
   __typename?: "SaleTranslatableContent";
   /** The ID of the sale translatable content. */
@@ -22737,12 +24648,19 @@ export type ISaleTranslatableContent = INode & {
   translation?: Maybe<ISaleTranslation>;
 };
 
+/**
+ * Represents sale's original translatable fields and related translations.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `PromotionTranslatableContent` instead.
+ */
 export type ISaleTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
 
 /**
  * Creates/updates translations for a sale.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `PromotionTranslate` mutation instead.
  *
  * Requires one of the following permissions: MANAGE_TRANSLATIONS.
  */
@@ -22754,6 +24672,11 @@ export type ISaleTranslate = {
   translationErrors: Array<ITranslationError>;
 };
 
+/**
+ * Represents sale translations.
+ *
+ * DEPRECATED: this type will be removed in Saleor 4.0. Use `PromotionTranslation` instead.
+ */
 export type ISaleTranslation = INode & {
   __typename?: "SaleTranslation";
   /** The ID of the sale translation. */
@@ -22768,6 +24691,8 @@ export type ISaleType = "FIXED" | "PERCENTAGE";
 
 /**
  * Updates a sale.
+ *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `promotionUpdate` mutation instead.
  *
  * Requires one of the following permissions: MANAGE_DISCOUNTS.
  *
@@ -22787,6 +24712,8 @@ export type ISaleUpdate = {
  * Event sent when sale is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionUpdated` event instead.
  */
 export type ISaleUpdated = IEvent & {
   __typename?: "SaleUpdated";
@@ -22806,6 +24733,8 @@ export type ISaleUpdated = IEvent & {
  * Event sent when sale is updated.
  *
  * Added in Saleor 3.2.
+ *
+ * DEPRECATED: this event will be removed in Saleor 4.0. Use `PromotionUpdated` event instead.
  */
 export type ISaleUpdatedSaleArgs = {
   channel?: InputMaybe<Scalars["String"]>;
@@ -23080,6 +25009,7 @@ export type IShippingMethodPostalCodeRule = INode & {
   start?: Maybe<Scalars["String"]>;
 };
 
+/** Represents shipping method's original translatable fields and related translations. */
 export type IShippingMethodTranslatableContent = INode & {
   __typename?: "ShippingMethodTranslatableContent";
   /**
@@ -23103,10 +25033,12 @@ export type IShippingMethodTranslatableContent = INode & {
   translation?: Maybe<IShippingMethodTranslation>;
 };
 
+/** Represents shipping method's original translatable fields and related translations. */
 export type IShippingMethodTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
 
+/** Represents shipping method translations. */
 export type IShippingMethodTranslation = INode & {
   __typename?: "ShippingMethodTranslation";
   /**
@@ -24072,6 +26004,8 @@ export type IShopAddressUpdate = {
 /**
  * Updates site domain of the shop.
  *
+ * DEPRECATED: this mutation will be removed in Saleor 4.0. Use `PUBLIC_URL` environment variable instead.
+ *
  * Requires one of the following permissions: MANAGE_SETTINGS.
  */
 export type IShopDomainUpdate = {
@@ -24267,6 +26201,7 @@ export type IShopSettingsUpdate = {
   shopErrors: Array<IShopError>;
 };
 
+/** Represents shop translations. */
 export type IShopTranslation = INode & {
   __typename?: "ShopTranslation";
   /** Translated description of sale. */
@@ -24791,6 +26726,73 @@ export type IStoredPaymentMethod = {
   /** Type of the payment method. Example: credit card, wallet, etc. */
   type: Scalars["String"];
 };
+
+/**
+ * Event sent when user requests to delete a payment method.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ */
+export type IStoredPaymentMethodDeleteRequested = IEvent & {
+  __typename?: "StoredPaymentMethodDeleteRequested";
+  /** Channel related to the requested delete action. */
+  channel: IChannel;
+  /** Time of the event. */
+  issuedAt?: Maybe<Scalars["DateTime"]>;
+  /** The user or application that triggered the event. */
+  issuingPrincipal?: Maybe<IIssuingPrincipal>;
+  /** The ID of the payment method that should be deleted by the payment gateway. */
+  paymentMethodId: Scalars["String"];
+  /** The application receiving the webhook. */
+  recipient?: Maybe<IApp>;
+  /** The user for which the app should proceed with payment method delete request. */
+  user: IUser;
+  /** Saleor version that triggered the event. */
+  version?: Maybe<Scalars["String"]>;
+};
+
+/**
+ * Request to delete a stored payment method on payment provider side.
+ *
+ * Added in Saleor 3.16.
+ *
+ * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+ *
+ * Requires one of the following permissions: AUTHENTICATED_USER.
+ *
+ * Triggers the following webhook events:
+ * - STORED_PAYMENT_METHOD_DELETE_REQUESTED (sync): The customer requested to delete a payment method.
+ */
+export type IStoredPaymentMethodRequestDelete = {
+  __typename?: "StoredPaymentMethodRequestDelete";
+  errors: Array<IPaymentMethodRequestDeleteError>;
+  /** The result of deleting a stored payment method. */
+  result: IStoredPaymentMethodRequestDeleteResult;
+};
+
+/** An enumeration. */
+export type IStoredPaymentMethodRequestDeleteErrorCode =
+  | "CHANNEL_INACTIVE"
+  | "GATEWAY_ERROR"
+  | "GRAPHQL_ERROR"
+  | "INVALID"
+  | "NOT_FOUND";
+
+/**
+ * Result of deleting a stored payment method.
+ *
+ *     This enum is used to determine the result of deleting a stored payment method.
+ *     SUCCESSFULLY_DELETED - The stored payment method was successfully deleted.
+ *     FAILED_TO_DELETE - The stored payment method was not deleted.
+ *     FAILED_TO_DELIVER - The request to delete the stored payment method was not
+ *     delivered.
+ *
+ */
+export type IStoredPaymentMethodRequestDeleteResult =
+  | "FAILED_TO_DELETE"
+  | "FAILED_TO_DELIVER"
+  | "SUCCESSFULLY_DELETED";
 
 /**
  * Define the filtering options for string fields.
@@ -25556,6 +27558,12 @@ export type ITransactionAction = {
   actionType: ITransactionActionEnum;
   /** Transaction request amount. Null when action type is VOID. */
   amount?: Maybe<Scalars["PositiveDecimal"]>;
+  /**
+   * Currency code.
+   *
+   * Added in Saleor 3.16.
+   */
+  currency: Scalars["String"];
 };
 
 /**
@@ -25894,7 +27902,13 @@ export type ITransactionInitializeSession = IEvent & {
   __typename?: "TransactionInitializeSession";
   /** Action to proceed for the transaction */
   action: ITransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /**
+   * The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+   *
+   * Added in Saleor 3.16.
+   */
+  customerIpAddress?: Maybe<Scalars["String"]>;
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -26171,7 +28185,13 @@ export type ITransactionProcessSession = IEvent & {
   __typename?: "TransactionProcessSession";
   /** Action to proceed for the transaction */
   action: ITransactionProcessAction;
-  /** Payment gateway data in JSON format, recieved from storefront. */
+  /**
+   * The customer's IP address. If not provided as a parameter in the mutation, Saleor will try to determine the customer's IP address on its own.
+   *
+   * Added in Saleor 3.16.
+   */
+  customerIpAddress?: Maybe<Scalars["String"]>;
+  /** Payment gateway data in JSON format, received from storefront. */
   data?: Maybe<Scalars["JSON"]>;
   /** Time of the event. */
   issuedAt?: Maybe<Scalars["DateTime"]>;
@@ -26372,6 +28392,8 @@ export type ITranslatableItem =
   | IPageTranslatableContent
   | IProductTranslatableContent
   | IProductVariantTranslatableContent
+  | IPromotionRuleTranslatableContent
+  | IPromotionTranslatableContent
   | ISaleTranslatableContent
   | IShippingMethodTranslatableContent
   | IVoucherTranslatableContent;
@@ -26401,6 +28423,8 @@ export type ITranslatableKinds =
   | "MENU_ITEM"
   | "PAGE"
   | "PRODUCT"
+  | "PROMOTION"
+  | "PROMOTION_RULE"
   | "SALE"
   | "SHIPPING_METHOD"
   | "VARIANT"
@@ -26463,6 +28487,8 @@ export type ITranslationTypes =
   | IPageTranslation
   | IProductTranslation
   | IProductVariantTranslation
+  | IPromotionRuleTranslation
+  | IPromotionTranslation
   | ISaleTranslation
   | IShippingMethodTranslation
   | IVoucherTranslation;
@@ -27472,6 +29498,7 @@ export type IVoucherSortingInput = {
   field: IVoucherSortField;
 };
 
+/** Represents voucher's original translatable fields and related translations. */
 export type IVoucherTranslatableContent = INode & {
   __typename?: "VoucherTranslatableContent";
   /** The ID of the voucher translatable content. */
@@ -27489,6 +29516,7 @@ export type IVoucherTranslatableContent = INode & {
   voucher?: Maybe<IVoucher>;
 };
 
+/** Represents voucher's original translatable fields and related translations. */
 export type IVoucherTranslatableContentTranslationArgs = {
   languageCode: ILanguageCodeEnum;
 };
@@ -27506,6 +29534,7 @@ export type IVoucherTranslate = {
   voucher?: Maybe<IVoucher>;
 };
 
+/** Represents voucher translations. */
 export type IVoucherTranslation = INode & {
   __typename?: "VoucherTranslation";
   /** The ID of the voucher translation. */
@@ -27792,6 +29821,7 @@ export type IWarehouseFilterInput = {
   clickAndCollectOption?: InputMaybe<IWarehouseClickAndCollectOptionEnum>;
   ids?: InputMaybe<Array<Scalars["ID"]>>;
   isPrivate?: InputMaybe<Scalars["Boolean"]>;
+  metadata?: InputMaybe<Array<IMetadataFilter>>;
   search?: InputMaybe<Scalars["String"]>;
   slugs?: InputMaybe<Array<Scalars["String"]>>;
 };
@@ -28238,10 +30268,17 @@ export type IWebhookEventTypeAsyncEnum =
    * Added in Saleor 3.8.
    */
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   /** A new gift card created. */
   | "GIFT_CARD_CREATED"
   /** A gift card is deleted. */
   | "GIFT_CARD_DELETED"
+  /**
+   * A gift card export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "GIFT_CARD_EXPORT_COMPLETED"
   /**
    * A gift card metadata is updated.
    *
@@ -28278,7 +30315,11 @@ export type IWebhookEventTypeAsyncEnum =
   | "MENU_ITEM_UPDATED"
   /** A menu is updated. */
   | "MENU_UPDATED"
-  /** User notification triggered. */
+  /**
+   * User notification triggered.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0. See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/docs/next/upgrade-guides/notify-user-deprecation
+   */
   | "NOTIFY_USER"
   /** An observability event is created. */
   | "OBSERVABILITY"
@@ -28357,6 +30398,12 @@ export type IWebhookEventTypeAsyncEnum =
   /** A product is deleted. */
   | "PRODUCT_DELETED"
   /**
+   * A product export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "PRODUCT_EXPORT_COMPLETED"
+  /**
    * A new product media is created.
    *
    * Added in Saleor 3.12.
@@ -28400,6 +30447,22 @@ export type IWebhookEventTypeAsyncEnum =
   | "PRODUCT_VARIANT_STOCK_UPDATED"
   /** A product variant is updated. */
   | "PRODUCT_VARIANT_UPDATED"
+  /** A promotion is created. */
+  | "PROMOTION_CREATED"
+  /** A promotion is deleted. */
+  | "PROMOTION_DELETED"
+  /** A promotion is deactivated. */
+  | "PROMOTION_ENDED"
+  /** A promotion rule is created. */
+  | "PROMOTION_RULE_CREATED"
+  /** A promotion rule is deleted. */
+  | "PROMOTION_RULE_DELETED"
+  /** A promotion rule is updated. */
+  | "PROMOTION_RULE_UPDATED"
+  /** A promotion is activated. */
+  | "PROMOTION_STARTED"
+  /** A promotion is updated. */
+  | "PROMOTION_UPDATED"
   /** A sale is created. */
   | "SALE_CREATED"
   /** A sale is deleted. */
@@ -28606,10 +30669,17 @@ export type IWebhookEventTypeEnum =
    * Added in Saleor 3.8.
    */
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   /** A new gift card created. */
   | "GIFT_CARD_CREATED"
   /** A gift card is deleted. */
   | "GIFT_CARD_DELETED"
+  /**
+   * A gift card export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "GIFT_CARD_EXPORT_COMPLETED"
   /**
    * A gift card metadata is updated.
    *
@@ -28647,7 +30717,11 @@ export type IWebhookEventTypeEnum =
   | "MENU_ITEM_UPDATED"
   /** A menu is updated. */
   | "MENU_UPDATED"
-  /** User notification triggered. */
+  /**
+   * User notification triggered.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0. See the docs for more details about migrating from NOTIFY_USER to other events: https://docs.saleor.io/docs/next/upgrade-guides/notify-user-deprecation
+   */
   | "NOTIFY_USER"
   /** An observability event is created. */
   | "OBSERVABILITY"
@@ -28730,8 +30804,11 @@ export type IWebhookEventTypeEnum =
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
   | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
+  | "PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
+  | "PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION"
+  | "PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION"
   /** Process payment. */
   | "PAYMENT_PROCESS"
   /** Refund payment. */
@@ -28748,6 +30825,12 @@ export type IWebhookEventTypeEnum =
   | "PRODUCT_CREATED"
   /** A product is deleted. */
   | "PRODUCT_DELETED"
+  /**
+   * A product export is completed.
+   *
+   * Added in Saleor 3.16.
+   */
+  | "PRODUCT_EXPORT_COMPLETED"
   /**
    * A new product media is created.
    *
@@ -28792,6 +30875,22 @@ export type IWebhookEventTypeEnum =
   | "PRODUCT_VARIANT_STOCK_UPDATED"
   /** A product variant is updated. */
   | "PRODUCT_VARIANT_UPDATED"
+  /** A promotion is created. */
+  | "PROMOTION_CREATED"
+  /** A promotion is deleted. */
+  | "PROMOTION_DELETED"
+  /** A promotion is deactivated. */
+  | "PROMOTION_ENDED"
+  /** A promotion rule is created. */
+  | "PROMOTION_RULE_CREATED"
+  /** A promotion rule is deleted. */
+  | "PROMOTION_RULE_DELETED"
+  /** A promotion rule is updated. */
+  | "PROMOTION_RULE_UPDATED"
+  /** A promotion is activated. */
+  | "PROMOTION_STARTED"
+  /** A promotion is updated. */
+  | "PROMOTION_UPDATED"
   /** A sale is created. */
   | "SALE_CREATED"
   /** A sale is deleted. */
@@ -28834,6 +30933,7 @@ export type IWebhookEventTypeEnum =
   | "STAFF_SET_PASSWORD_REQUESTED"
   /** A staff user is updated. */
   | "STAFF_UPDATED"
+  | "STORED_PAYMENT_METHOD_DELETE_REQUESTED"
   /**
    * A thumbnail is created.
    *
@@ -28927,8 +31027,11 @@ export type IWebhookEventTypeSyncEnum =
   /** Confirm payment. */
   | "PAYMENT_CONFIRM"
   | "PAYMENT_GATEWAY_INITIALIZE_SESSION"
+  | "PAYMENT_GATEWAY_INITIALIZE_TOKENIZATION_SESSION"
   /** Listing available payment gateways. */
   | "PAYMENT_LIST_GATEWAYS"
+  | "PAYMENT_METHOD_INITIALIZE_TOKENIZATION_SESSION"
+  | "PAYMENT_METHOD_PROCESS_TOKENIZATION_SESSION"
   /** Process payment. */
   | "PAYMENT_PROCESS"
   /** Refund payment. */
@@ -28937,6 +31040,7 @@ export type IWebhookEventTypeSyncEnum =
   | "PAYMENT_VOID"
   /** Fetch external shipping methods for checkout. */
   | "SHIPPING_LIST_METHODS_FOR_CHECKOUT"
+  | "STORED_PAYMENT_METHOD_DELETE_REQUESTED"
   /**
    * Event called when cancel has been requested for transaction.
    *
@@ -29013,8 +31117,10 @@ export type IWebhookSampleEventTypeEnum =
   | "FULFILLMENT_CANCELED"
   | "FULFILLMENT_CREATED"
   | "FULFILLMENT_METADATA_UPDATED"
+  | "FULFILLMENT_TRACKING_NUMBER_UPDATED"
   | "GIFT_CARD_CREATED"
   | "GIFT_CARD_DELETED"
+  | "GIFT_CARD_EXPORT_COMPLETED"
   | "GIFT_CARD_METADATA_UPDATED"
   | "GIFT_CARD_SENT"
   | "GIFT_CARD_STATUS_CHANGED"
@@ -29053,6 +31159,7 @@ export type IWebhookSampleEventTypeEnum =
   | "PERMISSION_GROUP_UPDATED"
   | "PRODUCT_CREATED"
   | "PRODUCT_DELETED"
+  | "PRODUCT_EXPORT_COMPLETED"
   | "PRODUCT_MEDIA_CREATED"
   | "PRODUCT_MEDIA_DELETED"
   | "PRODUCT_MEDIA_UPDATED"
@@ -29065,6 +31172,14 @@ export type IWebhookSampleEventTypeEnum =
   | "PRODUCT_VARIANT_OUT_OF_STOCK"
   | "PRODUCT_VARIANT_STOCK_UPDATED"
   | "PRODUCT_VARIANT_UPDATED"
+  | "PROMOTION_CREATED"
+  | "PROMOTION_DELETED"
+  | "PROMOTION_ENDED"
+  | "PROMOTION_RULE_CREATED"
+  | "PROMOTION_RULE_DELETED"
+  | "PROMOTION_RULE_UPDATED"
+  | "PROMOTION_STARTED"
+  | "PROMOTION_UPDATED"
   | "SALE_CREATED"
   | "SALE_DELETED"
   | "SALE_TOGGLE"
